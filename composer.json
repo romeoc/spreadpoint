@@ -10,6 +10,10 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.4.*",
-        "doctrine/orm": "*"
+        "doctrine/orm": "*",
+        "zendframework/zftool": "dev-master",
+        "zendframework/zend-developer-tools": "dev-master",
+        "zf-commons/zfc-user": "0.1.*",
+        "zf-commons/zfc-user-doctrine-orm": "0.1.*"
     }
 }
