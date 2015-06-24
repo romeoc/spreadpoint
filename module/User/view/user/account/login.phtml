@@ -1,0 +1,43 @@
+<section class="login">
+    <h2>Login</h2>
+    <?php if ($this->error): ?>
+        <p class="error">
+            <?php echo $this->error; ?>
+        </p>
+    <?php endif; ?>
+    <?php
+        $form = $this->form;
+        $form->prepare();
+        $form->setAttribute('action', $this->url('account',
+            array('controller'=>'user', 'action' => 'authenticate')));
+        $form->setAttribute('method', 'post');
+        echo $this->form()->openTag($form);
+    ?>
+    <dl class="zend_form">
+        <dt>
+            <?php echo $this->formLabel($form->get('email')); ?>
+        </dt>
+        <dd>
+           <?php
+                echo $this->formElement($form->get('email'));
+                echo $this->formElementErrors($form->get('email'));
+            ?>
+        </dd>
+        <dt>
+            <?php echo $this->formLabel($form->get('password'));?>
+        </dt>
+        <dd>
+           <?php
+                echo $this->formElement($form->get('password'));
+                echo $this->formElementErrors($form->get('password'));
+            ?>
+        </dd>
+        <dd>
+            <?php
+                echo $this->formElement($form->get('submit'));
+                echo $this->formElementErrors($form->get('submit'));
+            ?>
+        </dd>
+    </dl>
+    <?php echo $this->form()->closeTag() ?>
+</section>

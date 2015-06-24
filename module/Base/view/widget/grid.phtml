@@ -1,0 +1,162 @@
+
+<?php use Application\Widget\EntityGrid; ?>
+<?php $totalPages = ceil($this->size/$this->limit); ?>
+<div class="grid_container">
+    <span><?php echo $this->headerText; ?></span>
+    <div class="add-new-entry">
+        <?php $urlParams = array('controller'=>$this->controller, 'action' => 'view'); ?>
+        <?php if (!empty($this->parentId)): ?>
+            <?php $urlParams["parentId"] =  $this->parentId; ?>
+        <?php endif; ?>
+        <a href="<?php echo $this->url('zfcadmin/wildcard', $urlParams); ?>">
+            <img class="plus-icon" src="<?php echo $this->basePath('img/add.png') ?>" alt="Add new <?php echo $this->controller; ?>" />
+        </a>
+    </div>
+    <?php if (empty($this->elements)): ?>
+        <div class="empty-grid">
+            <span>No <?php echo $this->controller; ?> records found</span>
+        </div>
+    <?php else: ?>
+        <table class="entity_grid">
+            <thead>
+                <tr>
+                    <?php foreach ($this->filters as $filter): ?>
+                        <th>
+                            <?php $direction = ($this->orderBy == $filter && $this->direction == EntityGrid::DIRECTION_ASCENDING) 
+                                               ? EntityGrid::DIRECTION_DESCENDING 
+                                               : EntityGrid::DIRECTION_ASCENDING; 
+                            ?>
+                            <?php $columnUrl = $this->url('zfcadmin/wildcard', array(
+                                'controller'=>$this->controller, 
+                                'action' => 'index', 
+                                'orderBy' => $filter, 
+                                'direction' => $direction
+                            )); ?>
+                            <a href="<?php echo $columnUrl; ?>">
+                                <?php echo ucfirst($filter); ?>
+                                <?php if ($this->orderBy == $filter): ?>
+                                <i class="arrow-<?php echo strtolower($direction) ;?>">
+                                    <?php if ($this->direction == EntityGrid::DIRECTION_ASCENDING): ?>
+                                        &#x25B2;
+                                    <?php else: ?>
+                                        &#x25BC;
+                                    <?php endif; ?>
+                                </i>
+                                <?php endif; ?>
+                            </a>
+                        </th>
+                    <?php endforeach; ?>
+                    <?php if (!empty($this->childRoute)): ?>
+                        <th><?php echo ucfirst($this->childRoute).'s';?></th>
+                    <?php endif; ?>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->elements as $element): ?>
+
+                    <?php
+                        if($element[$filter] instanceof DateTime ) {
+                            $element[$filter] = $element[$filter]->format('Y-m-d');
+                        }
+                    ?>
+                <tr>
+                    <?php $elementLink = $this->url('zfcadmin/wildcard', array('controller'=>$this->controller, 'action' => 'view', 'id' => $element['id'])); ?>
+                    <?php foreach ($this->filters as $filter): ?>
+                        <td align="center" valign="middle">
+                            <a href="<?php echo $elementLink; ?>">
+                                <?php echo $element[$filter]; ?>
+                            </a>
+                        </td>
+                    <?php endforeach; ?>
+                    <?php if (!empty($this->childRoute)): ?>
+                        <td>
+                            <?php $childrenUrl = $this->url('zfcadmin/wildcard', array('controller'=>$this->childRoute, 'parentId' => $element['id'])); ?>
+                            <a href="<?php echo $childrenUrl;?>">
+                                <?php echo 'View ' . ucfirst($this->childRoute).'s';?>
+                            </a>
+                        </td>
+                    <?php endif; ?>
+                    <td>
+
+
+                        <a href="#" class="confirm-delete" data-id="<?php echo $element['id']; ?>"><?php echo 'Delete entry'; ?></a><br>
+
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <div class="grid-pager">
+            <?php 
+                $params = array();
+                $params['controller'] = $this->controller;
+                $params['action']     = 'index';
+                if ($this->orderBy != 'id') {
+                    $params['orderBy'] = $this->orderBy;
+                }
+                if ($this->direction != EntityGrid::DIRECTION_ASCENDING) {
+                    $params['direction'] = $this->direction;
+                }
+            ?>
+            <?php if ($totalPages > $this->visiblePages && $this->page > ceil($this->visiblePages/2)): ?>
+            <a href="<?php echo $this->url('zfcadmin/wildcard', array_merge($params, array('page' => 1))); ?>"><<</a>
+            <a href="<?php echo $this->url('zfcadmin/wildcard', array_merge($params, array('page' => $this->page - 1))); ?>"><</a>
+            <?php endif; ?>
+
+            <?php $index  = $this->startingPage; ?>
+            <?php if ($index != $this->endingPage): ?>
+                <?php while ($index <= $this->endingPage): ?>
+                    <?php if ($index == $this->page): ?>
+                        <span class="current-page"><?php echo $index++; ?></span>
+                    <?php else: ?>
+                        <a href="<?php echo $this->url('zfcadmin/wildcard', array_merge($params, array('page' => $index))); ?>"><?php echo $index++; ?></a>
+                    <?php endif; ?>
+                <?php endwhile; ?>
+            <?php endif; ?>
+
+            <?php if ($totalPages > $this->visiblePages && $this->page < $totalPages - floor($this->visiblePages/2)): ?>
+            <a href="<?php echo $this->url('zfcadmin/wildcard', array_merge($params, array('page' => $this->page + 1))); ?>">></a>
+            <a href="<?php echo $this->url('zfcadmin/wildcard', array_merge($params, array('page' => $totalPages))); ?>">>></a>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+</div>
+<div id="modal-from-dom" class="modal hide fade">
+    <div class="modal-header">
+        <a href="#" class="close">&times;</a>
+        <h3>Delete URL</h3>
+    </div>
+    <div class="modal-body">
+        <p>You are about to delete one entry, this procedure is irreversible.</p>
+        <p>Do you want to proceed?</p>
+        <p id="debug-url"></p>
+    </div>
+    <div class="modal-footer">
+
+        <?php $deleteUrl = $this->url('zfcadmin/wildcard', array('controller'=>$this->controller, 'action' => 'delete', 'id' => '')); ?>
+
+        <a href="<?php echo $deleteUrl.'?ref='; ?>" class="btn danger">Yes</a>
+        <!-- <a href="delete.php?some=param&ref=" class="btn danger">Yes 2</a> -->
+        <a href="#" data-dismiss="modal" class="btn secondary">No</a>
+    </div>
+</div>
+
+
+<script>
+    $('#modal-from-dom').on('show', function() {
+        var id = $(this).data('id'),
+            removeBtn = $(this).find('.danger');
+
+        removeBtn.attr('href', removeBtn.attr('href').replace(/(&|\?)ref=\d*/, '' + id));
+
+        $('#debug-url').html('Delete URL: <strong>' + removeBtn.attr('href') + '</strong>');
+    });
+
+    $('.confirm-delete').on('click', function(e) {
+        e.preventDefault();
+
+        var id = $(this).data('id');
+        $('#modal-from-dom').data('id', id).modal('show');
+    });
+</script>

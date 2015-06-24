@@ -1,44 +1,222 @@
-<div class="jumbotron">
-    <h1><?php echo sprintf($this->translate('Welcome to %sZend Framework 2%s'), '<span class="zf-green">', '</span>') ?></h1>
-    <p><?php echo sprintf($this->translate('Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2.'), '<a href="https://github.com/zendframework/ZendSkeletonApplication" target="_blank">', '</a>', \Zend\Version\Version::VERSION) ?></p>
-    <p><a class="btn btn-success btn-lg" href="https://github.com/zendframework/zf2" target="_blank"><?php echo $this->translate('Fork Zend Framework 2 on GitHub') ?> &raquo;</a></p>
+<div id="page" class="hfeed site">
+    <section id="content" class="site-content">
+        <section id="hero-header" data-speed="8" data-type="background"> 
+            <div class="hero-content-container">
+                <div class="hero-content">
+                    <span>
+                        <h2 class="animated fadeInDown delay">SPREAD THE WORD</h2> 
+                        <h3 class="animated fadeInDown delay">WITH FULL CONTROL OVER YOUR MESSAGE</h3> 
+                        <a href="<?php echo $this->basePath('#subscribe'); ?>" class="featured-link">
+                            <button class="wow animated fadeInDown delay animated">Join us</button>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </section>
+        
+        <div class="home-services">
+            <div class="grid grid-pad no-top"> 
+                <div class="col-1-3 tri-clear wow animated fadeIn animated" data-wow-delay="0.25s" style="animation-delay: 0.25s; -webkit-animation-delay: 0.25s;"> 
+                    <div class="service sbox-1">
+                        <i class="fa fa-gift"></i>
+                        <h5>Choose your prize</h5>
+                        <p class="member-description">Anything from a thank you note to a plane. The more creative and bold the prize is, the more famous your challenge will be.</p>
+                    </div>
+                </div>
+                <div class="col-1-3 tri-clear wow animated fadeIn animated" data-wow-delay="0.25s" style="animation-delay: 0.25s; -webkit-animation-delay: 0.25s;"> 
+                    <div class="service sbox-2">
+                        <i class="fa fa-comments"></i>
+                        <h5>Start the movement</h5>
+                        <p class="member-description">Share one link and then we do the rest. When your followers share the link, their chances to get your prize are increasing.</p>
+                    </div>
+                </div>
+                <div class="col-1-3 tri-clear wow animated fadeIn animated" data-wow-delay="0.25s" style="animation-delay: 0.25s; -webkit-animation-delay: 0.25s;"> 
+                    <div class="service sbox-3">
+                        <i class="fa fa-users"></i>
+                        <h5>Reach millions</h5>
+                        <p class="member-description">Watch your brand gain visibility, expand from your current leads to their friends' friends and generate new followers.</p> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="home-content">
+            <div class="grid grid-pad">
+                <div class="col-1-1">
+                    <h6 class="wow animated fadeInLeft animated">What we do</h6>
+                    <p class="wow animated fadeInRight animated">Spread. gets your company thousands, even millions of followers by featuring a prize of your choice in a challenge in which the more likely to win are the ones that spread the word. Spread. extends the traditional referral marketing limitations by creating a dynamic and centralized sweepstakes system in which people are rewarded with more chances to win by sharing your challenge with their friends. Spread. can reward groups of friends or top participants just as easily! Be creative and join us for creating a challenge worth talking about.</p>  
+                </div>
+            </div>
+        </div>
+
+        <div class="home-news">
+            <div class="grid grid-pad">
+                <div class="col-1-1">
+                    <h6 class="wow animated fadeIn animated">Pricing</h6>
+                    <div class="pricing-section">          
+                        <div class="option-lake option wow animated fadeInLeft animated">
+                            <div class="option-image">
+                                <img src="<?php echo $this->basePath('img/lake.png'); ?>" alt="Lake Package" width="247" height="300" class="alignnone size-medium wp-image-47">
+                            </div>         
+                            <div class="option-title">
+                                <p>Lake Package</p>
+                            </div>         
+                            <div class="option-price">             
+                                <h1>$249/monthly*</h1>         
+                            </div>
+                            <div class="option-benefits">
+                                <ul class="benefits">
+                                    <li>Reach up to 100000 people</li>
+                                    <li>Unlimited campaigns</li>
+                                    <li>Share a direct link to your campaign</li>
+                                    <li>Embed campaign on your website</li>
+                                    <li>Add video on company description</li>
+                                    <li>Reward Facebook, Twitter and E-mail distribution</li>
+                                    <li>Reward for watching a video, answering a question, choosing a picture, visiting a website or uploading an image or video</li>
+                                    <li>Real time data analysis</li>
+                                </ul>
+                            </div> 	
+                                <div class="option-buy"> 	                 
+                                    <a href="<?php echo $this->basePath('coming-soon?package=lake'); ?>" class="featured-link">                 
+                                        <button class="wow animated">Order now!</button>             
+                                    </a>
+                                    <p class="satisfaction-guarantee">*100% money back guaranteed if you are not satisfied. <br /> No questions asked. </p>
+                                </div>     
+                        </div>  
+                        <div class="option-ocean option wow animated fadeInRight animated">
+                            <div class="option-image">
+                                <img src="<?php echo $this->basePath('img/ocean.jpg'); ?>" alt="Ocean Package" width="300" height="210" class="alignnone size-medium wp-image-46">
+                            </div>
+                            <div class="option-title">
+                                <p>Ocean Package</p>
+                            </div>
+                            <div class="option-price">
+                                <h1>CALL US</h1>
+                            </div>
+                            <div class="option-benefits">
+                                <ul class="benefits">
+                                    <li>Everything in the "Lake" package</li>
+                                    <li>Unlimited reach</li>
+                                    <li>Priority support</li>
+                                    <li>Customizable campaigns</li>
+                                    <li>Personalized distribution</li>
+                                </ul>
+                            </div>
+                            <div class="option-buy">
+                                <a href="<?php echo $this->basePath('coming-soon?package=ocean'); ?>" class="featured-link">             
+                                    <button class="wow animated">Contact us!</button>         
+                                </a>     	
+                            </div>     
+                        </div>	 
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-pad no-top"> </div>
+        </div>
+
+        <div class="home-cta">  
+            <div class="grid grid-pad">
+                <div class="sensible-home-widget-area" id="subscribe">
+                    <div class="col-1-1">
+                        <aside id="newsletterwidget" class="widget widget_newsletterwidget">
+                            <h6>Request Early Access</h6>
+                            <script type="text/javascript">
+                            //<![CDATA[
+                                if (typeof newsletter_check !== "function") {
+                                    window.newsletter_check = function(f) {
+                                        var re = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-]{1,})+\.)+([a-zA-Z0-9]{2,})+$/;
+                                        if (!re.test(f.elements["ne"].value)) {
+                                            alert("The email is not correct");
+                                            return false;
+                                        }
+                                        if (f.elements["nn"] && (f.elements["nn"].value == "" || f.elements["nn"].value == f.elements["nn"].defaultValue)) {
+                                            alert("The name is not correct");
+                                            return false;
+                                        }
+                                        for (var i = 1; i < 20; i++) {
+                                            if (f.elements["np" + i] && f.elements["np" + i].value == "") {
+                                                alert("");
+                                                return false;
+                                            }
+                                        }
+                                        if (f.elements["ny"] && !f.elements["ny"].checked) {
+                                            alert("You must accept the privacy statement");
+                                            return false;
+                                        }
+                                        return true;
+                                    }
+                                }
+                            //]]>
+                            </script>
+
+                            <div class="newsletter newsletter-widget">
+                                <script type="text/javascript">
+                                //<![CDATA[
+                                    if (typeof newsletter_check !== "function") {
+                                        window.newsletter_check = function(f) {
+                                            var re = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-]{1,})+\.)+([a-zA-Z0-9]{2,})+$/;
+                                            if (!re.test(f.elements["ne"].value)) {
+                                                alert("The email is not correct");
+                                                return false;
+                                            }
+                                            if (f.elements["nn"] && (f.elements["nn"].value == "" || f.elements["nn"].value == f.elements["nn"].defaultValue)) {
+                                                alert("The name is not correct");
+                                                return false;
+                                            }
+                                            for (var i = 1; i < 20; i++) {
+                                                if (f.elements["np" + i] && f.elements["np" + i].value == "") {
+                                                    alert("");
+                                                    return false;
+                                                }
+                                            }
+                                            if (f.elements["ny"] && !f.elements["ny"].checked) {
+                                                alert("You must accept the privacy statement");
+                                                return false;
+                                            }
+                                            return true;
+                                        }
+                                    }
+                                //]]>
+                                </script>
+
+                                <form action="<?php echo $this->basePath('newsletter/subscribe'); ?>" onsubmit="return newsletter_check(this)" method="post">
+                                    <input type="hidden" name="nr" value="widget">
+                                        <p>
+                                            <input class="newsletter-firstname" type="text" name="nn" value="Name" onclick="if (this.defaultValue == this.value)
+                                                this.value = ''" onblur="if (this.value == '')
+                                                    this.value = this.defaultValue">
+                                        </p>
+                                        <p>
+                                            <input class="newsletter-email" type="email" required="" name="ne" value="Email" onclick="if (this.defaultValue == this.value)
+                                                this.value = ''" onblur="if (this.value == '')
+                                                    this.value = this.defaultValue">
+                                        </p>
+                                        <p>
+                                            <input class="newsletter-profile newsletter-profile-1" type="text" name="np1" value="Website" onclick="if (this.defaultValue == this.value)
+                                                this.value = ''" onblur="if (this.value == '')
+                                                    this.value = this.defaultValue"></p><p><input class="newsletter-submit" type="submit" value="I Want In">
+                                        </p>
+                                </form>
+                            </div>
+                        </aside> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
-<div class="row">
-
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><?php echo $this->translate('Follow Development') ?></h3>
-            </div>
-            <div class="panel-body">
-                <p><?php echo sprintf($this->translate('Zend Framework 2 is under active development. If you are interested in following the development of ZF2, there is a special ZF2 portal on the official Zend Framework website which provides links to the ZF2 %swiki%s, %sdev blog%s, %sissue tracker%s, and much more. This is a great resource for staying up to date with the latest developments!'), '<a href="http://framework.zend.com/wiki/display/ZFDEV2/Home">', '</a>', '<a href="http://framework.zend.com/zf2/blog">', '</a>', '<a href="https://github.com/zendframework/zf2/issues">', '</a>') ?></p>
-                <p><a class="btn btn-success pull-right" href="http://framework.zend.com/zf2" target="_blank"><?php echo $this->translate('ZF2 Development Portal') ?> &raquo;</a></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><?php echo $this->translate('Discover Modules') ?></h3>
-            </div>
-            <div class="panel-body">
-                <p><?php echo sprintf($this->translate('The community is working on developing a community site to serve as a repository and gallery for ZF2 modules. The project is available %son GitHub%s. The site is currently live and currently contains a list of some of the modules already available for ZF2.'), '<a href="https://github.com/zendframework/modules.zendframework.com">', '</a>') ?></p>
-                <p><a class="btn btn-success pull-right" href="http://modules.zendframework.com/" target="_blank"><?php echo $this->translate('Explore ZF2 Modules') ?> &raquo;</a></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><?php echo $this->translate('Help &amp; Support') ?></h3>
-            </div>
-            <div class="panel-body">
-                <p><?php echo sprintf($this->translate('If you need any help or support while developing with ZF2, you may reach us via IRC: %s#zftalk on Freenode%s. We\'d love to hear any questions or feedback you may have regarding the beta releases. Alternatively, you may subscribe and post questions to the %smailing lists%s.'), '<a href="irc://irc.freenode.net/zftalk">', '</a>', '<a href="http://framework.zend.com/wiki/display/ZFDEV/Mailing+Lists">', '</a>') ?></p>
-                <p><a class="btn btn-success pull-right" href="http://webchat.freenode.net?channels=zftalk" target="_blank"><?php echo $this->translate('Ping us on IRC') ?> &raquo;</a></p>
-            </div>
-        </div>
-    </div>
-</div>
+<script type="text/javascript" src="http://spreadpoint.co/index/wp-content/plugins/contact-form-7/includes/js/jquery.form.min.js?ver=3.51.0-2014.06.20"></script>
+<script type="text/javascript">
+                                                                /* <![CDATA[ */
+                                                                var _wpcf7 = {"loaderUrl": "http:\/\/spreadpoint.co\/index\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif", "sending": "Sending ..."};
+                                                                /* ]]> */
+</script>
+<script type="text/javascript" src="http://spreadpoint.co/index/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.1.2"></script>
+<script type="text/javascript" src="http://spreadpoint.co/index/wp-content/themes/sensible-wp/js/navigation.js?ver=20120206"></script>
+<script type="text/javascript" src="http://spreadpoint.co/index/wp-content/themes/sensible-wp/js/skip-link-focus-fix.js?ver=20130115"></script>
+<script type="text/javascript" src="http://spreadpoint.co/index/wp-content/themes/sensible-wp/js/jPushMenu.js?ver=4.2.2"></script>
+<script type="text/javascript" src="http://spreadpoint.co/index/wp-content/themes/sensible-wp/js/jquery.placeholder.js?ver=4.2.2"></script>
+<script type="text/javascript" src="http://spreadpoint.co/index/wp-content/themes/sensible-wp/js/placeholdertext.js?ver=4.2.2"></script>
+<script type="text/javascript" src="http://spreadpoint.co/index/wp-content/themes/sensible-wp/js/sensible.scripts.js?ver=4.2.2"></script>

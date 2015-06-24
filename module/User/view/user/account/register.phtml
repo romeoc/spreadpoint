@@ -1,0 +1,57 @@
+<section class="register">
+    <h2>Register</h2>
+    <?php if ($this->message): ?>
+        <div class="error-message">
+            <?php echo $this->message; ?>
+        </div>
+    <?php endif; ?>
+    <?php
+        $form = $this->form;
+        $form->prepare();
+        $form->setAttribute('action', $this->url('account',
+            array('controller'=>'user', 'action' => 'processRegister')));
+        $form->setAttribute('method', 'post');
+        echo $this->form()->openTag($form);
+    ?>
+    <dl class="zend_form">
+        <dt><?php echo $this->formLabel($form->get('firstname')); ?></dt>
+        <dd>
+            <?php
+                echo $this->formElement($form->get('firstname'));
+                echo $this->formElementErrors($form->get('firstname'));
+            ?>
+        </dd>
+        <dt><?php echo $this->formLabel($form->get('lastname')); ?></dt>
+        <dd>
+            <?php
+                echo $this->formElement($form->get('lastname'));
+                echo $this->formElementErrors($form->get('lastname'));
+            ?>
+        </dd>
+        <dt>
+            <?php echo $this->formLabel($form->get('email')); ?>
+        </dt>
+        <dd>
+           <?php
+                echo $this->formElement($form->get('email'));
+                echo $this->formElementErrors($form->get('email'));
+            ?>
+        </dd>
+        <dt>
+            <?php echo $this->formLabel($form->get('password'));?>
+        </dt>
+        <dd>
+           <?php
+                echo $this->formElement($form->get('password'));
+                echo $this->formElementErrors($form->get('password'));
+            ?>
+        </dd>
+        <dd>
+            <?php
+                echo $this->formElement($form->get('submit'));
+                echo $this->formElementErrors($form->get('submit'));
+            ?>
+        </dd>
+    </dl>
+    <?php echo $this->form()->closeTag() ?>
+</section>

@@ -1,0 +1,85 @@
+<div class="form-container">
+<?php
+    $form = $this->form;
+    $form->prepare();
+    $form->setAttribute('enctype', 'multipart/form-data');
+    $params = array(
+        'controller' => $this->controller,
+        'action'     => 'save',
+    );
+    if (!empty($this->entity_id)) {
+        $params['id'] = $this->entity_id;
+    }
+    $form->setAttribute('action', $this->url('zfcadmin/wildcard', $params));
+
+    echo $this->form()->openTag($form); 
+?>
+    <div class="form-actions">
+        <?php if (!empty($this->entity_id)): ?>
+            <a href="#" class="confirm-delete" data-id="<?php echo $this->entity_id; ?>">
+                <img class="delete-icon" src="<?php echo $this->basePath('img/delete.png') ?>" alt="Delete <?php echo $this->controller; ?>" />
+            </a>
+
+        <?php endif; ?>
+        <input type="submit" id="save-entry" value="">
+    </div>
+<?php
+    foreach ($form as $element) {
+        echo '<div class="form-element">' . $this->formRow($element) . '</div>';
+    }
+
+    echo $this->form()->closeTag($form); 
+?>
+</div>
+<div id="modal-from-dom" class="modal hide fade">
+    <div class="modal-header">
+        <a href="#" class="close">&times;</a>
+        <h3>Delete URL</h3>
+    </div>
+    <div class="modal-body">
+        <p>You are about to delete one entry, this procedure is irreversible.</p>
+        <p>Do you want to proceed?</p>
+        <p id="debug-url"></p>
+    </div>
+    <div class="modal-footer">
+
+        <?php $deleteUrl = $this->url('zfcadmin/wildcard', array('controller'=>$this->controller, 'action' => 'delete', 'id' => '')); ?>
+
+        <a href="<?php echo $deleteUrl.'?ref='; ?>" class="btn danger">Yes</a>
+        <!-- <a href="delete.php?some=param&ref=" class="btn danger">Yes 2</a> -->
+        <a href="#" data-dismiss="modal" class="btn secondary">No</a>
+    </div>
+</div>
+
+<script>
+    $('#modal-from-dom').on('show', function() {
+        var id = $(this).data('id'),
+            removeBtn = $(this).find('.danger');
+
+        removeBtn.attr('href', removeBtn.attr('href').replace(/(&|\?)ref=\d*/, '' + id));
+
+        $('#debug-url').html('Delete URL: <strong>' + removeBtn.attr('href') + '</strong>');
+    });
+
+    $('.confirm-delete').on('click', function(e) {
+        e.preventDefault();
+
+        var id = $(this).data('id');
+        $('#modal-from-dom').data('id', id).modal('show');
+    });
+    
+    new $.Uploader().init();
+</script>
+
+<script>
+    jQuery('textarea').ckeditor();
+</script>
+<?php if (!empty($this->parentId)): ?>
+    <script type="text/javascript">
+        $(function(){
+            var parentId = "<?php echo $this->parentId; ?>";
+            var field = "<?php echo $this->parentEntity; ?>";
+            $('select[name="' + field + '"]').val(parentId);
+        })
+    </script>
+<?php endif; ?>
