@@ -32,11 +32,9 @@ class RegisterForm extends Form
             'attributes' => array(
                 'type' => 'text',
             ),
-            'options' => array(
-                'label' => 'Name',
-            ),
             'attributes' => array(
-                'required' => 'required'
+                'required' => 'required',
+                'placeholder' => 'First Name'
             )
         ));
         
@@ -46,11 +44,9 @@ class RegisterForm extends Form
             'attributes' => array(
                 'type' => 'text',
             ),
-            'options' => array(
-                'label' => 'Name',
-            ),
             'attributes' => array(
-                'required' => 'required'
+                'required' => 'required',
+                'placeholder' => 'Last Name'
             )
         ));
         
@@ -60,11 +56,9 @@ class RegisterForm extends Form
             'attributes' => array(
                 'type' => 'email',
             ),
-            'options' => array(
-                'label' => 'Email',
-            ),
             'attributes' => array(
-                'required' => 'required'
+                'required' => 'required',
+                'placeholder' => 'Email'
             ),
             'filters' => array(
                 array('name' => 'StringTrim'),
@@ -84,20 +78,35 @@ class RegisterForm extends Form
         
         //Password
         $password = new Element\Password('password');
-        $password->setLabel('Password')
-                 ->setAttributes(array(
-                    'required'  => 'required',
-            )
-        );
+        $password->setAttributes(array(
+            'required'  => 'required',
+            'placeholder' => 'Password'
+        ));
         
         $this->add($password);
+
+        
+        //Terms & Conditions
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'terms-and-conditions',
+            'options' => array(
+                'label' => 'I agree to the Terms and Conditions',
+                'use_hidden_element' => true,
+                'checked_value' => 1,
+                'unchecked_value' => 0,
+            ),
+            'attributes' => array(
+                'required' => 'required'
+            )
+        ));
         
         //Submit Button
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(
                 'type' => 'Submit',
-                'value' => 'Submit',
+                'value' => 'Join the Party',
                 'class' => 'account-submit'
             ),
         ));

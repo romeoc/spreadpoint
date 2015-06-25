@@ -1,15 +1,16 @@
+<?php use User\Model\Form\RegisterForm; ?>
 <div id="page" class="hfeed site">
     <section id="content" class="site-content">
         <section id="hero-header" data-speed="8" data-type="background"> 
             <div class="hero-content-container">
                 <div class="hero-content">
-                    <span>
+                    <div class="hero-content-section hero-usp left">
                         <h2 class="animated fadeInDown delay">SPREAD THE WORD</h2> 
                         <h3 class="animated fadeInDown delay">WITH FULL CONTROL OVER YOUR MESSAGE</h3> 
-                        <a href="<?php echo $this->basePath('#subscribe'); ?>" class="featured-link">
-                            <button class="wow animated fadeInDown delay animated">Join us</button>
-                        </a>
-                    </span>
+                    </div>
+                    <div class="hero-content-section hero-register right animated fadeInDown delay">
+                        <?php echo $this->partial('user/account/register.phtml', array('form' => new RegisterForm())); ?>
+                    </div>
                 </div>
             </div>
         </section>
