@@ -787,32 +787,29 @@ a:active {
     float: right;
     width: auto;
 }
-.hero-content-container {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-} 
 .hero-content {
-    display: table;
-    position: relative;
     height: 100%;
-    max-width: 65%;
-    margin: 0 auto;
+    margin: 0 5%;
     text-align: center;
 }
-.hero-content span {
-    display: table-cell; 
-    vertical-align: middle;
+.hero-content-section {
+    margin-top: 150px;
 }
-.hero-content span h2 {
-    font-weight: 400px;
+.hero-usp {
+    width: 60%;
+}
+.hero-register {
+    width: 40%;
+}
+.hero-content h2 {
+    font-weight: 400;
     font-size: 62px;
     line-height: 64px;
     color: #fff;
     margin-bottom: 20px;
     padding-top: 30px;
 }
-.hero-content span h3 {
+.hero-content h3 {
     color: white;
     margin-bottom: 40px;
 }
@@ -894,6 +891,7 @@ a:active {
     -o-background-size: cover !important; 
     background-size: cover !important;
     background: url(../../img/staring.jpg) 50% -312.25px no-repeat fixed;
+    background-position: 50% -25px;
 }
 .home-services, .home-news {
     padding: 50px 0 30px;

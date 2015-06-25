@@ -1,5 +1,4 @@
 <section class="register">
-    <h2>Register</h2>
     <?php if ($this->message): ?>
         <div class="error-message">
             <?php echo $this->message; ?>
@@ -13,45 +12,16 @@
         $form->setAttribute('method', 'post');
         echo $this->form()->openTag($form);
     ?>
-    <dl class="zend_form">
-        <dt><?php echo $this->formLabel($form->get('firstname')); ?></dt>
-        <dd>
-            <?php
-                echo $this->formElement($form->get('firstname'));
-                echo $this->formElementErrors($form->get('firstname'));
-            ?>
-        </dd>
-        <dt><?php echo $this->formLabel($form->get('lastname')); ?></dt>
-        <dd>
-            <?php
-                echo $this->formElement($form->get('lastname'));
-                echo $this->formElementErrors($form->get('lastname'));
-            ?>
-        </dd>
-        <dt>
-            <?php echo $this->formLabel($form->get('email')); ?>
-        </dt>
-        <dd>
-           <?php
-                echo $this->formElement($form->get('email'));
-                echo $this->formElementErrors($form->get('email'));
-            ?>
-        </dd>
-        <dt>
-            <?php echo $this->formLabel($form->get('password'));?>
-        </dt>
-        <dd>
-           <?php
-                echo $this->formElement($form->get('password'));
-                echo $this->formElementErrors($form->get('password'));
-            ?>
-        </dd>
-        <dd>
-            <?php
-                echo $this->formElement($form->get('submit'));
-                echo $this->formElementErrors($form->get('submit'));
-            ?>
-        </dd>
-    </dl>
+    <div class="register-form custom-form">
+        <?php foreach ($form as $element): ?>
+            <div class="register-form-row custom-form-row custom-row-<?php echo $element->getName(); ?>">
+                <?php echo $this->formElement($element); ?>
+                <?php echo $this->formElementErrors($element); ?>
+                <?php if (get_class($element) === 'Zend\Form\Element\Checkbox'): ?>
+                    <?php echo $this->formLabel($element); ?>
+                <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
     <?php echo $this->form()->closeTag() ?>
 </section>
