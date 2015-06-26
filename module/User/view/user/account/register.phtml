@@ -51,34 +51,31 @@
             
             function isFormValid() 
             {
-                var email = $('.custom-row-email').find('input').val();
-                var password = $('.custom-row-password').find('input').val();
+                var email = $('.register-form .custom-row-email').find('input').val();
+                var password = $('.register-form .custom-row-password').find('input').val();
                 
                 // Email Validation
                 var emailRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
                 if (!emailRegex.test(email)) {
-                    $('.form-errors .error').html('Please provide a valid email address');
+                    $('.register-form .error').html('Please provide a valid email address');
                     return false;
                 }
                 
                 // Password Validation
                 if (password.length < 6) {
-                    $('.form-errors .error').html('Your password should contain at least 6 characters');
-                    $('.custom-row-password').find('input').focus();
+                    $('.register-form .error').html('Your password should contain at least 6 characters');
                     return false;
                 }
                   
                 var hasNumber = /[0-9]/;
                 if(!hasNumber.test(password)) {
-                    $('.form-errors .error').html('Your password must contain at least one number (0-9)');
-                    $('.custom-row-password').find('input').focus().focus();
+                    $('.register-form .error').html('Your password must contain at least one number (0-9)');
                     return false;
                 }
                   
                 var hasLetter = /[a-zA-z]/;
                 if(!hasLetter.test(password)) {
-                    $('.form-errors .error').html('Your password must contain at least one letter (a-z,A-Z)');
-                    $('.custom-row-password').find('input').focus().focus();
+                    $('.register-form .error').html('Your password must contain at least one letter (a-z,A-Z)');
                     return false;
                 }
                 

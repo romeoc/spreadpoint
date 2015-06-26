@@ -30,6 +30,7 @@
             ->appendFile($this->basePath() . '/js/sensible/wow.js')
             ->appendFile($this->basePath() . '/js/sensible/wow-init.js')
             ->appendFile($this->basePath() . '/js/sensible/parallax.js')
+            ->appendFile($this->basePath() . '/js/sensible/jPushMenu.js')
         ;?>
 
         <!-- Google Analytics -->
@@ -94,10 +95,16 @@
             <h3>Menu</h3> 
             <div class="menu-container">
                 <ul id="menu" class="menu">
-                    <li id="menu-item-1" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item current_page_item">
+                    <li id="menu-item-1" class="menu-item menu-item-type-post_type menu-item-object-page">
                         <a href="<?php echo $this->serverUrl(); ?>">Home</a>
                     </li>
                     <li id="menu-item-2" class="menu-item menu-item-type-post_type menu-item-object-page">
+                        <a href="javascript:void(0);">Login</a>
+                    </li>
+                    <li id="menu-item-3" class="menu-item menu-item-type-post_type menu-item-object-page">
+                        <a href="javascript:void(0);">Register</a>
+                    </li>
+                    <li id="menu-item-4" class="menu-item menu-item-type-post_type menu-item-object-page">
                         <a href="<?php echo $this->basePath("contact"); ?>">Talk to us</a>
                     </li>
                 </ul>
