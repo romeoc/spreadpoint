@@ -35,32 +35,10 @@ class AccountController extends AbstractActionController
         var_dump('Welcome lad!'); die;
     }
     
-    public function registerAction()
-    {
-        $form = new RegisterForm();
-        $view = new ViewModel(array(
-            'form' => $form
-        ));
-        
-        $view->setTerminal(true);
-        return $view;
-    }
-    
-    public function loginAction()
-    {
-        $form = new LoginForm();
-        $view = new ViewModel(array(
-            'form' => $form
-        ));
-        
-        $view->setTerminal(true);
-        return $view;
-    }
-    
     /**
      * create a new user
      */
-    public function processRegisterAction() 
+    public function createAction() 
     {
         $post = $this->request->getPost();
 
@@ -71,38 +49,38 @@ class AccountController extends AbstractActionController
         $form->setData($post);
         
         if (!$form->isValid()) {
-            $view = new ViewModel(array(
-                'error' => true,
-                'form' => $form,
-            ));
-            $view->setTemplate('user/account/register');
-            $view->setTerminal(true);
-            return $view;
+            return new JsonModel(
+                array(
+                    'status' => false,
+                    'message' => 'We encountered a problem while validating your data.'
+                )
+            );
         }
         
-        unset($post['submit']);
+        unset($post['terms-and-conditions']);
+        
         $userModel = new User();
         $userModel->setServiceLocator($this->getServiceLocator());
         $registrationResult = $userModel->create($post);
         
         if (!$registrationResult) {
-            $view = new ViewModel(array(
-                'message' => $post['email'].' belongs to an existing account',
-                'form' => $form,
-            ));
-            $view->setTemplate('user/account/register');
-            $view->setTerminal(true);
-            return $view;
+            return new JsonModel(
+                array(
+                    'status' => false,
+                    'message' => 'There is already an account registered to '.$post['email']
+                )
+            );
         }
         
-        return new JsonModel(array(
-            'success'  => true, 
-            'redirect' => true,
-            'user'     => $registrationResult,
-        ));
+       return new JsonModel(
+            array(
+                'status' => true,
+                'message' => 'Registration was succesful'
+            )
+        );
     }
     
-    public function authenticateAction()
+    public function loginAction()
     {
         $data = $this->getRequest()->getPost();
         
