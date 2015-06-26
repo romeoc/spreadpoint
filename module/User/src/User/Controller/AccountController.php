@@ -29,10 +29,10 @@ class AccountController extends AbstractActionController
         $helper->updateServiceLocator($service);
         
         if (!$helper->isLoggedIn()) {
-            return $this->redirect()->toRoute('account', array('controller' => 'account', 'action' => 'login'));
+            return $this->redirect()->toRoute('home');
         }
         
-        var_dump('Welcome lad!'); die;
+        var_dump('Welcome lad! We are still working on the account section. Patience my friend, patience.'); die;
     }
     
     /**
@@ -82,27 +82,23 @@ class AccountController extends AbstractActionController
     
     public function loginAction()
     {
-        $data = $this->getRequest()->getPost();
+        $data = $this->request->getPost();
         
         $userModel = new User();
         $userModel->setServiceLocator($this->getServiceLocator());
-        $authenticationResult = $userModel->authenticate($data['email'], hash('sha512',$data['password']));
+        $authenticationResult = $userModel->authenticate($data['email'], $data['password']);
         
         if ($authenticationResult) {
             return new JsonModel(array(
-                'success' => true, 
-                'user'    => $authenticationResult
+                'status'    => true, 
+                'message'   => 'Login Succesful'
             ));
         }
 
-        $view = new ViewModel(array(
-            'error' => 'Your authentication credentials are not valid',
-            'form' => new LoginForm(),
+        return new JsonModel(array(
+            'status' => false,
+            'message' => 'Your authentication credentials are not valid'
         ));
-
-        $view->setTemplate('user/account/login');
-        $view->setTerminal(true);
-        return $view;
     }
     
     public function logoutAction()

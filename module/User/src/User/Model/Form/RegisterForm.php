@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * User Register Form
  *

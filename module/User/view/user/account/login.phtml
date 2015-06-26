@@ -1,43 +1,78 @@
-<section class="login">
-    <h2>Login</h2>
-    <?php if ($this->error): ?>
-        <p class="error">
-            <?php echo $this->error; ?>
-        </p>
-    <?php endif; ?>
-    <?php
-        $form = $this->form;
-        $form->prepare();
-        $form->setAttribute('action', $this->url('user',
-            array('controller'=>'account', 'action' => 'login')));
-        $form->setAttribute('method', 'post');
-        echo $this->form()->openTag($form);
-    ?>
-    <dl class="zend_form">
-        <dt>
-            <?php echo $this->formLabel($form->get('email')); ?>
-        </dt>
-        <dd>
-           <?php
-                echo $this->formElement($form->get('email'));
-                echo $this->formElementErrors($form->get('email'));
-            ?>
-        </dd>
-        <dt>
-            <?php echo $this->formLabel($form->get('password'));?>
-        </dt>
-        <dd>
-           <?php
-                echo $this->formElement($form->get('password'));
-                echo $this->formElementErrors($form->get('password'));
-            ?>
-        </dd>
-        <dd>
+<div class="header-login-section">
+    <input class="login-action" type="button" value="Sign In">
+    <div class="login-form-container hide">
+        <div class="login-overlay"></div>
+        <section class="login">
+            <div class="login-title">
+                <div class="title left"><h2>Sign In</h2></div>
+                <div class="close right"><span class="close-action">X</span></div>
+            </div>
             <?php
-                echo $this->formElement($form->get('submit'));
-                echo $this->formElementErrors($form->get('submit'));
+                $form = $this->form;
+                $form->prepare();
+                $form->setAttribute('action', $this->url('account',
+                    array('controller'=>'account', 'action' => 'login')));
+                $form->setAttribute('method', 'post');
+                echo $this->form()->openTag($form);
             ?>
-        </dd>
-    </dl>
-    <?php echo $this->form()->closeTag() ?>
-</section>
+            <div class="login-form custom-form">
+                <div class="form-errors"><span class="error"></span></div>
+                <?php foreach ($form as $element): ?>
+                    <div class="login-form-row custom-form-row custom-row-<?php echo $element->getName(); ?>">
+                        <?php echo $this->formElement($element); ?>
+                    </div>
+                <?php endforeach; ?>
+                <div class="login-form-row custom-form-row custom-row-extra forgot-your-password">
+                    <a href="<?php echo $this->basePath('account/reset'); ?>" title="Reset Password">Forgot your password?</a>
+                </div>
+            </div>
+            <?php echo $this->form()->closeTag() ?>
+        </section>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        var body = $('body');
+        var loginOverlay = $('.login-overlay');
+        var loginFormContainer = $('.login-form-container');
+        
+        $('.login-action').on('click', function(){
+            loginFormContainer.show().prependTo('body');
+            loginOverlay.show().on('click', resetScroll).prependTo('body');
+            $('.close-action').on('click', resetScroll);
+           
+            body.on('scroll touchmove mousewheel', function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            });
+        });
+        
+        $('#Login').submit(function(e) {
+            e.preventDefault();
+
+            var thisForm = $(this);
+            var postData = thisForm.serializeArray();
+            var formURL = thisForm.attr("action");
+
+            $.ajax({
+                url : formURL,
+                data : postData,
+                method: "POST"
+            }).done(function(data){
+                if (data.status) {
+                    window.location = "<?php echo $this->basePath('account'); ?>";
+                } else {
+                    $('.login-form .error').html(data.message);
+                }
+            });
+        });
+        
+        function resetScroll() 
+        {
+            body.off('scroll touchmove mousewheel');
+            loginOverlay.hide();
+            loginFormContainer.hide();
+        }
+    });
+</script>

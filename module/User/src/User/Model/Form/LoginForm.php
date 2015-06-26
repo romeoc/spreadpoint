@@ -30,12 +30,8 @@ class LoginForm extends Form
             'name' => 'email',
             'attributes' => array(
                 'type' => 'email',
-            ),
-            'options' => array(
-                'label' => 'Email',
-            ),
-            'attributes' => array(
-                'required' => 'required'
+                'required' => 'required',
+                'placeholder' => 'Email'
             ),
             'filters' => array(
                 array('name' => 'StringTrim'),
@@ -45,8 +41,7 @@ class LoginForm extends Form
                     'name' => 'EmailAddress',
                     'options' => array(
                         'messages' => array(
-                            \Zend\Validator\
-                            EmailAddress::INVALID_FORMAT => 'Email address format is invalid'
+                            \Zend\Validator\EmailAddress::INVALID_FORMAT => 'Email address format is invalid'
                         )
                     )
                 )
@@ -54,21 +49,34 @@ class LoginForm extends Form
         ));
         
         //Password
-        $password = new Element\Password('password');
-        $password->setLabel('Password')
-                 ->setAttributes(array(
-                    'required'  => 'required',
-            )
-        );
-        
-        $this->add($password);
+        $this->add(array(
+            'name' => 'password',
+            'attributes' => array(
+                'type' => 'password',
+                'required' => 'required',
+                'placeholder' => 'Password'
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'min' => 6,
+                        'max' => 32
+                    ),
+                    'messages' => array(
+                        \Zend\Validator\StringLength::TOO_SHORT => 'Your password should have at least 6 characters',
+                        \Zend\Validator\StringLength::TOO_LONG => 'Maximum password length is 32 characters',
+                    )
+                ),
+            ),
+        ));
         
         //Submit Button
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(
                 'type' => 'Submit',
-                'value' => 'Submit',
+                'value' => 'Sign In',
                 'class' => 'account-submit'
             ),
         ));

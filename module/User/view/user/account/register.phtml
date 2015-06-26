@@ -1,9 +1,4 @@
 <section class="register">
-    <?php if ($this->message): ?>
-        <div class="error-message">
-            <?php echo $this->message; ?>
-        </div>
-    <?php endif; ?>
     <?php
         $form = $this->form;
         $form->prepare();
@@ -17,7 +12,6 @@
         <?php foreach ($form as $element): ?>
             <div class="register-form-row custom-form-row custom-row-<?php echo $element->getName(); ?>">
                 <?php echo $this->formElement($element); ?>
-                <?php echo $this->formElementErrors($element); ?>
                 <?php if (get_class($element) === 'Zend\Form\Element\Checkbox'): ?>
                 <label for="terms-and-conditions">
                     I agree to the <a href="<?php echo $this->basePath('terms-and-conditions'); ?>" title="Terms & Conditions" target="_blank"><strong>Terms & Conditions</strong></a>
@@ -49,7 +43,7 @@
                         if (data.status) {
                             window.location = "<?php echo $this->basePath('checkout'); ?>";
                         } else {
-                            $('.form-errors .error').html(data.message);
+                            $('.register-form .error').html(data.message);
                         }
                     });
                 }

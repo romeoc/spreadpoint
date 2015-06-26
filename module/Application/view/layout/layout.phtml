@@ -1,3 +1,4 @@
+<?php use User\Model\Form\LoginForm; ?>
 <?php echo $this->doctype(); ?>
 <html lang="en">
     <head>
@@ -31,7 +32,7 @@
             ->appendFile($this->basePath() . '/js/sensible/parallax.js')
         ;?>
 
-        <!--Google Analytics-->
+        <!-- Google Analytics -->
         <!--
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -64,11 +65,23 @@
                         </button>
                         <div class="menu-container">
                             <ul id="menu" class="menu nav-menu">
-                                <li id="menu-item-1" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item current_page_item">
+                                <li id="menu-item-1" class="menu-item menu-item-type-post_type menu-item-object-page">
                                     <a href="<?php echo $this->serverUrl(); ?>">Home</a>
                                 </li>
                                 <li id="menu-item-2" class="menu-item menu-item-type-post_type menu-item-object-page">
                                     <a href="<?php echo $this->basePath("contact"); ?>">Talk to us</a>
+                                </li>
+                                <li id="menu-item-3" class ="menu-item menu-item-type-post_type menu-item-object-page">
+                                    <div class="header-account-container">
+                                        <?php $isLoggedIn = $this->userHelper()->isLoggedIn(); ?>
+                                        <?php if ($isLoggedIn): ?>
+                                            <div class="header-account-section">
+                                                <a href="<?php echo $this->basePath('account/logout'); ?>" class="account-username">Log Out</a>
+                                            </div>
+                                        <?php else: ?>
+                                            <?php echo $this->partial('user/account/login.phtml', array('form' => new LoginForm())); ?>
+                                        <?php endif; ?>
+                                    </div>
                                 </li>
                             </ul>
                         </div> 
