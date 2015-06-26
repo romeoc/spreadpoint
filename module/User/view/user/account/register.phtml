@@ -8,20 +8,88 @@
         $form = $this->form;
         $form->prepare();
         $form->setAttribute('action', $this->url('account',
-            array('controller'=>'user', 'action' => 'processRegister')));
+            array('controller'=>'account', 'action' => 'create')));
         $form->setAttribute('method', 'post');
         echo $this->form()->openTag($form);
     ?>
     <div class="register-form custom-form">
+        <div class="form-errors"><span class="error"></span></div>
         <?php foreach ($form as $element): ?>
             <div class="register-form-row custom-form-row custom-row-<?php echo $element->getName(); ?>">
                 <?php echo $this->formElement($element); ?>
                 <?php echo $this->formElementErrors($element); ?>
                 <?php if (get_class($element) === 'Zend\Form\Element\Checkbox'): ?>
-                    <?php echo $this->formLabel($element); ?>
+                <label for="terms-and-conditions">
+                    I agree to the <a href="<?php echo $this->basePath('terms-and-conditions'); ?>" title="Terms & Conditions" target="_blank"><strong>Terms & Conditions</strong></a>
+                </label>
                 <?php endif; ?>
             </div>
         <?php endforeach; ?>
     </div>
     <?php echo $this->form()->closeTag() ?>
+    <script type="text/javascript">
+        $(function(){
+           $('.custom-row-terms-and-conditions label').on('click', function(){
+              $(this).siblings('.terms-checkbox').trigger('click');
+           });
+           
+           $('#Register').submit(function(e) {
+                e.preventDefault();
+                
+                if (isFormValid()) {
+                    var thisForm = $(this);
+                    var postData = thisForm.serializeArray();
+                    var formURL = thisForm.attr("action");
+
+                    $.ajax({
+                        url : formURL,
+                        data : postData,
+                        method: "POST"
+                    }).done(function(data){
+                        if (data.status) {
+                            window.location = "<?php echo $this->basePath('checkout'); ?>";
+                        } else {
+                            $('.form-errors .error').html(data.message);
+                        }
+                    });
+                }
+            });
+            
+            function isFormValid() 
+            {
+                var email = $('.custom-row-email').find('input').val();
+                var password = $('.custom-row-password').find('input').val();
+                
+                // Email Validation
+                var emailRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+                if (!emailRegex.test(email)) {
+                    $('.form-errors .error').html('Please provide a valid email address');
+                    return false;
+                }
+                
+                // Password Validation
+                if (password.length < 6) {
+                    $('.form-errors .error').html('Your password should contain at least 6 characters');
+                    $('.custom-row-password').find('input').focus();
+                    return false;
+                }
+                  
+                var hasNumber = /[0-9]/;
+                if(!hasNumber.test(password)) {
+                    $('.form-errors .error').html('Your password must contain at least one number (0-9)');
+                    $('.custom-row-password').find('input').focus().focus();
+                    return false;
+                }
+                  
+                var hasLetter = /[a-zA-z]/;
+                if(!hasLetter.test(password)) {
+                    $('.form-errors .error').html('Your password must contain at least one letter (a-z,A-Z)');
+                    $('.custom-row-password').find('input').focus().focus();
+                    return false;
+                }
+                
+                return true;
+            }
+        });
+    </script>
 </section>

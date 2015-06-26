@@ -7,5 +7,7 @@
 .custom-form .custom-form-row { width: 60%; display:inline-block; margin: 3px 0; }
 .custom-form .custom-form-row input { width: 100%; }
 .custom-form .custom-row-firstname, .custom-form .custom-row-lastname { width: 30%; }
-.custom-form .custom-row-terms-and-conditions label { color: white; }
+.custom-form .custom-row-terms-and-conditions label { color: white; cursor: pointer; }
 .custom-form .custom-row-terms-and-conditions input { width: auto; }
+.custom-form .form-errors {  width: 60%; margin: 0 auto; }
+.custom-form span.error {color: red; font-weight: bold; font-size: 16px; }

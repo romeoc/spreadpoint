@@ -24,13 +24,15 @@ class User extends AbstractModel
     public function create($data)
     {
         if (parent::create($data)) {
-            return $this->authenticate($data['email'], hash('sha512',$data['password']));
+            return $this->authenticate($data['email'], $data['password']);
         }
     }
     
     public function authenticate($username, $password)
     {
         $password = $username. ':' . $password . ':' . UserEntity::SALT;
+        $password = hash('sha256', $password);
+        
         $auth = $this->service->get('doctrine.authenticationservice.orm_default');
         $auth->getAdapter()->setIdentityValue($username);
         $auth->getAdapter()->setCredentialValue($password);
