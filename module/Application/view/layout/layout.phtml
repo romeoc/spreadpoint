@@ -70,9 +70,12 @@
                                     <a href="<?php echo $this->serverUrl(); ?>">Home</a>
                                 </li>
                                 <li id="menu-item-2" class="menu-item menu-item-type-post_type menu-item-object-page">
+                                    <a href="<?php echo $this->basePath('pricing'); ?>">Pricing</a>
+                                </li>
+                                <li id="menu-item-3" class="menu-item menu-item-type-post_type menu-item-object-page">
                                     <a href="<?php echo $this->basePath("contact"); ?>">Talk to us</a>
                                 </li>
-                                <li id="menu-item-3" class ="menu-item menu-item-type-post_type menu-item-object-page">
+                                <li id="menu-item-4" class ="menu-item menu-item-type-post_type menu-item-object-page">
                                     <div class="header-account-container">
                                         <?php $isLoggedIn = $this->userHelper()->isLoggedIn(); ?>
                                         <?php if ($isLoggedIn): ?>
@@ -99,12 +102,15 @@
                         <a href="<?php echo $this->serverUrl(); ?>">Home</a>
                     </li>
                     <li id="menu-item-2" class="menu-item menu-item-type-post_type menu-item-object-page">
-                        <a href="javascript:void(0);">Login</a>
+                        <a href="<?php echo $this->basePath('pricing'); ?>">Pricing</a>
                     </li>
                     <li id="menu-item-3" class="menu-item menu-item-type-post_type menu-item-object-page">
-                        <a href="javascript:void(0);">Register</a>
+                        <a href="javascript:void(0);">Login</a>
                     </li>
                     <li id="menu-item-4" class="menu-item menu-item-type-post_type menu-item-object-page">
+                        <a href="javascript:void(0);">Register</a>
+                    </li>
+                    <li id="menu-item-5" class="menu-item menu-item-type-post_type menu-item-object-page">
                         <a href="<?php echo $this->basePath("contact"); ?>">Talk to us</a>
                     </li>
                 </ul>

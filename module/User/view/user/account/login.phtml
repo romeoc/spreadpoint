@@ -37,15 +37,11 @@
         var loginFormContainer = $('.login-form-container');
         
         $('.login-action').on('click', function(){
-            loginFormContainer.show().prependTo('body');
+            loginFormContainer.slideDown(300).prependTo('body');
             loginOverlay.show().on('click', resetScroll).prependTo('body');
             $('.close-action').on('click', resetScroll);
            
-            body.on('scroll touchmove mousewheel', function(e){
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-            });
+            body.addClass('no-scroll');
         });
         
         $('#Login').submit(function(e) {
@@ -70,9 +66,9 @@
         
         function resetScroll() 
         {
-            body.off('scroll touchmove mousewheel');
+            body.removeClass('no-scroll');
+            loginFormContainer.slideUp(200);            
             loginOverlay.hide();
-            loginFormContainer.hide();
         }
     });
 </script>

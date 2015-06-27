@@ -19,7 +19,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 html {
     font-size: 62.5%; /* Corrects text resizing oddly in IE6/7 when body font-size is set using em units http://clagnut.com/blog/348/#c790 */
-    overflow-y: scroll; /* Keeps page centered in all browsers regardless of content height */
     -webkit-text-size-adjust: 100%; /* Prevents iOS text size adjust after orientation change, without disabling user zoom */
     -ms-text-size-adjust:     100%; /* www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
 }
@@ -40,7 +39,6 @@ html {
 
 body {
     background: #fff; /* Fallback for when there is no custom background color defined. */
-    overflow: hidden; 
 }
 
 article,
@@ -419,54 +417,6 @@ textarea {
     -webkit-animation-name: fadeInRight;
 }
 
-/*--------------------------------------------------------------
-5.0 Pricing
---------------------------------------------------------------*/
-.pricing-section {
-    text-align: center;
-}
-.pricing-section .option {
-    float: left;
-    width: 45%;
-    margin: 0 10px;
-}
-.pricing-section .disclaimer{
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-}
-.pricing-section .option-image {
-    height: 300px;
-}
-.pricing-section .option-title p {
-    font-size: 24px;
-    color: #ea474b;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-.pricing-section .option-price h1 {
-    font-weight: none;
-}
-.pricing-section .option-benefits {
-    padding-top: 20px;
-    height: 400px;
-    margin-bottom:20px;
-}
-.pricing-section .satisfaction-guarantee {
-    padding-top: 20px;
-}
-.pricing-section .option-ocean img {
-    margin-top: 50px;
-}
-.pricing-section ul.benefits {
-    list-style: none;
-    margin: 0;
-}
-.pricing-section ul.benefits li {
-    padding: 3px 0;
-    width: 70%;
-    margin: 0 auto;
-}
 /*--------------------------------------------------------------
 5.1 Links
 --------------------------------------------------------------*/
@@ -1770,7 +1720,4 @@ body {
     .hero-content span h2 { font-size: 280%; line-height: 40px; }
     .hero-content span h3 { font-size: 160%; line-height: 32px; }
     .hero-content { max-width: 100%; } 
-    .pricing-section .option { width: 100%; margin: 0; margin-bottom: 20px;}
-    .pricing-section .option-benefits { height: auto; }
-
 }

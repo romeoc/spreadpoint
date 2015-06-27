@@ -1,10 +1,11 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
+ * Application Controller
  *
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @module     Application
+ * @author     SpreadPoint <support@spreadpoint.co>
+ * @copyright  Copyright (c) 2015 SpreadPoint (http://www.spreadpoint.co)
  */
 
 namespace Application\Controller;
@@ -15,6 +16,11 @@ use Zend\View\Model\ViewModel;
 class IndexController extends AbstractActionController
 {
     public function indexAction()
+    {
+        return new ViewModel();
+    }
+    
+    public function pricingAction()
     {
         return new ViewModel();
     }
