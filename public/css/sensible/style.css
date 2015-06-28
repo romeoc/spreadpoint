@@ -822,11 +822,9 @@ a:active {
     margin: 1rem 0; 
 }
 .home-content, .footer-contact {
-    padding: 50px 0 80px;
+    padding-bottom: 50px;
     text-align: center;
-    background: #fafafa;
     border-top: 1px solid #dadada;
-    border-bottom: 1px solid #dadada;
 }
 .home-content p {
     max-width: 850px;

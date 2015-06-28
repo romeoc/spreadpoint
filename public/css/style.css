@@ -3,6 +3,8 @@
 .right { float: right; }
 .hide { display: none; }
 .no-scroll { overflow: hidden; }
+.pad-top-50 { padding-top: 50px; }
+.background-light { background-color: #FEF0F1; }
 
 /***** FORMS *****/
 .custom-form { text-align: center; }
@@ -27,6 +29,14 @@
 .header-account-container { padding: 0 20px; }
 .header-login-section .login-action { padding: 1em 3em; }
 .header-account-section .account-username { color: #ea474b; font-weight: bold; }
+
+/**** HOMEPAGE *****/
+.strong-point { text-align: center;}
+.strong-point .strong-point-image,
+.strong-point .strong-point-text { width: 45%; display: inline-block; vertical-align: 100%; }
+.strong-point .strong-point-text { text-align: left; }
+.strong-point .strong-point-text h2 { padding-left: 10%; }
+.strong-point .strong-point-text p { font-size: 20px; width:80%; }
 
 /***** PRICING *****/
 .pricing-container .pricing-header { background: url(../../img/pricing-background.png); height: 500px; }
