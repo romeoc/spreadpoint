@@ -1,4 +1,3 @@
-<?php use User\Model\Form\RegisterForm; ?>
 <div id="page" class="hfeed site">
     <section id="content" class="site-content">
         <section id="hero-header" data-speed="8" data-type="background"> 
@@ -9,7 +8,7 @@
                         <h3 class="animated fadeInDown delay">WITH FULL CONTROL OVER YOUR MESSAGE</h3> 
                     </div>
                     <div class="hero-content-section hero-register right animated fadeInDown delay">
-                        <?php echo $this->partial('user/account/register.phtml', array('form' => new RegisterForm())); ?>
+                        <?php echo $this->partial('user/account/register.phtml', array('form' => new \User\Model\Form\RegisterForm())); ?>
                     </div>
                 </div>
             </div>

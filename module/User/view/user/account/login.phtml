@@ -57,7 +57,7 @@
                 method: "POST"
             }).done(function(data){
                 if (data.status) {
-                    window.location = "<?php echo $this->basePath('account'); ?>";
+                    location.reload();
                 } else {
                     $('.login-form .error').html(data.message);
                 }

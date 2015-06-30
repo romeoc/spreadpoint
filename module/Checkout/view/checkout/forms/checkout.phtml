@@ -1,0 +1,81 @@
+<section class="checkout-section">
+    <?php
+        $form = $this->form;
+        $form->prepare();
+        $form->setAttribute('action', $this->url('checkout',
+            array('controller'=>'cart', 'action' => 'submit')));
+        $form->setAttribute('method', 'post');
+        echo $this->form()->openTag($form);
+    ?>
+    
+    <div class="checkout-form custom-form plan-form">
+        <div class="form-errors"><span class="error"></span></div>
+        <div class="subtitle">
+            <h4>Plan</h4>
+        </div>
+        <div class="checkout-form-row custom-form-row custom-row-plan">
+            <div class="hidden-plan-element hide">
+                <?php echo $this->formElement($form->get('plan')); ?>
+            </div>
+            <div class="visible-plan element">
+                <div class="plan-puddle checkout-plan">
+                    <span class="title">Puddle</span>
+                    <a  href="javascript:void(0);" class="puddle-plan-trigger" title="Puddle Plan">
+                        <img src="<?php echo $this->basePath('img/puddle.png'); ?>" alt="Puddle Plan" width="100" height="100" />
+                    </a>
+                    <span class="price">$29/mo</span>
+                </div>
+                <div class="plan-lake checkout-plan">
+                    <span class="title">Lake</span>                    
+                    <a  href="javascript:void(0);" class="lake-plan-trigger" title="Lake Plan">
+                        <img src="<?php echo $this->basePath('img/lake.png'); ?>" alt="Lake Plan" width="100" height="100" />
+                    </a>
+                    <span class="price">$129/mo</span>
+                </div>
+                <div class="plan-ocean checkout-plan">
+                    <span class="title">Ocean</span>
+                    <a href="javascript:void(0);" class="ocean-plan-trigger" title="Ocean Plan">
+                        <img src="<?php echo $this->basePath('img/ocean.png'); ?>" alt="Ocean Plan" width="90" height="90" />
+                    </a>
+                    <span class="price">$599/mo</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="checkout-form custom-form payment-form">
+        <div class="subtitle">
+            <h4 class="left">Card</h4>
+            <span class="pay-pal-text right">or pay with <span class="pay-pal-action"><span class="pay">Pay</span><span class="pal">Pal</span></span></span>
+        </div>
+        <?php foreach ($form as $element): ?>
+            <?php if (get_class($element) !== 'Zend\Form\Element\Radio'): ?>
+                <div class="checkout-form-row custom-form-row custom-row-<?php echo $element->getName(); ?>">
+                    <?php echo $this->formElement($element); ?>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+    <?php echo $this->form()->closeTag() ?>
+    
+    <script type="text/javascript">
+        $(function(){
+            $('.checkout-plan').on('click', function(){
+                $(this).addClass('selected')
+                    .siblings().removeClass('selected');
+            });
+            
+            $('.custom-row-card_number input').on('keyup', function(){
+                var field = $(this);
+                var cardNumber = field.val();
+                
+                var fomatedCardNumber = $(this).val().split(" ").join("");
+                if (fomatedCardNumber.length > 0) {
+                  fomatedCardNumber = fomatedCardNumber.match(new RegExp('.{1,4}', 'g')).join(" ");
+                }
+                
+                field.val(fomatedCardNumber);
+            });
+        });
+    </script>
+</section>

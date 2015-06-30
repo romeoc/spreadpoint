@@ -39,7 +39,7 @@
 .strong-point .strong-point-text p { font-size: 20px; width:80%; }
 
 /***** PRICING *****/
-.pricing-container .pricing-header { background: url(../../img/pricing-background.png); height: 500px; }
+.pricing-container .pricing-header { background: url(../img/pricing-background.png); height: 500px; }
 .pricing-container .pricing-header-content { height: 200px; padding-top: 150px; text-align: center; color: white; }
 .pricing-container .pricing-header-content h2 { text-transform: uppercase; font-weight: bold; }
 .pricing-container .pricing-header-content p { color: white; width: 50%; margin: 0 auto; padding-bottom: 30px; }
@@ -61,3 +61,42 @@
 .pricing-section .satisfaction-guarantee { padding: 40px 5px 10px; overflow: hidden; }
 .pricing-section ul.benefits { list-style: none; margin: 0; text-align: justify; }
 .pricing-section ul.benefits li { padding: 5px 0 5px 30px; width: 80%; margin: 0 auto; background: url(../img/check.png) no-repeat 0 5px; }
+
+/***** CHECKOUT *****/
+.checkout { background: url(../img/checkout-background.png); min-height: 600px; padding: 140px 0 70px 0; text-align: center; }
+.checkout .checkout-register { width: 30%; display: inline-block; background-color: white; padding: 70px; -webkit-box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.64); -moz-box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.64); box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.64); border-radius: 10px; }
+.checkout .register-form-row { padding-bottom: 5px; }
+.checkout .custom-row-submit { padding-top: 50px; }
+.checkout .custom-form .custom-form-row { width: 99%; }
+.checkout .custom-form .custom-row-firstname, 
+.checkout .custom-form .custom-row-lastname { width: 49%; }
+.checkout .custom-row-terms-and-conditions label { color: black; }
+.checkout .title, .checkout .price {padding-bottom: 20px; font-weight: bold; }
+
+.checkout .checkout-form { width: 40%; display: inline-block; background-color: white; -webkit-box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.64); -moz-box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.64); box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.64); border-radius: 10px; margin: 10px 200px; }
+.checkout .checkout-billing .subtitle { background-color: #CCC; padding: 15px 50px 5px 50px; margin: 15px 0;font-weight: bold; text-align: left; color: black; height: 60px; }
+.checkout .checkout-billing .checkout-form-row { width: 70%; border-radius: 8px; }
+.checkout .checkout-billing .checkout-form-row.custom-row-submit { width: 40%; margin-bottom: 50px; padding-top: 30px; }
+.checkout .checkout-billing .checkout-form-row.custom-row-plan { margin-bottom: 50px; text-align: center; width: 100%; }
+.checkout .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan { display: inline-block; width: 30%; border: 2px solid #CCC; border-radius: 10px;}
+.checkout .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan.selected { border-color: #FD8B8E; background-color: #FD8B8E; }
+.checkout .checkout-billing .visible-plan span { display: block; padding: 0;}
+.checkout .checkout-billing .visible-plan span.title { padding-top: 10px; }
+.checkout .checkout-billing .visible-plan span.price { padding-bottom: 10px; }
+.checkout .payment-form .subtitle h4 { background: url(../img/credit-card.png) no-repeat top right; background-position: 70px 2px; width: 150px; }
+.checkout .plan-form .subtitle h4 { background: url(../img/plan.png) no-repeat top right; background-position: 65px; }
+.checkout .payment-form .pay-pal-action { border: 1px solid black; padding: 5px 15px; border-radius: 5px; margin-left: 5px; cursor: pointer; font-family: verdana; font-style: italic; font-size: 110%; }
+.checkout .payment-form .pay-pal-action:hover { background-color: white; }
+.checkout .payment-form .pay-pal-action:hover .pay { color: #124585; }
+.checkout .payment-form .pay-pal-action:hover .pal { color: #255898; }
+.checkout .checkout-billing .checkout-form-row input { border-radius: 8px; }
+.checkout .payment-form .custom-row-fullname input { background: url(../img/id.png) no-repeat 10px; }
+.checkout .payment-form .custom-row-card_number input { background: url(../img/card-number.png) no-repeat 10px; }
+.checkout .payment-form .custom-row-expiry_date input { background: url(../img/calendar.png) no-repeat 10px; }
+.checkout .payment-form .custom-row-cvc input { background: url(../img/cvc.png) no-repeat 10px; }
+.checkout .payment-form .custom-row-fullname input,
+.checkout .payment-form .custom-row-card_number input,
+.checkout .payment-form .custom-row-expiry_date input,
+.checkout .payment-form .custom-row-cvc input { padding: 5px 0 5px 55px; letter-spacing: 2px; }
+.checkout .payment-form .custom-row-expiry_date, 
+.checkout .payment-form .custom-row-cvc { width: 35%; }

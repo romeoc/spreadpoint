@@ -11,13 +11,14 @@
 namespace User\Model\Form;
 
 use Zend\Form\Form;
-use Zend\Form\Element;
 
 class RegisterForm extends Form
 {
-    public function __construct($name = null)
+    protected $_isCheckout;
+    public function __construct($isCheckout = false)
     {
         parent::__construct('Register');
+        $this->_isCheckout = $isCheckout;
         $this->setAttribute('method', 'post');
         $this->setAttribute('enctype','multipart/form-data');
         $this->initFields();
@@ -111,11 +112,12 @@ class RegisterForm extends Form
         ));
         
         //Submit Button
+        $buttonValue = ($this->_isCheckout) ? 'Continue' : 'Join the Party';
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(
                 'type' => 'Submit',
-                'value' => 'Join the Party',
+                'value' => $buttonValue,
                 'class' => 'account-submit'
             ),
         ));

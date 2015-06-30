@@ -1,0 +1,14 @@
+<?php $this->headMeta()->appendName('robots', 'noindex, nofollow'); ?>
+<div class="checkout">
+    <?php $isLoggedIn = $this->userHelper()->isLoggedIn(); ?>
+    <?php if (!$isLoggedIn): ?>
+        <div class="checkout-register">
+            <div class="title"><h4>Create Your Account</h4></div>
+            <?php echo $this->partial('user/account/register.phtml', array('form' => new \User\Model\Form\RegisterForm(true), 'checkout' => true)); ?>
+        </div>
+    <?php else: ?>
+    <div class="checkout-billing">
+        <?php echo $this->partial('checkout/forms/checkout.phtml', array('form' => new \Checkout\Model\Form\CheckoutForm())); ?>
+    </div>
+    <?php endif; ?>
+</div>
