@@ -17,7 +17,6 @@ use Zend\View\Model\JsonModel;
 use User\Model\User;
 use User\Helper\UserHelper;
 use User\Model\Form\RegisterForm;
-use User\Model\Form\LoginForm;
 use User\Model\Form\Register\RegisterFilter;
 
 class AccountController extends AbstractActionController
@@ -32,7 +31,7 @@ class AccountController extends AbstractActionController
             return $this->redirect()->toRoute('home');
         }
         
-        var_dump('Welcome lad! We are still working on the account section. Patience my friend, patience.'); die;
+        return new ViewModel();
     }
     
     /**
@@ -72,7 +71,7 @@ class AccountController extends AbstractActionController
             );
         }
         
-       return new JsonModel(
+        return new JsonModel(
             array(
                 'status' => true,
                 'message' => 'Registration was succesful'

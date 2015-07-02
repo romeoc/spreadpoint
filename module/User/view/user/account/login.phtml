@@ -31,44 +31,8 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(function(){
-        var body = $('body');
-        var loginOverlay = $('.login-overlay');
-        var loginFormContainer = $('.login-form-container');
-        
-        $('.login-action').on('click', function(){
-            loginFormContainer.slideDown(300).prependTo('body');
-            loginOverlay.show().on('click', resetScroll).prependTo('body');
-            $('.close-action').on('click', resetScroll);
-           
-            body.addClass('no-scroll');
-        });
-        
-        $('#Login').submit(function(e) {
-            e.preventDefault();
-
-            var thisForm = $(this);
-            var postData = thisForm.serializeArray();
-            var formURL = thisForm.attr("action");
-
-            $.ajax({
-                url : formURL,
-                data : postData,
-                method: "POST"
-            }).done(function(data){
-                if (data.status) {
-                    location.reload();
-                } else {
-                    $('.login-form .error').html(data.message);
-                }
-            });
-        });
-        
-        function resetScroll() 
-        {
-            body.removeClass('no-scroll');
-            loginFormContainer.slideUp(200);            
-            loginOverlay.hide();
-        }
+    $(function() {
+        var loginForm = new SpreadPoint.LoginForm();
+        loginForm.init();
     });
 </script>

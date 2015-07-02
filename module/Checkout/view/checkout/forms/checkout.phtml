@@ -57,25 +57,10 @@
         <?php endforeach; ?>
     </div>
     <?php echo $this->form()->closeTag() ?>
-    
-    <script type="text/javascript">
-        $(function(){
-            $('.checkout-plan').on('click', function(){
-                $(this).addClass('selected')
-                    .siblings().removeClass('selected');
-            });
-            
-            $('.custom-row-card_number input').on('keyup', function(){
-                var field = $(this);
-                var cardNumber = field.val();
-                
-                var fomatedCardNumber = $(this).val().split(" ").join("");
-                if (fomatedCardNumber.length > 0) {
-                  fomatedCardNumber = fomatedCardNumber.match(new RegExp('.{1,4}', 'g')).join(" ");
-                }
-                
-                field.val(fomatedCardNumber);
-            });
-        });
-    </script>
 </section>
+<script type="text/javascript">
+    $(function(){
+        var checkout = new SpreadPoint.Checkout();
+        checkout.init();
+    });
+</script>

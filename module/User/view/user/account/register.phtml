@@ -21,66 +21,10 @@
         <?php endforeach; ?>
     </div>
     <?php echo $this->form()->closeTag() ?>
-    <script type="text/javascript">
-        $(function(){
-           $('.custom-row-terms-and-conditions label').on('click', function(){
-              $(this).siblings('.terms-checkbox').trigger('click');
-           });
-           
-           $('#Register').submit(function(e) {
-                e.preventDefault();
-                
-                if (isFormValid()) {
-                    var thisForm = $(this);
-                    var postData = thisForm.serializeArray();
-                    var formURL = thisForm.attr("action");
-
-                    $.ajax({
-                        url : formURL,
-                        data : postData,
-                        method: "POST"
-                    }).done(function(data){
-                        if (data.status) {
-                            window.location = "<?php echo $this->basePath('checkout'); ?>";
-                        } else {
-                            $('.register-form .error').html(data.message);
-                        }
-                    });
-                }
-            });
-            
-            function isFormValid() 
-            {
-                var email = $('.register-form .custom-row-email').find('input').val();
-                var password = $('.register-form .custom-row-password').find('input').val();
-                
-                // Email Validation
-                var emailRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-                if (!emailRegex.test(email)) {
-                    $('.register-form .error').html('Please provide a valid email address');
-                    return false;
-                }
-                
-                // Password Validation
-                if (password.length < 6) {
-                    $('.register-form .error').html('Your password should contain at least 6 characters');
-                    return false;
-                }
-                  
-                var hasNumber = /[0-9]/;
-                if(!hasNumber.test(password)) {
-                    $('.register-form .error').html('Your password must contain at least one number (0-9)');
-                    return false;
-                }
-                  
-                var hasLetter = /[a-zA-z]/;
-                if(!hasLetter.test(password)) {
-                    $('.register-form .error').html('Your password must contain at least one letter (a-z,A-Z)');
-                    return false;
-                }
-                
-                return true;
-            }
-        });
-    </script>
 </section>
+<script type="text/javascript">
+    $(function() {
+        var loginForm = new SpreadPoint.RegisterForm();
+        loginForm.init();
+    });
+</script>

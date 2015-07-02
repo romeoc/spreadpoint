@@ -21,14 +21,24 @@
 .login-overlay { position: fixed; top: 0; left: 0; background: rgba(0,0,0,0.6); z-index: 15; width: 100%; height: 100%; }
 .login-form-container .login { padding-bottom: 50px; background-color: white; border-radius: 10px; }
 .login .login-title {  font-weight: bold; color: white; background-color: #ea474b; border-bottom: 1px solid; padding: 20px 0 10px 30px; margin-bottom: 20px; height: 80px; }
-.login input { border-color: #ea474b !important; }
 .login .forgot-your-password { color: #ea474b; font-weight: bold; padding-top: 10px; }
 .login .close-action { padding-right: 30px; font-size: 150%; cursor: pointer; }
 
 /***** ACCOUNT SECTION *****/
 .header-account-container { padding: 0 20px; }
 .header-login-section .login-action { padding: 1em 3em; }
-.header-account-section .account-username { color: #ea474b; font-weight: bold; }
+.header-account-section .account-username i { padding-right: 5px; }
+.header-account-section .account-username { font-weight: bold !important; color: #ea474b !important; text-align: center; padding-left: -20px; }
+.header-account-section .account-links { position: absolute; right: 0; top: 73px; list-style: none; background-color: #ea474b; margin-left: 0; width: 200px; border-radius: 5px; }
+.header-account-section .account-links:after, .header-account-section .account-links:before { bottom: 100%; left: 50%; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none; }
+.header-account-section .account-links:before { border-color: rgba(194, 225, 245, 0); border-bottom-color: #ea474b; border-width: 16px; margin-left: -16px; }
+.header-account-section .account-links li {  font-weight: bold; border-bottom: 1px solid white; }
+.header-account-section .account-links li.last { border-bottom: none; }
+.header-account-section .account-links a { padding: 7px 0 7px 20px; font-weight: bold; color: white; display: block;}
+.header-account-section .account-links a i { width: 20px; }
+.header-account-section .account-links a:hover { background-color: white; color: #ea474b; }
+.header-account-section .account-links a.first:hover { border-radius: 5px 5px 0 0; }
+.header-account-section .account-links a.last:hover { border-radius: 0 0 5px 5px; }
 
 /**** HOMEPAGE *****/
 .strong-point { text-align: center;}
@@ -100,3 +110,6 @@
 .checkout .payment-form .custom-row-cvc input { padding: 5px 0 5px 55px; letter-spacing: 2px; }
 .checkout .payment-form .custom-row-expiry_date, 
 .checkout .payment-form .custom-row-cvc { width: 35%; }
+
+/***** DASHBOARD *****/
+.dashboard { min-height: 500px; padding-top: 80px; }
