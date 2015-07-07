@@ -1,0 +1,13 @@
+<section class="campaign-section-widgets">
+    <input type="hidden" class="widgets-serialized" name="widgets-serialized" value='<?php echo $this->data['appliedWidgets']; ?>' />
+    <div class="applied-widgets"></div>
+    <div class="active-widgets">
+        <button type="button" class="widget-action-add">
+            <i class="fa fa-plus-circle"></i>Add
+        </button>
+    </div>
+    <div class="available-widgets"></div>
+    <script type="text/javascript">
+        SpreadPoint.Widgets.Controller.init(<?php echo $this->data['widgetTypes']; ?>, <?php echo $this->data['appliedWidgets']; ?>);
+    </script>
+</section>

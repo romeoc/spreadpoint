@@ -1,0 +1,53 @@
+<div class="campaigns dashboard-section">
+    <?php echo $this->partial('user/dashboard/menu.phtml', array('selected' => 'campaigns')); ?>
+    <div class="campaign-view dashboard-content">
+        <?php echo $this->partial('application/session/global-messages', array('global_messages' => $this->messages)); ?>
+        <form method="post" name="campaign" enctype="multipart/form-data" action="/campaign/save" id="campaign">
+            <div class="campaign-view-header dashboard-header">
+                <div class="campaign-view-title dashboard-title left">
+                    <h2><?php echo ($this->title) ? $this->title : 'New Campaign'; ?></h2>
+                </div>
+                <div class="campaign-view-actions right">
+                    <a href="<?php echo $this->basePath('campaign/save'); ?>" title="Save">
+                        <button type="submit" class="campaign-view-action campaign-view-save">
+                            <i class="fa fa-save"></i> Save
+                        </button>
+                    </a>
+                    <a href="<?php echo $this->basePath('campaigns'); ?>" title="Cancel">
+                        <button type="button" class="campaign-view-action campaign-view-cancel">
+                            <i class="fa fa-undo"></i> Cancel
+                        </button>
+                    </a>
+                    <a href="<?php echo $this->basePath('campaign/preview'); ?>" title="Preview">
+                        <button type="button" class="campaign-view-action campaign-view-preview">
+                            <i class="fa fa-eye"></i> Preview
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="campaign-view-content">
+                <div class="campaign-tabs jqui-tabs">
+                    <ul>
+                        <li><a href="#general">General</a></li>
+                        <li><a href="#entries">Entries</a></li>
+                        <li><a href="#prize">Prizes</a></li>                        
+                        <li><a href="#advanced">Advanced</a></li>
+                    </ul>
+                    <div id="general" class="campaign-tab">
+                        <?php $this->test = 'hahaha'; ?>
+                        <?php echo $this->partial('campaign/sections/general.phtml'); ?>
+                    </div>
+                    <div id="entries" class="campaign-tab">
+                        <?php echo $this->partial('campaign/sections/entries.phtml', array('data' => $this->entriesData)); ?>
+                    </div>
+                    <div id="prize" class="campaign-tab">
+                        <?php echo $this->partial('campaign/sections/prize.phtml'); ?>
+                    </div>
+                    <div id="advanced" class="campaign-tab">
+                        <?php echo $this->partial('campaign/sections/advanced.phtml'); ?>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -8,6 +8,7 @@ return array(
         'Base',
         'User',
         'Checkout',
+        'Campaign',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

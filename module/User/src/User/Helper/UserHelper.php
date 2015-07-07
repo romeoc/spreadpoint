@@ -60,4 +60,16 @@ class UserHelper extends AbstractHelper implements ServiceLocatorAwareInterface
         
         return $id;
     }
+    
+    public function getLoggedInUser()
+    {
+        $service = $this->getServiceLocator()->get('doctrine.authenticationservice.orm_default');
+        $entity = false;
+        
+        if ($service->hasIdentity()) {
+            $entity = $service->getIdentity();
+        }
+        
+        return $entity;
+    }
 }

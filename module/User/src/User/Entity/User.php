@@ -11,7 +11,6 @@
 namespace User\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use Zend\Form\Annotation;
 
 use Base\Entity\AbstractEntity;
@@ -20,6 +19,7 @@ use Base\Entity\AbstractEntity;
 class User extends AbstractEntity
 {
     const SALT = '3$fa^hW*a';
+    const DEFAULT_PASSWORD = 'welovespreadpoint2015';
     
     /**
     * @ORM\Id
@@ -72,7 +72,7 @@ class User extends AbstractEntity
     public function beforeCreate()
     {
         if (empty($this->password)) {
-            $this->password = 'password123';
+            $this->password = self::DEFAULT_PASSWORD;
         }
         
         $password = $this->email. ':' . $this->password . ':' . self::SALT;

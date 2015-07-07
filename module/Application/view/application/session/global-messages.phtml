@@ -1,0 +1,12 @@
+<?php use Base\Model\Session; ?>
+<div class="global-messages-container">
+    <ul class="global-messages">
+        <?php $messages = ($this->global_messages) ? $this->global_messages : Session::getGlobalMessages(); ?>
+        <?php if ($messages): ?>
+            <?php foreach ($messages as $message): ?>
+                <li class="<?php echo $message['type']; ?>"><?php echo $message['message']; ?></li>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        <?php Session::clear(); ?>
+    </ul>
+</div>

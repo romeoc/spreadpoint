@@ -1,0 +1,15 @@
+<div class="campaigns dashboard-section">
+    <?php echo $this->partial('user/dashboard/menu.phtml', array('selected' => 'campaigns')); ?>
+    <div class="campaigns-content dashboard-content">
+        <div class="campaigns-header dashboard-header">
+            <div class="campaigns-title dashboard-title">
+                <h2>Campaigns</h2>
+                <a href="<?php echo $this->basePath('campaign/edit'); ?>" title="Add Campaign">
+                    <button type="button" class="add-campaign-action">
+                        <i class="fa fa-plus"></i> Add Campaign
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

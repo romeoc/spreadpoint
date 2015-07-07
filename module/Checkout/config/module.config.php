@@ -24,7 +24,7 @@ return array(
             'checkout' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/checkout[/:controller[/:action]]',
+                    'route'    => '/checkout[/[:controller[/[:action[/]]]]]',
                     'constraints' => array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',

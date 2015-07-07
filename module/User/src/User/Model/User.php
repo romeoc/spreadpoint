@@ -30,7 +30,7 @@ class User extends AbstractModel
     
     public function authenticate($username, $password)
     {
-        $password = $username. ':' . $password . ':' . UserEntity::SALT;
+        $password = $username . ':' . $password . ':' . UserEntity::SALT;
         $password = hash('sha256', $password);
         
         $auth = $this->service->get('doctrine.authenticationservice.orm_default');

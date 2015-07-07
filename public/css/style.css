@@ -29,14 +29,14 @@
 .header-login-section .login-action { padding: 1em 3em; }
 .header-account-section .account-username i { padding-right: 5px; }
 .header-account-section .account-username { font-weight: bold !important; color: #ea474b !important; text-align: center; padding-left: -20px; }
-.header-account-section .account-links { position: absolute; right: 0; top: 73px; list-style: none; background-color: #ea474b; margin-left: 0; width: 200px; border-radius: 5px; }
+.header-account-section .account-links { position: absolute; right: 0; top: 75px; background-color: white; border: 1px solid #ea474b; list-style: none; margin-left: 0; width: 200px; border-radius: 5px; }
 .header-account-section .account-links:after, .header-account-section .account-links:before { bottom: 100%; left: 50%; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none; }
 .header-account-section .account-links:before { border-color: rgba(194, 225, 245, 0); border-bottom-color: #ea474b; border-width: 16px; margin-left: -16px; }
-.header-account-section .account-links li {  font-weight: bold; border-bottom: 1px solid white; }
+.header-account-section .account-links li {  font-weight: bold; border-bottom: 1px solid #ea474b; }
 .header-account-section .account-links li.last { border-bottom: none; }
-.header-account-section .account-links a { padding: 7px 0 7px 20px; font-weight: bold; color: white; display: block;}
+.header-account-section .account-links a { padding: 7px 0 7px 20px; font-weight: bold; color: #ea474b; display: block;}
 .header-account-section .account-links a i { width: 20px; }
-.header-account-section .account-links a:hover { background-color: white; color: #ea474b; }
+.header-account-section .account-links a:hover { background-color: #ea474b; color: white; }
 .header-account-section .account-links a.first:hover { border-radius: 5px 5px 0 0; }
 .header-account-section .account-links a.last:hover { border-radius: 0 0 5px 5px; }
 
@@ -114,4 +114,24 @@
 .checkout .payment-form .custom-row-cvc { width: 35%; }
 
 /***** DASHBOARD *****/
-.dashboard { min-height: 500px; padding-top: 80px; }
+.dashboard-section { width: 100%; overflow: hidden; display: flex; }
+.dashboard-menu-container { width: 15%; display: flex; }
+.dahsboard-menu { list-style: none; background-color: #ea474b; margin: 0; padding-top: 73px; align-items: stretch; width: 100%; }
+.dahsboard-menu li { }
+.dahsboard-menu li a { padding: 10px; color: white; font-weight: bold; width: 100%; height: 100%; display: block; }
+.dahsboard-menu li a.selected, .dahsboard-menu li a:hover { color: #ea474b; background-color: white; }
+.dahsboard-menu li i { padding: 0 10px; }
+.dashboard-content { width: 85%; padding: 85px 0 50px 20px; min-height: 550px; }
+
+/***** Campaigns *****/
+.campaign-view .campaign-view-actions { padding-right: 50px; }
+.campaign-view .campaign-view-actions a { margin: 0 5px; }
+.campaign-view .campaign-view-action { padding: 10px 20px; }
+.campaign-view .campaign-view-action i { padding: 0 5px; }
+.campaign-view .campaign-view-content { clear: both; }
+.campaign-view .campaign-tabs ul.ui-tabs-nav { list-style: none; text-align: left; margin: 0; border-bottom: 1px solid #ea474b; margin-right: 20px; }
+.campaign-view .campaign-tabs li.ui-state-default { display: inline-block; }
+.campaign-view .campaign-tabs li.ui-state-default a { display: block; padding: 10px 20px; }
+.campaign-view .campaign-tabs li.ui-state-active { background-color: #ea474b; border-radius: 10px 10px 0 0; }
+.campaign-view .campaign-tabs li.ui-state-active a { color: white; }
+.campaign-view .campaign-tab { padding-top: 20px; }

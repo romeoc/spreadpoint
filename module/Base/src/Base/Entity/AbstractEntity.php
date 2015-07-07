@@ -11,8 +11,6 @@ namespace Base\Entity;
  */
 class AbstractEntity 
 {
-    protected $parentField;
-    
     public function __get($property) 
     {
         $getter = 'get'.ucfirst($property);
@@ -59,13 +57,32 @@ class AbstractEntity
         return $this;
     }
     
-    public function getParentField()
+    public function afterSave()
     {
-        return $this->parentField;
+        return $this;
     }
     
-    public function hasParentField()
+    public function afterCreate()
     {
-        return (!empty($this->parentField));
+        return $this;
+    }
+    
+    public function afterUpdate()
+    { 
+        return $this;
+    }
+    
+    public function afterDelete()
+    {
+        return $this;
+    }
+    
+    public function setData($data)
+    {
+        foreach ($data as $key => $value) {
+            $this->__set($key, $value);
+        }
+        
+        return $this;
     }
 }

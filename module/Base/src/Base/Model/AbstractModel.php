@@ -1,25 +1,35 @@
 <?php
 
-namespace Base\Model;
-
 /**
- * Abstract Model
- *
- * Module: Application
+ * Abstract Model with Service Locator
+ * 
+ * Module: Base
  * Author: Romeo Cozac <romeo_cozac@yahoo.com>
- *
+ * 
  */
+
+
+namespace Base\Model;
 
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use DoctrineORMModule\Form\Annotation\AnnotationBuilder;
-use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
+use Base\Model\Session;
 
 class AbstractModel implements ServiceLocatorAwareInterface
 {
-    protected $service;
-
+    /**
+     * The doctrine entity we are dealing with
+     *
+     * @var string 
+     */
     protected $entity;
+    
+    /**
+     * Service Locator
+     *
+     * @var ServiceLocatorInterface 
+     */
+    protected $service;
 
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
@@ -30,15 +40,29 @@ class AbstractModel implements ServiceLocatorAwareInterface
     {
         return $this->service;
     }
-
+    
+    /**
+     * Get doctrine entity manager
+     * 
+     * @return Doctrine\ORM\EntityManager
+     */
+    public function getEntityManager()
+    {
+        return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+    }
+    
     public function init($entity)
     {
         $this->entity = $entity;
     }
-
+    
+    /**
+     * Create or Update the entity
+     * 
+     * @param array $data
+     */
     public function save($data)
     {
-        $this->saveFiles();
         if (!empty($data['id'])) {
             $this->update($data);
         } else {
@@ -46,151 +70,87 @@ class AbstractModel implements ServiceLocatorAwareInterface
         }
     }
     
-    public function saveFiles()
-    {
-        $path = 'public/media/uploads/';
-        if (!is_dir($path)) {
-            mkdir($path, 0777, true);
-        }
-        foreach ($_FILES as $file) {
-            $httpadapter = new \Zend\File\Transfer\Adapter\Http(); 
-            $filesize  = new \Zend\Validator\File\Size(array('max' => '10MB' ));
-            $extension = new \Zend\Validator\File\Extension(array('extension' => array('jpg','png','mp3','aac')));
-            $httpadapter->setValidators(array($filesize, $extension), $file['name']);
-            if ($httpadapter->isValid()) {
-                $httpadapter->setDestination($path);
-                $httpadapter->receive($file['name']);
-            }
-        }
-    }
-
+    /**
+     * Create a new entity with the provided data
+     * - will return the newly created entity or false if an error occurs
+     * 
+     * @param array $data
+     * @return boolean | doctrineEntity (Base\Entity\AbstractEntity)
+     */
     public function create($data)
     {
-        $entity = new $this->entity();
-        $service = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        $entityManager = $this->getEntityManager();
 
-        $this->setData($entity, $data);
+        // Creaty the new entity and set it's data
+        $entity = new $this->entity();
+        $entity->setData($data);
+        
+        // Trigger before save events of the entity
         $entity->beforeSave();
         $entity->beforeCreate();
 
         try {
-            $service->persist($entity);
-            $service->flush();
-            return true;
+            // Save entity
+            $entityManager->persist($entity);
+            $entityManager->flush();
+            
+            // Trigger after save events of the entity    
+            $entity->afterSave();
+            $entity->afterCreate();
+        
+            return $entity;
         } catch (\Exception $ex) {
+            Session::error($ex->getMessage());
             return false;
         }
     }
 
+    /**
+     * Update the data of an existing entity
+     * 
+     * @param array $data
+     * @return doctrineEntity (Base\Entity\AbstractEntity)
+     */
     public function update($data)
     {
-        $service = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        $entity = $service->find($this->entity, $data['id']);
+        // Fetch entity
+        $entityManager = $this->getEntityManager();
+        $entity = $entityManager->find($this->entity, $data['id']);
 
+        // Set new data
         unset($data['id']);
-        $this->setData($entity, $data);
+        $entity->setData($data);
+        
+        // Trigger before save events
         $entity->beforeSave();
         $entity->beforeUpdate();
 
-        $service->flush();
+        // Save entity
+        $entityManager->flush();
+        
+        // Trigger after save events
+        $entity->afterSave();
+        $entity->afterUpdate();
+        
+        return $entity;
     }
 
+    /**
+     * Delete a doctrine entity
+     * 
+     * @param int $id
+     */
     public function delete($id)
     {
-        $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        $entityManager = $this->getEntityManager();
 
+        // Find entry and remove it
         $entity = $entityManager->find($this->entity, $id);
         $entityManager->remove($entity);
 
+        // Save changes and trigger before & after delete events
         $entity->beforeDelete();
         $entityManager->flush();
-    }
-
-    public function setData($entity, $data)
-    {
-        $this->clearRelations($entity);
-        $object = $this->getEntityObject();
-        foreach ($data as $key => $value) {
-            if (empty($value) || (is_array($value) && empty($value[0]))) {
-                $value = null;
-            }
-            $annotation = $object->get($key);
-            if (!empty($annotation) && $annotation->hasAttribute('convertion_type')) {
-                $convertionClass = $annotation->getAttribute('convertion_class');
-                switch ($annotation->getAttribute('convertion_type')){
-                    case ('dateTime'):
-                        if (!empty($value)) {
-                            $date = new \DateTime($value);
-                            $date->format('Y-m-d H:i:s');
-                            $entity->__set($key, $date);
-                        }
-                        break;
-                    case ('manyToOne'):
-                        if (!empty($value)) {
-                            $entity->__set($key, $this->getOneToManyValue($convertionClass,$value));
-                        } else {
-                            $entity->__set($key, null);
-                        }
-                        break;
-                    case ('manyToMany'):
-                        if (!empty($value)) {
-                            $this->setManyToManyValue($convertionClass, $value, $entity->__get($key));
-                        } else {
-                            $entity->__set($key, null);
-                        }
-                        break;
-                    case ('oneToMany'):
-                        $entity->__set($key, null);
-                        break;
-                }
-            } else {
-                $entity->__set($key, $value);
-            }
-        }
-    }
-
-    protected function clearRelations($entity)
-    {
-        $object = $this->getEntityObject();
-        foreach ($object as $element) {
-            if ($element->hasAttribute('convertion_type') && $element->getAttribute('convertion_type') == 'manyToMany') {
-                $entity->__get($element->getName())->clear();
-
-            }
-        }
-    }
-
-    protected function getEntityObject()
-    {
-        $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-        $entity = new $this->entity();
-        $builder = new AnnotationBuilder($entityManager);
-        $form = $builder->createForm($entity);
-        $form->setHydrator(new DoctrineHydrator($entityManager,$this->entity));
-        $form->bind($entity);
-
-        return $form;
-    }
-
-    public function setManyToManyValue($entity, $data, $element)
-    {
-        if (!empty($data)) {
-            $service = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-            foreach ($data as $value) {
-                $entry = $service->find($entity, $value);
-                $element->add($entry);
-            }
-        }
-    }
-
-    public function getOneToManyValue($entity, $id)
-    {
-        $parts = explode('\\',$entity);
-        $length = count($parts);
-        $entity = $parts[$length-3].'\\'.$parts[$length-2].'\\'.$parts[$length-1];
-
-        $service = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        return $service->find($entity, $id);
-
+        $entity->afterDelete();
     }
 }

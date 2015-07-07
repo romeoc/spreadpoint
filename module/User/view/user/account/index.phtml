@@ -1,3 +1,6 @@
-<div class="dashboard">
-    Hey, sunshine. The day just got brighter.
+<div class="dashboard dashboard-section">
+    <?php echo $this->partial('user/dashboard/menu.phtml', array('selected' => 'summary')); ?>
+    <div class="dashboard-summary dashboard-content">
+        Hey, sunshine. The day just got brighter.
+    </div>
 </div>

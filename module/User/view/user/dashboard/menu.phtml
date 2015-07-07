@@ -1,0 +1,29 @@
+<div class="dashboard-menu-container left">
+    <ul class="dahsboard-menu">
+        <li class="first">
+            <a href="<?php echo $this->basePath('account'); ?>" class="dashboard-summary first <?php if ($this->selected == 'summary') { echo 'selected'; } ?>">
+                <i class="fa fa-list"></i> Summary
+            </a>
+        </li>
+        <li>
+            <a href="<?php echo $this->basePath('campaign/list'); ?>" class="dashboard-campaign <?php if ($this->selected == 'campaigns') { echo 'selected'; } ?>">
+                <i class="fa fa-bullseye"></i> Campaigns
+            </a>
+        </li>
+        <li>
+            <a href="<?php echo $this->basePath('campaign/analysis'); ?>" class="dashboard-analysis <?php if ($this->selected == 'analysis') { echo 'selected'; } ?>">
+                <i class="fa fa-bar-chart"></i> Analysis
+            </a>
+        </li>
+        <li class="last">
+            <a href="<?php echo $this->basePath('account/support'); ?>" class="account-support last <?php if ($this->selected == 'support') { echo 'selected'; } ?>">
+                <i class="fa fa-support"></i> Support
+            </a>
+        </li>
+        <li>
+            <a href="<?php echo $this->basePath('account/upgrade'); ?>" class="account-upgrade <?php if ($this->selected == 'upgrade') { echo 'selected'; } ?>">
+                <i class="fa fa-arrow-up"></i> Upgrade
+            </a>
+        </li>
+    </ul>
+</div>
