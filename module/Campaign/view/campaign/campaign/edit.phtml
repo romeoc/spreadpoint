@@ -35,7 +35,6 @@
                         <li><a href="#advanced">Advanced</a></li>
                     </ul>
                     <div id="general" class="campaign-tab">
-                        <?php $this->test = 'hahaha'; ?>
                         <?php echo $this->partial('campaign/sections/general.phtml', array('data' => $this->data)); ?>
                     </div>
                     <div id="schedule" class="campaign-tab">
@@ -45,7 +44,7 @@
                         <?php echo $this->partial('campaign/sections/entries.phtml', array('data' => $this->entriesData)); ?>
                     </div>
                     <div id="prize" class="campaign-tab">
-                        <?php echo $this->partial('campaign/sections/prize.phtml'); ?>
+                        <?php echo $this->partial('campaign/sections/prize.phtml', array('data' => $this->prizesData)); ?>
                     </div>
                     <div id="advanced" class="campaign-tab">
                         <?php echo $this->partial('campaign/sections/advanced.phtml', array('data' => $this->data)); ?>
@@ -57,6 +56,6 @@
 </div>
 <script type="text/javascript">
     $(function(){
-        SpreadPoint.Uploader.init();
+        SpreadPoint.Uploader.init('.custom-row-banner .file-upload');
     })
 </script>

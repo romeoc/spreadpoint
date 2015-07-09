@@ -201,8 +201,9 @@
      * Create file upload element for inputs
      */
     SpreadPoint.Uploader = {
-        init: function () {
-            $('.file-upload').not('.file-upload-wrapper .file-upload').each(function(){
+        init: function (selector) {
+            selector = selector || '.file-upload';
+            $(selector).not('.file-upload-wrapper .file-upload').each(function(){
                 var $this = $(this);
                 $this.wrap("<div class='file-upload-wrapper'></div>")
                     .attr('readonly',true)
@@ -361,6 +362,124 @@
                     var widgetId = element.closest('.applied-widget').data('id');
                     
                     $this.appliedWidgets[widgetId - 1][elementKey] = elementValue;
+                });
+                
+                $this.updateInputField();
+                this.submit();
+            });
+        }
+    }
+    
+    SpreadPoint.Prize = {};
+    SpreadPoint.Prize.Controller = {
+        /**
+         * Initialize prize section
+         * 
+         * @param JSON array prizes
+         */
+        init: function(prizes) {
+            this.prizes = prizes;
+            
+            if (this.prizes.length === 0) {
+                // Add initial prize
+                this.add();
+            } else {
+                // Load existing prizes
+                this.loadPrizes();
+                this.reloadListeners();
+            }
+            
+            // Initialize events
+            this.addCreationEvents();
+            this.addSubmitEvents();
+        },
+        /**
+         * Add a new prize
+         */
+        add: function() {
+            var newPrize = { referenceId: this.prizes.length + 1};
+            this.prizes.push(newPrize);
+                
+            var source   = SpreadPoint.Templates.Prize;
+            var template = Handlebars.compile(source);
+            
+            var html = template(newPrize);
+            $('.prizes').append(html);
+            
+            this.reloadListeners();
+            this.updateInputField();
+        },
+        /**
+         * Remove a prize by it's reference id
+         * 
+         * @param int prizeId / referenceId
+         */
+        remove: function(prizeId) {
+            $('.prize-' + prizeId).remove();
+            
+            delete this.prizes[prizeId - 1];
+            this.updateInputField();
+        },
+        /**
+         * Load existing prizes received as a parameter
+         */
+        loadPrizes: function() {
+            this.prizes.forEach(function(prize){
+                if (prize) {
+                    var source = SpreadPoint.Templates.Prize;
+                    var template = Handlebars.compile(source);
+                    var html = template(prize);
+
+                    $('.prizes').append(html);
+                }
+            });
+        },
+        /**
+         * Update yje input field that is sent when the form is submited
+         */
+        updateInputField: function() {
+            var data = JSON.stringify(this.prizes);
+            $('.prizes-serialized').val(data);
+        },
+        /**
+         * Adds image uploader and prize removal events
+         */
+        reloadListeners: function() {
+            var $this = this;
+            
+            $('.close-prize').on('click', function(){
+                var prizeId = $(this).closest('.row-prize').data('id');
+                $this.remove(prizeId);
+            });
+            
+            var imageFieldSelector = this.prizes.length;
+            imageFieldSelector = ".prize-" + imageFieldSelector + " .file-upload";
+            SpreadPoint.Uploader.init(imageFieldSelector);
+        },
+        /**
+         * Adds prize addition event
+         */
+        addCreationEvents: function() {
+            var $this = this;
+            $('.add-prize-action').on('click', function(){
+                $this.add();
+            });
+        },
+        /**
+         * Will process all data before the form is submited
+         */
+        addSubmitEvents: function() {
+            var $this = this;
+            $('#campaign').submit(function(e) {
+                e.preventDefault();
+                
+                $('.prize-element').each(function(){
+                    var element = $(this);
+                    var elementKey = element.data('key');
+                    var elementValue = element.val();
+                    var prizeId = element.closest('.row-prize').data('id');
+                    
+                    $this.prizes[prizeId - 1][elementKey] = elementValue;
                 });
                 
                 $this.updateInputField();

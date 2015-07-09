@@ -1,13 +1,13 @@
 <?php $campaignHelper = $this->campaignHelper(); ?>
 <?php $campaignHelper->setData($this->data); ?>
 <section class="campaign-section-advanced">
-    <div class="campaign-form-row custom-form-row custom-row-type">
-        <label class="type">Competition Type</label>
-        <?php foreach ($campaignHelper->getAllCompetitionTypes() as $type): ?>
+    <div class="campaign-form-row custom-form-row custom-row-layout">
+        <label class="layout">Layout</label>
+        <?php foreach ($campaignHelper->getAvailableLayouts() as $layout): ?>
             <div class="radio-element">
-                <input type="radio" name="type" value="<?php echo $type['value']; ?>" <?php echo $type['checked']; ?> />
-                <?php echo $type['title']; ?>
-                <span class="hint"><?php echo $type['hint']; ?></span>
+                <input type="radio" name="layout" value="<?php echo $layout['value']; ?>" <?php echo $layout['checked']; ?> />
+                <?php echo $layout['title']; ?>
+                <span class="hint"><?php echo $layout['hint']; ?></span>
             </div>
         <?php endforeach; ?>
         <span class="comment"></span>

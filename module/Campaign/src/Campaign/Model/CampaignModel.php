@@ -108,6 +108,9 @@ class CampaignModel extends AbstractModel
         $data['startTime'] = new \DateTime($data['startTime']);
         $data['endTime'] = new \DateTime($data['endTime']);
         
+        $data['showEntrants'] = (array_key_exists('showEntrants', $data)) ? 1 : 0;
+        $data['sendWelcomeEmail'] = (array_key_exists('sendWelcomeEmail', $data)) ? 1 : 0;
+        
         $result = $this->save($data);
         return $result;
     }
@@ -144,32 +147,98 @@ class CampaignModel extends AbstractModel
             $errosFound = true;
         }
         
-        if (!array_key_exists('startTime', $data) || !$data['startTime']) {
-            Session::error("You didn't provide a <strong>'Start Time'</strong> for your campign");
-            $errosFound = true;
-        }
-        
-        if (!array_key_exists('endTime', $data) || !$data['endTime']) {
-            Session::error("You didn't provide an <strong>'End Time'</strong> for your campign");
-            $errosFound = true;
-        }
-        
         if (!array_key_exists('banner', $data) || !$data['banner']) {
             Session::error("You didn't provide a <strong>'Banner'</strong> for your campign");
             $errosFound = true;
         }
         
         if (array_key_exists('titleCss', $data) && $data['titleCss'] && strlen($data['titleCss']) > 255) {
-            Session::error("The maximum allowed<strong>'Title Css'</strong> length is <strong>255</strong> characters");
+            Session::error("The maximum allowed <strong>'Title Css'</strong> length is <strong>255</strong> characters");
             $errosFound = true;
         }
         
         if (array_key_exists('descriptionCss', $data) && $data['descriptionCss'] && strlen($data['descriptionCss']) > 255) {
-            Session::error("The maximum allowed<strong>'Description Css'</strong> length is <strong>255</strong> characters");
+            Session::error("The maximum allowed <strong>'Description Css'</strong> length is <strong>255</strong> characters");
+            $errosFound = true;
+        }
+        
+        if (!array_key_exists('layout', $data) || !$data['layout']) {
+            Session::error("Please choose a layout for your campaign");
+            $errosFound = true;
+        } elseif ($data['layout'] != 1 && $data['layout'] != 2) {
+            Session::error("You specified an invalid layout");
+            $errosFound = true;
+        }
+        
+        if (array_key_exists('termsAndConditions', $data) && $data['termsAndConditions'] && strlen($data['termsAndConditions']) > 50000) {
+            Session::error("There is a limit of <strong>50000</strong> characters to the <strong>'Terms & Conditions'</strong> field");
+            $errosFound = true;
+        }
+        
+        if (array_key_exists('sendWelcomeEmail', $data) && !(array_key_exists('welcomeEmail', $data) && $data['welcomeEmail'])) {
+            Session::error("Please provide a <strong>Welcome Email</strong> or uncheck <strong>'Send Welcome Email'</strong>");
+            $errosFound = true;
+        }
+        
+        if (array_key_exists('welcomeEmail', $data) && $data['welcomeEmail'] && strlen($data['welcomeEmail']) > 20000) {
+            Session::error("There is a limit of <strong>20000</strong> characters to the <strong>'Welcome Email'</strong> field");
+            $errosFound = true;
+        }
+        
+        if (array_key_exists('ageRequirement', $data) && $data['ageRequirement'] && strlen($data['ageRequirement']) > 2) {
+            Session::error("Invalid <strong>Age Requirement</strong>");
+            $errosFound = true;
+        }
+        
+        if (!array_key_exists('type', $data) || !$data['type'] 
+                || ($data['type'] != CampaignEntity::CAMPAIGN_TYPE_SINGLE 
+                && $data['type'] != CampaignEntity::CAMPAIGN_TYPE_CYCLE)) {
+            Session::error("Invalid <strong>Competition Type</strong>");
+            $errosFound = true;
+        }
+        
+        if (!array_key_exists('startTime', $data) || !$data['startTime']) {
+            Session::error("You didn't provide a <strong>'Start Time'</strong> for your campign");
+            $errosFound = true;
+        } elseif (!$this->isValidDateTime($data['startTime'])) {
+            Session::error("Invalid <strong>'Start Time'</strong>");
+            $errosFound = true;
+        }
+        
+        if (!array_key_exists('timezone', $data) || !$data['timezone']) {
+            Session::error("You didn't provide a <strong>'Time Zone'</strong> for your campign");
+            $errosFound = true;
+        }
+        
+        if (array_key_exists('type', $data) && $data['type'] == CampaignEntity::CAMPAIGN_TYPE_SINGLE) {
+            if (!array_key_exists('endTime', $data) || !$data['endTime']) {
+                Session::error("You didn't provide an <strong>'End Time'</strong> for your campign");
+                $errosFound = true;
+            } elseif (!$this->isValidDateTime($data['endTime'])) {
+                Session::error("Invalid <strong>'End Time'</strong>");
+                $errosFound = true;
+            }
+        }
+        
+        if (array_key_exists('type', $data) && $data['type'] == CampaignEntity::CAMPAIGN_TYPE_CYCLE 
+                && (!array_key_exists('cycleDuration', $data) || !$data['cycleDuration'])) {
+            Session::error("You didn't provide a <strong>'Campaign Cycle Duration'</strong> for your campign");
+            $errosFound = true;
+        }
+        
+        if (array_key_exists('type', $data) && $data['type'] == CampaignEntity::CAMPAIGN_TYPE_CYCLE 
+                && (!array_key_exists('cyclesCount', $data) || !$data['cyclesCount'])) {
+            Session::error("You didn't provide a <strong>'Campaign Cycle Count'</strong> for your campign");
             $errosFound = true;
         }
         
         return !$errosFound;
+    }
+    
+    public function isValidDateTime($datetime, $format = 'Y-m-d\TH:i') 
+    {
+        $temp = \DateTime::createFromFormat($format, $datetime);
+        return $temp && $temp->format($format) == $datetime;
     }
     
     /**
@@ -262,7 +331,7 @@ class CampaignModel extends AbstractModel
                 'widgetTypes' => $widgetModel->getWidgetTypesJson(),
                 'appliedWidgets' => '[]',
             ),
-            'prizesData' => array(),
+            'prizesData' => '[]',
         );
     }
 }
