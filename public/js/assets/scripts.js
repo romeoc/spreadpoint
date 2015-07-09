@@ -10,6 +10,7 @@
             this.initializeMobileMenu();
             this.initializeAccountDropdown();
             this.initializeTabs();
+            this.initializeSwitches();
         },
         // Mobile right side menu
         initializeMobileMenu: function() {
@@ -46,6 +47,13 @@
         // Initialize all jQuery UI tabs
         initializeTabs: function() {
             $('.jqui-tabs').tabs();
+        },
+        // Initialize all jQuery Switches
+        initializeSwitches: function() {
+            $(".jqui-switch").switchButton({
+                on_label: 'Yes',
+                off_label: 'No'
+            });
         }
     };
     
@@ -188,6 +196,39 @@
             });
         }
     };
+    
+    /**
+     * Create file upload element for inputs
+     */
+    SpreadPoint.Uploader = {
+        init: function () {
+            $('.file-upload').not('.file-upload-wrapper .file-upload').each(function(){
+                var $this = $(this);
+                $this.wrap("<div class='file-upload-wrapper'></div>")
+                    .attr('readonly',true)
+                    .after(
+                        $('<input class="uploader" name="file[]"/>').attr('type', 'file'),
+                        $('<button class="remove-file">Remove</button>').attr('type', 'button')
+                    );
+            });
+            
+            this.bindUploader();
+            this.bindRemoveButton();
+        },
+        bindUploader: function() {
+            $('.uploader').on('change',function(){
+                var $this = $(this);
+                $this.siblings('.file-upload').val(
+                    $this.val().split('\\').pop()
+                ).trigger('blur');
+            });
+        },
+        bindRemoveButton: function() {
+            $('.remove-file').on('click', function(){
+                $(this).siblings('.file-upload').val('').trigger('blur');
+            });
+        }
+    }
     
     SpreadPoint.Widgets = {};
     SpreadPoint.Widgets.Map = [

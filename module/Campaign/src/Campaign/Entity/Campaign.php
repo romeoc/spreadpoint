@@ -21,6 +21,9 @@ class Campaign extends AbstractEntity
     const STATUS_FINISHED = 3;
     const STATUS_CANCELED = 4;
     
+    const CAMPAIGN_TYPE_SINGLE = 1;
+    const CAMPAIGN_TYPE_CYCLE = 2;
+    
     /**
     * @ORM\Id
     * @ORM\Column(type="integer")
@@ -51,7 +54,7 @@ class Campaign extends AbstractEntity
     protected $startTime;
     
     /**
-     * @ORM\Column(type="datetime", name="end_time")
+     * @ORM\Column(type="datetime", name="end_time", nullable=true)
      * @ORM\Version
      */
     protected $endTime;
@@ -75,6 +78,61 @@ class Campaign extends AbstractEntity
      * @ORM\Column(type="smallint", length=1)
      */
     protected $status = self::STATUS_ACTIVE;
+    
+    /**
+     * @ORM\Column(type="smallint", length=1)
+     */
+    protected $type = self::CAMPAIGN_TYPE_SINGLE;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $timezone;
+    
+    /**
+     * @ORM\Column(type="integer", name="cycle_duration", nullable=true)
+     */
+    protected $cycleDuration;
+    
+    /**
+     * @ORM\Column(type="integer", name="cycles_count", nullable=true)
+     */
+    protected $cyclesCount;
+    
+    /** 
+     * @ORM\Column(type="text") 
+     */
+    protected $layout;
+    
+    /** 
+     * @ORM\Column(type="text", nullable=true) 
+     */
+    protected $restrictions;
+    
+    /** 
+     * @ORM\Column(type="text", name="terms_and_conditions", nullable=true) 
+     */
+    protected $termsAndConditions;
+    
+    /**
+     * @ORM\Column(type="smallint", name="show_entrants", length=1)
+     */
+    protected $showEntrants = 0;
+    
+    /**
+     * @ORM\Column(type="integer", name="age_requirement", nullable=true)
+     */
+    protected $ageRequirement;
+    
+    /** 
+     * @ORM\Column(type="text", name="welcome_email", nullable=true) 
+     */
+    protected $welcomeEmail;
+    
+    /**
+     * @ORM\Column(type="smallint", name="send_welcome_email", length=1)
+     */
+    protected $sendWelcomeEmail = 0;
     
     /** 
      * @ORM\Column(type="datetime", name="created_at", nullable=true) 

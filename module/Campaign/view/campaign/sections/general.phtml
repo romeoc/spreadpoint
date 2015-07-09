@@ -1,37 +1,29 @@
+<?php $campaignHelper = $this->campaignHelper(); ?>
+<?php $campaignHelper->setData($this->data); ?>
 <section class="campaign-section-general">
     <div class="campaign-form-row custom-form-row custom-row-title">
         <label class="title">Title</label>
-        <input name="title" type="text" value="" />
+        <input name="title" type="text" value="<?php echo $campaignHelper->get('title'); ?>" />
         <span class="comment"></span>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-title">
         <label class="title">Description</label>
-        <textarea name="description"></textarea>
+        <textarea name="description"><?php echo $campaignHelper->get('description'); ?></textarea>
         <span class="comment"></span>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-banner">
         <label class="title">Banner</label>
-        <input type="file" name="banner" />
-        <span class="comment"></span>
-    </div>
-    <div class="campaign-form-row custom-form-row custom-row-startime">
-        <label class="title">Start Date</label>
-        <input type="datetime-local" name="startTime" />
-        <span class="comment"></span>
-    </div>
-    <div class="campaign-form-row custom-form-row custom-row-endtime">
-        <label class="title">End Date</label>
-        <input type="datetime-local" name="endTime" />
+        <input class="file-upload" type="text" name="banner" value="<?php echo $campaignHelper->get('banner'); ?>"/>
         <span class="comment"></span>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-titlecss">
         <label class="title">Additional Title Styles</label>
-        <textarea name="titleCss"></textarea>
+        <textarea name="titleCss"><?php echo $campaignHelper->get('titleCss'); ?></textarea>
         <span class="comment"></span>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-descriptioncss">
         <label class="title">Additional Description Styles</label>
-        <textarea name="descriptionCss"></textarea>
+        <textarea name="descriptionCss"><?php echo $campaignHelper->get('descriptionCss'); ?></textarea>
         <span class="comment"></span>
     </div>
 </section>

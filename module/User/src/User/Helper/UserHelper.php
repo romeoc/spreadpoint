@@ -17,15 +17,18 @@ class UserHelper extends AbstractHelper implements ServiceLocatorAwareInterface
 {
     protected $service;
     
-    public function getServiceLocator() {
+    public function getServiceLocator() 
+    {
         return $this->service;
     }
 
-    public function setServiceLocator(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
+    public function setServiceLocator(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) 
+    {
         $this->service = $serviceLocator->getServiceLocator();
     }
     
-    public function updateServiceLocator($service){
+    public function updateServiceLocator($service)
+    {
         $this->service = $service;
     }
     

@@ -48,4 +48,9 @@ return array(
             'campaign' => __DIR__ . '/../view',
         ),
     ),
+    'view_helpers' => array(
+        'invokables'=> array(
+            'campaignHelper' => 'Campaign\Helper\CampaignHelper'  
+        )
+    ),
 );

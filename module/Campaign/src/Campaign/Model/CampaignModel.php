@@ -40,11 +40,21 @@ class CampaignModel extends AbstractModel
         $this->uploadFiles($data);
         
         // Widgets Data
-        $widgetsData = $data['widgets-serialized'];
+        $widgetsData = '';
+        if (array_key_exists('widgets-serialized', $data) && $data['widgets-serialized']) {
+            $widgetsData = $data['widgets-serialized'];
+        } else {
+            Session::error("Your users have no ways to participate, please add some widgets");
+        }
         unset($data['widgets-serialized']);
 
         // Prizes Data
-        $prizeData = $data['prizes-serialized'];
+        $prizeData = '';
+        if (array_key_exists('prizes-serialized', $data) && $data['prizes-serialized']) {
+            $prizeData = $data['prizes-serialized'];
+        } else {
+            Session::error("Your users have nothing to win, please add some prizes");
+        }
         unset($data['prizes-serialized']);
         
         // Initialize Models
@@ -58,6 +68,7 @@ class CampaignModel extends AbstractModel
         $campaign = $this->saveCampaign($data);
         $campaignId = false;
         if ($campaign) {
+            Session::success("Your campaign was successfully saved");
             $campaignId = $campaign->__get('id');
             
             // If we managed to save the campaign succesfully then we save the widgets and the prizes
@@ -93,6 +104,9 @@ class CampaignModel extends AbstractModel
         if (!array_key_exists('status', $data)) {
             $data['status'] = CampaignEntity::STATUS_ACTIVE;
         }
+        
+        $data['startTime'] = new \DateTime($data['startTime']);
+        $data['endTime'] = new \DateTime($data['endTime']);
         
         $result = $this->save($data);
         return $result;
@@ -200,7 +214,11 @@ class CampaignModel extends AbstractModel
             // If a campaign Id was specified get then fetch the campaigns data
             $data = $this->load($campaignId);
         } else {
-            // If some data was set on the save action
+            /** 
+             * If some data was set on the save action 
+             * Saving the campaign must fail for the session to have data
+             * but the widgets and prizes don't have to succed
+             */
             $session = new Container('campaign');
             if ($session->data) {
                 $data['data'] = $session->data;

@@ -64,9 +64,9 @@ class AbstractModel implements ServiceLocatorAwareInterface
     public function save($data)
     {
         if (!empty($data['id'])) {
-            $this->update($data);
+            return $this->update($data);
         } else {
-            $this->create($data);
+            return $this->create($data);
         }
     }
     
