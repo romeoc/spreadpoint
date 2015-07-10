@@ -20,6 +20,10 @@
     SpreadPoint.Templates.Widgets.Type.EnterContest = [
         "<div class='applied-widget applied-widget-{{referenceId}} widget-type-entercontest' data-id='{{referenceId}}'>",
             "Widget Type Enter Contest",
+            "<div class='applied-widget-row'>",
+                "<label>Earning Value</label>",
+                "<input type='text' class='applied-widget-element' data-key='earningValue' value='{{earningValue}}' />",
+            "</div>",
             "<span class='close-widget'>X</span>",
         "</div>"
     ].join('\n');
@@ -27,7 +31,12 @@
         "<div class='applied-widget applied-widget-{{referenceId}} widget-type-facebooklikepage' data-id='{{referenceId}}'>",
             "Like a page on facebook widget",
             "<div class='applied-widget-row'>",
-                "<input type='text' class='applied-widget-element' data-key='page' />",
+                "<label>Page Link</label>",
+                "<input type='text' class='applied-widget-element' data-key='page' value='{{page}}' />",
+            "</div>",
+            "<div class='applied-widget-row'>",
+                "<label>Earning Value</label>",
+                "<input type='text' class='applied-widget-element' data-key='earningValue' value='{{earningValue}}' />",
             "</div>",
             "<span class='close-widget'>X</span>",
         "</div>"

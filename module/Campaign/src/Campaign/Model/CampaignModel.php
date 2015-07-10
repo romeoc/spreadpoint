@@ -66,23 +66,23 @@ class CampaignModel extends AbstractModel
         
         // Save the campaign data
         $campaign = $this->saveCampaign($data);
-        $campaignId = false;
         if ($campaign) {
+            
             Session::success("Your campaign was successfully saved");
-            $campaignId = $campaign->__get('id');
             
             // If we managed to save the campaign succesfully then we save the widgets and the prizes
-            $widgetsResult = $widgetModel->saveWidgets($campaignId, $widgetsData);
-            $prizeResult = $prizeModel->savePrizes($campaignId, $prizeData);
+            $widgetsResult = $widgetModel->saveWidgets($campaign, $widgetsData);
+            $prizeResult = $prizeModel->savePrizes($campaign, $prizeData);
             
             if (!$widgetsResult || !$prizeResult) {
-                $this->updateStatus($campaignId, CampaignEntity::STATUS_PAUSED);
+                $this->updateStatus($campaign->__get('id'), CampaignEntity::STATUS_PAUSED);
             } else {
                 Session::success('Your campaign was succesfully saved and activated');
             }
         }
         
-        return $campaignId;
+        $result = ($campaign) ? $campaign->__get('id') : $campaign;
+        return $result;
     }
     
     /**
@@ -126,7 +126,7 @@ class CampaignModel extends AbstractModel
         $errosFound = false;
         
         foreach ($data as $key => $value) {
-            if (!property_exists('Campaign\Entity\Campaign', $key)) {
+            if (!property_exists($this->entity, $key)) {
                 unset($data[$key]);
             }
         }
@@ -217,19 +217,21 @@ class CampaignModel extends AbstractModel
             } elseif (!$this->isValidDateTime($data['endTime'])) {
                 Session::error("Invalid <strong>'End Time'</strong>");
                 $errosFound = true;
+            } elseif (array_key_exists('startTime', $data) && strtotime($data['startTime']) > strtotime($data['endTime'])) {
+                Session::error("Your campign can't end before it started. Please fix your <strong>'Start Time & End Time'</strong>");
+                $errosFound = true;
             }
         }
         
-        if (array_key_exists('type', $data) && $data['type'] == CampaignEntity::CAMPAIGN_TYPE_CYCLE 
-                && (!array_key_exists('cycleDuration', $data) || !$data['cycleDuration'])) {
-            Session::error("You didn't provide a <strong>'Campaign Cycle Duration'</strong> for your campign");
-            $errosFound = true;
-        }
-        
-        if (array_key_exists('type', $data) && $data['type'] == CampaignEntity::CAMPAIGN_TYPE_CYCLE 
-                && (!array_key_exists('cyclesCount', $data) || !$data['cyclesCount'])) {
-            Session::error("You didn't provide a <strong>'Campaign Cycle Count'</strong> for your campign");
-            $errosFound = true;
+        if (array_key_exists('type', $data) && $data['type'] == CampaignEntity::CAMPAIGN_TYPE_CYCLE) { 
+            if (!array_key_exists('cycleDuration', $data) || !$data['cycleDuration']) {
+                Session::error("You didn't provide a <strong>'Campaign Cycle Duration'</strong> for your campign");
+                $errosFound = true;
+            }
+            if (!array_key_exists('cyclesCount', $data) || !$data['cyclesCount']) {
+                Session::error("You didn't provide a <strong>'Campaign Cycle Count'</strong> for your campign");
+                $errosFound = true;
+            }
         }
         
         return !$errosFound;

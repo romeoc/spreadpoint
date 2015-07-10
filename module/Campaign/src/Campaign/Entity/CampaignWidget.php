@@ -19,6 +19,10 @@ use Base\Entity\AbstractEntity;
  */
 class CampaignWidget extends AbstractEntity
 {
+    const STATUS_ACTIVE = 1;
+    const STATUS_DISABLED = 2;
+    const STATUS_REMOVED = 3;
+    
     /**
     * @ORM\Id
     * @ORM\Column(type="integer")
@@ -33,18 +37,22 @@ class CampaignWidget extends AbstractEntity
     protected $campaign;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Campaign\Entity\CampaignWidgetType")
-     * @ORM\JoinColumn(name="widget_type_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\Column(type="integer", name="widget_type")
      */
     protected $widgetType;
     
-    /**
-     * @ORM\Column(type="integer", name="widget_id", nullable=true)
+    /** 
+     * @ORM\Column(type="text", name="options_serialized")
      */
-    protected $widgetId;
+    protected $optionsSerialized;
     
     /**
      * @ORM\Column(type="integer", name="earning_value")
      */
     protected $earningValue;
+    
+    /**
+     * @ORM\Column(type="smallint", length=1)
+     */
+    protected $status = self::STATUS_ACTIVE;
 }
