@@ -26,7 +26,7 @@
         <label class="timezone">Time Zone</label>
         <select name="timezone">
             <?php foreach($campaignHelper->getTimezones() as $timezone): ?>
-                <option value="<?php echo $timezone['value']; ?>" <?php echo $timezone['selected']; ?>><?php echo $timezone['title']; ?></option>
+                <option value="<?php echo $timezone ?>" <?php if ($campaignHelper->get('timezone') == $timezone) { echo 'selected'; } ?>><?php echo $timezone ?></option>
             <?php endforeach; ?>
         </select>
         <span class="comment"></span>

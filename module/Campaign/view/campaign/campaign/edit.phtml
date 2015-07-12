@@ -6,7 +6,7 @@
         <?php if (array_key_exists('id', $this->data) && $this->data['id']): ?>
             <?php $savePath .= $this->data['id']; ?>
         <?php endif; ?>
-        <form method="post" name="campaign" enctype="multipart/form-data" action="<?php echo $savePath; ?>" id="campaign">
+        <form method="post" name="campaign" enctype="multipart/form-data" action="<?php echo $savePath; ?>" id="campaign" novalidate>
             <?php if (array_key_exists('id', $this->data) && $this->data['id']): ?>
                 <input type="hidden" name="id" value="<?php echo $this->data['id']; ?>" />
             <?php endif; ?>
@@ -33,11 +33,11 @@
             <div class="campaign-view-content">
                 <div class="campaign-tabs jqui-tabs">
                     <ul>
-                        <li><a href="#general">General</a></li>
-                        <li><a href="#schedule">Schedule</a></li>
-                        <li><a href="#entries">Entries</a></li>
-                        <li><a href="#prize">Prizes</a></li>                        
-                        <li><a href="#advanced">Advanced</a></li>
+                        <li><a href="#general" class="general-tab">General</a></li>
+                        <li><a href="#schedule" class="schedule-tab">Schedule</a></li>
+                        <li><a href="#entries" class="entries-tab">Entries</a></li>
+                        <li><a href="#prize" class="prize-tab">Prizes</a></li>                        
+                        <li><a href="#advanced" class="advanced-tab">Advanced</a></li>
                     </ul>
                     <div id="general" class="campaign-tab">
                         <?php echo $this->partial('campaign/sections/general.phtml', array('data' => $this->data)); ?>

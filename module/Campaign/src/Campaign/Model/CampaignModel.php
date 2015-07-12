@@ -121,8 +121,9 @@ class CampaignModel extends AbstractModel
             $data['status'] = CampaignEntity::STATUS_ACTIVE;
         }
         
-        $data['startTime'] = new \DateTime($data['startTime']);
-        $data['endTime'] = new \DateTime($data['endTime']);
+        $timezone = new \DateTimeZone($data['timezone']);
+        $data['startTime'] = new \DateTime($data['startTime'], $timezone);
+        $data['endTime'] = new \DateTime($data['endTime'], $timezone);
         
         $data['showEntrants'] = (array_key_exists('showEntrants', $data)) ? 1 : 0;
         $data['sendWelcomeEmail'] = (array_key_exists('sendWelcomeEmail', $data)) ? 1 : 0;
@@ -156,7 +157,7 @@ class CampaignModel extends AbstractModel
         }
         
         if (!array_key_exists('title', $data) || !$data['title']) {
-            Session::error("You didn't provide a <strong>'Title'</strong> for your campign");
+            Session::error("You didn't provide a <strong>'Title'</strong> for your campaign");
             $errosFound = true;
         } elseif (strlen($data['title']) > 32) {
             Session::error("The maximum <strong>'title'</strong> length is <strong>32</strong>");
@@ -164,7 +165,7 @@ class CampaignModel extends AbstractModel
         }
         
         if (!array_key_exists('description', $data) || !$data['description']) {
-            Session::error("You didn't provide a <strong>'Description'</strong> for your campign");
+            Session::error("You didn't provide a <strong>'Description'</strong> for your campaign");
             $errosFound = true;
         } elseif (strlen($data['description']) > 500) {
             Session::error("The maximum <strong>'Description'</strong> length is <strong>500</strong> characters");
@@ -174,7 +175,7 @@ class CampaignModel extends AbstractModel
         $files = $this->getUploadedFiles();
         $banner = $files['banner'];
         if (!array_key_exists('banner', $data) || !$data['banner']) {
-            Session::error("You didn't provide a <strong>'Banner'</strong> for your campign");
+            Session::error("You didn't provide a <strong>'Banner'</strong> for your campaign");
             $errosFound = true;
         } elseif ($banner['name'] && !$this->isFileValid($banner)) {
             $errosFound = true;
@@ -213,7 +214,10 @@ class CampaignModel extends AbstractModel
             $errosFound = true;
         }
         
-        if (array_key_exists('ageRequirement', $data) && $data['ageRequirement'] && strlen($data['ageRequirement']) > 2) {
+        if (!array_key_exists('ageRequirement', $data) || !$data['ageRequirement']) {
+            Session::error("You didn't specify an <strong>Age Requirement</strong>");
+            $errosFound = true;
+        } elseif (!is_numeric ($data['ageRequirement']) || $data['ageRequirement'] < 1 || $data['ageRequirement'] > 5) {
             Session::error("Invalid <strong>Age Requirement</strong>");
             $errosFound = true;
         }
@@ -226,7 +230,7 @@ class CampaignModel extends AbstractModel
         }
         
         if (!array_key_exists('startTime', $data) || !$data['startTime']) {
-            Session::error("You didn't provide a <strong>'Start Time'</strong> for your campign");
+            Session::error("You didn't provide a <strong>'Start Time'</strong> for your campaign");
             $errosFound = true;
         } elseif (!$this->isValidDateTime($data['startTime'])) {
             Session::error("Invalid <strong>'Start Time'</strong>");
@@ -234,30 +238,46 @@ class CampaignModel extends AbstractModel
         }
         
         if (!array_key_exists('timezone', $data) || !$data['timezone']) {
-            Session::error("You didn't provide a <strong>'Time Zone'</strong> for your campign");
+            Session::error("You didn't provide a <strong>'Time Zone'</strong> for your campaign");
+            $errosFound = true;
+        } elseif (!in_array($data['timezone'], timezone_identifiers_list())) {
+            Session::error("Invalid <strong>'Time Zone'</strong> specified");
             $errosFound = true;
         }
         
         if (array_key_exists('type', $data) && $data['type'] == CampaignEntity::CAMPAIGN_TYPE_SINGLE) {
             if (!array_key_exists('endTime', $data) || !$data['endTime']) {
-                Session::error("You didn't provide an <strong>'End Time'</strong> for your campign");
+                Session::error("You didn't provide an <strong>'End Time'</strong> for your campaign");
                 $errosFound = true;
             } elseif (!$this->isValidDateTime($data['endTime'])) {
                 Session::error("Invalid <strong>'End Time'</strong>");
                 $errosFound = true;
             } elseif (array_key_exists('startTime', $data) && strtotime($data['startTime']) > strtotime($data['endTime'])) {
-                Session::error("Your campign can't end before it started. Please fix your <strong>'Start Time & End Time'</strong>");
+                Session::error("Your campaign can't end before it started. Please fix your <strong>'Start Time & End Time'</strong>");
                 $errosFound = true;
             }
         }
         
         if (array_key_exists('type', $data) && $data['type'] == CampaignEntity::CAMPAIGN_TYPE_CYCLE) { 
             if (!array_key_exists('cycleDuration', $data) || !$data['cycleDuration']) {
-                Session::error("You didn't provide a <strong>'Campaign Cycle Duration'</strong> for your campign");
+                Session::error("You didn't provide a <strong>'Campaign Cycle Duration'</strong> for your campaign");
+                $errosFound = true;
+            } elseif (!is_numeric($data['cycleDuration'])) {
+                Session::error("The <strong>'Campaign Cycle Duration'</strong> must be a numeric value");
+                $errosFound = true;
+            } elseif ($data['cycleDuration'] <= 0) {
+                Session::error("The <strong>'Campaign Cycle Duration'</strong> must be greater than 0");
                 $errosFound = true;
             }
+            
             if (!array_key_exists('cyclesCount', $data) || !$data['cyclesCount']) {
-                Session::error("You didn't provide a <strong>'Campaign Cycle Count'</strong> for your campign");
+                Session::error("You didn't provide a <strong>'Campaign Cycle Count'</strong> for your campaign");
+                $errosFound = true;
+            } elseif (!is_numeric($data['cyclesCount'])) {
+                Session::error("The <strong>'Campaign Cycle Count'</strong> must be a numeric value");
+                $errosFound = true;
+            } elseif ($data['cyclesCount'] <= 0) {
+                Session::error("The <strong>'Campaign Cycle Count'</strong> must be greater than 0");
                 $errosFound = true;
             }
         }

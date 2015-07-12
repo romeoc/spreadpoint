@@ -361,6 +361,63 @@
             });
 
             $this.updateInputField();
+        },
+        /**
+         * Check if all widgets data is valid
+         * @return bool
+         */ 
+        isValid: function() {
+            var tab = '.entries-tab';
+            var allValid = true;
+            
+            if (this.appliedWidgets.filter(String).length === 0) {
+                this.add(this.defaultWidgetId);
+                var identifier = '.applied-widget-' + this.appliedWidgets.length;
+                SpreadPoint.Campaign.Controller.logError('You must have at least one <strong>Enter Contest</strong> Widget', tab, identifier, true);
+                
+                return false;
+            }
+            
+            var hasDefaultWidget = false;
+            this.appliedWidgets.forEach(function(widget){
+                var identifier = '.applied-widget-' + widget.referenceId;
+                
+                if (!widget.earningValue) {
+                    SpreadPoint.Campaign.Controller.logError('Every widget must have an <strong>Earning Value</strong>', tab, identifier, true);
+                    allValid = false;
+                } else if (isNaN(parseFloat(widget.earningValue)) || !isFinite(widget.earningValue)) {
+                    SpreadPoint.Campaign.Controller.logError('The widget <strong>Earning Value</strong> must be a numeric value', tab, identifier, true);
+                    allValid = false;
+                } else if (widget.earningValue <= 0) {
+                    SpreadPoint.Campaign.Controller.logError('The widget <strong>Earning Value</strong> must be greater than 0', tab, identifier, true);
+                    allValid = false;
+                }
+                
+                switch (widget.widgetType) {
+                    case 1: 
+                        hasDefaultWidget = true;
+                        break;
+                    case 2:
+                        if (!widget.page) {
+                            SpreadPoint.Campaign.Controller.logError('Your facebook widget must have a <strong>Page Link</strong>', tab, identifier, true);
+                            allValid = false;
+                        } else if (!widget.page.match(/^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/)) {
+                            SpreadPoint.Campaign.Controller.logError('Your facebook widget has an invalid <strong>Page Link</strong>', tab, identifier, true);
+                            allValid = false;
+                        }
+                        break;
+                }
+            });
+            
+            if (!hasDefaultWidget) {
+                this.add(this.defaultWidgetId);
+                var identifier = '.applied-widget-' + this.appliedWidgets.length;
+                SpreadPoint.Campaign.Controller.logError('You must have at least one <strong>Enter Contest</strong> Widget', tab, identifier, true);
+                
+                return false;
+            }
+            
+            return allValid;
         }
     }
     
@@ -482,6 +539,59 @@
             });
 
             $this.updateInputField();
+        },
+        /**
+         * Check if all prize data is valid
+         * @return bool
+         */ 
+        isValid: function() {
+            var tab = '.prize-tab';
+            var allValid = true;
+            
+            if (this.prizes.filter(String).length === 0) {
+                SpreadPoint.Campaign.Controller.logError('You must have at least one prize', tab);
+                this.add();
+                
+                return false;
+            }
+            
+            this.prizes.forEach(function(prize){
+                var identifier = '.prize-' + prize.referenceId;
+                
+                if (!prize.name) {
+                    SpreadPoint.Campaign.Controller.logError('Your prize does not have a <strong>Title</strong>',tab, identifier, true);
+                    allValid = false;
+                } else if (prize.name.length > 32) {
+                    SpreadPoint.Campaign.Controller.logError('The prize <strong>Title</strong> limit is 32', tab, identifier, true);
+                    allValid = false;
+                }
+                
+                if (!prize.description) {
+                    SpreadPoint.Campaign.Controller.logError('Your prize does not have a <strong>Description</strong>', tab, identifier, true);
+                    allValid = false;
+                } else if (prize.description.length > 255) {
+                    SpreadPoint.Campaign.Controller.logError('The prize <strong>Description</strong> limit is 255', tab, identifier, true);
+                    allValid = false;
+                }
+                
+                if (!prize.image) {
+                    SpreadPoint.Campaign.Controller.logError('Your prize does not have an <strong>Image</strong>', tab, identifier, true);
+                    allValid = false;
+                }
+                
+                if (!prize.count) {
+                    SpreadPoint.Campaign.Controller.logError('Please specify the prize <strong>Count</strong>', tab, identifier, true);
+                    allValid = false;
+                } else if (isNaN(parseFloat(prize.count)) || !isFinite(prize.count)) {
+                    SpreadPoint.Campaign.Controller.logError('The prize <strong>Count</strong> must be a numeric value', tab, identifier, true);
+                    allValid = false;
+                } else if (prize.count <= 0) {
+                    SpreadPoint.Campaign.Controller.logError('The prize <strong>Count</strong> must be greater than 0', tab, identifier, true);
+                    allValid = false;
+                }
+            });
+            
+            return allValid;
         }
     }
     
@@ -496,6 +606,7 @@
         },
         // This is triggered before the form is submited
         attachSubmitEvent: function() {
+            var $this = this;
             $('#campaign').submit(function(e) {
                 e.preventDefault();
                 
@@ -503,9 +614,132 @@
                 SpreadPoint.Widgets.Controller.finalize();
                 SpreadPoint.Prize.Controller.finalize();
                 
-                this.submit();
+                if ($this.isFormValid() && SpreadPoint.Widgets.Controller.isValid() && SpreadPoint.Prize.Controller.isValid()) {
+
+                    this.submit();
+                }
             });
-        }
+        },
+        // Check if all form data is valid before submit
+        isFormValid: function() {
+            var valid = true;
+            
+            var title = this.get('title');
+            if (!title) {
+                this.logError("You didn't provide a <strong>'Title'</strong> for your campign",".general-tab","title");
+                valid = false;
+            } else if (title.length > 32) {
+                this.logError("The maximum <strong>'Title'</strong> length is <strong>32</strong>",".general-tab","title");
+                valid = false;
+            }
+            
+            var title = this.get('description');
+            if (!title) {
+                this.logError("You didn't provide a <strong>'Description'</strong> for your campign",".general-tab","description");
+                valid = false;
+            } else if (title.length > 500) {
+                this.logError("The maximum <strong>'Description'</strong> length is <strong>500</strong>",".general-tab","description");
+                valid = false;
+            }
+            
+            if (!this.get('banner')) {
+                this.logError("You didn't provide a <strong>'Banner'</strong> for your campign",".general-tab","banner");
+                valid = false;
+            }
+            
+            if (this.get('titleCss').length > 255) {
+                this.logError("The maximum allowed <strong>'Title Css'</strong> length is <strong>255</strong> characters",".general-tab","titleCss");
+                valid = false;
+            }
+            
+            if (this.get('descriptionCss').length > 255) {
+                this.logError("The maximum allowed <strong>'Description Css'</strong> length is <strong>255</strong> characters",".general-tab","descriptionCss");
+                valid = false;
+            }
+            
+            if (this.get('termsAndConditions').length > 255) {
+                this.logError("There is a limit of <strong>50000</strong> characters to the <strong>'Terms & Conditions'</strong> field",".advanced-tab","termsAndConditions");
+                valid = false;
+            }
+            
+            var welcomeEmail = this.get('welcomeEmail');
+            if (welcomeEmail.length > 20000) {
+                this.logError("There is a limit of <strong>20000</strong> characters to the <strong>'Welcome Email'</strong> field",".advanced-tab","welcomeEmail");
+                valid = false;
+            }
+            
+            var sendWelcomeEmail = $('.custom-row-sendWelcomeEmail').find('.switch-button-background.checked').length;
+            if (sendWelcomeEmail && !welcomeEmail) {
+                this.logError("Please provide a <strong>Welcome Email</strong> or uncheck <strong>'Send Welcome Email'</strong>",".advanced-tab","welcomeEmail");
+                valid = false;
+            }
+            
+            var startTime = this.get('startTime');
+            if (!startTime) {
+                this.logError("You didn't provide a valid <strong>'Start Time'</strong> for your campaign",".schedule-tab","startTime");
+                valid = false;
+            }
+        
+            var type = this.get('type', ':checked');
+            if (type == 1) {
+                var endTime = this.get('endTime');
+                if (!endTime) {
+                    this.logError("You didn't provide a valid <strong>'End Time'</strong> for your campaign",".schedule-tab","endTime");
+                    valid = false;
+                } else if (new Date(startTime) > new Date(endTime) ) {
+                    this.logError("Your campaign can't end before it started. Please fix your <strong>'Start Time & End Time'</strong>",".schedule-tab","endTime");
+                    valid = false;
+                }
+            } else if (type == 2) {
+                var cyclesDuration = this.get('cycleDuration');
+                if (!cyclesDuration) {
+                    this.logError("You didn't provide a <strong>'Cycle Duration'</strong> for your campaign",".schedule-tab","cycleDuration");
+                    valid = false;
+                } else if (isNaN(parseFloat(cyclesDuration)) || !isFinite(cyclesDuration)) {
+                    this.logError("The <strong>'Cycle Duration'</strong> must be a numeric value",".schedule-tab","cycleDuration");
+                    valid = false;
+                } else if (cyclesDuration <= 0) {
+                    this.logError("The <strong>'Cycle Duration'</strong> must be greater than 0",".schedule-tab","cycleDuration");
+                    valid = false;
+                }
+                
+                var cyclesCount = this.get('cyclesCount');
+                if (!cyclesCount) {
+                    this.logError("You didn't provide a <strong>'Cycle Count'</strong> for your campaign",".schedule-tab","cyclesCount");
+                    valid = false;
+                } else if (isNaN(parseFloat(cyclesCount)) || !isFinite(cyclesCount)) {
+                    this.logError("The <strong>'Cycle Count'</strong> must be a numeric value",".schedule-tab","cyclesCount");
+                    valid = false;
+                } else if (cyclesCount <= 0) {
+                    this.logError("The <strong>'Cycle Count'</strong> must be greater than 0",".schedule-tab","cycleDuration");
+                    valid = false;
+                }
+            } else {
+                this.logError("Invalid <strong>Competition Type</strong>", ".schedule-tab", "custom-row-type", true);
+                valid = false;
+            }
+            
+            return valid;
+        },
+        // get an element by name
+        get: function(name, additionalSelectors) {
+            additionalSelectors = additionalSelectors || '';
+            return $('[name="'+name+'"]' + additionalSelectors).val();
+        },
+        // Log an error message
+        logError: function(message, tab, element, skipNameTag) {
+            message = '<li class="error">' + message + '</li>';
+            $('.global-messages').html(message);
+            $(tab).trigger('click');
+            
+            if (element) {
+                if (!skipNameTag) {
+                    element = '[name="' + element + '"]';
+                }
+
+                $(element).addClass('has-errors');
+            }
+        },
     }
 })(jQuery);
 

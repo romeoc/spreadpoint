@@ -131,7 +131,7 @@ class PrizeModel extends AbstractModel
         if (!array_key_exists('description', $data) || !$data['description']) {
             Session::error("You didn't provide a <strong>'Description'</strong> for your prize");
             $errorsFound = true;
-        } elseif (strlen($data['description']) > 10000) {
+        } elseif (strlen($data['description']) > 255) {
             Session::error("The <strong>'Description'</strong> of your prize can't be longer than 10000 characters");
             $errorsFound = true;
         }

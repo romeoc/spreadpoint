@@ -47,9 +47,9 @@ class CampaignHelper extends AbstractHelper
      */
     public function getAvailableLayouts()
     {
-        return array(
+        $layouts = array(
             array(
-                'checked' => 'checked',
+                'checked' => '',
                 'value'   => 1,
                 'title'   => 'Default Layout',
                 'hint'    => 'This is a message that will tell you about this layout'
@@ -61,6 +61,15 @@ class CampaignHelper extends AbstractHelper
                 'hint'    => 'This is a message that will tell you about this layout'
             ),
         );
+        
+        $currentLayout = $this->get('layout');
+        if ($currentLayout) {
+            $layouts[$currentLayout - 1]['checked'] = 'checked';
+        } else {
+            $layouts[0]['checked'] = 'checked';
+        }
+        
+        return $layouts;
     }
     
     /**
@@ -68,18 +77,42 @@ class CampaignHelper extends AbstractHelper
      */
     public function getAllAgeRequirements()
     {
-        return array(
+        $ageRequirements = array(
             array(
-                'selected' => 'selected',
+                'selected' => '',
                 'value'   => 1,
-                'title'   => '13+',
+                'title'   => 'None',
             ),
             array(
                 'selected' => '',
                 'value'   => 2,
-                'title'   => '18+ XXX',
+                'title'   => '13+',
+            ),
+            array(
+                'selected' => '',
+                'value'   => 3,
+                'title'   => '18+',
+            ),
+            array(
+                'selected' => '',
+                'value'   => 4,
+                'title'   => '19+',
+            ),
+            array(
+                'selected' => '',
+                'value'   => 5,
+                'title'   => '21+',
             ),
         );
+        
+        $currentAgeRequirement = $this->get('ageRequirement');
+        if ($currentAgeRequirement) {
+            $ageRequirements[$currentAgeRequirement - 1]['selected'] = 'selected';
+        } else {
+            $ageRequirements[0]['selected'] = 'selected';
+        }
+        
+        return $ageRequirements;
     }
     
     /**
@@ -87,9 +120,9 @@ class CampaignHelper extends AbstractHelper
      */
     public function getAllCompetitionTypes()
     {
-        return array(
+        $types = array(
             array(
-                'checked' => 'checked',
+                'checked' => '',
                 'value'   => 1,
                 'title'   => 'One Time',
                 'hint'    => 'A single competition'
@@ -101,6 +134,15 @@ class CampaignHelper extends AbstractHelper
                 'hint'    => 'A competition that will repeat'
             ),
         );
+        
+        $currentType = $this->get('type');
+        if ($currentType) {
+            $types[$currentType - 1]['checked'] = 'checked';
+        } else {
+            $types[0]['checked'] = 'checked';
+        }
+        
+        return $types;
     }
     
     /**
@@ -108,17 +150,6 @@ class CampaignHelper extends AbstractHelper
      */
     public function getTimezones()
     {
-        return array(
-            array(
-                'selected' => 'selected',
-                'value'   => 1,
-                'title'   => 'Europe/Berlin',
-            ),
-            array(
-                'selected' => '',
-                'value'   => 2,
-                'title'   => 'Europe/Bucharest',
-            ),
-        );
+        return \DateTimeZone::listIdentifiers(\DateTimeZone::ALL);
     }
 }

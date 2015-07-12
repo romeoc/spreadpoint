@@ -83,7 +83,7 @@ class Campaign extends AbstractEntity
     protected $type = self::CAMPAIGN_TYPE_SINGLE;
     
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(length=32)
      */
     protected $timezone;
     
