@@ -74,7 +74,20 @@ class CampaignModel extends AbstractModel
         $campaign = $this->saveCampaign($data);
         if ($campaign) {
             $campaignId = $campaign->get('id');
-            $this->uploadFiles($campaignId);
+            
+            // Upload Banner
+            $userId = $this->getUserHelper()->getLoggedInUserId();
+            $mediaPath = "public/media/$userId/$campaignId/";
+            
+            $rename = false;
+            $files = $this->getUploadedFiles();
+            $banner = $files['banner'];
+            if ($banner['name']) {
+                $bannerExtension = pathinfo($banner['name'], PATHINFO_EXTENSION);
+                $rename = 'banner.' . $bannerExtension;
+            }
+            
+            $this->uploadFile('banner', $mediaPath, $rename);
             
             // If we managed to save the campaign succesfully then we save the widgets and the prizes
             $widgetsResult = $this->getWidgetModel()->saveWidgets($campaign, $widgetsData);
@@ -117,8 +130,10 @@ class CampaignModel extends AbstractModel
         // Rename banner
         $files = $this->getUploadedFiles();
         $banner = $files['banner'];
-        $bannerExtension = pathinfo($banner['name'], PATHINFO_EXTENSION);
-        $data['banner'] = 'banner.' . $bannerExtension;
+        if ($banner['name']) {
+            $bannerExtension = pathinfo($banner['name'], PATHINFO_EXTENSION);
+            $data['banner'] = 'banner.' . $bannerExtension;
+        }
         
         $result = $this->save($data);
         return $result;
@@ -161,7 +176,7 @@ class CampaignModel extends AbstractModel
         if (!array_key_exists('banner', $data) || !$data['banner']) {
             Session::error("You didn't provide a <strong>'Banner'</strong> for your campign");
             $errosFound = true;
-        } elseif (!$this->isFileValid($banner)) {
+        } elseif ($banner['name'] && !$this->isFileValid($banner)) {
             $errosFound = true;
         }
         
@@ -254,41 +269,6 @@ class CampaignModel extends AbstractModel
     {
         $temp = \DateTime::createFromFormat($format, $datetime);
         return $temp && $temp->format($format) == $datetime;
-    }
-    
-    /**
-     * Upload all files from the session
-     * 
-     * @param int $campaignId
-     */
-    public function uploadFiles($campaignId)
-    {
-        $files = $this->getUploadedFiles();
-        $userId = $this->getUserHelper()->getLoggedInUserId();
-        $mediaPath = "public/media/$userId/$campaignId/";
-        
-        // Create directory
-        if (!is_dir($mediaPath)) {
-            mkdir($mediaPath, 0777, true);
-        }
-        
-        foreach ($files as $index => $file) {
-            $targetFile = $file["name"];
-            
-            if (!$targetFile) {
-                continue;
-            }
-            
-            if ($this->isFileValid($file)) {
-                $imageFileType = pathinfo($targetFile, PATHINFO_EXTENSION);
-                $newFileName = $mediaPath . $index . '.' . $imageFileType;
-
-                // Upload File
-                if (!move_uploaded_file($file['tmp_name'], $newFileName)) {
-                    Session::error("Could not upload $targetFile");
-                }
-            }            
-        }
     }
     
     /**

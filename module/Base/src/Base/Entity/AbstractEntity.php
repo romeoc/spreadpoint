@@ -27,8 +27,18 @@ class AbstractEntity
         if (method_exists($this, $setter)) {
             return $this->$setter($value);
         } elseif (property_exists($this, $property)) {
-            $this->$property = $value;
+            return $this->$property = $value;
         }
+    }
+    
+    public function __get($property) 
+    {
+        return $this->get($property);
+    }
+    
+    public function __set($property, $value)
+    {
+        return $this->set($property, $value);
     }
     
     public function __isset($property) 

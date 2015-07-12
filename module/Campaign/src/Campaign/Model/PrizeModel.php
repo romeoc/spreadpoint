@@ -14,6 +14,7 @@ use Doctrine\ORM\Query;
 
 use Base\Model\AbstractModel;
 use Base\Model\Session;
+use User\Helper\UserHelper;
 
 class PrizeModel extends AbstractModel
 {
@@ -32,10 +33,14 @@ class PrizeModel extends AbstractModel
     public function savePrizes($campaign, $data)
     {
         $prizes = json_decode($data, true);
-        $this->removeEliminatedPrizes($campaign->get('id'), $prizes);
+        $campaignId = $campaign->get('id');
+        $this->removeEliminatedPrizes($campaignId, $prizes);
 
         $files = $this->getUploadedFiles();
         $allValid = true;
+        
+        $userHelper = new UserHelper();
+        $userHelper->updateServiceLocator($this->getServiceLocator());
         
         foreach ($prizes as $prize) {
             // Skip empty values
@@ -43,12 +48,10 @@ class PrizeModel extends AbstractModel
                 continue;
             }
             
-            // If an image was uploaded for this field reset the image name
-            $fileName = 'prize-' . $prize['referenceId'];
-            if (array_key_exists($fileName, $files) && $this->isFileValid($files[$fileName])) {
-                $extension = pathinfo($files[$fileName]['name'], PATHINFO_EXTENSION);
-                $prize['image'] = $fileName . '.' . $extension;
-            }
+            // Check if a valid file was uploaded
+            $fileName = "prize-" . $prize['referenceId'];
+            $file = $files[$fileName];
+            $hasValidFile = ($files[$fileName]['name'] && $this->isFileValid($file));
             
             // We don't need the referenceId, this is only used by the javascript controller
             unset($prize['referenceId']);
@@ -56,17 +59,42 @@ class PrizeModel extends AbstractModel
             $prize['campaign'] = $campaign;
             
             // Save Prize if all data are valid
-            if ($this->validate($prize)) {
+            if ($this->validate($prize, $hasValidFile)) {
+                /**
+                 * Remove image field if we don't have a valid image so it will not be updated
+                 * Note that if this is a new entity and we don't have a valid file then
+                 * the validate method above will return false
+                 */
+                if (!$hasValidFile) {
+                    unset($prize['image']);
+                }
+                // Save prize
                 $saveResult = $this->save($prize);
                 if (!$saveResult) {
                     Session::error("One of your prizes was not saved properly!");
                     $allValid = false;
+                } elseif ( $hasValidFile ) {// Upload prize image
+                    // Create file path
+                    $prizeId = $saveResult->get('id');
+                    $userId = $userHelper->getLoggedInUserId();
+                    $mediaPath = "public/media/$userId/$campaignId/";
+
+                    // Generate new file name
+                    $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+                    $rename = "prize-$prizeId.$extension";
+
+                    // Upload file
+                    $this->uploadFile($fileName, $mediaPath, $rename);
+                    // Update image field in the DB
+                    $saveResult->set('image', $rename);
                 } 
             } else {
                 $allValid = false;
             }
         }
         
+        // Save changes to the image fields after uploading the files
+        $this->getEntityManager()->flush();
         return $allValid;
     }
     
@@ -74,9 +102,10 @@ class PrizeModel extends AbstractModel
      * Validate prize data before saving
      * 
      * @param array $data
+     * @param bool $hasValidFile
      * @return bool
      */
-    protected function validate($data)
+    protected function validate($data, $hasValidFile)
     {
         $errorsFound = false;
         
@@ -109,6 +138,8 @@ class PrizeModel extends AbstractModel
         
         if (!array_key_exists('image', $data) || !$data['image']) {
             Session::error("You didn't provide an <strong>'Image'</strong> for your prize");
+            $errorsFound = true;
+        } elseif (!array_key_exists('id', $data) && !$hasValidFile) {
             $errorsFound = true;
         }
         

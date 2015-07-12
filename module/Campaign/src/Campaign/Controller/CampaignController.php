@@ -58,9 +58,7 @@ class CampaignController extends AbstractActionController
         $params = array('action' => 'edit');
         if ($paramId) {
             $params['id'] = $paramId;
-        }
-        if ($campaignId) {
-            $campaignModel->uploadFiles($campaignId);
+        } elseif ($campaignId) {
             $params['id'] = $campaignId;
         } else {
             $session = new Container('campaign');

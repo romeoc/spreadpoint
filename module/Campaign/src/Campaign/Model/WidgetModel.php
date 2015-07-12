@@ -213,7 +213,9 @@ class WidgetModel extends AbstractModel
         $widgets = $queryBuilder->select('e')
             ->from($this->entity, 'e')
             ->where('e.campaign= :campaign')
+            ->andWhere('e.status= :status')
             ->setParameter('campaign', $campaignId)
+            ->setParameter('status', CampaignWidget::STATUS_ACTIVE)
             ->getQuery()
             ->getResult(Query::HYDRATE_ARRAY);
         

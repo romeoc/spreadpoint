@@ -51,9 +51,28 @@ class User extends \User\Entity\User implements \Doctrine\ORM\Proxy\Proxy
         $this->__cloner__      = $cloner;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param string $name
+     */
+    public function __get($name)
+    {
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__get', array($name));
 
+        return parent::__get($name);
+    }
 
+    /**
+     * {@inheritDoc}
+     * @param string $name
+     * @param mixed  $value
+     */
+    public function __set($name, $value)
+    {
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__set', array($name, $value));
 
+        return parent::__set($name, $value);
+    }
 
     /**
      * {@inheritDoc}

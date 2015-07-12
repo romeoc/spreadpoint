@@ -190,7 +190,7 @@ class AbstractModel implements ServiceLocatorAwareInterface
         $targetFile = $file["name"];
             
         if (!$targetFile) {
-            Session::error('You provided an empty file');
+            //Session::error('You provided an empty file');
             return false;
         }
 
@@ -211,5 +211,40 @@ class AbstractModel implements ServiceLocatorAwareInterface
         }
         
         return true;
+    }
+    
+    /**
+     * Upload a file
+     * 
+     * @param string $identifier | key in  the $_FILES array
+     * @param string $location | where the file will be saved
+     * @param string $rename | optional, will rename the file to this
+     */
+    public function uploadFile($identifier, $location, $rename = null) 
+    {
+        $files = $this->getUploadedFiles();
+        
+        if (!array_key_exists($identifier, $files)) {
+            Session::error("We couldn't find any file with the '$identifier' identifier");
+        }
+        
+        $file = $files[$identifier];
+        
+        // Create directory
+        if (!is_dir($location)) {
+            mkdir($location, 0777, true);
+        }
+
+        $targetFile = $file["name"];
+
+        
+        if ($this->isFileValid($file)) {
+            // Upload File
+            $newFile = ($rename) ? $location . $rename : $location . $targetFile;
+                
+            if (!move_uploaded_file($file['tmp_name'], $newFile)) {
+                Session::error("Could not upload $targetFile");
+            }
+        }            
     }
 }
