@@ -10,14 +10,24 @@
 
 namespace Campaign\Model;
 
+use Doctrine\ORM\Query;
+
 use Campaign\Entity\CampaignWidget;
 use Base\Model\AbstractModel;
 use Base\Model\Session;
 
 class WidgetModel extends AbstractModel
 {
+    /**
+     * The dault widget ID. This widget is required for any campaign.
+     */
     const DEAFULT_WIDGET_ID = 1;
-    
+ 
+    /**
+     * All available widgets
+     *
+     * @var array
+     */
     protected $widgetsMap = array(
         1 => 'Enter Contest',
         2 => 'Facebook Page Like',
@@ -49,7 +59,7 @@ class WidgetModel extends AbstractModel
     public function saveWidgets($campaign, $data)
     {
         $widgets = json_decode($data, true);
-        $this->removeEliminatedWidgets($campaign->__get('id'), $widgets);
+        $this->removeEliminatedWidgets($campaign->get('id'), $widgets);
         
         $allValid = true;
         $hasDefaultWidget = false;
@@ -95,13 +105,7 @@ class WidgetModel extends AbstractModel
             return false;
         }
         
-        // If all widgets were succesfully saved
-        if ($allValid) {
-            Session::success("All your widgets were succesfully saved");
-            return true;
-        }
-        
-        return false;
+        return $allValid;
     }
     
     /**
@@ -122,7 +126,7 @@ class WidgetModel extends AbstractModel
         // Then we remove from this list all widget ids that we received from the request
         foreach ($data as $widget) {
             if ($widget && array_key_exists('id', $widget)) {
-                array_diff($widgetIds, $widget['id']);
+                $widgetIds = array_diff($widgetIds, [$widget['id']]);
             }
         }
         
@@ -201,10 +205,43 @@ class WidgetModel extends AbstractModel
      * Fetch all widgets for a campaign
      * 
      * @param int $campaignId
-     * @return JSON (string)
+     * @return array
      */
     public function getAppliedWidgets($campaignId)
     {
-        return '[]';
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $widgets = $queryBuilder->select('e')
+            ->from($this->entity, 'e')
+            ->where('e.campaign= :campaign')
+            ->setParameter('campaign', $campaignId)
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+        
+        return $widgets;
+    }
+    
+    /**
+     * Fetch all widgets for a campaign in JSON format
+     * 
+     * @param int $campaignId
+     * @return JSON (string)
+     */
+    public function getAppliedWidgetsForJavaScript($campaignId)
+    {
+        $widgets = $this->getAppliedWidgets($campaignId);
+        
+        if ($widgets) {
+            $count = 1;
+            foreach ($widgets as &$widget) {
+                $optionsSerialized = $widget['optionsSerialized'];
+                $optionsSerialized = unserialize($optionsSerialized);
+                unset($widget['optionsSerialized']);
+
+                $widget = array_merge($widget, $optionsSerialized);
+                $widget['referenceId'] = $count++;
+            }
+        }
+        
+        return json_encode($widgets);
     }
 }

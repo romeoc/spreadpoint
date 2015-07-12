@@ -366,12 +366,12 @@ class EntityGrid implements ServiceLocatorAwareInterface
             $parentEntity = ucfirst($this->parentCode).'\\Entity\\'.ucfirst($this->parentCode);
 
             $currentEntity = $entityManager->find($parentEntity, $this->parentId);
-            $breadcrumbs[$this->parentCode] = $currentEntity->__get('name');
+            $breadcrumbs[$this->parentCode] = $currentEntity->get('name');
 
             while ($currentEntity->hasParentField()) {
                 $parentField = $currentEntity->getParentField();
-                $currentEntity = $currentEntity->__get($parentField);
-                $breadcrumbs[$parentField] = $currentEntity->__get('name');
+                $currentEntity = $currentEntity->get($parentField);
+                $breadcrumbs[$parentField] = $currentEntity->get('name');
             }
 
             $last = end($breadcrumbs);

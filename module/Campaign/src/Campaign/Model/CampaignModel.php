@@ -11,6 +11,7 @@
 namespace Campaign\Model;
 
 use Zend\Session\Container;
+use Doctrine\ORM\Query;
 
 use Base\Model\AbstractModel;
 use Base\Model\Session;
@@ -22,6 +23,20 @@ use User\Helper\UserHelper;
 
 class CampaignModel extends AbstractModel
 {
+    /**
+     * A WidgetModel Instance
+     * 
+     * @var Campaign\Model\WidgetModel 
+     */
+    protected $widgetModel;
+    
+    /**
+     * A PrizeModel Instance
+     *
+     * @var Campaign\Model\PrizeModel 
+     */
+    protected $prizeModel;
+    
     // Initialize Campaign Model
     public function __construct() 
     {
@@ -36,52 +51,43 @@ class CampaignModel extends AbstractModel
      * @return int
      */
     public function process($data)
-    {
-        $this->uploadFiles($data);
-        
+    {       
         // Widgets Data
         $widgetsData = '';
         if (array_key_exists('widgets-serialized', $data) && $data['widgets-serialized']) {
             $widgetsData = $data['widgets-serialized'];
+            unset($data['widgets-serialized']);
         } else {
             Session::error("Your users have no ways to participate, please add some widgets");
         }
-        unset($data['widgets-serialized']);
 
         // Prizes Data
         $prizeData = '';
         if (array_key_exists('prizes-serialized', $data) && $data['prizes-serialized']) {
             $prizeData = $data['prizes-serialized'];
+            unset($data['prizes-serialized']);
         } else {
             Session::error("Your users have nothing to win, please add some prizes");
         }
-        unset($data['prizes-serialized']);
-        
-        // Initialize Models
-        $widgetModel = new WidgetModel();
-        $widgetModel->setServiceLocator($this->getServiceLocator());
-
-        $prizeModel = new PrizeModel();
-        $prizeModel->setServiceLocator($this->getServiceLocator());
         
         // Save the campaign data
         $campaign = $this->saveCampaign($data);
         if ($campaign) {
-            
-            Session::success("Your campaign was successfully saved");
+            $campaignId = $campaign->get('id');
+            $this->uploadFiles($campaignId);
             
             // If we managed to save the campaign succesfully then we save the widgets and the prizes
-            $widgetsResult = $widgetModel->saveWidgets($campaign, $widgetsData);
-            $prizeResult = $prizeModel->savePrizes($campaign, $prizeData);
+            $widgetsResult = $this->getWidgetModel()->saveWidgets($campaign, $widgetsData);
+            $prizeResult = $this->getPrizeModel()->savePrizes($campaign, $prizeData);
             
             if (!$widgetsResult || !$prizeResult) {
-                $this->updateStatus($campaign->__get('id'), CampaignEntity::STATUS_PAUSED);
+                $this->updateStatus($campaignId, CampaignEntity::STATUS_PAUSED);
             } else {
-                Session::success('Your campaign was succesfully saved and activated');
+                Session::success('Your campaign was succesfully saved');
             }
         }
         
-        $result = ($campaign) ? $campaign->__get('id') : $campaign;
+        $result = ($campaign) ? $campaign->get('id') : $campaign;
         return $result;
     }
     
@@ -97,10 +103,7 @@ class CampaignModel extends AbstractModel
             return false;
         }
         
-        $helper = new UserHelper();
-        $helper->updateServiceLocator($this->getServiceLocator());
-        
-        $data['user'] = $helper->getLoggedInUser();
+        $data['user'] = $this->getUserHelper()->getLoggedInUser();
         if (!array_key_exists('status', $data)) {
             $data['status'] = CampaignEntity::STATUS_ACTIVE;
         }
@@ -110,6 +113,12 @@ class CampaignModel extends AbstractModel
         
         $data['showEntrants'] = (array_key_exists('showEntrants', $data)) ? 1 : 0;
         $data['sendWelcomeEmail'] = (array_key_exists('sendWelcomeEmail', $data)) ? 1 : 0;
+
+        // Rename banner
+        $files = $this->getUploadedFiles();
+        $banner = $files['banner'];
+        $bannerExtension = pathinfo($banner['name'], PATHINFO_EXTENSION);
+        $data['banner'] = 'banner.' . $bannerExtension;
         
         $result = $this->save($data);
         return $result;
@@ -147,8 +156,12 @@ class CampaignModel extends AbstractModel
             $errosFound = true;
         }
         
+        $files = $this->getUploadedFiles();
+        $banner = $files['banner'];
         if (!array_key_exists('banner', $data) || !$data['banner']) {
             Session::error("You didn't provide a <strong>'Banner'</strong> for your campign");
+            $errosFound = true;
+        } elseif (!$this->isFileValid($banner)) {
             $errosFound = true;
         }
         
@@ -246,11 +259,36 @@ class CampaignModel extends AbstractModel
     /**
      * Upload all files from the session
      * 
-     * @param *array $data
+     * @param int $campaignId
      */
-    protected function uploadFiles(&$data)
+    public function uploadFiles($campaignId)
     {
+        $files = $this->getUploadedFiles();
+        $userId = $this->getUserHelper()->getLoggedInUserId();
+        $mediaPath = "public/media/$userId/$campaignId/";
         
+        // Create directory
+        if (!is_dir($mediaPath)) {
+            mkdir($mediaPath, 0777, true);
+        }
+        
+        foreach ($files as $index => $file) {
+            $targetFile = $file["name"];
+            
+            if (!$targetFile) {
+                continue;
+            }
+            
+            if ($this->isFileValid($file)) {
+                $imageFileType = pathinfo($targetFile, PATHINFO_EXTENSION);
+                $newFileName = $mediaPath . $index . '.' . $imageFileType;
+
+                // Upload File
+                if (!move_uploaded_file($file['tmp_name'], $newFileName)) {
+                    Session::error("Could not upload $targetFile");
+                }
+            }            
+        }
     }
     
     /**
@@ -280,10 +318,22 @@ class CampaignModel extends AbstractModel
     public function fetchData($campaignId) 
     {
         $data = array();
-        
-        if ($campaignId) {
-            // If a campaign Id was specified get then fetch the campaigns data
-            $data = $this->load($campaignId);
+
+        if ($campaignId && is_numeric($campaignId)) {
+            // Check that the campaign was created by the logged in user
+            if ($this->checkCampaignAuthor($campaignId)) {
+                // If a campaign Id was specified get then fetch the campaigns data
+                $data = array(
+                    'data' => $this->load($campaignId),
+                    'entriesData' => array(
+                        'widgetTypes' => $this->getWidgetModel()->getWidgetTypesJson(),
+                        'appliedWidgets' => $this->getWidgetModel()->getAppliedWidgetsForJavaScript($campaignId),
+                    ),
+                    'prizesData' => $this->getPrizeModel()->getAssociatedPrizesForJavaScript($campaignId),
+                );
+            } else {
+                Session::error('You are trying to view a campaign that is not associated to your account');
+            }
         } else {
             /** 
              * If some data was set on the save action 
@@ -295,11 +345,8 @@ class CampaignModel extends AbstractModel
                 $data['data'] = $session->data;
                 $session->offsetUnset('data');
 
-                $widgetModel = new WidgetModel();
-                $widgetModel->setServiceLocator($this->getServiceLocator());
-
                 $data['entriesData'] = array(
-                    'widgetTypes' => $widgetModel->getWidgetTypesJson(),
+                    'widgetTypes' => $this->getWidgetModel()->getWidgetTypesJson(),
                     'appliedWidgets' => $data['data']['widgets-serialized'],
                 );
                 
@@ -322,18 +369,96 @@ class CampaignModel extends AbstractModel
      */
     public function getDefaultData()
     {
-        // Initialize Models
-        $widgetModel = new WidgetModel();
-        $widgetModel->setServiceLocator($this->getServiceLocator());
-        
         return array(
             'messages' => \Base\Model\Session::getGlobalMessages(),
             'data' => array(),
             'entriesData' => array(
-                'widgetTypes' => $widgetModel->getWidgetTypesJson(),
+                'widgetTypes' => $this->getWidgetModel()->getWidgetTypesJson(),
                 'appliedWidgets' => '[]',
             ),
             'prizesData' => '[]',
         );
+    }
+    
+    /**
+     * Load a campaigns data
+     * 
+     * @param int $campaignId
+     */
+    public function load($campaignId)
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $campaign = $queryBuilder->select('e')
+            ->from($this->entity, 'e')
+            ->where('e.id= :id')
+            ->setParameter('id', $campaignId)
+            ->getQuery()
+            ->getSingleResult(Query::HYDRATE_ARRAY);
+        
+        $campaign['startTime'] = $campaign['startTime']->format('Y-m-d\TH:i');
+        $campaign['endTime'] = $campaign['endTime']->format('Y-m-d\TH:i');
+        
+        return $campaign;
+    }
+    
+    /**
+     * Check if the campaign was created by the currently logged in user
+     * 
+     * @param int $campaignId
+     * @return bool
+     */
+    public function checkCampaignAuthor($campaignId)
+    {
+        $userId = $this->getEntityManager()
+            ->find($this->entity, $campaignId)
+            ->get('user')
+            ->get('id');
+        
+        $loggedInUserId = $this->getUserHelper()->getLoggedInUserId();
+        
+        return ($userId == $loggedInUserId);
+    }
+    
+    /**
+     * Returns a WidgetModel instance
+     * 
+     * @return Campaign\Model\WidgetModel
+     */
+    protected function getWidgetModel() 
+    {
+        if (!$this->widgetModel) {
+            $this->widgetModel = new WidgetModel();
+            $this->widgetModel->setServiceLocator($this->getServiceLocator());
+        }
+        
+        return $this->widgetModel;
+    }
+    
+    /**
+     * Returns a WidgetModel instance
+     * 
+     * @return Campaign\Model\PrizeModel
+     */
+    protected function getPrizeModel() 
+    {
+        if (!$this->prizeModel) {
+            $this->prizeModel = new PrizeModel();
+            $this->prizeModel->setServiceLocator($this->getServiceLocator());
+        }
+        
+        return $this->prizeModel;
+    }
+    
+    /**
+     * Return a UserHelper instance
+     * 
+     * @return \User\Helper\UserHelper
+     */
+    protected function getUserHelper()
+    {
+        $helper = new UserHelper();
+        $helper->updateServiceLocator($this->getServiceLocator());
+        
+        return $helper;
     }
 }

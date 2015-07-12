@@ -125,7 +125,7 @@ class EntityForm implements ServiceLocatorAwareInterface
     {
         $object = $form->getObject(); 
         foreach ($form as $element) {
-            $data = $object->__get($element->getName());
+            $data = $object->get($element->getName());
             if ($element->hasAttribute('convertion_type')) {
                 $convertionClass = $element->getAttribute('convertion_class');
                 switch ($element->getAttribute('convertion_type')){
@@ -136,7 +136,7 @@ class EntityForm implements ServiceLocatorAwareInterface
                         }
                         break;
                     case ('manyToOne'):
-                        $elementId = (!empty($data)) ? $data->__get('id') : null;
+                        $elementId = (!empty($data)) ? $data->get('id') : null;
                         $options = $this->getOneToManyOptions($convertionClass,$elementId);
                         $element->setValueOptions($options);
                         break;
@@ -169,14 +169,14 @@ class EntityForm implements ServiceLocatorAwareInterface
         $options = array();
         
         foreach ($data as $entry) {
-            $selectedIds[] = $entry->__get('id');
+            $selectedIds[] = $entry->get('id');
         }
         
         foreach ($entries as $entry) {
-            $id = $entry->__get('id');
+            $id = $entry->get('id');
             $options[$id] = array(
                 'value' => $id,
-                'label' => $entry->__get('name'),
+                'label' => $entry->get('name'),
                 'selected' => (in_array($id, $selectedIds)),
             );
         }
@@ -196,14 +196,14 @@ class EntityForm implements ServiceLocatorAwareInterface
         $options = array();
         
         foreach ($entries as $entry) {
-            $id = $entry->__get('id');
+            $id = $entry->get('id');
             $options[$id] = array(
                 'value' => $id,
-                'label' => $entry->__get('name'),
+                'label' => $entry->get('name'),
                 'selected' => ($id == $selectedId),
             );
             if (!$entry->__isset('name')){
-                $options[$id]['label'] = $entry->__get('email');
+                $options[$id]['label'] = $entry->get('email');
             }
         }
         

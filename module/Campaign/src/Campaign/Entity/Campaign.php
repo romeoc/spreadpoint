@@ -49,13 +49,11 @@ class Campaign extends AbstractEntity
     
     /**
      * @ORM\Column(type="datetime", name="start_time")
-     * @ORM\Version
      */
     protected $startTime;
     
     /**
      * @ORM\Column(type="datetime", name="end_time", nullable=true)
-     * @ORM\Version
      */
     protected $endTime;
     
@@ -141,8 +139,8 @@ class Campaign extends AbstractEntity
     
     public function beforeCreate()
     {
-        if (is_null($this->__get('createdAt'))) {
-            $this->__set('createdAt', new \DateTime());
+        if (is_null($this->get('createdAt'))) {
+            $this->set('createdAt', new \DateTime());
         }
         
         return $this;

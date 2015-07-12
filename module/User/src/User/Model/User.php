@@ -39,7 +39,7 @@ class User extends AbstractModel
 
         if ($auth->authenticate()->isValid()) {
             $entity = $auth->getIdentity();
-            return $entity->__get('firstname');
+            return $entity->get('firstname');
         } 
         
         return false;

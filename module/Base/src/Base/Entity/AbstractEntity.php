@@ -11,7 +11,7 @@ namespace Base\Entity;
  */
 class AbstractEntity 
 {
-    public function __get($property) 
+    public function get($property) 
     {
         $getter = 'get'.ucfirst($property);
         if (method_exists($this, $getter)) {
@@ -21,7 +21,7 @@ class AbstractEntity
         }
     }
 
-    public function __set($property, $value) 
+    public function set($property, $value) 
     {
         $setter = 'set'.ucfirst($property);
         if (method_exists($this, $setter)) {
@@ -33,7 +33,7 @@ class AbstractEntity
     
     public function __isset($property) 
     {
-        $value = $this->__get($property);
+        $value = $this->get($property);
         return property_exists($this, $property) && !empty($value);
     }
     
@@ -80,7 +80,7 @@ class AbstractEntity
     public function setData($data)
     {
         foreach ($data as $key => $value) {
-            $this->__set($key, $value);
+            $this->set($key, $value);
         }
         
         return $this;

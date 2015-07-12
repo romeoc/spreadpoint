@@ -42,7 +42,7 @@ class CampaignPrize extends AbstractEntity
     protected $description;
     
     /**
-     * @ORM\Column(type="integer", name="widget_id", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $count;
     
@@ -54,7 +54,7 @@ class CampaignPrize extends AbstractEntity
     
     /**
      * @ORM\ManyToOne(targetEntity="Campaign\Entity\CampaignEntrant")
-     * @ORM\JoinColumn(name="campaign_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="winner_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $winner;
 }

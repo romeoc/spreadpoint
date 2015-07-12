@@ -45,7 +45,7 @@ class UserHelper extends AbstractHelper implements ServiceLocatorAwareInterface
         
         if ($service->hasIdentity()) {
             $entity = $service->getIdentity();
-            $username = $entity->__get('firstname');
+            $username = $entity->get('firstname');
         }
         
         return $username;
@@ -58,7 +58,7 @@ class UserHelper extends AbstractHelper implements ServiceLocatorAwareInterface
         
         if ($service->hasIdentity()) {
             $entity = $service->getIdentity();
-            $id = $entity->__get('id');
+            $id = $entity->get('id');
         }
         
         return $id;

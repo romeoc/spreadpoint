@@ -78,8 +78,8 @@ class User extends AbstractEntity
         $password = $this->email. ':' . $this->password . ':' . self::SALT;
         $this->password = hash('sha256', $password);
         
-        if (is_null($this->__get('createdAt'))) {
-            $this->__set('createdAt', new \DateTime());
+        if (is_null($this->get('createdAt'))) {
+            $this->set('createdAt', new \DateTime());
         }
         
         return $this;
@@ -87,7 +87,7 @@ class User extends AbstractEntity
     
     public function beforeSave()
     {
-        $this->__set('lastLogIn', new \DateTime());
+        $this->set('lastLogIn', new \DateTime());
         return $this;
     }
 }

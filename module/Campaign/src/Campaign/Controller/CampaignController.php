@@ -46,6 +46,7 @@ class CampaignController extends AbstractActionController
     {
         $this->_service = $this->getServiceLocator();
         $data = $this->request->getPost();
+        $paramId =  $this->params('id');
         
         $campaignModel = new CampaignModel();
         $campaignModel->setServiceLocator($this->_service);
@@ -55,13 +56,17 @@ class CampaignController extends AbstractActionController
         
         // Build redirect parameters
         $params = array('action' => 'edit');
+        if ($paramId) {
+            $params['id'] = $paramId;
+        }
         if ($campaignId) {
+            $campaignModel->uploadFiles($campaignId);
             $params['id'] = $campaignId;
         } else {
             $session = new Container('campaign');
             $session->data = $data;
         }
-        
+
         $this->redirect()->toRoute('campaign', $params);
     }
     

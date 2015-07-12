@@ -2,17 +2,22 @@
     <?php echo $this->partial('user/dashboard/menu.phtml', array('selected' => 'campaigns')); ?>
     <div class="campaign-view dashboard-content">
         <?php echo $this->partial('application/session/global-messages', array('global_messages' => $this->messages)); ?>
-        <form method="post" name="campaign" enctype="multipart/form-data" action="/campaign/save" id="campaign">
+        <?php $savePath = '/campaign/save/'; ?>
+        <?php if (array_key_exists('id', $this->data) && $this->data['id']): ?>
+            <?php $savePath .= $this->data['id']; ?>
+        <?php endif; ?>
+        <form method="post" name="campaign" enctype="multipart/form-data" action="<?php echo $savePath; ?>" id="campaign">
+            <?php if (array_key_exists('id', $this->data) && $this->data['id']): ?>
+                <input type="hidden" name="id" value="<?php echo $this->data['id']; ?>" />
+            <?php endif; ?>
             <div class="campaign-view-header dashboard-header">
                 <div class="campaign-view-title dashboard-title left">
                     <h2><?php echo ($this->title) ? $this->title : 'New Campaign'; ?></h2>
                 </div>
                 <div class="campaign-view-actions right">
-                    <a href="<?php echo $this->basePath('campaign/save'); ?>" title="Save">
-                        <button type="submit" class="campaign-view-action campaign-view-save">
-                            <i class="fa fa-save"></i> Save
-                        </button>
-                    </a>
+                    <button type="submit" class="campaign-view-action campaign-view-save">
+                        <i class="fa fa-save"></i> Save
+                    </button>
                     <a href="<?php echo $this->basePath('campaigns'); ?>" title="Cancel">
                         <button type="button" class="campaign-view-action campaign-view-cancel">
                             <i class="fa fa-undo"></i> Cancel
@@ -56,6 +61,11 @@
 </div>
 <script type="text/javascript">
     $(function(){
-        SpreadPoint.Uploader.init('.custom-row-banner .file-upload');
+        SpreadPoint.Uploader.init('.custom-row-banner .file-upload', 'banner');
+        SpreadPoint.Campaign.Controller.init(
+            <?php echo $this->entriesData['widgetTypes']; ?>, 
+            <?php echo $this->entriesData['appliedWidgets']; ?>,
+            <?php echo $this->prizesData; ?>
+        );
     })
 </script>

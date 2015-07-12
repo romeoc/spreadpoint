@@ -201,14 +201,14 @@
      * Create file upload element for inputs
      */
     SpreadPoint.Uploader = {
-        init: function (selector) {
+        init: function (selector, name) {
             selector = selector || '.file-upload';
             $(selector).not('.file-upload-wrapper .file-upload').each(function(){
                 var $this = $(this);
                 $this.wrap("<div class='file-upload-wrapper'></div>")
                     .attr('readonly',true)
                     .after(
-                        $('<input class="uploader" name="file[]"/>').attr('type', 'file'),
+                        $('<input class="uploader" name="' + name + '"/>').attr('type', 'file'),
                         $('<button class="remove-file">Remove</button>').attr('type', 'button')
                     );
             });
@@ -261,8 +261,6 @@
             
             // We load the available widgets so users can add them
             this.loadWidgetTypes();
-            // And add data processing events before the form is submited
-            this.addSubmitEvents();
         },
         /**
          * Add a new widget
@@ -348,25 +346,21 @@
             });
         },
         /**
-         * Adds an event before the form submit that will update all widgets data
+         * Process all data
          */
-        addSubmitEvents: function() {
+        finalize: function() {
             var $this = this;
-            $('#campaign').submit(function(e) {
-                e.preventDefault();
                 
-                $('.applied-widget-element').each(function(){
-                    var element = $(this);
-                    var elementKey = element.data('key');
-                    var elementValue = element.val();
-                    var widgetId = element.closest('.applied-widget').data('id');
-                    
-                    $this.appliedWidgets[widgetId - 1][elementKey] = elementValue;
-                });
-                
-                $this.updateInputField();
-                this.submit();
+            $('.applied-widget-element').each(function(){
+                var element = $(this);
+                var elementKey = element.data('key');
+                var elementValue = element.val();
+                var widgetId = element.closest('.applied-widget').data('id');
+
+                $this.appliedWidgets[widgetId - 1][elementKey] = elementValue;
             });
+
+            $this.updateInputField();
         }
     }
     
@@ -391,7 +385,6 @@
             
             // Initialize events
             this.addCreationEvents();
-            this.addSubmitEvents();
         },
         /**
          * Add a new prize
@@ -431,6 +424,12 @@
                     var html = template(prize);
 
                     $('.prizes').append(html);
+                    
+                    var selectorId = prize.referenceId;
+                    var imageFieldSelector = ".prize-" + selectorId + " .file-upload";
+                    var imageFieldName = 'prize-' + selectorId;
+
+                    SpreadPoint.Uploader.init(imageFieldSelector, imageFieldName);
                 }
             });
         },
@@ -452,9 +451,11 @@
                 $this.remove(prizeId);
             });
             
-            var imageFieldSelector = this.prizes.length;
-            imageFieldSelector = ".prize-" + imageFieldSelector + " .file-upload";
-            SpreadPoint.Uploader.init(imageFieldSelector);
+            var selectorId = this.prizes.length;
+            var imageFieldSelector = ".prize-" + selectorId + " .file-upload";
+            var imageFieldName = 'prize-' + selectorId;
+            
+            SpreadPoint.Uploader.init(imageFieldSelector, imageFieldName);
         },
         /**
          * Adds prize addition event
@@ -466,23 +467,42 @@
             });
         },
         /**
-         * Will process all data before the form is submited
+         * Process all data
          */
-        addSubmitEvents: function() {
+        finalize: function() {
             var $this = this;
+                
+            $('.prize-element').each(function(){
+                var element = $(this);
+                var elementKey = element.data('key');
+                var elementValue = element.val();
+                var prizeId = element.closest('.row-prize').data('id');
+
+                $this.prizes[prizeId - 1][elementKey] = elementValue;
+            });
+
+            $this.updateInputField();
+        }
+    }
+    
+    SpreadPoint.Campaign = {}
+    SpreadPoint.Campaign.Controller = {
+        // Create widgets and prizes controller
+        init: function(widgetTypes, appliedWidgets, prizes) {
+            SpreadPoint.Widgets.Controller.init(widgetTypes, appliedWidgets);
+            SpreadPoint.Prize.Controller.init(prizes);
+            
+            this.attachSubmitEvent();
+        },
+        // This is triggered before the form is submited
+        attachSubmitEvent: function() {
             $('#campaign').submit(function(e) {
                 e.preventDefault();
                 
-                $('.prize-element').each(function(){
-                    var element = $(this);
-                    var elementKey = element.data('key');
-                    var elementValue = element.val();
-                    var prizeId = element.closest('.row-prize').data('id');
-                    
-                    $this.prizes[prizeId - 1][elementKey] = elementValue;
-                });
+                // Update all widgets and prizes data
+                SpreadPoint.Widgets.Controller.finalize();
+                SpreadPoint.Prize.Controller.finalize();
                 
-                $this.updateInputField();
                 this.submit();
             });
         }

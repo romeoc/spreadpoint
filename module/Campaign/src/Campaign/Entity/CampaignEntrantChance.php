@@ -45,8 +45,8 @@ class CampaignEntrantChance extends AbstractEntity
     
     public function beforeCreate()
     {
-        if (is_null($this->__get('earningDate'))) {
-            $this->__set('earningDate', new \DateTime());
+        if (is_null($this->get('earningDate'))) {
+            $this->set('earningDate', new \DateTime());
         }
         
         return $this;
