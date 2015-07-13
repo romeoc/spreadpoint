@@ -51,18 +51,31 @@ class CampaignController extends AbstractActionController
         $campaignModel = new CampaignModel();
         $campaignModel->setServiceLocator($this->_service);
         
-        $clonedData = clone $data;
-        $campaignId = $campaignModel->process($clonedData);
-        
-        // Build redirect parameters
-        $params = array('action' => 'edit');
+        $shouldSave = true;
         if ($paramId) {
-            $params['id'] = $paramId;
-        } elseif ($campaignId) {
-            $params['id'] = $campaignId;
-        } else {
-            $session = new Container('campaign');
-            $session->data = $data;
+            // Add ID for update
+            $data['id'] = $paramId;
+            // Security measure - Make sure that the campaign is assigned to the logged in user
+            if (!$campaignModel->checkCampaignAuthor($paramId)) {
+                Session::error('You are trying to save a campaign that is not associated to your account');
+                $shouldSave = false;
+            }
+        }
+
+        $params = array('action' => 'edit');
+        if ($shouldSave) {
+            $clonedData = clone $data;
+            $campaignId = $campaignModel->process($clonedData);
+
+            // Build redirect parameters
+            if ($paramId) {
+                $params['id'] = $paramId;
+            } elseif ($campaignId) {
+                $params['id'] = $campaignId;
+            } else {
+                $session = new Container('campaign');
+                $session->data = $data;
+            }
         }
 
         $this->redirect()->toRoute('campaign', $params);

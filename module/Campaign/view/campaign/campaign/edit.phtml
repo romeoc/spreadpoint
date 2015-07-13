@@ -7,9 +7,6 @@
             <?php $savePath .= $this->data['id']; ?>
         <?php endif; ?>
         <form method="post" name="campaign" enctype="multipart/form-data" action="<?php echo $savePath; ?>" id="campaign" novalidate>
-            <?php if (array_key_exists('id', $this->data) && $this->data['id']): ?>
-                <input type="hidden" name="id" value="<?php echo $this->data['id']; ?>" />
-            <?php endif; ?>
             <div class="campaign-view-header dashboard-header">
                 <div class="campaign-view-title dashboard-title left">
                     <h2><?php echo ($this->title) ? $this->title : 'New Campaign'; ?></h2>
@@ -31,7 +28,7 @@
                 </div>
             </div>
             <div class="campaign-view-content">
-                <div class="campaign-tabs jqui-tabs">
+                <div class="campaign-tabs jqui-tabs hide">
                     <ul>
                         <li><a href="#general" class="general-tab">General</a></li>
                         <li><a href="#schedule" class="schedule-tab">Schedule</a></li>

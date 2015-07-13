@@ -46,7 +46,7 @@
         },
         // Initialize all jQuery UI tabs
         initializeTabs: function() {
-            $('.jqui-tabs').tabs();
+            $('.jqui-tabs').tabs().show();
         },
         // Initialize all jQuery Switches
         initializeSwitches: function() {
@@ -728,7 +728,7 @@
         },
         // Log an error message
         logError: function(message, tab, element, skipNameTag) {
-            message = '<li class="error">' + message + '</li>';
+            message = '<li class="error"><i class="fa fa-times-circle"></i>' + message + '</li>';
             $('.global-messages').html(message);
             $(tab).trigger('click');
             

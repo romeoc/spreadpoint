@@ -20,9 +20,13 @@
 .login-form-container { width: 30%; height: 300px; position: fixed; z-index: 20; top: 0; bottom: 0; left: 0; right: 0; margin: auto; }
 .login-overlay { position: fixed; top: 0; left: 0; background: rgba(0,0,0,0.6); z-index: 15; width: 100%; height: 100%; }
 .login-form-container .login { padding-bottom: 50px; background-color: white; border-radius: 10px; }
-.login .login-title {  font-weight: bold; color: white; background-color: #ea474b; border-bottom: 1px solid; padding: 20px 0 10px 30px; margin-bottom: 20px; height: 80px; }
+.login .login-title { font-weight: bold; color: white; background-color: #ea474b; border-bottom: 1px solid; padding: 20px 0 10px 30px; margin-bottom: 20px; height: 80px; }
 .login .forgot-your-password { color: #ea474b; font-weight: bold; padding-top: 10px; }
 .login .close-action { padding-right: 30px; font-size: 150%; cursor: pointer; }
+.login .login-form-row input { height: 45px; border: 1px solid #ccc; border-bottom: 5px solid #ccc; border-radius: 5px; margin-bottom: 5px; padding-left: 50px;}
+.login .custom-row-submit input { height: 55px; padding-left: 0; border-color: #D91C21 !important; margin-top: 15px; }
+.login .custom-row-email input { background: url(../img/user.png) no-repeat 10px 6px; }
+.login .custom-row-password input { background: url(../img/lock.png) no-repeat 10px 6px; }
 
 /***** ACCOUNT SECTION *****/
 .header-account-container { padding: 0 20px; }
@@ -135,3 +139,11 @@
 .campaign-view .campaign-tabs li.ui-state-active { background-color: #ea474b; border-radius: 10px 10px 0 0; }
 .campaign-view .campaign-tabs li.ui-state-active a { color: white; }
 .campaign-view .campaign-tab { padding-top: 20px; }
+
+/***** Global Messages *****/
+.global-messages { list-style: none; margin: 10px 20px 20px 0; }
+.global-messages li { border: 1px solid; margin-bottom: 5px; padding: 3px 0; }
+.global-messages li i { padding: 0 10px; }
+.global-messages li.success { color: #57894c; border-color: #57894c; background-color: #cdeacb; }
+.global-messages li.notice { color: #be6c00; border-color: #be6c00; background-color: #fcf6de; }
+.global-messages li.error { color: #fe0000; border-color: #fe0000; background-color: #f6d3cf; }

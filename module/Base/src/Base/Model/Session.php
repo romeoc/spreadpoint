@@ -16,6 +16,16 @@ class Session
 {
     protected static $_session;
     
+    /**
+     * Message icons
+     * @var array
+     */
+    public static $icons = array(
+        'success'   => 'fa-check-circle',
+        'notice'    => 'fa-exclamation-triangle',
+        'error'     => 'fa-times-circle'
+    );
+    
     // Get global messages session
     public static function getSession() 
     {
@@ -36,8 +46,9 @@ class Session
     {
         $session = self::getSession();
         $messages = $session->messages;
+        $icon = self::$icons[$type];
         
-        $messages[] = array('type' => $type, 'message' => $message);
+        $messages[] = array('type' => $type, 'message' => $message, 'icon' => $icon);
         $session->messages = $messages;
     }
     

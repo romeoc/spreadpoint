@@ -4,7 +4,9 @@
         <?php $messages = ($this->global_messages) ? $this->global_messages : Session::getGlobalMessages(); ?>
         <?php if ($messages): ?>
             <?php foreach ($messages as $message): ?>
-                <li class="<?php echo $message['type']; ?>"><?php echo $message['message']; ?></li>
+                <li class="<?php echo $message['type']; ?>">
+                    <i class="fa <?php echo $message['icon']; ?>"></i><?php echo $message['message']; ?>
+                </li>
             <?php endforeach; ?>
         <?php endif; ?>
         <?php Session::clear(); ?>
