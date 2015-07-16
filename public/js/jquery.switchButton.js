@@ -74,8 +74,8 @@
             this.element.hide();
 
             // Create our objects: two labels and the button
-            this.off_label = $("<span>").addClass("switch-button-label");
-            this.on_label = $("<span>").addClass("switch-button-label");
+            this.off_label = $("<span>").addClass("switch-button-label first");
+            this.on_label = $("<span>").addClass("switch-button-label last");
 
             this.button_bg = $("<div>").addClass("switch-button-background");
             this.button = $("<div>").addClass("switch-button-button");

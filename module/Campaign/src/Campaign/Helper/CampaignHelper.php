@@ -52,13 +52,16 @@ class CampaignHelper extends AbstractHelper
                 'checked' => '',
                 'value'   => 1,
                 'title'   => 'Default Layout',
-                'hint'    => 'This is a message that will tell you about this layout'
+                'classes' => 'first',
+                'id'      => 'default-layout'
+                
             ),
             array(
                 'checked' => '',
                 'value'   => 2,
                 'title'   => 'Another Layout',
-                'hint'    => 'This is a message that will tell you about this layout'
+                'classes' => 'first',
+                'id'      => 'another-layout'
             ),
         );
         
@@ -125,13 +128,15 @@ class CampaignHelper extends AbstractHelper
                 'checked' => '',
                 'value'   => 1,
                 'title'   => 'One Time',
-                'hint'    => 'A single competition'
+                'classes' => 'first',
+                'id'      => 'one-time'
             ),
             array(
                 'checked' => '',
                 'value'   => 2,
                 'title'   => 'Repeating',
-                'hint'    => 'A competition that will repeat'
+                'classes' => 'last',
+                'id'      => 'repeating'
             ),
         );
         

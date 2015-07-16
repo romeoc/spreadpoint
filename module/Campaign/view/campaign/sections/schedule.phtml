@@ -2,43 +2,69 @@
 <?php $campaignHelper->setData($this->data); ?>
 <section class="campaign-section-schedule">
     <div class="campaign-form-row custom-form-row custom-row-type">
-        <label class="type">Competition Type</label>
-        <?php foreach ($campaignHelper->getAllCompetitionTypes() as $type): ?>
-            <div class="radio-element">
-                <input type="radio" name="type" value="<?php echo $type['value']; ?>" <?php echo $type['checked']; ?> />
-                <?php echo $type['title']; ?>
-                <span class="hint"><?php echo $type['hint']; ?></span>
-            </div>
-        <?php endforeach; ?>
-        <span class="comment"></span>
+        <div class="field">
+            <label class="type">Competition Type</label>
+            <i class="fa fa-question-circle"></i>
+            <?php $first = true; ?>
+            <?php foreach ($campaignHelper->getAllCompetitionTypes() as $type): ?>
+                <div class="radio-element <?php echo $type['classes']; ?>">
+                    <input id="<?php echo $type['id']; ?>" type="radio" name="type" value="<?php echo $type['value']; ?>" <?php echo $type['checked']; ?> />
+                    <label for="<?php echo $type['id']; ?>"><?php echo $type['title']; ?></label>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="note pad-top-30">
+            <span class="comment"></span>
+        </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-startime">
-        <label class="title">Start Date</label>
-        <input type="datetime-local" name="startTime" value="<?php echo $campaignHelper->get('startTime'); ?>"/>
-        <span class="comment"></span>
+        <div class="field">
+            <label class="title">Start Date</label><input type="datetime-local" name="startTime" value="<?php echo $campaignHelper->get('startTime'); ?>"/>
+        </div>
+        <div class="note">
+            <i class="fa fa-question-circle"></i>
+            <span class="comment"></span>
+        </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-endtime">
-        <label class="title">End Date</label>
-        <input type="datetime-local" name="endTime" value="<?php echo $campaignHelper->get('endTime'); ?>" />
-        <span class="comment"></span>
+        <div class="field">
+            <label class="title">End Date</label><input type="datetime-local" name="endTime" value="<?php echo $campaignHelper->get('endTime'); ?>" />
+        </div>
+        <div class="note">
+            <i class="fa fa-question-circle"></i>
+            <span class="comment"></span>
+        </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-timezone">
-        <label class="timezone">Time Zone</label>
-        <select name="timezone">
-            <?php foreach($campaignHelper->getTimezones() as $timezone): ?>
-                <option value="<?php echo $timezone ?>" <?php if ($campaignHelper->get('timezone') == $timezone) { echo 'selected'; } ?>><?php echo $timezone ?></option>
-            <?php endforeach; ?>
-        </select>
-        <span class="comment"></span>
+        <div class="field">
+            <label class="timezone">Time Zone</label>
+            <select name="timezone" class="right">
+                <?php foreach($campaignHelper->getTimezones() as $timezone): ?>
+                    <option value="<?php echo $timezone ?>" <?php if ($campaignHelper->get('timezone') == $timezone) { echo 'selected'; } ?>><?php echo $timezone ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="note">
+            <i class="fa fa-question-circle"></i>
+            <span class="comment"></span>
+        </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-cycleDuration">
-        <label class="cycleDuration">Cycle Duration</label>
-        <input name="cycleDuration" type="text" value="<?php echo $campaignHelper->get('cycleDuration'); ?>" />
-        <span class="comment"></span>
+        <div class="field">
+            <label class="cycleDuration">Cycle Duration</label><input name="cycleDuration" type="text" value="<?php echo $campaignHelper->get('cycleDuration'); ?>" />
+        </div>
+        <div class="note">
+            <i class="fa fa-question-circle"></i>
+            <span class="comment"></span>
+        </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-cyclesCount">
-        <label class="cyclesCount">Cycles Count</label>
-        <input name="cyclesCount" type="text" value="<?php echo $campaignHelper->get('cyclesCount'); ?>" />
-        <span class="comment">0 for Infinite</span>
+        <div class="field">
+            <label class="cyclesCount">Cycles Count</label><input name="cyclesCount" type="text" value="<?php echo $campaignHelper->get('cyclesCount'); ?>" />
+        </div>
+        <div class="note">
+            <i class="fa fa-question-circle"></i>
+            <span class="comment">Set 0 for an infinte number of cycles.</span>
+        </div>
     </div>
 </section>

@@ -11,6 +11,7 @@
             this.initializeAccountDropdown();
             this.initializeTabs();
             this.initializeSwitches();
+            this.initializeWikiHints();
         },
         // Mobile right side menu
         initializeMobileMenu: function() {
@@ -53,6 +54,11 @@
             $(".jqui-switch").switchButton({
                 on_label: 'Yes',
                 off_label: 'No'
+            });
+        },
+        initializeWikiHints: function() {
+            $('.custom-form-row i').on('click', function(){
+                $(this).closest('.custom-form-row').find('.comment').toggle();
             });
         }
     };
@@ -602,7 +608,22 @@
             SpreadPoint.Widgets.Controller.init(widgetTypes, appliedWidgets);
             SpreadPoint.Prize.Controller.init(prizes);
             
+            var $this = this;
+            $('input[name="type"]').on('change', function(){
+                $this.initializeSchedule();
+            });
+            
+            this.initializeSchedule();
             this.attachSubmitEvent();
+        },
+        /**
+         * Initialize campaign type switch
+         */
+        initializeSchedule: function() {
+            var isRepeating = this.get('type', ':checked') == 2;
+            $('.custom-row-endtime').toggle(!isRepeating);
+            $('.custom-row-cycleDuration').toggle(isRepeating);
+            $('.custom-row-cyclesCount').toggle(isRepeating);
         },
         // This is triggered before the form is submited
         attachSubmitEvent: function() {

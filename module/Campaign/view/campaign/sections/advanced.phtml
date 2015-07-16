@@ -2,48 +2,88 @@
 <?php $campaignHelper->setData($this->data); ?>
 <section class="campaign-section-advanced">
     <div class="campaign-form-row custom-form-row custom-row-layout">
-        <label class="layout">Layout</label>
-        <?php foreach ($campaignHelper->getAvailableLayouts() as $layout): ?>
-            <div class="radio-element">
-                <input type="radio" name="layout" value="<?php echo $layout['value']; ?>" <?php echo $layout['checked']; ?> />
-                <?php echo $layout['title']; ?>
-                <span class="hint"><?php echo $layout['hint']; ?></span>
-            </div>
-        <?php endforeach; ?>
-        <span class="comment"></span>
+        <div class="field">
+            <label class="layout">Layout</label>
+            <i class="fa fa-question-circle"></i>
+            <?php foreach ($campaignHelper->getAvailableLayouts() as $layout): ?>
+                <div class="radio-element">
+                    <input id="<?php echo $layout['id']; ?>" type="radio" name="layout" value="<?php echo $layout['value']; ?>" <?php echo $layout['checked']; ?> />
+                    <label for="<?php echo $layout['id']; ?>"><?php echo $layout['title']; ?></label>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="note pad-top-30">
+            <span class="comment"></span>
+        </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-termsAndConditions">
-        <label class="termsAndConditions">Terms & Conditions</label>
-        <textarea name="termsAndConditions"><?php echo $campaignHelper->get('termsAndConditions'); ?></textarea>
-        <span class="comment"></span>
+        <div class="field">
+            <label class="termsAndConditions">Terms & Conditions</label>
+            <i class="fa fa-question-circle"></i>
+            <textarea name="termsAndConditions"><?php echo $campaignHelper->get('termsAndConditions'); ?></textarea>
+        </div>
+        <div class="note pad-top-30">
+            <span class="comment"></span>
+        </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-showEntrants">
-        <label class="showEntrants">Show Entrants</label>
-        <input class="jqui-switch" name="showEntrants" type="checkbox" <?php echo $campaignHelper->getChecked('showEntrants'); ?>/>
-        <span class="comment"></span>
+        <div class="field">
+            <label class="showEntrants left">Show Entrants</label>
+            <i class="fa fa-question-circle"></i>
+            <div class="switch">
+                <input class="jqui-switch" name="showEntrants" type="checkbox" <?php echo $campaignHelper->getChecked('showEntrants'); ?>/>
+            </div>
+        </div>
+        <div class="note">
+            <span class="comment"></span>
+        </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-ageRequirement">
+        <div class="field">
         <label class="ageRequirement">Age Requirement</label>
-        <select name="ageRequirement">
-            <?php foreach($campaignHelper->getAllAgeRequirements() as $ageRequirement): ?>
-                <option value="<?php echo $ageRequirement['value']; ?>" <?php echo $ageRequirement['selected']; ?>><?php echo $ageRequirement['title']; ?></option>
-            <?php endforeach; ?>
-        </select>
-        <span class="comment"></span>
+            <select name="ageRequirement">
+                <?php foreach($campaignHelper->getAllAgeRequirements() as $ageRequirement): ?>
+                    <option value="<?php echo $ageRequirement['value']; ?>" <?php echo $ageRequirement['selected']; ?>><?php echo $ageRequirement['title']; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="note">
+            <i class="fa fa-question-circle"></i>
+            <span class="comment"></span>
+        </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-welcomeEmail">
-        <label class="welcomeEmail">Welcome Email</label>
-        <textarea name="welcomeEmail"><?php echo $campaignHelper->get('welcomeEmail'); ?></textarea>
-        <span class="comment"></span>
+        <div class="field">
+            <label class="welcomeEmail">Welcome Email</label>
+            <i class="fa fa-question-circle"></i>
+            <textarea name="welcomeEmail"><?php echo $campaignHelper->get('welcomeEmail'); ?></textarea>
+        </div>
+        <div class="note pad-top-30">
+            <span class="comment"></span>
+        </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-sendWelcomeEmail">
-        <label class="sendWelcomeEmail">Send Welcome Email</label>
-        <input class="jqui-switch" name="sendWelcomeEmail" type="checkbox" <?php echo $campaignHelper->getChecked('sendWelcomeEmail'); ?> />
-        <span class="comment"></span>
+        <div class="field">
+            <label class="sendWelcomeEmail left">Send Welcome Email</label>
+            <i class="fa fa-question-circle"></i>
+            <div class="switch">
+                <input class="jqui-switch" name="sendWelcomeEmail" type="checkbox" <?php echo $campaignHelper->getChecked('sendWelcomeEmail'); ?> />
+            </div>
+        </div>
+        <div class="note">
+            <span class="comment"></span>
+        </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-retainPreviousEntrants">
-        <label class="retainPreviousEntrants">Retain Previous Entrants</label>
-        <input class="jqui-switch" name="retainPreviousEntrants" type="checkbox" <?php echo $campaignHelper->getChecked('retainPreviousEntrants'); ?> />
-        <span class="comment"></span>
+        <div class="field">
+            <label class="retainPreviousEntrants left">Retain Previous Entrants</label>
+            <i class="fa fa-question-circle"></i>
+            <div class="switch">
+                <input class="jqui-switch" name="retainPreviousEntrants" type="checkbox" <?php echo $campaignHelper->getChecked('retainPreviousEntrants'); ?> />
+            </div>
+        </div>
+        <div class="note">
+            <span class="comment"></span>
+        </div>
     </div>
 </section>

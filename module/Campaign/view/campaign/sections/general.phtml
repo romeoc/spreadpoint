@@ -2,28 +2,51 @@
 <?php $campaignHelper->setData($this->data); ?>
 <section class="campaign-section-general">
     <div class="campaign-form-row custom-form-row custom-row-title">
-        <label class="title">Title</label>
-        <input name="title" type="text" value="<?php echo $campaignHelper->get('title'); ?>" />
-        <span class="comment"></span>
+        <div class="field">
+            <label class="title">Title</label><input name="title" type="text" value="<?php echo $campaignHelper->get('title'); ?>" />
+        </div>
+        <div class="note">
+            <i class="fa fa-question-circle"></i>
+            <p class="comment">How would you describe your competition in a sentence? Your campaign title will be the first thing your entrants see.</p>
+        </div>
     </div>
-    <div class="campaign-form-row custom-form-row custom-row-title">
-        <label class="title">Description</label>
-        <textarea name="description"><?php echo $campaignHelper->get('description'); ?></textarea>
-        <span class="comment"></span>
+    <div class="campaign-form-row custom-form-row custom-row-description">
+        <div class="field">
+            <label class="title">Description</label>
+            <i class="fa fa-question-circle"></i>
+            <textarea name="description"><?php echo $campaignHelper->get('description'); ?></textarea>
+        </div>
+        <div class="note pad-top-30">
+            <p class="comment">The campaign description is shown right after the title. You can mention some of your campaigns important aspects in a few line.</p>
+        </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-banner">
-        <label class="title">Banner</label>
-        <input class="file-upload" type="text" name="banner" value="<?php echo $campaignHelper->get('banner'); ?>"/>
-        <span class="comment"></span>
+        <div class="field">
+            <label class="title">Banner</label><input class="file-upload" type="text" name="banner" value="<?php echo $campaignHelper->get('banner'); ?>"/>
+        </div>
+        <div class="note">
+            <i class="fa fa-question-circle"></i>
+            <p class="comment">An image that describes your campaign. Will also be used for sharing on social media.</p>
+        </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-titlecss">
-        <label class="title">Additional Title Styles</label>
-        <textarea name="titleCss"><?php echo $campaignHelper->get('titleCss'); ?></textarea>
-        <span class="comment"></span>
+        <div class="field">
+            <label class="title">Additional Title Styles</label>
+            <i class="fa fa-question-circle"></i>
+            <textarea name="titleCss"><?php echo $campaignHelper->get('titleCss'); ?></textarea>
+        </div>
+        <div class="note pad-top-30">
+            <p class="comment">If you want to apply any custom css rules for the title this is the place. Ex: color: red; font-size: 24px;</p>
+        </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-descriptioncss">
-        <label class="title">Additional Description Styles</label>
-        <textarea name="descriptionCss"><?php echo $campaignHelper->get('descriptionCss'); ?></textarea>
-        <span class="comment"></span>
+        <div class="field">
+            <label class="title">Additional Description Styles</label>
+            <i class="fa fa-question-circle"></i>
+            <textarea name="descriptionCss"><?php echo $campaignHelper->get('descriptionCss'); ?></textarea>
+        </div>
+        <div class="note pad-top-30">
+            <p class="comment">Likewise, you can add custom css rules for your description. Ex: text-decoration: underline; font-size: 12;</p>
+        </div>
     </div>
 </section>
