@@ -60,6 +60,14 @@
             $('.custom-form-row i').on('click', function(){
                 $(this).closest('.custom-form-row').find('.comment').toggle();
             });
+        },
+        initializeListingCampaigns: function() {
+            $('.campaign .title').hide();
+            $('.campaign').on('mouseenter', function(){
+                $(this).find('.title').slideToggle();
+            }).on('mouseleave', function(){
+                $(this).find('.title').slideToggle();
+            });
         }
     };
     

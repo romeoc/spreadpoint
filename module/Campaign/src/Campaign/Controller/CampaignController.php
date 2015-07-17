@@ -24,7 +24,13 @@ class CampaignController extends AbstractActionController
     public function listAction()
     {
         $this->checkAuthentication();
-        return new ViewModel();
+        
+        // Instantiate Campaign Model
+        $campaignModel = new CampaignModel();
+        $campaignModel->setServiceLocator($this->_service);
+        
+        $data = $campaignModel->getCampaignsList();
+        return new ViewModel(array('campaigns' => $data));
     }
     
     public function editAction()

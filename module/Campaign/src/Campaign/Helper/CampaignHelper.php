@@ -10,11 +10,32 @@
 namespace Campaign\Helper;
 
 use Zend\View\Helper\AbstractHelper;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
 
-class CampaignHelper extends AbstractHelper
+use User\Helper\UserHelper;
+use Campaign\Entity\Campaign as CampaignEntity;
+
+class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterface
 {
     protected $data;
+
+    protected $service;
     
+    public function getServiceLocator() 
+    {
+        return $this->service;
+    }
+
+    public function setServiceLocator(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) 
+    {
+        $this->service = $serviceLocator->getServiceLocator();
+    }
+    
+    public function updateServiceLocator($service)
+    {
+        $this->service = $service;
+    }
+
     // Get data by key
     public function get($key)
     {
@@ -151,10 +172,52 @@ class CampaignHelper extends AbstractHelper
     }
     
     /**
+     * Return a UserHelper instance
+     * 
+     * @return \User\Helper\UserHelper
+     */
+    public function getUserHelper()
+    {
+        $helper = new UserHelper();
+        $helper->updateServiceLocator($this->getServiceLocator());
+        
+        return $helper;
+    }
+    
+    /**
      * Get timezones
      */
     public function getTimezones()
     {
         return \DateTimeZone::listIdentifiers(\DateTimeZone::ALL);
+    }
+    
+    /**
+     * Returns the url to the campaigns banner
+     * 
+     * @param int $campaignId
+     * @return string (url)
+     */
+    public function getBannerUrl($campaignId, $filename)
+    {
+        $userId = $this->getUserHelper()->getLoggedInUserId();
+        return "/media/$userId/$campaignId/$filename";
+    }
+    
+    /**
+     * Returns the icon class for the status
+     * 
+     * @param int $status
+     */
+    public function getIconForCampaignStatus($status)
+    {
+        switch ($status) {
+            case CampaignEntity::STATUS_PAUSED:
+                return 'fa-pause';
+            case CampaignEntity::STATUS_FINISHED:
+                return 'fa-check';
+            case CampaignEntity::STATUS_CANCELED:
+                return 'fa-times';
+        }
     }
 }

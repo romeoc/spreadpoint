@@ -1,15 +1,39 @@
-<div class="campaigns dashboard-section">
+<?php $campaignHelper = $this->campaignHelper(); ?>
+<div class="campaign-listing dashboard-section">
     <?php echo $this->partial('user/dashboard/menu.phtml', array('selected' => 'campaigns')); ?>
-    <div class="campaigns-content dashboard-content">
+    <div class="campaigns-wrapper dashboard-content">
         <div class="campaigns-header dashboard-header">
             <div class="campaigns-title dashboard-title">
                 <h2>Campaigns</h2>
                 <a href="<?php echo $this->basePath('campaign/edit'); ?>" title="Add Campaign">
                     <button type="button" class="add-campaign-action">
-                        <i class="fa fa-plus"></i> Add Campaign
+                        <i class="fa fa-plus-circle"></i> Add Campaign
                     </button>
                 </a>
             </div>
         </div>
+        <div class="campaigns-content">
+            <?php foreach($this->campaigns as $campaign): ?>
+                <div class="campaign">
+                    <a href="/campaign/edit/<?php echo $campaign['id']; ?>" title="<?php echo $campaign['title']; ?>">
+                        <?php $bannerUrl = $campaignHelper->getBannerUrl($campaign['id'], $campaign['banner']); ?>
+                        <?php if ($bannerUrl): ?>
+                            <img src="<?php echo $bannerUrl; ?>" alt="<?php echo $campaign['title']; ?>" />
+                        <?php endif; ?>
+                        <span class="title"><?php echo $campaign['title']; ?></span>
+                        <?php if ($campaign['status'] != \Campaign\Entity\Campaign::STATUS_ACTIVE): ?>
+                            <div class="status-overlay status-type-<?php echo $campaign['status']; ?>">
+                                <i class="fa <?php echo $campaignHelper->getIconForCampaignStatus($campaign['status']); ?>"></i>
+                            </div>
+                        <?php endif; ?>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(function(){
+        SpreadPoint.Defaults.initializeListingCampaigns();
+    });
+</script>

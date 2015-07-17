@@ -38,4 +38,17 @@ class Module implements AutoloaderProviderInterface
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
     }
+    
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'Campaign\Helper\CampaignHelper' =>  function(ServiceLocatorInterface $sm) {
+                    $helper = new CampaignHelper();
+                    $helper->setServiceLocator($sm);
+                    return $helper;
+                },
+            ),
+        );
+    }
 }

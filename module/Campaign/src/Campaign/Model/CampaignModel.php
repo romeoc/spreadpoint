@@ -462,4 +462,19 @@ class CampaignModel extends AbstractModel
         
         return $helper;
     }
+    
+    /**
+     * Return all campaigns data for listing
+     * @return array
+     */
+    public function getCampaignsList()
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('e.id, e.title, e.banner, e.status')
+            ->from($this->entity, 'e')
+            ->where('e.user= :user')
+            ->setParameter('user', $this->getUserHelper()->getLoggedInUserId())
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+    }
 }
