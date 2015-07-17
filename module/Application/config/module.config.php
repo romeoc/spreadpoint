@@ -19,10 +19,30 @@ return array(
                     'route' => '/pricing',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
-                        'action'        => 'pricing',
+                        'action'     => 'pricing',
                     ),
                 ),
             ),
+            'contact' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/contact',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'contact',
+                    ),
+                ),
+            ),
+            'contact/sendEmail' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/contact/sendEmail',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'sendEmail',
+                    ),
+                ),
+            )
         ),
     ),
     'service_manager' => array(

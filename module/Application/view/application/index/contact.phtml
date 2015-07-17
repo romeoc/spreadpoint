@@ -1,0 +1,24 @@
+<div class="contact-page">
+    <div class="contact-header">
+        <h2>Get in Touch with Us</h2>
+        <p>We are happy to hear from you. Let us know whatever you are thinking.</p>
+    </div>
+    <form method="post" name="contact" action="/contact/sendEmail" id="contact" novalidate>
+        <?php echo $this->partial('application/session/global-messages'); ?>
+        <div class="contact-form-row contact-form-fullname">
+            <label>Full Name</label><input type="text" name="fullname" />
+        </div>
+        <div class="contact-form-row contact-form-email">
+            <label>Email</label><input type="email" name="email" />
+        </div>
+        <div class="contact-form-row contact-form-message">
+            <label>Message</label><textarea name="message"></textarea>
+        </div>
+        <div class="contact-form-row">
+            <button type="submit">Send Message</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    SpreadPoint.ContactForm.init();
+</script>

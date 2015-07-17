@@ -188,6 +188,49 @@
         }
     };
     
+    SpreadPoint.ContactForm = {
+        init: function() {
+            var $this = this;
+            
+            $('#contact').submit(function(e) {
+                e.preventDefault();
+                
+                if ($this.valid()) {
+                    this.submit();
+                }
+            });
+        },
+        valid: function() {
+            var fullname = $('.contact-form-fullname input').val();
+            var email = $('.contact-form-email input').val();
+            var message = $('.contact-form-message textarea').val();
+
+            if (!fullname) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please enter your name</li>');
+                return false;
+            }
+            
+            var emailRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            if (!email) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please enter your email address</li>');
+                return false;
+            } else if (!emailRegex.test(email)) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please provide a valid email address</li>');
+                return false;
+            }
+            
+            if (!message) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please enter a message</li>');
+                return false;
+            } else if (message.length > 20000) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>The maximum message length is 20000 characters</li>');
+                return false;
+            }
+            
+            return true;
+        },
+    };
+    
     SpreadPoint.Checkout = { 
         init: function() {
             this.addFieldEvents();
