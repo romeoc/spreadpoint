@@ -262,28 +262,41 @@
             selector = selector || '.file-upload';
             $(selector).not('.file-upload-wrapper .file-upload').each(function(){
                 var $this = $(this);
-                $this.wrap("<div class='file-upload-wrapper'></div>")
-                    .attr('readonly',true)
-                    .after(
-                        $('<input class="uploader" name="' + name + '"/>').attr('type', 'file'),
-                        $('<button class="remove-file">Remove</button>').attr('type', 'button')
-                    );
+                $this.attr('readonly',true);
+
+                var data = {name: name};
+                var imageUrl = $this.data('src');
+                if (imageUrl) {
+                    data['image'] = imageUrl;
+                }
+                
+                var source   = SpreadPoint.Templates.Uploader;
+                var template = Handlebars.compile(source);
+                var html = template(data);
+                
+                $this.after(html);
             });
             
             this.bindUploader();
-            this.bindRemoveButton();
+            this.bindActions();
         },
         bindUploader: function() {
             $('.uploader').on('change',function(){
                 var $this = $(this);
-                $this.siblings('.file-upload').val(
+                $this.parent().siblings('.file-upload').val(
                     $this.val().split('\\').pop()
                 ).trigger('blur');
             });
         },
-        bindRemoveButton: function() {
+        bindActions: function() {
             $('.remove-file').on('click', function(){
-                $(this).siblings('.file-upload').val('').trigger('blur');
+                $(this).parent().siblings('.file-upload').val('').trigger('blur');
+            });
+            $('.select-file').off('click').on('click', function(){
+                $(this).siblings('.uploader').trigger('click');
+            });
+            $('.enlarge-image').magnificPopup({ 
+                type: 'image'
             });
         }
     }
@@ -301,9 +314,10 @@
          * @param JSON appliedWidgets - the widgets already applied to this campaign
          * @returns {undefined}
          */
-        init: function(allWidgetTypes, appliedWidgets) {
+        init: function(allWidgetTypes, appliedWidgets, baseImagePath) {
             this.allWidgetTypes = allWidgetTypes;
             this.appliedWidgets = appliedWidgets;
+            this.baseImagePath = baseImagePath;
             this.defaultWidgetId = 1;
             
             if (this.appliedWidgets.length === 0) {
@@ -390,6 +404,9 @@
                 var widgetId = $(this).closest('.applied-widget').data('id');
                 $this.remove(widgetId);
             });
+            
+            var selector = '.applied-widgets textarea';
+            SpreadPoint.Campaign.Controller.adjustTextareas(selector);
         },
         /**
          * Attach the events that will add the widget types on click
@@ -485,8 +502,9 @@
          * 
          * @param JSON array prizes
          */
-        init: function(prizes) {
+        init: function(prizes, baseImagePath) {
             this.prizes = prizes;
+            this.baseImagePath = baseImagePath;
             
             if (this.prizes.length === 0) {
                 // Add initial prize
@@ -494,7 +512,6 @@
             } else {
                 // Load existing prizes
                 this.loadPrizes();
-                this.reloadListeners();
             }
             
             // Initialize events
@@ -531,19 +548,19 @@
          * Load existing prizes received as a parameter
          */
         loadPrizes: function() {
+            var $this = this;
             this.prizes.forEach(function(prize){
                 if (prize) {
+                    if (prize['image']) {
+                        prize['src'] = $this.baseImagePath + prize.image;
+                    }
+                    
                     var source = SpreadPoint.Templates.Prize;
                     var template = Handlebars.compile(source);
                     var html = template(prize);
 
                     $('.prizes').append(html);
-                    
-                    var selectorId = prize.referenceId;
-                    var imageFieldSelector = ".prize-" + selectorId + " .file-upload";
-                    var imageFieldName = 'prize-' + selectorId;
-
-                    SpreadPoint.Uploader.init(imageFieldSelector, imageFieldName);
+                    $this.reloadListeners();
                 }
             });
         },
@@ -564,6 +581,9 @@
                 var prizeId = $(this).closest('.row-prize').data('id');
                 $this.remove(prizeId);
             });
+            
+            var selector = '.prizes textarea';
+            SpreadPoint.Campaign.Controller.adjustTextareas(selector);
             
             var selectorId = this.prizes.length;
             var imageFieldSelector = ".prize-" + selectorId + " .file-upload";
@@ -655,17 +675,38 @@
     SpreadPoint.Campaign = {}
     SpreadPoint.Campaign.Controller = {
         // Create widgets and prizes controller
-        init: function(widgetTypes, appliedWidgets, prizes) {
-            SpreadPoint.Widgets.Controller.init(widgetTypes, appliedWidgets);
-            SpreadPoint.Prize.Controller.init(prizes);
+        init: function(widgetTypes, appliedWidgets, prizes, baseImagePath) {
+            this.baseImagePath = baseImagePath;
+            SpreadPoint.Widgets.Controller.init(widgetTypes, appliedWidgets, baseImagePath);
+            SpreadPoint.Prize.Controller.init(prizes, baseImagePath);
             
             var $this = this;
             $('input[name="type"]').on('change', function(){
                 $this.initializeSchedule();
             });
             
+            this.adjustTextareas();
             this.initializeSchedule();
             this.attachSubmitEvent();
+        },
+        /**
+         * Adjust textarea lines to it's content
+         */
+        adjustTextareas: function(selector) {
+            selector = selector || '.campaign-form-row textarea';
+            
+            $(selector).each(function(){
+                var $this = $(this);
+                if ($this.val().length > 0) {
+                    $(this).height(this.scrollHeight);
+                }
+            });
+
+            $(selector).on('keyup', function(){
+                var $this = $(this);
+                $this.height(0);
+                $this.height(this.scrollHeight);
+            });
         },
         /**
          * Initialize campaign type switch
@@ -675,6 +716,7 @@
             $('.custom-row-endtime').toggle(!isRepeating);
             $('.custom-row-cycleDuration').toggle(isRepeating);
             $('.custom-row-cyclesCount').toggle(isRepeating);
+            $('.custom-row-retainPreviousEntrants').toggle(isRepeating);
         },
         // This is triggered before the form is submited
         attachSubmitEvent: function() {

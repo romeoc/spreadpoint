@@ -90,9 +90,9 @@ class ContactModel
      */
     protected function send()
     {
-        $body = 'Message From: ' . $this->data['fullname'] 
-                . '<br />Email Address :' . $this->data['email'] 
-                . '<br /><br />Message: ' . $this->data['message'];
+        $body = 'Sender Name: ' . $this->data['fullname'] 
+                . PHP_EOL . 'Sender Email :' . $this->data['email'] 
+                . PHP_EOL . PHP_EOL . 'Message: ' . $this->data['message'];
         
         $mail = new Message();
         $mail->setBody($body);

@@ -72,7 +72,7 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
             array(
                 'checked' => '',
                 'value'   => 1,
-                'title'   => 'Default Layout',
+                'title'   => 'Default',
                 'classes' => 'first',
                 'id'      => 'default-layout'
                 
@@ -80,7 +80,7 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
             array(
                 'checked' => '',
                 'value'   => 2,
-                'title'   => 'Another Layout',
+                'title'   => 'Another',
                 'classes' => 'first',
                 'id'      => 'another-layout'
             ),
@@ -200,8 +200,19 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
      */
     public function getBannerUrl($campaignId, $filename)
     {
+        return $this->getBaseImagePath($campaignId) . $filename;
+    }
+    
+    /**
+     * Get base image path for a campaign
+     * 
+     * @param int $campaignId
+     * @return string
+     */
+    public function getBaseImagePath($campaignId)
+    {
         $userId = $this->getUserHelper()->getLoggedInUserId();
-        return "/media/$userId/$campaignId/$filename";
+        return "/media/$userId/$campaignId/";
     }
     
     /**

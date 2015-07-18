@@ -3,8 +3,7 @@
 <section class="campaign-section-schedule">
     <div class="campaign-form-row custom-form-row custom-row-type">
         <div class="field">
-            <label class="type">Competition Type</label>
-            <i class="fa fa-question-circle"></i>
+            <label class="type">Competition Type<i class="fa fa-question-circle"></i></label>
             <?php $first = true; ?>
             <?php foreach ($campaignHelper->getAllCompetitionTypes() as $type): ?>
                 <div class="radio-element <?php echo $type['classes']; ?>">
@@ -13,31 +12,29 @@
                 </div>
             <?php endforeach; ?>
         </div>
-        <div class="note pad-top-30">
+        <div class="note">
             <span class="comment"></span>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-startime">
         <div class="field">
-            <label class="title">Start Date</label><input type="datetime-local" name="startTime" value="<?php echo $campaignHelper->get('startTime'); ?>"/>
+            <label class="title">Start Date<i class="fa fa-question-circle"></i></label><input type="datetime-local" name="startTime" value="<?php echo $campaignHelper->get('startTime'); ?>"/>
         </div>
         <div class="note">
-            <i class="fa fa-question-circle"></i>
             <span class="comment"></span>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-endtime">
         <div class="field">
-            <label class="title">End Date</label><input type="datetime-local" name="endTime" value="<?php echo $campaignHelper->get('endTime'); ?>" />
+            <label class="title">End Date<i class="fa fa-question-circle"></i></label><input type="datetime-local" name="endTime" value="<?php echo $campaignHelper->get('endTime'); ?>" />
         </div>
         <div class="note">
-            <i class="fa fa-question-circle"></i>
             <span class="comment"></span>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-timezone">
         <div class="field">
-            <label class="timezone">Time Zone</label>
+            <label class="timezone">Time Zone<i class="fa fa-question-circle"></i></label>
             <select name="timezone" class="right">
                 <?php foreach($campaignHelper->getTimezones() as $timezone): ?>
                     <option value="<?php echo $timezone ?>" <?php if ($campaignHelper->get('timezone') == $timezone) { echo 'selected'; } ?>><?php echo $timezone ?></option>
@@ -45,25 +42,22 @@
             </select>
         </div>
         <div class="note">
-            <i class="fa fa-question-circle"></i>
             <span class="comment"></span>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-cycleDuration">
         <div class="field">
-            <label class="cycleDuration">Cycle Duration</label><input name="cycleDuration" type="text" value="<?php echo $campaignHelper->get('cycleDuration'); ?>" />
+            <label class="cycleDuration">Cycle Duration<i class="fa fa-question-circle"></i></label><input name="cycleDuration" type="text" value="<?php echo $campaignHelper->get('cycleDuration'); ?>" />
         </div>
         <div class="note">
-            <i class="fa fa-question-circle"></i>
             <span class="comment"></span>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-cyclesCount">
         <div class="field">
-            <label class="cyclesCount">Cycles Count</label><input name="cyclesCount" type="text" value="<?php echo $campaignHelper->get('cyclesCount'); ?>" />
+            <label class="cyclesCount">Cycles Count<i class="fa fa-question-circle"></i></label><input name="cyclesCount" type="text" value="<?php echo $campaignHelper->get('cyclesCount'); ?>" />
         </div>
         <div class="note">
-            <i class="fa fa-question-circle"></i>
             <span class="comment">Set 0 for an infinte number of cycles.</span>
         </div>
     </div>

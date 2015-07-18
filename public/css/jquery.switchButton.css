@@ -21,8 +21,8 @@
     float: left;
     position: relative;
 
-    background: #ea474b;
-    border: 1px solid #ea474b;
+    background: #999;
+    border: 1px solid #999;
 
     margin: 1px 10px;
 
@@ -40,7 +40,7 @@
     top : -1px;
 
     background: #FAFAFA;
-    border: 1px solid #ea474b;
+    border: 1px solid #999;
 
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
