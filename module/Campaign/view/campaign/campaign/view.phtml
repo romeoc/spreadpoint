@@ -1,0 +1,11 @@
+<?php $helper = $this->campaignHelper(); ?>
+<?php $helper->setData($this->data); ?>
+<div class="campaign-page">
+    <div class="banner">
+        <img src="<?php echo $helper->getBannerUrl(); ?>" alt="<?php echo $helper->get('title'); ?>" />
+    </div>
+    <div class="hero">
+        <h1 class="title" style="<?php echo $helper->get('titleCss'); ?>"><?php echo $helper->get('title'); ?></h1>
+        <p class="description" style="<?php echo $helper->get('descriptionCss'); ?>"><?php echo $helper->get('description'); ?></p>
+    </div>
+</div>

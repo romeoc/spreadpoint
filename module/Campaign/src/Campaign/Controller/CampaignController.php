@@ -87,6 +87,23 @@ class CampaignController extends AbstractActionController
         $this->redirect()->toRoute('campaign', $params);
     }
     
+    public function viewAction()
+    {
+        $this->layout('layout/empty');
+        $this->_service = $this->getServiceLocator();
+        $id =  $this->params('id');
+        
+        if (!$id) {
+            $this->redirect()->toRoute('home');
+        }
+        
+        $campaignModel = new CampaignModel();
+        $campaignModel->setServiceLocator($this->_service);
+        $data = $campaignModel->fetchData($id);
+        
+        return new ViewModel($data);
+    }
+    
     public function checkAuthentication()
     {
         $this->_service = $this->getServiceLocator();

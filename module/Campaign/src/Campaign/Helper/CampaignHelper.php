@@ -198,8 +198,16 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
      * @param int $campaignId
      * @return string (url)
      */
-    public function getBannerUrl($campaignId, $filename)
+    public function getBannerUrl($campaignId = null, $filename = null)
     {
+        if (!$campaignId) {
+            $campaignId = $this->get('id');
+        }
+
+        if (!$filename) {
+            $filename = $this->get('banner');
+        }
+        
         return $this->getBaseImagePath($campaignId) . $filename;
     }
     
