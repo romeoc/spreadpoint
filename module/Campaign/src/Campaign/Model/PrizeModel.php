@@ -76,8 +76,7 @@ class PrizeModel extends AbstractModel
                 } elseif ( $hasValidFile ) {// Upload prize image
                     // Create file path
                     $prizeId = $saveResult->get('id');
-                    $userId = $userHelper->getLoggedInUserId();
-                    $mediaPath = "public/media/$userId/$campaignId/";
+                    $mediaPath = "public/media/$campaignId/";
 
                     // Generate new file name
                     $extension = pathinfo($file['name'], PATHINFO_EXTENSION);

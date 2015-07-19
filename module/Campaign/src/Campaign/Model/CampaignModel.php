@@ -77,7 +77,7 @@ class CampaignModel extends AbstractModel
             
             // Upload Banner
             $userId = $this->getUserHelper()->getLoggedInUserId();
-            $mediaPath = "public/media/$userId/$campaignId/";
+            $mediaPath = "public/media/$campaignId/";
             
             $rename = false;
             $files = $this->getUploadedFiles();
@@ -316,13 +316,13 @@ class CampaignModel extends AbstractModel
      * @param int|null $campaignId
      * @return array
      */
-    public function fetchData($campaignId) 
+    public function fetchData($campaignId, $skipAuthorChecking = false) 
     {
         $data = array();
 
         if ($campaignId && is_numeric($campaignId)) {
             // Check that the campaign was created by the logged in user
-            if ($this->checkCampaignAuthor($campaignId)) {
+            if ($skipAuthorChecking || $this->checkCampaignAuthor($campaignId)) {
                 // If a campaign Id was specified get then fetch the campaigns data
                 $data = array(
                     'data' => $this->load($campaignId),
@@ -361,6 +361,19 @@ class CampaignModel extends AbstractModel
         }
         
         return $data;
+    }
+    
+    public function fetchView($campaignId) 
+    {
+        if ($campaignId && is_numeric($campaignId)) {
+            $data = array(
+                'data' => $this->load($campaignId),
+                'entriesData' => $this->getWidgetModel()->getAppliedWidgetsForEntrant($campaignId),
+                'prizesData' => $this->getPrizeModel()->getAssociatedPrizesForJavaScript($campaignId),
+            );
+            
+            return $data;
+        }
     }
     
     /**

@@ -30,7 +30,7 @@
         "</ul>"
     ].join('\n');
     
-    SpreadPoint.Templates.Widgets.Type = {}
+    SpreadPoint.Templates.Widgets.Type = {};
     SpreadPoint.Templates.Widgets.Type.EnterContest = [
         "<div class='applied-widget applied-widget-{{referenceId}} widget-type-entercontest' data-id='{{referenceId}}'>",
             "<div class='widget-header'>",

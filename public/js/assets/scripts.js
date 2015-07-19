@@ -12,6 +12,7 @@
             this.initializeTabs();
             this.initializeSwitches();
             this.initializeWikiHints();
+            this.initializeAccordions();
         },
         // Mobile right side menu
         initializeMobileMenu: function() {
@@ -68,6 +69,9 @@
             }).on('mouseleave', function(){
                 $(this).find('.title').slideToggle();
             });
+        },
+        initializeAccordions: function() {
+            $('.jqui-accordion').accordion();
         }
     };
     
@@ -672,7 +676,7 @@
         }
     }
     
-    SpreadPoint.Campaign = {}
+    SpreadPoint.Campaign = {};
     SpreadPoint.Campaign.Controller = {
         // Create widgets and prizes controller
         init: function(widgetTypes, appliedWidgets, prizes, baseImagePath) {

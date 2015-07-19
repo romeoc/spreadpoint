@@ -1,0 +1,36 @@
+<?php $helper = $this->campaignHelper(); ?>
+<?php $helper->setData($this->data); ?>
+
+<div class="campaign-page campaign-fullpage">
+    <div class="banner">
+        <img src="<?php echo $helper->getBannerUrl(); ?>" alt="<?php echo $helper->get('title'); ?>" />
+    </div>
+    <div class="hero">
+        <h1 class="title" style="<?php echo $helper->get('titleCss'); ?>"><?php echo $helper->get('title'); ?></h1>
+        <p class="description" style="<?php echo $helper->get('descriptionCss'); ?>"><?php echo $helper->get('description'); ?></p>
+    </div>
+    <div class="prizes"></div>
+    
+    <div class="widgets-container">
+        <?php echo $this->partial('application/session/global-messages', array('global_messages' => $this->messages)); ?>
+        
+        <?php $entrantEmail = $helper->getEntrantEmail(); ?>
+        <?php if ($entrantEmail): ?>
+            <div class="chance-entrant"><span>Not <span><?php echo $entrantEmail; ?>?</span></span></div>
+        <?php endif; ?>
+        
+        <div class="widgets jqui-accordion">
+            <?php $widgets = json_decode($this->entriesData); ?>
+            <?php foreach ($widgets as $widget): ?>
+                <?php $template = $helper->getWidgetTemplate($widget->widgetType); ?>
+                <?php echo $this->partial($template, array('data' => $widget, 'campaign' => $this->data['id'])); ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        SpreadPoint.Defaults.initializeAccordions();
+    });
+</script>

@@ -16,6 +16,7 @@ use Zend\Session\Container;
 
 use User\Helper\UserHelper;
 use Campaign\Model\CampaignModel;
+use Campaign\Model\EntrantModel;
 
 class CampaignController extends AbstractActionController
 {
@@ -99,9 +100,27 @@ class CampaignController extends AbstractActionController
         
         $campaignModel = new CampaignModel();
         $campaignModel->setServiceLocator($this->_service);
-        $data = $campaignModel->fetchData($id);
+        $data = $campaignModel->fetchView($id);
         
         return new ViewModel($data);
+    }
+    
+    public function enterAction()
+    {
+        $this->_service = $this->getServiceLocator();
+        
+        $id =  $this->params('id');
+        $data = $this->request->getPost();
+
+        if (!$id) {
+            $this->redirect()->toRoute('home');
+        }
+        
+        $model = new EntrantModel();
+        $model->setServiceLocator($this->_service);
+        
+        $model->add($id, $data);
+        $this->redirect()->toRoute('campaign', array('action' => 'view', 'id' => $id));
     }
     
     public function checkAuthentication()

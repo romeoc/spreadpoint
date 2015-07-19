@@ -51,9 +51,28 @@ class Campaign extends \Campaign\Entity\Campaign implements \Doctrine\ORM\Proxy\
         $this->__cloner__      = $cloner;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param string $name
+     */
+    public function __get($name)
+    {
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__get', array($name));
 
+        return parent::__get($name);
+    }
 
+    /**
+     * {@inheritDoc}
+     * @param string $name
+     * @param mixed  $value
+     */
+    public function __set($name, $value)
+    {
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__set', array($name, $value));
 
+        return parent::__set($name, $value);
+    }
 
     /**
      * {@inheritDoc}
@@ -75,10 +94,10 @@ class Campaign extends \Campaign\Entity\Campaign implements \Doctrine\ORM\Proxy\
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'user', 'title', 'description', 'startTime', 'endTime', 'banner', 'titleCss', 'descriptionCss', 'status', 'type', 'timezone', 'cycleDuration', 'cyclesCount', 'layout', 'restrictions', 'termsAndConditions', 'showEntrants', 'ageRequirement', 'welcomeEmail', 'sendWelcomeEmail', 'createdAt');
+            return array('__isInitialized__', 'id', 'user', 'title', 'description', 'startTime', 'endTime', 'banner', 'titleCss', 'descriptionCss', 'status', 'type', 'timezone', 'cycleDuration', 'cyclesCount', 'layout', 'restrictions', 'termsAndConditions', 'showEntrants', 'ageRequirement', 'welcomeEmail', 'sendWelcomeEmail', 'retainPreviousEntrants', 'createdAt');
         }
 
-        return array('__isInitialized__', 'id', 'user', 'title', 'description', 'startTime', 'endTime', 'banner', 'titleCss', 'descriptionCss', 'status', 'type', 'timezone', 'cycleDuration', 'cyclesCount', 'layout', 'restrictions', 'termsAndConditions', 'showEntrants', 'ageRequirement', 'welcomeEmail', 'sendWelcomeEmail', 'createdAt');
+        return array('__isInitialized__', 'id', 'user', 'title', 'description', 'startTime', 'endTime', 'banner', 'titleCss', 'descriptionCss', 'status', 'type', 'timezone', 'cycleDuration', 'cyclesCount', 'layout', 'restrictions', 'termsAndConditions', 'showEntrants', 'ageRequirement', 'welcomeEmail', 'sendWelcomeEmail', 'retainPreviousEntrants', 'createdAt');
     }
 
     /**

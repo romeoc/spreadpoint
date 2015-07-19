@@ -35,6 +35,11 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
     {
         $this->service = $service;
     }
+    
+    public function getEntityManager()
+    {
+        return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+    }
 
     // Get data by key
     public function get($key)
@@ -219,8 +224,7 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
      */
     public function getBaseImagePath($campaignId)
     {
-        $userId = $this->getUserHelper()->getLoggedInUserId();
-        return "/media/$userId/$campaignId/";
+        return "/media/$campaignId/";
     }
     
     /**
@@ -238,5 +242,45 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
             case CampaignEntity::STATUS_CANCELED:
                 return 'fa-times';
         }
+    }
+    
+    /**
+     * Return template for widget type
+     * 
+     * @param int $widgetType
+     */
+    public function getWidgetTemplate($widgetType)
+    {
+        $path = 'campaign/widget/';
+        switch ($widgetType) {
+            case 1:
+                return $path . 'enter-contest';
+            case 2:
+                return $path . 'facebook-like';
+        }
+    }
+    
+    /**
+     * Return the entrants email if the cookie is set or false otherwise
+     * 
+     * @return string | false
+     */
+    public function getEntrantEmail()
+    {
+        $cookie = $this->getServiceLocator()->get('request')->getHeaders()->get('Cookie');
+        $entrant = false;
+        
+        if (array_key_exists('entrant', get_object_vars($cookie))) {
+            $entrant = $cookie->entrant;
+        }
+        
+        if ($entrant) {
+            $entrantEntity = $this->getEntityManager()->find('Campaign\Entity\CampaignEntrant', $entrant);
+            if ($entrantEntity) {
+                $entrant = $entrantEntity->get('email');
+            }
+        }
+        
+        return $entrant;
     }
 }

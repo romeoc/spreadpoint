@@ -246,4 +246,37 @@ class WidgetModel extends AbstractModel
         
         return json_encode($widgets);
     }
+    
+    /**
+     * Get all widgets for the "entrant" cookie or return de "default" widget otherwise
+     * @param int $campaignId
+     * @return JSON (string)
+     */
+    public function getAppliedWidgetsForEntrant($campaignId)
+    {
+        $widgets = $this->getAppliedWidgets($campaignId);
+        $cookie = $this->getServiceLocator()->get('request')->getHeaders()->get('Cookie');
+        $entrant = false;
+        
+        if (array_key_exists('entrant', get_object_vars($cookie))) {
+            $entrant = $cookie->entrant;
+        }
+        
+        foreach ($widgets as $key => &$widget) {
+            // We will show only the default widget if no entrant is set 
+            // and remove the default widget if the entrant is set
+            if (($entrant && $widget['widgetType'] == self::DEAFULT_WIDGET_ID) 
+                    || (!$entrant && $widget['widgetType'] != self::DEAFULT_WIDGET_ID)) {
+                unset($widgets[$key]);
+            }
+            
+            $optionsSerialized = $widget['optionsSerialized'];
+            $optionsSerialized = unserialize($optionsSerialized);
+            unset($widget['optionsSerialized']);
+
+            $widget = array_merge($widget, $optionsSerialized);
+        }
+        
+        return json_encode($widgets);
+    }
 }
