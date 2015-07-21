@@ -16,7 +16,11 @@
         
         <?php $entrantEmail = $helper->getEntrantEmail(); ?>
         <?php if ($entrantEmail): ?>
-            <div class="chance-entrant"><span>Not <span><?php echo $entrantEmail; ?>?</span></span></div>
+            <div class="chance-entrant">
+                <a href="<?php echo $this->basePath('campaign/clearSession/' . $this->data['id']); ?>" title="Log Out" />
+                    <span>Not <span><?php echo $entrantEmail; ?>?</span></span>
+                </a>
+            </div>
         <?php endif; ?>
         
         <div class="widgets jqui-accordion">

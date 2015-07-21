@@ -88,6 +88,13 @@ class EntrantModel extends AbstractModel
         $this->getServiceLocator()->get('response')->getHeaders()->addHeader($cookie);
     }
     
+    public function clearEntrantCookie()
+    {
+        $expires = time() - 365 * 60 * 60 * 24;
+        $cookie = new SetCookie('entrant', '', $expires, '/');
+        $this->getServiceLocator()->get('response')->getHeaders()->addHeader($cookie);
+    }
+    
     
     public function addChance($entrant, $widgetId)
     {
