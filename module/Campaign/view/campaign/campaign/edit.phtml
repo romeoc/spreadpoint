@@ -10,9 +10,21 @@
             <div class="campaign-view-header dashboard-header">
                 <div class="campaign-view-title dashboard-title left">
                     <?php $title = $campaignHelper->get('title'); ?>
-                    <h2><?php echo ($title) ? $title : 'New Campaign'; ?></h2>
+                    <h2><?php echo ($title) ? $title : 'New Campaign'; ?> 
+                        <?php if ($campaignHelper->get('status')): ?>
+                            (<?php echo $campaignHelper->getStatusString(); ?>)
+                        <?php endif; ?>
+                    </h2>
                 </div>
                 <div class="campaign-view-actions right">
+                    <?php if (array_key_exists('id', $this->data) && $campaignHelper->getToggledStatus()): ?>
+                        <?php $url = 'campaign/updateStatus/' . $this->data['id'] . '/status/' . $campaignHelper->getToggledStatus(); ?>
+                        <a href="<?php echo $this->basePath($url); ?>" title="<?php echo $campaignHelper->getToggledStatusTitle(); ?> Campaign">
+                            <button type="button" class="campaign-view-action campaign-view-toggle-status">
+                                <i class="fa <?php echo $campaignHelper->getToggledStatusIcon(); ?>"></i> <?php echo $campaignHelper->getToggledStatusTitle(); ?>
+                            </button>
+                        </a>
+                    <?php endif; ?>
                     <button type="submit" class="campaign-view-action campaign-view-save">
                         <i class="fa fa-save"></i> Save
                     </button>

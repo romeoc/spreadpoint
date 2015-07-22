@@ -24,7 +24,7 @@ return array(
             'campaign' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/campaign[/[:action[/[:id[/]]]]]',
+                    'route'    => '/campaign[/[:action[/[:id]]]]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
@@ -46,6 +46,9 @@ return array(
     'view_manager' => array(
         'template_path_stack' => array(
             'campaign' => __DIR__ . '/../view',
+        ),
+        'strategies' => array(
+           'ViewJsonStrategy',
         ),
     ),
     'view_helpers' => array(

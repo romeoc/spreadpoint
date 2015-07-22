@@ -482,6 +482,9 @@
                         } else if (!widget.page.match(/^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/)) {
                             SpreadPoint.Campaign.Controller.logError('Your facebook widget has an invalid <strong>Page Link</strong>', tab, identifier, true);
                             allValid = false;
+                        } else if (widget.page.indexOf("facebook.com") === -1) {
+                            SpreadPoint.Campaign.Controller.logError('Invalid <strong>facebook</strong> link', tab, identifier, true);
+                            allValid = false;
                         }
                         break;
                 }

@@ -11,8 +11,9 @@
 namespace Campaign\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
+use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 
 use User\Helper\UserHelper;
 use Campaign\Model\CampaignModel;
@@ -36,7 +37,6 @@ class CampaignController extends AbstractActionController
     
     public function editAction()
     {
-        // TODO: Check if user is the one that is logged in!!!!!
         $this->checkAuthentication();
 
         // Instantiate Campaign Model
@@ -105,6 +105,29 @@ class CampaignController extends AbstractActionController
         return new ViewModel($data);
     }
     
+    public function updateStatusAction()
+    {
+        $this->checkAuthentication();
+        
+        $id =  $this->params('id');
+        $status = $this->params('status');
+        
+        if (!$id) {
+            $this->redirect()->toRoute('home');
+        }
+        
+        if (!$status) {
+            $this->redirect()->toRoute('campaign', array('action' => 'edit', 'id' => $id));
+        }
+        
+        $campaignModel = new CampaignModel();
+        $campaignModel->setServiceLocator($this->_service);
+        $campaignModel->updateStatus($id, $status);
+                
+        $this->redirect()->toRoute('campaign', array('action' => 'edit', 'id' => $id));
+        
+    }
+    
     public function enterAction()
     {
         $this->_service = $this->getServiceLocator();
@@ -123,7 +146,37 @@ class CampaignController extends AbstractActionController
         $this->redirect()->toRoute('campaign', array('action' => 'view', 'id' => $id));
     }
     
-    
+    public function completeAction()
+    {
+        $this->_service = $this->getServiceLocator();
+        $widgetId =  $this->params('id');
+        
+        if (!$widgetId) {
+            return new JsonModel(array(
+                'status' => false,
+                'message' => 'No widget Specified!'
+            ));
+        }
+        
+        $model = new EntrantModel();
+        $model->setServiceLocator($this->_service);
+        
+        $entrant = $model->getLoadedEntrant();
+        
+        if (!$entrant) {
+            return new JsonModel(array(
+                'status' => false,
+                'message' => 'No entrant found!'
+            ));
+        }
+        
+        $result = $model->addChance($entrant, $widgetId);
+        
+        return new JsonModel(array(
+            'status' => !!$result,
+            'message' => 'Save completed'
+        ));
+    }
     
     public function clearSessionAction()
     {

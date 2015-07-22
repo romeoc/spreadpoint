@@ -283,4 +283,84 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
         
         return $entrant;
     }
+    
+    /**
+     * Get status to which we should toggle
+     * 
+     * @return int
+     */
+    public function getToggledStatus()
+    {
+        if ($this->get('status') == CampaignEntity::STATUS_ACTIVE) {
+            return CampaignEntity::STATUS_PAUSED;
+        }
+        
+        if ($this->get('status') == CampaignEntity::STATUS_PAUSED) {
+            return CampaignEntity::STATUS_ACTIVE;
+        }
+        
+        return false;
+    }
+    
+    /**
+     *Get toggled status title
+     * 
+     * @return string
+     */
+    public function getToggledStatusTitle()
+    {
+        if ($this->get('status') == CampaignEntity::STATUS_ACTIVE) {
+            return 'Pause';
+        }
+        
+        if ($this->get('status') == CampaignEntity::STATUS_PAUSED) {
+            return 'Unpause';
+        }
+        
+        return false;
+    }
+    
+    /**
+     *Get toggled status icon
+     * 
+     * @return string
+     */
+    public function getToggledStatusIcon()
+    {
+        if ($this->get('status') == CampaignEntity::STATUS_ACTIVE) {
+            return 'fa-pause';
+        }
+        
+        if ($this->get('status') == CampaignEntity::STATUS_PAUSED) {
+            return 'fa-play';
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Get status as string
+     * 
+     * @return string
+     */
+    public function getStatusString()
+    {
+        if ($this->get('status') == CampaignEntity::STATUS_ACTIVE) {
+            return 'Active';
+        }
+        
+        if ($this->get('status') == CampaignEntity::STATUS_PAUSED) {
+            return 'Paused';
+        }
+        
+        if ($this->get('status') == CampaignEntity::STATUS_FINISHED) {
+            return 'Complete';
+        }
+        
+        if ($this->get('status') == CampaignEntity::STATUS_CANCELED) {
+            return 'Canceled';
+        }
+        
+        return false;
+    }
 }

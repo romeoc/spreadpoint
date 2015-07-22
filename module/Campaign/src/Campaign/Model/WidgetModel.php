@@ -262,18 +262,27 @@ class WidgetModel extends AbstractModel
             $entrant = $cookie->entrant;
         }
         
+        $completedWidgets = array();
+        if ($entrant) {
+            $changeModel = new ChanceModel();
+            $changeModel->setServiceLocator($this->getServiceLocator());
+            $completedWidgets = $changeModel->getCompletedWidgetIds($entrant);
+        }
+        
         foreach ($widgets as $key => &$widget) {
             // We will show only the default widget if no entrant is set 
             // and remove the default widget if the entrant is set
             if (($entrant && $widget['widgetType'] == self::DEAFULT_WIDGET_ID) 
                     || (!$entrant && $widget['widgetType'] != self::DEAFULT_WIDGET_ID)) {
                 unset($widgets[$key]);
+                continue;
             }
             
             $optionsSerialized = $widget['optionsSerialized'];
             $optionsSerialized = unserialize($optionsSerialized);
             unset($widget['optionsSerialized']);
-
+            
+            $widget['completed'] = in_array($widget['id'], $completedWidgets);
             $widget = array_merge($widget, $optionsSerialized);
         }
         

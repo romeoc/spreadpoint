@@ -95,11 +95,46 @@ class EntrantModel extends AbstractModel
         $this->getServiceLocator()->get('response')->getHeaders()->addHeader($cookie);
     }
     
+    /**
+     * Get entrant saved in cookie
+     */
+    public function getSavedEntrant() {
+        $cookie = $this->getServiceLocator()->get('request')->getHeaders()->get('Cookie');
+        $entrant = false;
+        
+        if (array_key_exists('entrant', get_object_vars($cookie))) {
+            $entrant = $cookie->entrant;
+        }
+        
+        return $entrant;
+    }
+    
+    /**
+     * Get Entrant Entity that is saved in the cookies
+     */
+    public function getLoadedEntrant()
+    {
+        $entrant = $this->getSavedEntrant();
+        
+        if ($entrant) {
+            $entrant = $this->getEntityManager()->find($this->entity, $entrant);
+        }
+        
+        return $entrant;
+    }
+    
     
     public function addChance($entrant, $widgetId)
     {
         $data['entrant'] = $entrant;
         $data['widget'] = $this->loadWidget($widgetId);
+        
+        $model = $this->getChanceModel();
+        
+        // Already awarded for this widget
+        if ($model->load($entrant, $widgetId)) {
+            return false;
+        }
         
         return $this->getChanceModel()->save($data);
     }
