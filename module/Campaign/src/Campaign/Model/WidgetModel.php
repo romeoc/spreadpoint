@@ -30,7 +30,10 @@ class WidgetModel extends AbstractModel
      */
     protected $widgetsMap = array(
         1 => 'Enter Contest',
-        2 => 'Facebook Page Like',
+        2 => 'Facebook Like',
+        3 => 'Facebook Share',
+        4 => 'Twitter Tweet',
+        5 => 'Twitter Follow'
     );
     
     // Initialize Widget Model

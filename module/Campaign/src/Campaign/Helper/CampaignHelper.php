@@ -257,6 +257,12 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
                 return $path . 'enter-contest';
             case 2:
                 return $path . 'facebook-like';
+            case 3:
+                return $path . 'facebook-share';
+            case 4:
+                return $path . 'twitter-tweet';
+            case 5:
+                return $path . 'twitter-follow';
         }
     }
     

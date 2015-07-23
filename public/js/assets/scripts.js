@@ -308,7 +308,10 @@
     SpreadPoint.Widgets = {};
     SpreadPoint.Widgets.Map = [
         SpreadPoint.Templates.Widgets.Type.EnterContest,
-        SpreadPoint.Templates.Widgets.Type.FacebookPageLike,
+        SpreadPoint.Templates.Widgets.Type.FacebookLike,
+        SpreadPoint.Templates.Widgets.Type.FacebookShare,
+        SpreadPoint.Templates.Widgets.Type.TwitterTweet,
+        SpreadPoint.Templates.Widgets.Type.TwitterFollow
     ];
     SpreadPoint.Widgets.Controller = {
         /**
@@ -484,6 +487,35 @@
                             allValid = false;
                         } else if (widget.page.indexOf("facebook.com") === -1) {
                             SpreadPoint.Campaign.Controller.logError('Invalid <strong>facebook</strong> link', tab, identifier, true);
+                            allValid = false;
+                        }
+                        break;
+                    case 3:
+                        if (!widget.link) {
+                            SpreadPoint.Campaign.Controller.logError('Your facebook widget must have a <strong>Link</strong>', tab, identifier, true);
+                            allValid = false;
+                        } else if (!widget.link.match(/^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/)) {
+                            SpreadPoint.Campaign.Controller.logError('Your facebook widget has an invalid <strong>Page Link</strong>', tab, identifier, true);
+                            allValid = false;
+                        }
+                        
+                        if (!widget.title) {
+                            SpreadPoint.Campaign.Controller.logError('Your facebook widget must have a <strong>Title</strong>', tab, identifier, true);
+                            allValid = false;
+                        }
+                        break;
+                    case 4:
+                        if (!widget.message) {
+                            SpreadPoint.Campaign.Controller.logError('Your twitter widget must have a <strong>Default Message</strong>', tab, identifier, true);
+                            allValid = false;
+                        } else if (widget.message.width > 140) {
+                            SpreadPoint.Campaign.Controller.logError('The maximum <strong>Message</strong> length is 140 characters', tab, identifier, true);
+                            allValid = false;
+                        }
+                        break;
+                    case 5:
+                        if (!widget.user) {
+                            SpreadPoint.Campaign.Controller.logError('Your twitter widget must have a <strong>User</strong>', tab, identifier, true);
                             allValid = false;
                         }
                         break;
