@@ -11,11 +11,12 @@
 
 namespace Campaign\Model;
 
-use Zend\Http\Header\SetCookie;
+use Doctrine\ORM\Query;
 
 use Base\Model\AbstractModel;
 use Base\Model\Session;
 use Campaign\Model\ChanceModel;
+use User\Helper\UserHelper;
 
 class EntrantModel extends AbstractModel
 {
@@ -39,12 +40,18 @@ class EntrantModel extends AbstractModel
         
         $entrantData['campaign'] = $campaign;
         $entrant = false;
+        
+        $referenceId = $this->getCookie('reference');
+        if ($referenceId) {
+            $entrantData['reference'] = $this->loadEntrant($referenceId);
+        }
+        
         if ($this->validate($entrantData) && !$this->isRegistered($campaignId, $entrantData['email'], true)) {
             $entrant = $this->save($entrantData);
         }
         
         if ($entrant) {
-            $this->setEntrantCookie($entrant);
+            $this->setCookie('entrant', $entrant->get('id'));
             $this->addChance($entrant, $widgetId);
         }
     }
@@ -70,43 +77,10 @@ class EntrantModel extends AbstractModel
             ->getResult();
         
         if ($entrant && $setCookie) {
-            $this->setEntrantCookie($entrant[0]);
+            $this->setCookie('entrant', $entrant[0]->get('id'));
         }
         
         return ($entrant);
-    }
-    
-    /**
-     * Set a cookie for the entrant
-     * @param Campaign\Entity\Campaign\Entrant $entrant
-     */
-    public function setEntrantCookie($entrant)
-    {
-        $id = $entrant->get('id');
-        $expires = time() + 365 * 60 * 60 * 24;
-        $cookie = new SetCookie('entrant', $id, $expires, '/');
-        $this->getServiceLocator()->get('response')->getHeaders()->addHeader($cookie);
-    }
-    
-    public function clearEntrantCookie()
-    {
-        $expires = time() - 365 * 60 * 60 * 24;
-        $cookie = new SetCookie('entrant', '', $expires, '/');
-        $this->getServiceLocator()->get('response')->getHeaders()->addHeader($cookie);
-    }
-    
-    /**
-     * Get entrant saved in cookie
-     */
-    public function getSavedEntrant() {
-        $cookie = $this->getServiceLocator()->get('request')->getHeaders()->get('Cookie');
-        $entrant = false;
-        
-        if (array_key_exists('entrant', get_object_vars($cookie))) {
-            $entrant = $cookie->entrant;
-        }
-        
-        return $entrant;
     }
     
     /**
@@ -114,7 +88,7 @@ class EntrantModel extends AbstractModel
      */
     public function getLoadedEntrant()
     {
-        $entrant = $this->getSavedEntrant();
+        $entrant = $this->getCookie('entrant');
         
         if ($entrant) {
             $entrant = $this->getEntityManager()->find($this->entity, $entrant);
@@ -193,6 +167,17 @@ class EntrantModel extends AbstractModel
     }
     
     /**
+     * Loads an entrant by id
+     * 
+     * @param int $entrantId
+     * @return Campaign\Entity\CampaignEntrant
+     */
+    protected function loadEntrant($entrantId)
+    {
+        return $this->getEntityManager()->find($this->entity, $entrantId);
+    }
+    
+    /**
      * Return a new instance of ChanceModel
      * @return Campaign\Model\ChanceModel
      */
@@ -202,5 +187,33 @@ class EntrantModel extends AbstractModel
         $chanceModel->setServiceLocator($this->getServiceLocator());
         
         return $chanceModel;
+    }
+    
+    /**
+     * Get campaign id for entrant
+     *
+     * @param int $entrantId
+     * @return int
+     */
+    public function getCampaignIdForEntrant($entrantId)
+    {
+        $entrant = $this->getEntityManager()->find($this->entity, $entrantId);
+        return $entrant->get('campaign')->get('id');
+    }
+    
+    public function entrantsList()
+    {
+        $userHelper = new UserHelper();
+        $userHelper->updateServiceLocator($this->getServiceLocator());
+        
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('e')
+            ->from($this->entity, 'e')
+            ->innerJoin('Campaign\Entity\Campaign','c','WITH','e.campaign = c.id')
+            ->where('c.user= :user')
+            ->setParameter('user', $userHelper->getLoggedInUserId())
+            ->getQuery()
+            ->setHint(Query::HINT_INCLUDE_META_COLUMNS, true)
+            ->getArrayResult();
     }
 }

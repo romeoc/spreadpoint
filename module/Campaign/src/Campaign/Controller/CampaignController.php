@@ -100,9 +100,31 @@ class CampaignController extends AbstractActionController
         
         $campaignModel = new CampaignModel();
         $campaignModel->setServiceLocator($this->_service);
+        
         $data = $campaignModel->fetchView($id);
         
         return new ViewModel($data);
+    }
+    
+    public function referenceAction()
+    {
+        $this->_service = $this->getServiceLocator();
+        $referenceId =  $this->params('id');
+        
+        if (!$referenceId) {
+            $this->redirect()->toRoute('home');
+        }
+        
+        $model = new EntrantModel();
+        $model->setServiceLocator($this->_service);
+        
+        $campaignId = $model->getCampaignIdForEntrant($referenceId);
+        if ($campaignId) {
+            $model->setCookie('reference', $referenceId);
+            $this->redirect()->toRoute('campaign', array('action' => 'view', 'id' => $campaignId));
+        } else {
+            $this->redirect()->toRoute('home');
+        }
     }
     
     public function updateStatusAction()
@@ -185,13 +207,24 @@ class CampaignController extends AbstractActionController
         
         $model = new EntrantModel();
         $model->setServiceLocator($this->_service);
-        $model->clearEntrantCookie();
+        $model->clearCookie('entrant');
         
         if (!$id) {
             $this->redirect()->toRoute('home');
         }
         
         $this->redirect()->toRoute('campaign', array('action' => 'view', 'id' => $id));
+    }
+    
+    public function entrantsAction()
+    {
+        $this->checkAuthentication();
+        
+        $model = new EntrantModel();
+        $model->setServiceLocator($this->_service);
+        
+        $entrants = $model->entrantsList();
+        return new ViewModel(array('entrants' => $entrants));
     }
     
     public function checkAuthentication()

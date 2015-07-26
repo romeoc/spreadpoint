@@ -263,6 +263,8 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
                 return $path . 'twitter-tweet';
             case 5:
                 return $path . 'twitter-follow';
+            case 6:
+                return $path . 'reference';
         }
     }
     
@@ -368,5 +370,30 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
         }
         
         return false;
+    }
+    
+    /**
+     * Get entrant id stored in the entrant cookie
+     * @return int
+     */
+    public function getEntrantId()
+    {
+        $cookie = $this->getServiceLocator()->get('request')->getHeaders()->get('Cookie');
+        $entrant = false;
+        
+        if (array_key_exists('entrant', get_object_vars($cookie))) {
+            $entrant = $cookie->entrant;
+        }
+        
+        return $entrant;
+    }
+    
+    /**
+     * Get domain from url
+     */
+    public function getDomain()
+    {
+        $uri = $this->getServiceLocator()->get('request')->getUri();
+        return sprintf('%s://%s', $uri->getScheme(), $uri->getHost());
     }
 }

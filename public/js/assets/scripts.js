@@ -311,7 +311,8 @@
         SpreadPoint.Templates.Widgets.Type.FacebookLike,
         SpreadPoint.Templates.Widgets.Type.FacebookShare,
         SpreadPoint.Templates.Widgets.Type.TwitterTweet,
-        SpreadPoint.Templates.Widgets.Type.TwitterFollow
+        SpreadPoint.Templates.Widgets.Type.TwitterFollow,
+        SpreadPoint.Templates.Widgets.Type.Reference
     ];
     SpreadPoint.Widgets.Controller = {
         /**

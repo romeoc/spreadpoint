@@ -1,0 +1,30 @@
+<?php $campaignHelper = $this->campaignHelper(); ?>
+<div class="entrants-listing dashboard-section">
+    <?php echo $this->partial('user/dashboard/menu.phtml', array('selected' => 'entrants')); ?>
+    <div class="entrants-wrapper dashboard-content">
+        <?php if (empty($this->entrants)): ?>
+            <p>No entrants subscribed yet.</p>
+        <?php else: ?>
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Campaign</th>
+                    <th>Email</th>
+                    <th>Reference</th>
+                </tr>
+                <?php foreach($this->entrants as $entrant): ?>
+                    <tr>
+                        <td><?php echo $entrant['id']; ?></td>
+                        <td>
+                            <a href="<?php echo $this->basePath("campaign/edit/{$entrant['campaign']}"); ?>">
+                                <?php echo $entrant['campaign']; ?>
+                            </a>
+                        </td>
+                        <td><?php echo $entrant['email']; ?></td>
+                        <td><?php echo ($entrant['reference']) ? $entrant['reference'] : '-'; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        <?php endif; ?>
+    </div>
+</div>

@@ -15,7 +15,10 @@ use Zend\Form\Annotation;
 
 use Base\Entity\AbstractEntity;
 
-/** @ORM\Entity */
+/** 
+ * @ORM\Entity 
+ * @ORM\Table(name="user")
+ */
 class User extends AbstractEntity
 {
     const SALT = '3$fa^hW*a';

@@ -13,7 +13,10 @@ namespace Campaign\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Base\Entity\AbstractEntity;
 
-/** @ORM\Entity */
+/** 
+ * @ORM\Entity 
+ * @ORM\Table(name="campaign")
+ */
 class Campaign extends AbstractEntity
 {
     const STATUS_ACTIVE = 1;

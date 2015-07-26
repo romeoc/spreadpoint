@@ -13,6 +13,8 @@ namespace Base\Model;
 
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Http\Header\SetCookie;
+
 use Base\Model\Session;
 
 class AbstractModel implements ServiceLocatorAwareInterface
@@ -246,5 +248,48 @@ class AbstractModel implements ServiceLocatorAwareInterface
                 Session::error("Could not upload $targetFile");
             }
         }            
+    }
+    
+    /**
+     * Set a cookie
+     * 
+     * @param string $name
+     * @param mixed $value
+     */
+    public function setCookie($name, $value)
+    {
+        $expires = time() + 365 * 60 * 60 * 24;
+        $cookie = new SetCookie($name, $value, $expires, '/');
+        $this->getServiceLocator()->get('response')->getHeaders()->addHeader($cookie);
+    }
+    
+    /**
+     * Retrieve a cookie
+     * 
+     * @param string $name
+     * @return mixed
+     */
+    public function getCookie($name)
+    {
+        $cookie = $this->getServiceLocator()->get('request')->getHeaders()->get('Cookie');
+        $value = false;
+        
+        if (array_key_exists($name, get_object_vars($cookie))) {
+            $value = $cookie->$name;
+        }
+        
+        return $value;
+    }
+    
+    /**
+     * Delete a cookie
+     * 
+     * @param string $name
+     */
+    public function clearCookie($name)
+    {
+        $expires = time() - 365 * 60 * 60 * 24;
+        $cookie = new SetCookie($name, '', $expires, '/');
+        $this->getServiceLocator()->get('response')->getHeaders()->addHeader($cookie);
     }
 }

@@ -11,6 +11,11 @@
             </a>
         </li>
         <li>
+            <a href="<?php echo $this->basePath('campaign/entrants'); ?>" class="dashboard-entrants <?php if ($this->selected == 'entrants') { echo 'selected'; } ?>">
+                <i class="fa fa-users"></i> Entrants
+            </a>
+        </li>
+        <li>
             <a href="<?php echo $this->basePath('campaign/analysis'); ?>" class="dashboard-analysis <?php if ($this->selected == 'analysis') { echo 'selected'; } ?>">
                 <i class="fa fa-bar-chart"></i> Analysis
             </a>

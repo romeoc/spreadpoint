@@ -33,7 +33,8 @@ class WidgetModel extends AbstractModel
         2 => 'Facebook Like',
         3 => 'Facebook Share',
         4 => 'Twitter Tweet',
-        5 => 'Twitter Follow'
+        5 => 'Twitter Follow',
+        6 => 'Reference'
     );
     
     // Initialize Widget Model
@@ -258,14 +259,9 @@ class WidgetModel extends AbstractModel
     public function getAppliedWidgetsForEntrant($campaignId)
     {
         $widgets = $this->getAppliedWidgets($campaignId);
-        $cookie = $this->getServiceLocator()->get('request')->getHeaders()->get('Cookie');
-        $entrant = false;
-        
-        if (array_key_exists('entrant', get_object_vars($cookie))) {
-            $entrant = $cookie->entrant;
-        }
-        
+        $entrant = $this->getCookie('entrant');
         $completedWidgets = array();
+        
         if ($entrant) {
             $changeModel = new ChanceModel();
             $changeModel->setServiceLocator($this->getServiceLocator());

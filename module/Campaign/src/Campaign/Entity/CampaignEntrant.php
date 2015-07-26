@@ -28,7 +28,7 @@ class CampaignEntrant extends AbstractEntity
     
     /**
      * @ORM\ManyToOne(targetEntity="Campaign\Entity\Campaign")
-     * @ORM\JoinColumn(name="campaign_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="campaign", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $campaign;
     
@@ -36,4 +36,10 @@ class CampaignEntrant extends AbstractEntity
      * @ORM\Column(length=128) 
      */
     protected $email;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Campaign\Entity\CampaignEntrant")
+     * @ORM\JoinColumn(name="reference", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $reference;
 }
