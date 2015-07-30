@@ -8,5 +8,4 @@ nbproject
 .settings
 composer.lock
 public/media/
-error/
 vendor/
