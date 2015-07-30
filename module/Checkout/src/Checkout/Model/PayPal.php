@@ -14,13 +14,11 @@ use Zend\Http\Client;
 use Zend\Http\Client\Adapter\Curl as CurlAdapter;
 use Base\Model\Session;
 
-use SpeckPaypal\Request\CreateRecurringPaymentsProfile;
-use SpeckPaypal\Request\DoExpressCheckoutPayment;
-use SpeckPaypal\Request\SetExpressCheckout;
+use Checkout\Model\PayPal\CreateRecurringPaymentsProfile;
+use Checkout\Model\PayPal\SetExpressCheckout;
 use SpeckPaypal\Service\Request as PayPalRequest;
 
 use SpeckPaypal\Element\Config as PayPalConfig;
-use SpeckPaypal\Element\Address;
 use SpeckPaypal\Element\PaymentDetails;
 use SpeckPaypal\Element\PaymentItem;
 
