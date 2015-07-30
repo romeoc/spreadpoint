@@ -235,14 +235,23 @@
         },
     };
     
-    SpreadPoint.Checkout = { 
+    SpreadPoint.Checkout = {
+        paypalAction: false,
         init: function() {
             this.addFieldEvents();
         },
         addFieldEvents: function() {
+            var $this = this;
+            
             $('.checkout-plan').on('click', function(){
-                $(this).addClass('selected')
+                var $this = $(this);
+                
+                $this.addClass('selected')
                     .siblings().removeClass('selected');
+            
+                $('.hidden-plan-element').find('input:radio[name="plan"]')
+                    .filter('[value=' + $this.data('value') + ']')
+                    .prop('checked', true);
             });
             
             $('.custom-row-card_number input').on('keyup', function(){
@@ -255,6 +264,63 @@
                 
                 field.val(fomatedCardNumber);
             });
+            
+            $('.pay-pal-action').on('click', function() {
+                $this.paypalAction = true;
+                $('.checkout-submit').trigger('click');
+            });
+            
+            $('#Checkout').submit(function(e) {
+                e.preventDefault();
+                
+                var payPalForm = $(this);
+                var action = payPalForm.attr('action');
+                
+                if ($this.paypalAction) {
+                    payPalForm.attr('action',action.replace('submit','paypalStart'));
+                } else {
+                    payPalForm.attr('action',action.replace('paypalStart','submit'));
+                }
+            
+                if ($this.valid()) {
+                    this.submit();
+                }
+
+                $this.paypalAction = false;
+            });
+        },
+        valid: function() {
+
+            if (!$('[name="plan"]:checked').val()) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please select a package</li>');
+                return false;
+            }
+            
+            if (this.paypalAction) {
+                return true;
+            }
+            
+            if (!$('.custom-row-fullname input').val()) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please enter your name as it apears on your credit card</li>');
+                return false;
+            }
+            
+            if (!$('.custom-row-card_number input').val()) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please enter your credit card number</li>');
+                return false;
+            }
+            
+            if (!$('.custom-row-expiry_date input').val()) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please enter your card\'s expiration date</li>');
+                return false;
+            }
+            
+            if (!$('.custom-row-cvc input').val()) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Invalid CVC number</li>');
+                return false;
+            }
+            
+            return true;
         }
     };
     
@@ -776,62 +842,60 @@
         },
         // Check if all form data is valid before submit
         isFormValid: function() {
-            var valid = true;
-            
             var title = this.get('title');
             if (!title) {
                 this.logError("You didn't provide a <strong>'Title'</strong> for your campign",".general-tab","title");
-                valid = false;
+                return false;
             } else if (title.length > 32) {
                 this.logError("The maximum <strong>'Title'</strong> length is <strong>32</strong>",".general-tab","title");
-                valid = false;
+                return false;
             }
             
             var title = this.get('description');
             if (!title) {
                 this.logError("You didn't provide a <strong>'Description'</strong> for your campign",".general-tab","description");
-                valid = false;
+                return false;
             } else if (title.length > 500) {
                 this.logError("The maximum <strong>'Description'</strong> length is <strong>500</strong>",".general-tab","description");
-                valid = false;
+                return false;
             }
             
             if (!this.get('banner')) {
                 this.logError("You didn't provide a <strong>'Banner'</strong> for your campign",".general-tab","banner");
-                valid = false;
+                return false;
             }
             
             if (this.get('titleCss').length > 255) {
                 this.logError("The maximum allowed <strong>'Title Css'</strong> length is <strong>255</strong> characters",".general-tab","titleCss");
-                valid = false;
+                return false;
             }
             
             if (this.get('descriptionCss').length > 255) {
                 this.logError("The maximum allowed <strong>'Description Css'</strong> length is <strong>255</strong> characters",".general-tab","descriptionCss");
-                valid = false;
+                return false;
             }
             
             if (this.get('termsAndConditions').length > 255) {
                 this.logError("There is a limit of <strong>50000</strong> characters to the <strong>'Terms & Conditions'</strong> field",".advanced-tab","termsAndConditions");
-                valid = false;
+                return false;
             }
             
             var welcomeEmail = this.get('welcomeEmail');
             if (welcomeEmail.length > 20000) {
                 this.logError("There is a limit of <strong>20000</strong> characters to the <strong>'Welcome Email'</strong> field",".advanced-tab","welcomeEmail");
-                valid = false;
+                return false;
             }
             
             var sendWelcomeEmail = $('.custom-row-sendWelcomeEmail').find('.switch-button-background.checked').length;
             if (sendWelcomeEmail && !welcomeEmail) {
                 this.logError("Please provide a <strong>Welcome Email</strong> or uncheck <strong>'Send Welcome Email'</strong>",".advanced-tab","welcomeEmail");
-                valid = false;
+                return false;
             }
             
             var startTime = this.get('startTime');
             if (!startTime) {
                 this.logError("You didn't provide a valid <strong>'Start Time'</strong> for your campaign",".schedule-tab","startTime");
-                valid = false;
+                return false;
             }
         
             var type = this.get('type', ':checked');
@@ -839,41 +903,41 @@
                 var endTime = this.get('endTime');
                 if (!endTime) {
                     this.logError("You didn't provide a valid <strong>'End Time'</strong> for your campaign",".schedule-tab","endTime");
-                    valid = false;
+                    return false;
                 } else if (new Date(startTime) > new Date(endTime) ) {
                     this.logError("Your campaign can't end before it started. Please fix your <strong>'Start Time & End Time'</strong>",".schedule-tab","endTime");
-                    valid = false;
+                    return false;
                 }
             } else if (type == 2) {
                 var cyclesDuration = this.get('cycleDuration');
                 if (!cyclesDuration) {
                     this.logError("You didn't provide a <strong>'Cycle Duration'</strong> for your campaign",".schedule-tab","cycleDuration");
-                    valid = false;
+                    return false;
                 } else if (isNaN(parseFloat(cyclesDuration)) || !isFinite(cyclesDuration)) {
                     this.logError("The <strong>'Cycle Duration'</strong> must be a numeric value",".schedule-tab","cycleDuration");
-                    valid = false;
+                    return false;
                 } else if (cyclesDuration <= 0) {
                     this.logError("The <strong>'Cycle Duration'</strong> must be greater than 0",".schedule-tab","cycleDuration");
-                    valid = false;
+                    return false;
                 }
                 
                 var cyclesCount = this.get('cyclesCount');
                 if (!cyclesCount) {
                     this.logError("You didn't provide a <strong>'Cycle Count'</strong> for your campaign",".schedule-tab","cyclesCount");
-                    valid = false;
+                    return false;
                 } else if (isNaN(parseFloat(cyclesCount)) || !isFinite(cyclesCount)) {
                     this.logError("The <strong>'Cycle Count'</strong> must be a numeric value",".schedule-tab","cyclesCount");
-                    valid = false;
+                    return false;
                 } else if (cyclesCount <= 0) {
                     this.logError("The <strong>'Cycle Count'</strong> must be greater than 0",".schedule-tab","cycleDuration");
-                    valid = false;
+                    return false;
                 }
             } else {
                 this.logError("Invalid <strong>Competition Type</strong>", ".schedule-tab", "custom-row-type", true);
-                valid = false;
+                return false;
             }
             
-            return valid;
+            return true;
         },
         // get an element by name
         get: function(name, additionalSelectors) {

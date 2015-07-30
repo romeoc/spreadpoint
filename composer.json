@@ -13,6 +13,7 @@
         "doctrine/orm": "*",
         "doctrine/doctrine-orm-module": "*",
         "zendframework/zftool": "dev-master",
-        "zendframework/zend-developer-tools": "dev-master"
+        "zendframework/zend-developer-tools": "dev-master",
+        "speckcommerce/speck-paypal": "dev-master"
     }
 }

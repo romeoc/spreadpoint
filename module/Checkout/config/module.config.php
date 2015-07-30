@@ -16,7 +16,7 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Checkout\Controller\Cart' => 'Checkout\Controller\CartController',
+            'cart' => 'Checkout\Controller\CartController',
         ),
     ),
     'router' => array(
@@ -30,7 +30,7 @@ return array(
                         'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
-                        'controller' => 'Checkout\Controller\Cart',
+                        'controller' => 'cart',
                         'action'     => 'index',
                     ),
                 ),

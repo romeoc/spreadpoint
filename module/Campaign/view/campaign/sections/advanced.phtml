@@ -3,7 +3,7 @@
 <section class="campaign-section-advanced">
     <div class="campaign-form-row custom-form-row custom-row-layout">
         <div class="field">
-            <label class="layout">Layout<i class="fa fa-question-circle"></i></label>
+            <label class="layout">* Layout<i class="fa fa-question-circle"></i></label>
             <?php foreach ($campaignHelper->getAvailableLayouts() as $layout): ?>
                 <div class="radio-element">
                     <input id="<?php echo $layout['id']; ?>" type="radio" name="layout" value="<?php echo $layout['value']; ?>" <?php echo $layout['checked']; ?> />

@@ -5,11 +5,12 @@
         $form->setAttribute('action', $this->url('checkout',
             array('controller'=>'cart', 'action' => 'submit')));
         $form->setAttribute('method', 'post');
+        $form->setAttribute('novalidate', 'novalidate');
         echo $this->form()->openTag($form);
     ?>
     
     <div class="checkout-form custom-form plan-form">
-        <div class="form-errors"><span class="error"></span></div>
+        <?php echo $this->partial('application/session/global-messages', array('global_messages' => $this->messages)); ?>
         <div class="subtitle">
             <h4>Plan</h4>
         </div>
@@ -18,21 +19,21 @@
                 <?php echo $this->formElement($form->get('plan')); ?>
             </div>
             <div class="visible-plan element">
-                <div class="plan-puddle checkout-plan">
+                <div class="plan-puddle checkout-plan" data-value="0">
                     <span class="title">Puddle</span>
                     <a  href="javascript:void(0);" class="puddle-plan-trigger" title="Puddle Plan">
                         <img src="<?php echo $this->basePath('img/puddle.png'); ?>" alt="Puddle Plan" width="100" height="100" />
                     </a>
                     <span class="price">$29/mo</span>
                 </div>
-                <div class="plan-lake checkout-plan">
+                <div class="plan-lake checkout-plan" data-value="1">
                     <span class="title">Lake</span>                    
                     <a  href="javascript:void(0);" class="lake-plan-trigger" title="Lake Plan">
                         <img src="<?php echo $this->basePath('img/lake.png'); ?>" alt="Lake Plan" width="100" height="100" />
                     </a>
                     <span class="price">$129/mo</span>
                 </div>
-                <div class="plan-ocean checkout-plan">
+                <div class="plan-ocean checkout-plan" data-value="2">
                     <span class="title">Ocean</span>
                     <a href="javascript:void(0);" class="ocean-plan-trigger" title="Ocean Plan">
                         <img src="<?php echo $this->basePath('img/ocean.png'); ?>" alt="Ocean Plan" width="90" height="90" />

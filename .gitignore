@@ -10,3 +10,6 @@ composer.lock
 vendor/
 public/media/
 error/
+
+!vendor/speckcommerce/speck-paypal/src/SpeckPaypal/Request/CreateRecurringPaymentsProfile.php
+!vendor/speckcommerce/speck-paypal/src/SpeckPaypal/Request/SetExpressCheckout.php

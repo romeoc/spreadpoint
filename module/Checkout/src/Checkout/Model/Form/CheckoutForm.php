@@ -93,7 +93,7 @@ class CheckoutForm extends Form
         
         //Submit Button
         $this->add(array(
-            'name' => 'submit',
+            'name' => 'submit-action',
             'attributes' => array(
                 'type' => 'Submit',
                 'value' => 'Pay Now',

@@ -3,7 +3,7 @@
 <section class="campaign-section-general">
     <div class="campaign-form-row custom-form-row custom-row-title">
         <div class="field">
-            <label class="title">Title<i class="fa fa-question-circle"></i></label><input name="title" type="text" value="<?php echo $campaignHelper->get('title'); ?>" />
+            <label class="title">* Title<i class="fa fa-question-circle"></i></label><input name="title" type="text" value="<?php echo $campaignHelper->get('title'); ?>" />
         </div>
         <div class="note">
             <p class="comment">How would you describe your competition in a sentence? Your campaign title will be the first thing your entrants see.</p>
@@ -11,7 +11,7 @@
     </div>
     <div class="campaign-form-row custom-form-row custom-row-description">
         <div class="field">
-            <label class="title">Description<i class="fa fa-question-circle"></i></label>
+            <label class="title">* Description<i class="fa fa-question-circle"></i></label>
             <textarea name="description"><?php echo $campaignHelper->get('description'); ?></textarea>
         </div>
         <div class="note">
@@ -21,7 +21,7 @@
     <div class="campaign-form-row custom-form-row custom-row-banner">
         <div class="field">
             <?php $bannerUrl = ($campaignHelper->get('banner')) ? $campaignHelper->getBannerUrl($campaignHelper->get('id'), $campaignHelper->get('banner')) : ''; ?>
-            <label class="title">Banner<i class="fa fa-question-circle"></i></label><input class="file-upload" type="text" name="banner" value="<?php echo $campaignHelper->get('banner'); ?>" data-src="<?php echo $bannerUrl; ?>" />
+            <label class="title">* Banner<i class="fa fa-question-circle"></i></label><input class="file-upload" type="text" name="banner" value="<?php echo $campaignHelper->get('banner'); ?>" data-src="<?php echo $bannerUrl; ?>" />
         </div>
         <div class="note">
             <p class="comment">An image that describes your campaign. We recommend using a high quality, 16:9 image. Will also be used for sharing on social media.</p>
