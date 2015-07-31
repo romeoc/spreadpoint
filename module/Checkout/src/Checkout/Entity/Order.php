@@ -31,7 +31,7 @@ class Order extends AbstractEntity
     protected $id;
     
     /** 
-     * @ORM\Column(length=128, unique=true) 
+     * @ORM\Column(length=128) 
      */
     protected $email;
     
