@@ -58,6 +58,11 @@ class User extends AbstractEntity
      */
     protected $lastname;
     
+    /**
+     * @ORM\Column(type="smallint", length=1)
+     */
+    protected $plan = -1;
+    
     /** 
      * @ORM\Column(type="datetime", name="created_at", nullable=true) 
      * @Annotation\Attributes({"type":"text", "readonly":"true", "convertion_type":"dateTime"})

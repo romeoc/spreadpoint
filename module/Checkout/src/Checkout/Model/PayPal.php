@@ -12,7 +12,11 @@ namespace Checkout\Model;
 
 use Zend\Http\Client;
 use Zend\Http\Client\Adapter\Curl as CurlAdapter;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+
 use Base\Model\Session;
+use Checkout\Model\OrderModel;
 
 use Checkout\Model\PayPal\CreateRecurringPaymentsProfile;
 use Checkout\Model\PayPal\SetExpressCheckout;
@@ -22,8 +26,10 @@ use SpeckPaypal\Element\Config as PayPalConfig;
 use SpeckPaypal\Element\PaymentDetails;
 use SpeckPaypal\Element\PaymentItem;
 
-class PayPal 
+class PayPal implements ServiceLocatorAwareInterface
 {
+    protected $service;
+    
     protected $sandBoxMode = true;
     
     // Creditentials
@@ -46,6 +52,16 @@ class PayPal
             'price' => 599.00,
         )
     );
+    
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->service = $serviceLocator;
+    }
+
+    public function getServiceLocator()
+    {
+        return $this->service;
+    }
     
     protected function getConfig()
     {
@@ -96,13 +112,7 @@ class PayPal
         if ($payment->isValid()) {
             $response = $this->getRequest()->send($payment);
             if ($response->isSuccess()) {
-                // Handle Billing
-//                return array(
-//                    'payment'  => $payment,
-//                    'response' => $response,
-//                    'user'     => $user
-//                );
-                return true;
+                return $this->createOrder($payment, $response, $user, $data['plan']);
             } else {
                 foreach ($response->getErrorMessages() as $error) {
                     Session::error($error);
@@ -115,8 +125,11 @@ class PayPal
         }
     }
     
-    public function startExpressCheckout($data, $domain)
+    public function startExpressCheckout($data)
     {
+        $uri = $this->getServiceLocator()->get('request')->getUri();
+        $domain = sprintf('%s://%s', $uri->getScheme(), $uri->getHost());
+        
         $paymentItem = new PaymentItem();
         $paymentItem->setItemCategory(PaymentItem::CATEGORY_DIGITAL);
         $paymentItem->setAmt($this->packageMap[$data['plan']]['price']);
@@ -144,9 +157,8 @@ class PayPal
         return 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=' . $response->getToken();
     }
     
-    public function doExpressCheckout($token, $payerId, $plan)
+    public function doExpressCheckout($token, $payerId, $user, $plan)
     {
-        set_time_limit(0);
         $payment = new CreateRecurringPaymentsProfile();
         $payment->setToken($token);
         $payment->setPayerId($payerId);
@@ -159,8 +171,7 @@ class PayPal
         
         $response = $this->getRequest()->send($payment);
         if ($response->isSuccess()) {
-            // Handle Billing section
-            return true;
+            return $this->createOrder($payment, $response, $user, $plan);
         } else {
             foreach ($response->getErrorMessages() as $error) {
                 Session::error($error);
@@ -168,5 +179,32 @@ class PayPal
             
             return false;
         }
+    }
+    
+    protected function createOrder($payment, $response, $user, $plan)
+    {
+        $data = array(
+            'user' => $user,
+            'name' => $user->get('firstname') . ' ' . $user->get('lastname'),
+            'email' => $user->get('email'),
+            'plan' => $plan,
+            'profileId' => $response->getProfileId(),
+            'correlationId' => $response->getCorrelationId(),
+            'payerId' => $payment->getPayerId(),
+            'description' => $payment->getDesc(),
+            'amount' => $payment->getAmt(),
+            'startDate' => $payment->getProfileStartDate(),
+            'billingPeriod' => $payment->getBillingPeriod(),
+            'billingFrequency' => $payment->getBillingFrequency(),
+        );
+        
+        $order = new OrderModel();
+        $order->setServiceLocator($this->getServiceLocator());
+        
+        // Entity Manager is Flushed furing order save, so user data will also be persisted
+        $user->set('plan', $plan);
+        $order->save($data);
+        
+        return !!$order;
     }
 }

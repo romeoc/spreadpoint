@@ -27,14 +27,10 @@ class CartController extends AbstractActionController
     
     public function submitAction()
     {
-        $data = $this->request->getPost();
-        $model = new PayPalModel();
+        $data = $this->request->getPost();      
+        $user = $this->getUser();
         
-        $helper = new UserHelper();
-        $helper->updateServiceLocator($this->getServiceLocator());
-        $user = $helper->getLoggedInUser();
-        
-        if ($model->createRecurringPayment($data, $user)) {
+        if ($this->getPayPalModel()->createRecurringPayment($data, $user)) {
             $this->redirect()->toRoute('checkout', array('action' => 'success'));
         } else {
             $this->redirect()->toRoute('checkout');
@@ -44,15 +40,11 @@ class CartController extends AbstractActionController
     public function paypalStartAction()
     {
         $data = $this->request->getPost();
-        $model = new PayPalModel();
         
         $session = new Container('checkout');
         $session->plan = $data['plan'];
         
-        $uri = $this->getServiceLocator()->get('request')->getUri();
-        $domain = sprintf('%s://%s', $uri->getScheme(), $uri->getHost());
-        
-        $result = $model->startExpressCheckout($data, $domain);
+        $result = $this->getPayPalModel()->startExpressCheckout($data);
         return $this->redirect()->toUrl($result);
     }
     
@@ -65,8 +57,7 @@ class CartController extends AbstractActionController
         $plan = $session->plan;
         $session->offsetUnset('plan');
         
-        $model = new PayPalModel();
-        if ($model->doExpressCheckout($token, $payerId, $plan)) {
+        if ($this->getPayPalModel()->doExpressCheckout($token, $payerId, $this->getUser(), $plan)) {
             $this->redirect()->toRoute('checkout', array('action' => 'success'));
         } else {
             $this->redirect()->toRoute('checkout');
@@ -82,5 +73,19 @@ class CartController extends AbstractActionController
     public function successAction()
     {
         var_dump('Oh Yeah! You did it'); die;
+    }
+    
+    protected function getUser()
+    {
+        $helper = new UserHelper();
+        $helper->updateServiceLocator($this->getServiceLocator());
+        return $helper->getLoggedInUser();
+    }
+    
+    protected function getPayPalModel()
+    {
+        $model = new PayPalModel();
+        $model->setServiceLocator($this->getServiceLocator());
+        return $model;
     }
 }
