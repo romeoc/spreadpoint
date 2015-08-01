@@ -22,6 +22,20 @@ class CartController extends AbstractActionController
 {
     public function indexAction()
     {
+        $this->getPayPalModel()->handlePastProfiles($this->getUser());
+        $user = $this->getUser();
+        if ($user && $user->get('plan') != -1) {
+            $this->redirect()->toRoute('account');
+        }
+        
+        $plan = $this->params()->fromQuery('package');
+        $plan = ($plan == 0 || $plan == 1) ? $plan : null;
+        
+        return new ViewModel(array('plan' => $plan));
+    }
+    
+    public function upgradeAction()
+    {
         return new ViewModel();
     }
     
@@ -41,6 +55,10 @@ class CartController extends AbstractActionController
     {
         $data = $this->request->getPost();
         
+        if (!$data) {
+            $this->redirect()->toRoute('checkout');
+        }
+        
         $session = new Container('checkout');
         $session->plan = $data['plan'];
         
@@ -52,6 +70,10 @@ class CartController extends AbstractActionController
     {
         $token = $this->params()->fromQuery('token');
         $payerId = $this->params()->fromQuery('PayerID');
+        
+        if (!$payerId) {
+            $this->redirect()->toRoute('checkout');
+        }
         
         $session = new Container('checkout');
         $plan = $session->plan;
@@ -72,7 +94,8 @@ class CartController extends AbstractActionController
     
     public function successAction()
     {
-        var_dump('Oh Yeah! You did it'); die;
+        Session::success('The transaction was succesful. You can now start creating awesome campaigns.');
+        $this->redirect()->toRoute('account');
     }
     
     protected function getUser()

@@ -14,12 +14,16 @@ use Zend\Http\Client;
 use Zend\Http\Client\Adapter\Curl as CurlAdapter;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Mail\Message;
+use Zend\Mail\Transport\Sendmail;
 
 use Base\Model\Session;
 use Checkout\Model\OrderModel;
+use Checkout\Entity\Order;
 
 use Checkout\Model\PayPal\CreateRecurringPaymentsProfile;
 use Checkout\Model\PayPal\SetExpressCheckout;
+use SpeckPaypal\Request\ManageRecurringPaymentsProfileStatus;
 use SpeckPaypal\Service\Request as PayPalRequest;
 
 use SpeckPaypal\Element\Config as PayPalConfig;
@@ -37,6 +41,9 @@ class PayPal implements ServiceLocatorAwareInterface
     const API_USERNAME  = 'unknown_api1.qa.com';
     const API_PASSWORD  = 'HSW4MPQB2UCZSN4J';
     const API_SIGNATURE = 'An5ns1Kso7MWUdW4ErQKJJJ4qi4-AOLbJdEoUspXAg5lqFqu9fQBbSMv';
+    
+    const ACTION_SUSPEND = 'Suspend';
+    const ACTION_CANCEL = 'Cancel';
     
     protected $packageMap = array(
         0 => array(
@@ -61,6 +68,11 @@ class PayPal implements ServiceLocatorAwareInterface
     public function getServiceLocator()
     {
         return $this->service;
+    }
+    
+    public function getEntityManager()
+    {
+        return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     }
     
     protected function getConfig()
@@ -112,6 +124,7 @@ class PayPal implements ServiceLocatorAwareInterface
         if ($payment->isValid()) {
             $response = $this->getRequest()->send($payment);
             if ($response->isSuccess()) {
+                $this->handlePastProfiles($user);
                 return $this->createOrder($payment, $response, $user, $data['plan']);
             } else {
                 foreach ($response->getErrorMessages() as $error) {
@@ -171,6 +184,7 @@ class PayPal implements ServiceLocatorAwareInterface
         
         $response = $this->getRequest()->send($payment);
         if ($response->isSuccess()) {
+            $this->handlePastProfiles($user);
             return $this->createOrder($payment, $response, $user, $plan);
         } else {
             foreach ($response->getErrorMessages() as $error) {
@@ -206,5 +220,76 @@ class PayPal implements ServiceLocatorAwareInterface
         $order->save($data);
         
         return !!$order;
+    }
+    
+    public function cancelProfile($profileId, $action = self::ACTION_CANCEL, $note = 'Upgrading Plan')
+    {
+        $transaction = new ManageRecurringPaymentsProfileStatus();
+        $transaction->setProfileId($profileId);
+        $transaction->setAction($action);
+        
+        if ($note) {
+            $transaction->setNote($note);
+        }
+        
+        $response = $this->getRequest()->send($transaction);
+        
+        if (!$response->isSuccess()) {
+            return$response->getErrorMessages();
+        }
+        
+        return true;
+    }
+    
+    public function handlePastProfiles($user)
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $order = $queryBuilder->select('e.profileId, e.id')
+            ->from('Checkout\Entity\Order', 'e')
+            ->where('e.user= :user')
+            ->andWhere('e.status= :status')
+            ->setParameter('user', $user)
+            ->setParameter('status', Order::STATUS_ACTIVE)
+            ->getQuery()
+            ->setMaxResults(1)
+            ->getResult();
+        
+        if ($order) {
+            $profileId = $order[0]['profileId'];
+            $cancelProfileResult = $this->cancelProfile($profileId);
+            
+            if ($cancelProfileResult !== true) {
+                $message = "Could not cancel profile from order {$order[0]['id']} while upgrading plan!" . PHP_EOL;
+                
+                foreach ($cancelProfileResult as $errorMessage) {
+                    $message .= PHP_EOL . $errorMessage;
+                }
+                
+                $this->sendEmailNotification($message);
+            } else {
+                $orderEntity = $this->getEntityManager()->find('Checkout\Entity\Order', $order[0]['id']);
+                $orderEntity->set('status', Order::STATUS_CANCELED);
+                $this->getEntityManager()->flush();
+            }
+        }
+    }
+    
+    public function sendEmailNotification($message)
+    {
+        $now = new \DateTime();
+        
+        $body = 'Time: ' . $now->format('g:ia \o\n l jS F Y')
+                . PHP_EOL . 'Error Notification: ' . $message;
+        
+        $mail = new Message();
+        $mail->setBody($body);
+        $mail->setFrom('hello@spreadpoint.co', 'SpreadPoint');
+        $mail->addTo('hello@spreadpoint.co', 'SpreadPoint');
+        $mail->setSubject('SpreadPoint - Error Notification');
+        
+        try {
+            $transport = new Sendmail();
+            $transport->send($mail);
+        } catch (\Exception $e) { }
     }
 }

@@ -75,30 +75,51 @@
         }
     };
     
-    // Login form display and AJAX Calls 
-    SpreadPoint.LoginForm = {
-        init: function(){
+    SpreadPoint.PopUp = {
+        create: function(container, action, close, moveContainer){
             this.body = $('body');
-            this.loginOverlay = $('.login-overlay');
-            this.loginFormContainer = $('.login-form-container');
-            this.initializeLoginForm();
+            this.overlay = $('<div class="popup-overlay hide">').prependTo(this.body);
+            
+            this.container = $(container).addClass('popup-container');
+            this.action = $(action);
+            this.close = $(close);
+            this.move = moveContainer;
+            
+            this.loadEvents();
         },
-        initializeLoginForm: function() {
+        loadEvents: function() {
             
             var $this = this;
 
-            $('.login-action').on('click', function(){
-                $this.loginFormContainer.slideDown(300).prependTo('body');
-                $this.loginOverlay.show().on('click', function(){
+            this.action.on('click', function() {
+                $this.container.slideDown(300);
+                if ($this.move) {
+                    $this.container.prependTo($this.body);
+                }
+                $this.overlay.show().on('click', function(){
                     $this.resetScroll($this);
-                }).prependTo('body');
-                $('.close-action').on('click', function(){
+                });
+                $this.close.on('click', function(){
                     $this.resetScroll($this);
                 });
 
                 $this.body.addClass('no-scroll');
             });
-
+        },
+        resetScroll: function($this) {
+            $this.body.removeClass('no-scroll');
+            $this.container.slideUp(200);            
+            $this.overlay.hide();
+        }
+    };
+    
+    // Login form display and AJAX Calls 
+    SpreadPoint.LoginForm = {
+        init: function(){
+            SpreadPoint.PopUp.create('.login-form-container', '.login-action', '.close-action', true);
+            this.initializeLoginForm();
+        },
+        initializeLoginForm: function() {
             $('#Login').submit(function(e) {
                 e.preventDefault();
 
@@ -118,12 +139,7 @@
                     }
                 });
             });
-        },
-        resetScroll: function($this) {
-            $this.body.removeClass('no-scroll');
-            $this.loginFormContainer.slideUp(200);            
-            $this.loginOverlay.hide();
-        },
+        }
     };
     
     // Register Form AJAX Calls and visual adjustments
@@ -237,8 +253,19 @@
     
     SpreadPoint.Checkout = {
         paypalAction: false,
+        plan: null,
         init: function() {
             this.addFieldEvents();
+            
+            var selectedPlan = $('[name="plan"]:checked').val();
+            $('.visible-plan .checkout-plan').filter(function() { 
+                return $(this).data("value") == selectedPlan;
+            }).addClass('selected');
+            
+            this.initUpgradeSection();
+        },
+        addCurrentPlanValidation: function(plan) {
+            this.plan = plan;
         },
         addFieldEvents: function() {
             var $this = this;
@@ -289,10 +316,24 @@
                 $this.paypalAction = false;
             });
         },
+        initUpgradeSection: function() {
+            SpreadPoint.PopUp.create('.upgrade-payment-form', '.upgrade-plan-action');
+        },
+        validatePlan: function() {
+            var plan = $('[name="plan"]:checked').val();
+            if (!plan) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please select a package</li>');
+                return false;
+            } else if (this.plan !== null && plan == this.plan) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>You are already subscribed to this plan.</li>');
+                return false;
+            }
+            
+            return true;
+        },
         valid: function() {
 
-            if (!$('[name="plan"]:checked').val()) {
-                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please select a package</li>');
+            if (!this.validatePlan()) {
                 return false;
             }
             

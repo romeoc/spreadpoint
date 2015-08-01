@@ -19,6 +19,10 @@ use Base\Entity\AbstractEntity;
  */
 class Order extends AbstractEntity
 {
+    const STATUS_ACTIVE = 0;
+    const STATUS_SUSPENDED = 1;
+    const STATUS_CANCELED = 2;
+    
     const PLAN_PUDDLE = 0;
     const PLAN_LAKE = 1;
     const PLAN_OCEAN = 2;
@@ -90,6 +94,11 @@ class Order extends AbstractEntity
      * @ORM\Column(length=16, name="correlation_id") 
      */
     protected $correlationId;
+    
+    /**
+     * @ORM\Column(type="smallint", length=1)
+     */
+    protected $status = self::STATUS_ACTIVE;
     
     /** 
      * @ORM\Column(type="datetime", name="created_at", nullable=true) 

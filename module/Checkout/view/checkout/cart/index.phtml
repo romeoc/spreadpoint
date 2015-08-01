@@ -1,4 +1,3 @@
-<?php $this->headMeta()->appendName('robots', 'noindex, nofollow'); ?>
 <div class="checkout">
     <?php $isLoggedIn = $this->userHelper()->isLoggedIn(); ?>
     <?php if (!$isLoggedIn): ?>
@@ -8,7 +7,7 @@
         </div>
     <?php else: ?>
     <div class="checkout-billing">
-        <?php echo $this->partial('checkout/forms/checkout.phtml', array('form' => new \Checkout\Model\Form\CheckoutForm())); ?>
+        <?php echo $this->partial('checkout/forms/checkout.phtml', array('form' => new \Checkout\Model\Form\CheckoutForm(), 'plan' => $this->plan)); ?>
     </div>
     <?php endif; ?>
 </div>

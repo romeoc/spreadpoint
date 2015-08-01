@@ -27,6 +27,10 @@ class CampaignController extends AbstractActionController
     {
         $this->checkAuthentication();
         
+        if ($this->getUserPlan() == -1) {
+            $this->redirect()->toRoute('checkout');
+        }
+        
         // Instantiate Campaign Model
         $campaignModel = new CampaignModel();
         $campaignModel->setServiceLocator($this->_service);
@@ -39,6 +43,10 @@ class CampaignController extends AbstractActionController
     {
         $this->checkAuthentication();
 
+        if ($this->getUserPlan() == -1) {
+            $this->redirect()->toRoute('checkout');
+        }
+        
         // Instantiate Campaign Model
         $campaignModel = new CampaignModel();
         $campaignModel->setServiceLocator($this->_service);
@@ -220,6 +228,10 @@ class CampaignController extends AbstractActionController
     {
         $this->checkAuthentication();
         
+        if ($this->getUserPlan() == -1) {
+            $this->redirect()->toRoute('checkout');
+        }
+        
         $model = new EntrantModel();
         $model->setServiceLocator($this->_service);
         
@@ -239,5 +251,12 @@ class CampaignController extends AbstractActionController
         }
         
         return $this;
+    }
+    
+    protected function getUserPlan()
+    {
+        $helper = new UserHelper();
+        $helper->updateServiceLocator($this->getServiceLocator());
+        return $helper->getLoggedInUser()->get('plan');
     }
 }

@@ -1,0 +1,14 @@
+<?php $this->headMeta()->appendName('robots', 'noindex, nofollow'); ?>
+<div class="upgrade dashboard-section">
+    <?php echo $this->partial('user/dashboard/menu.phtml', array('selected' => 'upgrade')); ?>
+    
+    <div class="upgrade-view dashboard-content">
+        <?php $plan = $this->userHelper()->getLoggedInUser()->get('plan'); ?>
+        <div class="checkout-billing checkout-upgrade-plan">
+            <?php echo $this->partial('checkout/forms/upgrade.phtml', array('form' => new \Checkout\Model\Form\CheckoutForm(), 'plan' => $plan)); ?>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    SpreadPoint.Checkout.addCurrentPlanValidation(<?php echo $plan; ?>);
+</script>

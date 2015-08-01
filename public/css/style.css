@@ -18,8 +18,7 @@
 .custom-form span.error { color: red; font-weight: bold; font-size: 16px; }
 .custom-form .account-submit { font-weight: bold; }
 
-.login-form-container { width: 30%; height: 300px; position: fixed; z-index: 20; top: 0; bottom: 0; left: 0; right: 0; margin: auto; }
-.login-overlay { position: fixed; top: 0; left: 0; background: rgba(0,0,0,0.6); z-index: 15; width: 100%; height: 100%; }
+.login-form-container { width: 30%; height: 300px; }
 .login-form-container .login { padding-bottom: 50px; background-color: white; border-radius: 10px; }
 .login .login-title { font-weight: bold; color: white; background-color: #ea474b; border-bottom: 1px solid; padding: 20px 0 10px 30px; margin-bottom: 20px; height: 80px; }
 .login .forgot-your-password { color: #ea474b; font-weight: bold; padding-top: 10px; }
@@ -28,6 +27,10 @@
 .login .custom-row-submit input { height: 55px; padding-left: 0; border-color: #D91C21 !important; margin-top: 15px; }
 .login .custom-row-email input { background: url(../img/user.png) no-repeat 10px 6px; }
 .login .custom-row-password input { background: url(../img/lock.png) no-repeat 10px 6px; }
+
+/***** Pop-Ups *****/
+.popup-overlay { position: fixed; top: 0; left: 0; background: rgba(0,0,0,0.6); z-index: 15; width: 100%; height: 100%; }
+.popup-container { position: fixed; z-index: 20; top: 0; bottom: 0; left: 0; right: 0; margin: auto; }
 
 /***** ACCOUNT SECTION *****/
 .header-account-container { padding: 0 20px; }
@@ -100,33 +103,33 @@
 .checkout .checkout-billing .visible-plan span { display: block; padding: 0;}
 .checkout .checkout-billing .visible-plan span.title { padding-top: 10px; }
 .checkout .checkout-billing .visible-plan span.price { padding-bottom: 10px; }
-.checkout .payment-form .subtitle h4 { background: url(../img/credit-card.png) no-repeat top right; background-position: 70px 2px; width: 150px; }
-.checkout .plan-form .subtitle h4 { background: url(../img/plan.png) no-repeat top right; background-position: 65px; }
-.checkout .payment-form .pay-pal-action { border: 1px solid black; padding: 5px 15px; border-radius: 5px; margin-left: 5px; cursor: pointer; font-family: verdana; font-style: italic; font-size: 110%; }
-.checkout .payment-form .pay-pal-action:hover { background-color: white; }
-.checkout .payment-form .pay-pal-action:hover .pay { color: #124585; }
-.checkout .payment-form .pay-pal-action:hover .pal { color: #255898; }
 .checkout .checkout-billing .checkout-form-row input { border-radius: 8px; }
-.checkout .payment-form .custom-row-fullname input { background: url(../img/id.png) no-repeat 10px; }
-.checkout .payment-form .custom-row-card_number input { background: url(../img/card-number.png) no-repeat 10px; }
-.checkout .payment-form .custom-row-expiry_date input { background: url(../img/calendar.png) no-repeat 10px; }
-.checkout .payment-form .custom-row-cvc input { background: url(../img/cvc.png) no-repeat 10px; }
-.checkout .payment-form .custom-row-fullname input,
-.checkout .payment-form .custom-row-card_number input,
-.checkout .payment-form .custom-row-expiry_date input,
-.checkout .payment-form .custom-row-cvc input { padding: 5px 0 5px 55px; letter-spacing: 2px; }
-.checkout .payment-form .custom-row-expiry_date, 
-.checkout .payment-form .custom-row-cvc { width: 35%; }
+.checkout .plan-form .subtitle h4 { background: url(../img/plan.png) no-repeat top right; background-position: 65px; }
+.checkout-payment-form .subtitle h4 { background: url(../img/credit-card.png) no-repeat top right; background-position: 70px 2px; width: 150px; }
+.checkout-payment-form .pay-pal-action { border: 1px solid black; padding: 5px 15px; border-radius: 5px; margin-left: 5px; cursor: pointer; font-family: verdana; font-style: italic; font-size: 110%; }
+.checkout-payment-form .pay-pal-action:hover { background-color: white; }
+.checkout-payment-form .pay-pal-action:hover .pay { color: #124585; }
+.checkout-payment-form .pay-pal-action:hover .pal { color: #255898; }
+.checkout-payment-form .custom-row-fullname input { background: url(../img/id.png) no-repeat 10px; }
+.checkout-payment-form .custom-row-card_number input { background: url(../img/card-number.png) no-repeat 10px; }
+.checkout-payment-form .custom-row-expiry_date input { background: url(../img/calendar.png) no-repeat 10px; }
+.checkout-payment-form .custom-row-cvc input { background: url(../img/cvc.png) no-repeat 10px; }
+.checkout-payment-form .custom-row-fullname input,
+.checkout-payment-form .custom-row-card_number input,
+.checkout-payment-form .custom-row-expiry_date input,
+.checkout-payment-form .custom-row-cvc input { padding: 5px 0 5px 55px; letter-spacing: 2px; }
+.checkout-payment-form .custom-row-expiry_date, 
+.checkout-payment-form .custom-row-cvc { width: 35%; }
 
 /***** DASHBOARD *****/
 .dashboard-section { width: 100%; overflow: hidden; display: flex; }
-.dashboard-menu-container { width: 15%; display: flex; }
-.dahsboard-menu { list-style: none; background-color: #ea474b; margin: 0; padding-top: 73px; align-items: stretch; width: 100%; }
+.dashboard-menu-container { width: 10%; display: flex; }
+.dahsboard-menu { list-style: none; background-color: #ea474b; margin: 0; padding-top: 73px; align-items: stretch; text-align: center; }
 .dahsboard-menu li { }
-.dahsboard-menu li a { padding: 10px; color: white; font-weight: bold; width: 100%; height: 100%; display: block; }
+.dahsboard-menu li a { padding: 15px 10px; color: white; font-weight: bold; width: 100%; height: 100%; display: block; }
 .dahsboard-menu li a.selected, .dahsboard-menu li a:hover { color: #ea474b; background-color: white; }
-.dahsboard-menu li i { padding: 0 10px; }
-.dashboard-content { width: 85%; padding: 85px 0 50px 20px; min-height: 550px; }
+.dahsboard-menu li i { padding: 0 10px; font-size: 22px; display: block; }
+.dashboard-content { width: 90%; padding: 85px 0 50px 20px; min-height: 550px; }
 
 /***** Global Messages *****/
 .global-messages { list-style: none; margin: 10px 20px 20px 0; }
@@ -222,3 +225,15 @@
 .campaign-page .title { color: black; }
 .campaign-page .description { color: black; }
 .campaign-page .widgets-container { width: 400px; background-color: white; margin: 20px auto; }
+
+/***** Upgrade Section *****/
+.dashboard-content.upgrade-view { padding: 100px 0; }
+.upgrade .checkout-billing .checkout-form-row.custom-row-plan { width: 100%; text-align: center; }
+.upgrade .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan { display: inline-block; margin: 0 1%; width: 30%; border: 2px solid #FD8B8E; border-radius: 10px; }
+.upgrade .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan.selected { background-color: #FD8B8E; }
+.upgrade .checkout-billing .visible-plan span { display: block; padding: 30px; }
+.upgrade .checkout-billing .visible-plan span.title { padding-top: 15px; }
+.upgrade .checkout-billing .visible-plan span.price { padding-bottom: 15px; }
+.upgrade .upgrade-plan-action { margin-top: 50px; }
+.upgrade-payment-form { width: 35%; height: 350px; background-color: white; }
+.upgrade-payment-form .subtitle { background-color: #CCC; padding: 15px 50px 5px 50px; margin: 15px 0;font-weight: bold; text-align: left; color: black; height: 60px; }
