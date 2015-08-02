@@ -454,6 +454,11 @@
          * @param int widgetTypeId - this is included in 'allWidgetTypes'
          */
         add: function(widgetTypeId) {
+            if (this.defaultWidgetId === widgetTypeId && this.hasDefaultWidget()) {
+                SpreadPoint.Campaign.Controller.logError('You can only have one of those widgets.', '.entries-tab', null, true);
+                return false;
+            }
+            
             var newWidget = { widgetType: widgetTypeId, referenceId: this.appliedWidgets.length + 1};
             this.appliedWidgets.push(newWidget);
                 
@@ -476,6 +481,18 @@
             
             delete this.appliedWidgets[widgetId - 1];
             this.updateInputField();
+        },
+        hasDefaultWidget: function() {
+            var defaultWidgetType = this.defaultWidgetId;
+            var result = false;
+            
+            this.appliedWidgets.forEach(function(appliedWidget) {
+                if (appliedWidget.widgetType === defaultWidgetType) {
+                    result = true;
+                }
+            });
+            
+            return result;
         },
         /**
          * Loads the applied widgets. These are the widgets that already are added to the campaign.
