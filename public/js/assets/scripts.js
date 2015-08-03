@@ -713,6 +713,7 @@
          */
         loadPrizes: function() {
             var $this = this;
+            var count = 1;
             this.prizes.forEach(function(prize){
                 if (prize) {
                     if (prize['image']) {
@@ -724,7 +725,8 @@
                     var html = template(prize);
 
                     $('.prizes').append(html);
-                    $this.reloadListeners();
+                    $this.reloadListeners(count);
+                    count++;
                 }
             });
         },
@@ -738,7 +740,7 @@
         /**
          * Adds image uploader and prize removal events
          */
-        reloadListeners: function() {
+        reloadListeners: function(count) {
             var $this = this;
             
             $('.close-prize').on('click', function(){
@@ -749,7 +751,7 @@
             var selector = '.prizes textarea';
             SpreadPoint.Campaign.Controller.adjustTextareas(selector);
             
-            var selectorId = this.prizes.length;
+            var selectorId = count || this.prizes.length;
             var imageFieldSelector = ".prize-" + selectorId + " .file-upload";
             var imageFieldName = 'prize-' + selectorId;
             

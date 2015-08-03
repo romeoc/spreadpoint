@@ -18,6 +18,7 @@ use Base\Model\Session;
 
 use Campaign\Model\PrizeModel;
 use Campaign\Model\WidgetModel;
+use Campaign\Model\EntrantModel;
 use Campaign\Entity\Campaign as CampaignEntity;
 use User\Helper\UserHelper;
 
@@ -324,13 +325,16 @@ class CampaignModel extends AbstractModel
             // Check that the campaign was created by the logged in user
             if ($skipAuthorChecking || $this->checkCampaignAuthor($campaignId)) {
                 // If a campaign Id was specified get then fetch the campaigns data
+                $campaign = $this->load($campaignId);
                 $data = array(
-                    'data' => $this->load($campaignId),
+                    'data' => $campaign,
                     'entriesData' => array(
                         'widgetTypes' => $this->getWidgetModel()->getWidgetTypesJson(),
                         'appliedWidgets' => $this->getWidgetModel()->getAppliedWidgetsForJavaScript($campaignId),
                     ),
                     'prizesData' => $this->getPrizeModel()->getAssociatedPrizesForJavaScript($campaignId),
+                    'entrantsData' => $this->getEntrantsModel()->getEntrantsForCampaign($campaignId),
+                    'winnersData' => $this->getWinnersData($campaign)
                 );
             } else {
                 Session::error('You are trying to view a campaign that is not associated to your account');
@@ -464,6 +468,18 @@ class CampaignModel extends AbstractModel
     }
     
     /**
+     * Returns an Entrant instance
+     * @return Campaign\Model\EntrantModel
+     */
+    protected function getEntrantsModel()
+    {
+        $entrantModel = new EntrantModel();
+        $entrantModel->setServiceLocator($this->getServiceLocator());
+        
+        return $entrantModel;
+    }
+    
+    /**
      * Return a UserHelper instance
      * 
      * @return \User\Helper\UserHelper
@@ -489,5 +505,36 @@ class CampaignModel extends AbstractModel
             ->setParameter('user', $this->getUserHelper()->getLoggedInUserId())
             ->getQuery()
             ->getResult(Query::HYDRATE_ARRAY);
+    }
+    
+    public function getWinnersData($campaign)
+    {
+        $now = new \DateTime('', new \DateTimeZone($campaign['timezone']));
+        $startTime = new \DateTime($campaign['startTime'], new \DateTimeZone($campaign['timezone']));
+        
+        $endTime = false;
+        $count = 1;
+
+        if ($campaign['type'] == CampaignEntity::CAMPAIGN_TYPE_SINGLE) {
+            $endTime = new \DateTime($campaign['endTime'], new \DateTimeZone($campaign['timezone']));
+        } else {
+
+            $endTime = clone $startTime;
+            $endTime->modify("+{$campaign['cycleDuration']} hours");
+
+            while (($count < $campaign['cyclesCount'] || $campaign['cyclesCount'] == 0) && $endTime < $now) {
+                $endTime->modify("+{$campaign['cycleDuration']} hours");
+                $count++;
+            }
+        }
+        
+        $data = array ('cycle' => $count, 'endTime' => $endTime, 'complete' => false);
+        
+        if ($endTime < $now) {
+            $data['complete'] = true;
+            $data['winners'] = '';
+        }
+        
+        return $data;
     }
 }

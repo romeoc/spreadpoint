@@ -1,0 +1,47 @@
+<?php $helper = $this->campaignHelper(); ?>
+<section class="campaign-section-winners">
+    <div class="campaign-cycle campaign-cycle-<?php echo $this->data['cycle']; ?>">
+        <h4>Cycle <?php echo $this->data['cycle']; ?></h4>
+        <?php if ($this->data['complete']): ?>
+            <?php if ($this->data['winners']): ?>
+                The Winners are:
+            <?php else: ?>
+                <?php $prizes = json_decode($this->prizes); ?>
+                <div class="select-winners">
+                    <div class="prizes-list">
+                        <?php foreach ($prizes as $prize): ?>
+                            <div class="prize-element" data-prize="<?php echo $prize->id; ?>">
+                                <span><?php echo $prize->name; ?> x<?php echo $prize->count; ?></span>
+                                <img src="<?php echo $helper->getBaseImagePath($this->campaign) . $prize->image ?>" alt="<?php echo $prize->name; ?>" width="100" />
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="entrants-list">
+                        <?php foreach ($this->entrants as $entrant): ?>
+                            <div class="entrant-element" data-entrant="<?php echo $entrant['data']['id']; ?>">
+                                <span><?php echo $entrant['data']['email']; ?></span>
+                                <span><?php echo $entrant['widgets']; ?></span>
+                                <span><?php echo $entrant['chances']; ?></span>
+                                <span><?php echo $entrant['reference']; ?></span>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="choose-winner-actions">
+                        <button type="button" class="action-reset">Reset Selection</button>
+                        <button type="button" class="action-random">Select Random For This Prize</button>
+                        <button type="button" class="action-random-all">Select Random For All Prizes</button>
+                        <button type="button" class="action-confirm">Confirm/Notify Winners</button>
+                    </div>
+                </div>
+            <?php endif; ?>
+        <?php else: ?>
+        <p>
+            Your campaign is still running. You can announce the winners once it ends in 
+            <strong>
+                <?php echo $this->data['endTime']->format('Y-m-d H:i:s'); ?>
+                <?php echo $this->data['endTime']->getTimezone()->getName(); ?>
+            </strong>
+        </p>
+        <?php endif; ?>
+    </div>
+</section>

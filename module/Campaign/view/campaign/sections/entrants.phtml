@@ -1,0 +1,26 @@
+<section class="campaign-section-entrants">
+    <?php if (empty($this->data)): ?>
+        <p>No entrants subscribed yet.</p>
+    <?php else: ?>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Referenced By</th>
+                <th>Widgets Completed</th>
+                <th>Chances Earned</th>
+                <th>References Brought</th>
+            </tr>
+            <?php foreach($this->data as $entrant): ?>
+                <tr>
+                    <td><?php echo $entrant['data']['id']; ?></td>
+                    <td><?php echo $entrant['data']['email']; ?></td>
+                    <td><?php echo ($entrant['data']['reference']) ? $entrant['data']['reference'] : '-'; ?></td>
+                    <td><?php echo $entrant['widgets']; ?></td>
+                    <td><?php echo $entrant['chances']; ?></td>
+                    <td><?php echo $entrant['reference']; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php endif; ?>
+</section>

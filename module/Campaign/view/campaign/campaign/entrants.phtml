@@ -8,20 +8,26 @@
             <table>
                 <tr>
                     <th>Id</th>
-                    <th>Campaign</th>
+                    <th>Campaign Id</th>
                     <th>Email</th>
-                    <th>Reference</th>
+                    <th>Referenced By</th>
+                    <th>Widgets Completed</th>
+                    <th>Chances Earned</th>
+                    <th>References Brought</th>
                 </tr>
                 <?php foreach($this->entrants as $entrant): ?>
                     <tr>
-                        <td><?php echo $entrant['id']; ?></td>
+                        <td><?php echo $entrant['data']['id']; ?></td>
                         <td>
-                            <a href="<?php echo $this->basePath("campaign/edit/{$entrant['campaign']}"); ?>">
-                                <?php echo $entrant['campaign']; ?>
+                            <a href="<?php echo $this->basePath("campaign/edit/{$entrant['data']['campaign']}"); ?>">
+                                <?php echo $entrant['data']['campaign']; ?>
                             </a>
                         </td>
-                        <td><?php echo $entrant['email']; ?></td>
-                        <td><?php echo ($entrant['reference']) ? $entrant['reference'] : '-'; ?></td>
+                        <td><?php echo $entrant['data']['email']; ?></td>
+                        <td><?php echo ($entrant['data']['reference']) ? $entrant['data']['reference'] : '-'; ?></td>
+                        <td><?php echo $entrant['widgets']; ?></td>
+                        <td><?php echo $entrant['chances']; ?></td>
+                        <td><?php echo $entrant['reference']; ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

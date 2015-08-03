@@ -207,11 +207,29 @@ class EntrantModel extends AbstractModel
         $userHelper->updateServiceLocator($this->getServiceLocator());
         
         return $this->getEntityManager()->createQueryBuilder()
-            ->select('e')
+            ->select('e AS data','SUM(w.earningValue) AS chances', 'COUNT(w) AS widgets', 'SUM(CASE WHEN w.widgetType = 6 THEN 1 ELSE 0 END) AS reference')
             ->from($this->entity, 'e')
             ->innerJoin('Campaign\Entity\Campaign','c','WITH','e.campaign = c.id')
+            ->innerJoin('Campaign\Entity\CampaignEntrantChance', 'ec', 'WITH', 'e.id = ec.entrant')
+            ->innerJoin('Campaign\Entity\CampaignWidget', 'w', 'WITH', 'ec.widget = w.id')
             ->where('c.user= :user')
+            ->groupBy('e.id')
             ->setParameter('user', $userHelper->getLoggedInUserId())
+            ->getQuery()
+            ->setHint(Query::HINT_INCLUDE_META_COLUMNS, true)
+            ->getArrayResult();
+    }
+    
+    public function getEntrantsForCampaign($campaignId)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('e AS data','SUM(w.earningValue) AS chances', 'COUNT(w) AS widgets', 'SUM(CASE WHEN w.widgetType = 6 THEN 1 ELSE 0 END) AS reference')
+            ->from($this->entity, 'e')
+            ->innerJoin('Campaign\Entity\CampaignEntrantChance', 'c', 'WITH', 'e.id = c.entrant')
+            ->innerJoin('Campaign\Entity\CampaignWidget', 'w', 'WITH', 'c.widget = w.id')
+            ->where('e.campaign= :campaign')
+            ->groupBy('e.id')
+            ->setParameter('campaign', $campaignId)
             ->getQuery()
             ->setHint(Query::HINT_INCLUDE_META_COLUMNS, true)
             ->getArrayResult();

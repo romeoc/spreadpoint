@@ -48,6 +48,10 @@
                         <li><a href="#entries" class="entries-tab">Entries</a></li>
                         <li><a href="#prize" class="prize-tab">Prizes</a></li>                        
                         <li><a href="#advanced" class="advanced-tab">Advanced</a></li>
+                        <?php if (array_key_exists('id', $this->data)): ?>
+                            <li><a href="#entrants" class="entrant-tab">Entrants</a></li>
+                            <li><a href="#winners" class="winner-tab">Winners</a></li>
+                        <?php endif; ?>
                     </ul>
                     <div id="general" class="campaign-tab">
                         <?php echo $this->partial('campaign/sections/general.phtml', array('data' => $this->data)); ?>
@@ -64,6 +68,19 @@
                     <div id="advanced" class="campaign-tab">
                         <?php echo $this->partial('campaign/sections/advanced.phtml', array('data' => $this->data)); ?>
                     </div>
+                    <?php if (array_key_exists('id', $this->data)): ?>
+                        <div id="entrants" class="campaign-tab">
+                            <?php echo $this->partial('campaign/sections/entrants.phtml', array('data' => $this->entrantsData)); ?>
+                        </div>
+                        <div id="winners" class="campaign-tab">
+                            <?php echo $this->partial('campaign/sections/winners.phtml', array(
+                                'data' => $this->winnersData, 
+                                'prizes' => $this->prizesData, 
+                                'entrants' => $this->entrantsData,
+                                'campaign' => $campaignHelper->get('id')
+                            )); ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </form>
