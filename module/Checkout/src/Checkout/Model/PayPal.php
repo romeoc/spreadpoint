@@ -14,10 +14,9 @@ use Zend\Http\Client;
 use Zend\Http\Client\Adapter\Curl as CurlAdapter;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Mail\Message;
-use Zend\Mail\Transport\Sendmail;
 
 use Base\Model\Session;
+use Base\Model\Mail;
 use Checkout\Model\OrderModel;
 use Checkout\Entity\Order;
 
@@ -277,19 +276,11 @@ class PayPal implements ServiceLocatorAwareInterface
     public function sendEmailNotification($message)
     {
         $now = new \DateTime();
-        
+
+        $subject = 'SpreadPoint - Error Notification';
         $body = 'Time: ' . $now->format('g:ia \o\n l jS F Y')
                 . PHP_EOL . 'Error Notification: ' . $message;
         
-        $mail = new Message();
-        $mail->setBody($body);
-        $mail->setFrom('hello@spreadpoint.co', 'SpreadPoint');
-        $mail->addTo('hello@spreadpoint.co', 'SpreadPoint');
-        $mail->setSubject('SpreadPoint - Error Notification');
-        
-        try {
-            $transport = new Sendmail();
-            $transport->send($mail);
-        } catch (\Exception $e) { }
+        Mail::send($body, $subject);
     }
 }

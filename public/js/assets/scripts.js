@@ -946,6 +946,15 @@
                 return false;
             }
             
+            var winnerEmail = this.get('winnerEmail');
+            if (!winnerEmail){
+                this.logError("The <strong>Winner's Email</strong> is a required field.",".advanced-tab","winnerEmail");
+                return false;
+            } else if (winnerEmail.length > 20000) {
+                this.logError("There is a limit of <strong>20000</strong> characters to the <strong>Winner's Email</strong> field",".advanced-tab","welcomeEmail");
+                return false;
+            }
+            
             var sendWelcomeEmail = $('.custom-row-sendWelcomeEmail').find('.switch-button-background.checked').length;
             if (sendWelcomeEmail && !welcomeEmail) {
                 this.logError("Please provide a <strong>Welcome Email</strong> or uncheck <strong>'Send Welcome Email'</strong>",".advanced-tab","welcomeEmail");

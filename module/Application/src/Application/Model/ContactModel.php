@@ -10,24 +10,11 @@
 
 namespace Application\Model;
 
-use Zend\Mail\Message;
-use Zend\Mail\Transport\Sendmail;
+use Base\Model\Mail;
 use Base\Model\Session;
 
 class ContactModel 
 {
-    /**
-     * On what email the message will be sent
-     * @var string 
-     */
-    const SEND_TO_EMAIL = 'hello@spreadpoint.co';
-    
-    /**
-     * The name of the receiver
-     * @var string
-     */
-    const SEND_TO_NAME = 'SpreadPoint';
-    
     /**
      * Current Data
      * @var array
@@ -94,17 +81,10 @@ class ContactModel
                 . PHP_EOL . 'Sender Email :' . $this->data['email'] 
                 . PHP_EOL . PHP_EOL . 'Message: ' . $this->data['message'];
         
-        $mail = new Message();
-        $mail->setBody($body);
-        $mail->setFrom($this->data['email'], $this->data['fullname']);
-        $mail->addTo(self::SEND_TO_EMAIL, self::SEND_TO_NAME);
-        $mail->setSubject('Message From Contact Form');
-
-        try {
-            $transport = new Sendmail();
-            $transport->send($mail);
+        
+        if (Mail::send($body, 'Message From Contact Form', $this->data['email'], $this->data['fullname'])) {
             Session::success('Your message was succesfully sent');
-        } catch (\Exception $e) {
+        } else {
             Session::error('An error occured while sending your message');
         }
     }

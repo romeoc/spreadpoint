@@ -10,7 +10,7 @@
                 <div class="select-winners">
                     <div class="prizes-list">
                         <?php foreach ($prizes as $prize): ?>
-                            <div class="prize-element" data-prize="<?php echo $prize->id; ?>">
+                            <div class="winner-prize" data-prize="<?php echo $prize->id; ?>">
                                 <span><?php echo $prize->name; ?> x<?php echo $prize->count; ?></span>
                                 <img src="<?php echo $helper->getBaseImagePath($this->campaign) . $prize->image ?>" alt="<?php echo $prize->name; ?>" width="100" />
                             </div>
@@ -18,7 +18,7 @@
                     </div>
                     <div class="entrants-list">
                         <?php foreach ($this->entrants as $entrant): ?>
-                            <div class="entrant-element" data-entrant="<?php echo $entrant['data']['id']; ?>">
+                            <div class="winner-entrant" data-entrant="<?php echo $entrant['data']['id']; ?>">
                                 <span><?php echo $entrant['data']['email']; ?></span>
                                 <span><?php echo $entrant['widgets']; ?></span>
                                 <span><?php echo $entrant['chances']; ?></span>

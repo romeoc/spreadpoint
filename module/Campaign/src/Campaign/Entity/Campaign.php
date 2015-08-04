@@ -130,6 +130,11 @@ class Campaign extends AbstractEntity
      */
     protected $welcomeEmail;
     
+    /** 
+     * @ORM\Column(type="text", name="winner_email") 
+     */
+    protected $winnerEmail;
+    
     /**
      * @ORM\Column(type="smallint", name="send_welcome_email", length=1)
      */

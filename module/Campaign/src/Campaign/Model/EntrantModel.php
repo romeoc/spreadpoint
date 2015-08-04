@@ -15,6 +15,8 @@ use Doctrine\ORM\Query;
 
 use Base\Model\AbstractModel;
 use Base\Model\Session;
+use Base\Model\Mail;
+
 use Campaign\Model\ChanceModel;
 use User\Helper\UserHelper;
 
@@ -53,6 +55,26 @@ class EntrantModel extends AbstractModel
         if ($entrant) {
             $this->setCookie('entrant', $entrant->get('id'));
             $this->addChance($entrant, $widgetId);
+            $this->sendWelcomeEmail($entrant);
+        }
+    }
+    
+    public function sendWelcomeEmail($entrant) 
+    {        
+        $campaign = $entrant->get('campaign');
+        
+        $sendWelcomeEmail = $campaign->get('sendWelcomeEmail');
+        $body = $campaign->get('welcomeEmail');
+        
+        if ($sendWelcomeEmail == 1 && $body) {
+            $user = $campaign->get('user');
+            $fullname = $user->get('firstname') . ' ' . $user->get('lastname');
+            $email = $user->get('email');
+            
+            $title = $campaign->get('title');
+            $subject = "You succesfully entered the {$title} competition";
+            
+            Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $email, $fullname);
         }
     }
     

@@ -216,6 +216,11 @@ class CampaignModel extends AbstractModel
             $errosFound = true;
         }
         
+        if (array_key_exists('winnerEmail', $data) && strlen($data['winnerEmail']) > 20000) {
+            Session::error("There is a limit of <strong>20000</strong> characters to the <strong>'Winner's Email'</strong> field");
+            $errosFound = true;
+        }
+        
         if (!array_key_exists('ageRequirement', $data) || !$data['ageRequirement']) {
             Session::error("You didn't specify an <strong>Age Requirement</strong>");
             $errosFound = true;
