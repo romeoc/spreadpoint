@@ -836,7 +836,7 @@
             
             return allValid;
         }
-    }
+    };
     
     SpreadPoint.Campaign = {};
     SpreadPoint.Campaign.Controller = {
@@ -1026,8 +1026,188 @@
 
                 $(element).addClass('has-errors');
             }
+        }
+    };
+    
+    SpreadPoint.Campaign.Winner = {
+        init: function() {
+            this.selection = [];
+            this.possibilities = [];
+            this.prize = null;
+            this.count = 0;
+            
+            this.loadEvents();
+            this.loadActions();
         },
-    }
+        loadEvents: function() {
+            var self = this;
+            
+            $('.winner-prize').on('click', function() {
+                var element = $(this);
+                self.prize = element.data('prize');
+                self.count = element.data('count');
+                
+                element.addClass('selected')
+                    .siblings().removeClass('selected');
+            });
+            
+            $('.winner-entrant').on('click', function(){
+                var element = $(this);
+                if (!self.prize) {
+                    SpreadPoint.Campaign.Controller.logError('Please select a prize first','.winners', null, null);
+                    return false;
+                }
+                
+                var winners = self.selection[self.prize];
+                if (!winners) {
+                    winners = [];
+                }
+                
+                var entrant = element.data('entrant');
+                if (winners.indexOf(entrant) === -1 && winners.length < self.count) {
+                    winners.push(entrant);
+                    
+                    var left = self.count - winners.length;
+                    var prizeElement = $('.prizes-list').find('[data-prize="' + self.prize +'"]');
+                    prizeElement.find('.count').html(left);
+                    
+                    var imageHtml = prizeElement.find('img').clone();
+                    imageHtml.attr('width', 25).off('click');
+                    element.find('.prizes-won').append(imageHtml);
+                    
+                    imageHtml.on('click', function() {
+                        var $this = $(this);
+                        
+                        var key = $this.data('prize');
+                        var value = $this.closest('.winner-entrant').data('entrant');
+                        $this.remove();
+                        
+                        var selection = self.selection[key];
+                        var index = selection.indexOf(value);
+                        if (index > -1) {
+                            selection.splice(index, 1);
+                        }
+                        
+                        self.selection[key] = selection;
+                        
+                        var prizeElement = $('.prizes-list').find('[data-prize="' + key +'"] .count');
+                        var count = prizeElement.html();
+                        prizeElement.html(++count);
+                        
+                        return false;
+                    });
+                }
+                
+                self.selection[self.prize] = winners;
+            });
+        },
+        loadActions: function() {
+            var self = this;
+            $('.action-reset').on('click', function() {
+                self.selection = [];
+                
+                $('.prizes-won img').remove();
+                
+                $('.winner-prize .count').each(function() {
+                    var $this = $(this);
+                    var originalCount = $this.closest('.winner-prize').data('count');
+                    $this.html(originalCount);
+                });
+            });
+            
+            $('.action-random').on('click', function() {
+                if (!self.prize) {
+                    SpreadPoint.Campaign.Controller.logError('Please select a prize first','.winners', null, null);
+                    return false;
+                }
+                
+                self.randomize();
+            });
+            
+            $('.action-random-all').on('click', function() {
+                $('.winner-prize').each(function() {
+                    $(this).trigger('click');
+                    self.randomize() ;
+                });
+            });
+            
+            $('.action-confirm').on('click', function(){
+                if (self.validateSelection() && confirm("Are you sure? Winners cannot be changed.")) {
+                    var data = JSON.stringify($.extend({}, self.selection));
+                    $('.campaign-section-winners').prepend('<input type="hidden" name="winners-serialized" value=\'' + data + '\'/>');
+                    $('#campaign').attr('action','/campaign/saveWinners/').submit();
+                }
+            });
+        },
+        randomize: function() {
+            var self = this;
+            var prize = this.prize;
+            
+            if (this.possibilities.length === 0) {
+                $('.winner-entrant').each(function() {
+                    var $this = $(this);
+                    var entrant = $this.data('entrant');
+                    var chances = $this.data('chance');
+                    
+                    for (var i = 0; i < chances; i++) {
+                        self.possibilities.push(entrant);
+                    }
+                });
+            }
+            
+            var winners = [];
+            var count = $('.prizes-list').find('[data-prize="' + prize +'"]').data('count');
+            var possibilities = this.possibilities.slice();
+                
+            while (winners.length < count && possibilities.length > 0) {
+                var winner = this.possibilities[Math.floor(Math.random() * this.possibilities.length)];
+                if (winners.indexOf(winner) === -1) {
+                    winners.push(winner);
+                    possibilities = possibilities.filter(function(element) {
+                        return element !== winner;
+                    });
+                }
+            }
+            
+            winners.forEach(function(element) {
+                $('.entrants-list').find('[data-entrant="' + element +'"]').trigger('click');
+            });
+        },
+        validateSelection: function() {
+            var self = this;
+            var entrantsCount = $('.winner-entrant').length;
+            
+            if (this.selection.length === 0) {
+                SpreadPoint.Campaign.Controller.logError('Please select your winners.','.winners', null, null);
+                return false;
+            }
+            
+            var success  = true;
+            $(".winner-prize").each(function(){
+                var element = $(this);
+                var prize = element.data('prize');
+                var count = element.data('count');
+                
+                if ( !(prize in self.selection)
+                        || (count !== self.selection[prize].length 
+                        && entrantsCount !== self.selection[prize].length)
+                ) {
+                    var message = 'You didn\'t give out all your prizes for <strong>'
+                        + element.data('name')
+                        + '</strong>';
+                    SpreadPoint.Campaign.Controller.logError(message,'.winners', null, null);
+                    
+                    element.trigger('click');
+                    success = false;
+                }
+
+                return success;
+            });
+            
+            return success;
+        }
+    };
+    
 })(jQuery);
 
 //$.get("http://ipinfo.io", function(response) {

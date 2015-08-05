@@ -51,10 +51,4 @@ class CampaignPrize extends AbstractEntity
      * @ORM\JoinColumn(name="campaign_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $campaign;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Campaign\Entity\CampaignEntrant")
-     * @ORM\JoinColumn(name="winner_id", referencedColumnName="id", onDelete="CASCADE")
-     */
-    protected $winner;
 }

@@ -3,22 +3,40 @@
     <div class="campaign-cycle campaign-cycle-<?php echo $this->data['cycle']; ?>">
         <h4>Cycle <?php echo $this->data['cycle']; ?></h4>
         <?php if ($this->data['complete']): ?>
-            <?php if ($this->data['winners']): ?>
-                The Winners are:
+            <?php $prizes = json_decode($this->prizes); ?>
+            <?php $winners = $this->data['winners']; ?>
+            <?php if ($winners): ?>
+                <?php $index = 0; ?>
+                <?php foreach ($prizes as $prize): ?>
+                    <div class="prize-row">
+                        <div class="prize-data">
+                            <span><?php echo $prize->name; ?></span>
+                            <img src="<?php echo $helper->getBaseImagePath($this->campaign) . $prize->image ?>" alt="<?php echo $prize->name; ?>" width="100" />
+                        </div>
+                        <div class="winners-data">
+                            <?php while (array_key_exists($index, $winners) && $winners[$index]['prize'] == $prize->id): ?>
+                                <span><?php echo $winners[$index]['email']; ?></span>
+                                <br />
+                                <?php $index++; ?>
+                            <?php endwhile; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             <?php else: ?>
-                <?php $prizes = json_decode($this->prizes); ?>
                 <div class="select-winners">
                     <div class="prizes-list">
                         <?php foreach ($prizes as $prize): ?>
-                            <div class="winner-prize" data-prize="<?php echo $prize->id; ?>">
+                            <div class="winner-prize" data-prize="<?php echo $prize->id; ?>" data-count="<?php echo $prize->count; ?>" data-name="<?php echo $prize->name; ?>">
                                 <span><?php echo $prize->name; ?> x<?php echo $prize->count; ?></span>
-                                <img src="<?php echo $helper->getBaseImagePath($this->campaign) . $prize->image ?>" alt="<?php echo $prize->name; ?>" width="100" />
+                                <img src="<?php echo $helper->getBaseImagePath($this->campaign) . $prize->image ?>" alt="<?php echo $prize->name; ?>" width="100" data-prize="<?php echo $prize->id; ?>" />
+                                <span>Left: <span class="count"><?php echo $prize->count; ?></span></span>
                             </div>
                         <?php endforeach; ?>
                     </div>
                     <div class="entrants-list">
                         <?php foreach ($this->entrants as $entrant): ?>
-                            <div class="winner-entrant" data-entrant="<?php echo $entrant['data']['id']; ?>">
+                            <div class="winner-entrant" data-entrant="<?php echo $entrant['data']['id']; ?>" data-chance="<?php echo $entrant['chances']; ?>">
+                                <div class="prizes-won"></div>
                                 <span><?php echo $entrant['data']['email']; ?></span>
                                 <span><?php echo $entrant['widgets']; ?></span>
                                 <span><?php echo $entrant['chances']; ?></span>
@@ -45,3 +63,6 @@
         <?php endif; ?>
     </div>
 </section>
+<script type="text/javascript">
+    SpreadPoint.Campaign.Winner.init();
+</script>

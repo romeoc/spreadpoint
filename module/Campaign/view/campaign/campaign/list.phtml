@@ -2,6 +2,7 @@
 <div class="campaign-listing dashboard-section">
     <?php echo $this->partial('user/dashboard/menu.phtml', array('selected' => 'campaigns')); ?>
     <div class="campaigns-wrapper dashboard-content">
+        <?php echo $this->partial('application/session/global-messages', array('global_messages' => $this->messages)); ?>
         <div class="campaigns-header dashboard-header">
             <div class="campaigns-title dashboard-title">
                 <h2>Campaigns</h2>

@@ -151,7 +151,7 @@ class CampaignModel extends AbstractModel
     protected function validate(&$data)
     {
         $errosFound = false;
-        
+
         foreach ($data as $key => $value) {
             if (!property_exists($this->entity, $key)) {
                 unset($data[$key]);
@@ -537,7 +537,11 @@ class CampaignModel extends AbstractModel
         
         if ($endTime < $now) {
             $data['complete'] = true;
-            $data['winners'] = '';
+            
+            $model = new WinnerModel();
+            $model->setServiceLocator($this->getServiceLocator());
+            
+            $data['winners'] = $model->getWinnersForCampaign($campaign['id']);
         }
         
         return $data;

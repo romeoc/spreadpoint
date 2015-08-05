@@ -18,6 +18,7 @@ use Zend\View\Model\JsonModel;
 use User\Helper\UserHelper;
 use Campaign\Model\CampaignModel;
 use Campaign\Model\EntrantModel;
+use Campaign\Model\WinnerModel;
 
 class CampaignController extends AbstractActionController
 {
@@ -25,36 +26,36 @@ class CampaignController extends AbstractActionController
     
     public function listAction()
     {
-        $this->checkAuthentication();
-        
-        if ($this->getUserPlan() == -1) {
-            $this->redirect()->toRoute('checkout');
+        if ($this->checkAuthentication()) {
+            if ($this->getUserPlan() == -1) {
+                $this->redirect()->toRoute('checkout');
+            }
+
+            // Instantiate Campaign Model
+            $campaignModel = new CampaignModel();
+            $campaignModel->setServiceLocator($this->_service);
+
+            $data = $campaignModel->getCampaignsList();
+            return new ViewModel(array('campaigns' => $data));
         }
-        
-        // Instantiate Campaign Model
-        $campaignModel = new CampaignModel();
-        $campaignModel->setServiceLocator($this->_service);
-        
-        $data = $campaignModel->getCampaignsList();
-        return new ViewModel(array('campaigns' => $data));
     }
     
     public function editAction()
     {
-        $this->checkAuthentication();
+        if ($this->checkAuthentication()) {
+            if ($this->getUserPlan() == -1) {
+                $this->redirect()->toRoute('checkout');
+            }
 
-        if ($this->getUserPlan() == -1) {
-            $this->redirect()->toRoute('checkout');
+            // Instantiate Campaign Model
+            $campaignModel = new CampaignModel();
+            $campaignModel->setServiceLocator($this->_service);
+
+            $campaignId =  $this->params('id');
+            $data = $campaignModel->fetchData($campaignId);
+
+            return new ViewModel($data);
         }
-        
-        // Instantiate Campaign Model
-        $campaignModel = new CampaignModel();
-        $campaignModel->setServiceLocator($this->_service);
-        
-        $campaignId =  $this->params('id');
-        $data = $campaignModel->fetchData($campaignId);
-        
-        return new ViewModel($data);
     }
     
     public function saveAction()
@@ -137,25 +138,24 @@ class CampaignController extends AbstractActionController
     
     public function updateStatusAction()
     {
-        $this->checkAuthentication();
-        
-        $id =  $this->params('id');
-        $status = $this->params('status');
-        
-        if (!$id) {
-            $this->redirect()->toRoute('home');
-        }
-        
-        if (!$status) {
+        if ($this->checkAuthentication()) {
+            $id =  $this->params('id');
+            $status = $this->params('status');
+
+            if (!$id) {
+                $this->redirect()->toRoute('home');
+            }
+
+            if (!$status) {
+                $this->redirect()->toRoute('campaign', array('action' => 'edit', 'id' => $id));
+            }
+
+            $campaignModel = new CampaignModel();
+            $campaignModel->setServiceLocator($this->_service);
+            $campaignModel->updateStatus($id, $status);
+
             $this->redirect()->toRoute('campaign', array('action' => 'edit', 'id' => $id));
         }
-        
-        $campaignModel = new CampaignModel();
-        $campaignModel->setServiceLocator($this->_service);
-        $campaignModel->updateStatus($id, $status);
-                
-        $this->redirect()->toRoute('campaign', array('action' => 'edit', 'id' => $id));
-        
     }
     
     public function enterAction()
@@ -226,17 +226,38 @@ class CampaignController extends AbstractActionController
     
     public function entrantsAction()
     {
-        $this->checkAuthentication();
-        
-        if ($this->getUserPlan() == -1) {
-            $this->redirect()->toRoute('checkout');
+        if ($this->checkAuthentication()) {
+            if ($this->getUserPlan() == -1) {
+                $this->redirect()->toRoute('checkout');
+            }
+
+            $model = new EntrantModel();
+            $model->setServiceLocator($this->_service);
+
+            $entrants = $model->entrantsList();
+            return new ViewModel(array('entrants' => $entrants));
         }
+    }
+    
+    public function saveWinnersAction()
+    {
+        $data = $this->request->getPost();
+        $winners = $data['winners-serialized'];
         
-        $model = new EntrantModel();
-        $model->setServiceLocator($this->_service);
-        
-        $entrants = $model->entrantsList();
-        return new ViewModel(array('entrants' => $entrants));
+        if (empty($winners) || !$this->checkAuthentication()) {
+            $this->redirect()->toRoute('campaign');
+        } else {
+            $model = new WinnerModel();
+            $model->setServiceLocator($this->getServiceLocator());
+            
+            $result = $model->saveWinners($winners);
+            
+            if ($result) {
+                $this->redirect()->toRoute('campaign', array('action' => 'edit', 'id' => $result));
+            } else {
+                $this->redirect()->toRoute('campaign');
+            }
+        }
     }
     
     public function checkAuthentication()
@@ -248,9 +269,10 @@ class CampaignController extends AbstractActionController
         
         if (!$userHelper->isLoggedIn()) {
             $this->redirect()->toRoute('account', array('action' => 'login'));
+            return false;
         }
         
-        return $this;
+        return true;
     }
     
     protected function getUserPlan()
