@@ -52,6 +52,11 @@ class CampaignWidget extends AbstractEntity
     protected $earningValue;
     
     /**
+     * @ORM\Column(length=32)
+     */
+    protected $title;
+    
+    /**
      * @ORM\Column(type="smallint", length=1)
      */
     protected $status = self::STATUS_ACTIVE;

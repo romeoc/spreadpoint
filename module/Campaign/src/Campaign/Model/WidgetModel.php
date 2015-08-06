@@ -80,6 +80,7 @@ class WidgetModel extends AbstractModel
             $options = $widget;
             unset($options['widgetType']);
             unset($options['earningValue']);
+            unset($options['title']);
 
             // Set additional data
             $widget['optionsSerialized'] = serialize($options);
@@ -192,8 +193,16 @@ class WidgetModel extends AbstractModel
         } elseif ($data['earningValue'] <= 0) {
             Session::error("Widgets Earning Values must be greater than 0!");
             $errorsFound = true;
-        } else if ($data['earningValue'] > 10000) {
+        } elseif ($data['earningValue'] > 10000) {
             Session::error("Widgets Earning Values cannot be greater than 10000!");
+            $errorsFound = true;
+        }
+        
+        if (!array_key_exists('title', $data) || empty($data['title'])) {
+            Session::error("Every widget must have a title!");
+            $errorsFound = true;
+        } elseif ($data['title'] > 32) {
+            Session::error("The widget Title cannot be longer than 32 characters!");
             $errorsFound = true;
         }
         

@@ -1,5 +1,5 @@
 <?php $helper = $this->campaignHelper(); ?>
-<h3 class="widget-title">Enter Contest<span>+<?php echo $this->data->earningValue; ?></span></h3>
+<h3 class="widget-title"><?php echo $this->data->title; ?> <span>+<?php echo $this->data->earningValue; ?></span></h3>
 <div class="widget-content widget-type-entercontest" data-id="<?php echo $this->data->id; ?>">
     <form method="post" name="enter-contest" action="/campaign/enter/<?php echo $this->campaign['id']; ?>" id="enter-contest">
         <input type="hidden" name="id" value="<?php echo $this->data->id?>" />

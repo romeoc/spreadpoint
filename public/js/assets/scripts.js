@@ -599,6 +599,14 @@
                     allValid = false;
                 }
                 
+                if (!widget.title) {
+                    SpreadPoint.Campaign.Controller.logError('Every widget must have a <strong>Title</strong>', tab, identifier, true);
+                    allValid = false;
+                } else if (widget.title.length > 32) {
+                    SpreadPoint.Campaign.Controller.logError('The maximum <strong>Title</strong> length is 140 characters', tab, identifier, true);
+                    allValid = false;
+                }
+                
                 switch (widget.widgetType) {
                     case 1: 
                         hasDefaultWidget = true;
