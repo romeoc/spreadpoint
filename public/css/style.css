@@ -229,6 +229,8 @@
 .campaign-page .branding span { font-size: 14px; padding: 2px 2px 0 10px; display: block; float: left; }
 .campaign-page .branding a,
 .campaign-page .branding a:visited { color: black; }
+.campaign-page .requirement input,
+.campaign-page .requirement label { cursor: pointer; }
 
 /***** Upgrade Section *****/
 .dashboard-content.upgrade-view { padding: 100px 0; }

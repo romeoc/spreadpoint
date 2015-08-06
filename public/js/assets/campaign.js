@@ -19,6 +19,10 @@
                     title.find('.completed').show();
                 }
             });
+        },
+        error: function(message) {
+            message = '<li class="error"><i class="fa fa-times-circle"></i>' + message + '</li>';
+            $('.global-messages').html(message);
         }
     }
 
@@ -68,5 +72,27 @@
                 SpreadPoint.Front.complete(widget);
             });
         }
-    }
+    };
+    
+    SpreadPoint.Front.EnterContest = {
+        init: function() {
+            var self = this;
+            $('#enter-contest').submit(function(e){
+                e.preventDefault();
+                
+                if (self.valid()) {
+                    this.submit();
+                }
+            });
+        },
+        valid: function() {
+            var ageRequirement  = $('#ageRequirement');
+            if (ageRequirement.length !== 0 && !ageRequirement.is(':checked')) {
+                SpreadPoint.Front.error('You don\'t meet the age requirement for this contest.');
+                return false;
+            }
+            
+            return true;
+        }
+    };
 })(jQuery);

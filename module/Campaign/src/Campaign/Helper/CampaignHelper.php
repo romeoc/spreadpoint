@@ -116,21 +116,25 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
                 'selected' => '',
                 'value'   => 2,
                 'title'   => '13+',
+                'label' => 'I am at least 13 years of age'
             ),
             array(
                 'selected' => '',
                 'value'   => 3,
                 'title'   => '18+',
+                'label' => 'I am at least 18 years of age'
             ),
             array(
                 'selected' => '',
                 'value'   => 4,
                 'title'   => '19+',
+                'label' => 'I am at least 19 years of age'
             ),
             array(
                 'selected' => '',
                 'value'   => 5,
                 'title'   => '21+',
+                'label' => 'I am at least 21 years of age'
             ),
         );
         

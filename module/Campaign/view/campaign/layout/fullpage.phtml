@@ -27,7 +27,7 @@
             <?php $widgets = json_decode($this->entriesData); ?>
             <?php foreach ($widgets as $widget): ?>
                 <?php $template = $helper->getWidgetTemplate($widget->widgetType); ?>
-                <?php echo $this->partial($template, array('data' => $widget, 'campaign' => $this->data['id'])); ?>
+                <?php echo $this->partial($template, array('data' => $widget, 'campaign' => $this->data)); ?>
             <?php endforeach; ?>
         </div>
         <div class="branding">
