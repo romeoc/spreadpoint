@@ -225,6 +225,10 @@
 .campaign-page .title { color: black; }
 .campaign-page .description { color: black; }
 .campaign-page .widgets-container { width: 400px; background-color: white; margin: 20px auto; }
+.campaign-page .branding { height: 20px; background-color: rgba(0,0,0,0.7); }
+.campaign-page .branding span { font-size: 14px; padding: 2px 2px 0 10px; display: block; float: left; }
+.campaign-page .branding a,
+.campaign-page .branding a:visited { color: black; }
 
 /***** Upgrade Section *****/
 .dashboard-content.upgrade-view { padding: 100px 0; }
