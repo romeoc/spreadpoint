@@ -1,12 +1,12 @@
 <section class="campaign-section-entrants">
-    <div class="entrants-actions">
-        <a href="<?php echo $this->basePath("campaign/exportCsv/{$this->campaign}"); ?>" title="Export as Csv">
-            <button type="button">Export as Csv</button>
-        </a>
-    </div>
     <?php if (empty($this->data)): ?>
         <p>No entrants subscribed yet.</p>
     <?php else: ?>
+        <div class="entrants-actions">
+            <a href="<?php echo $this->basePath("campaign/exportCsv/{$this->campaign}"); ?>" title="Export as Csv">
+                <button type="button">Export as Csv</button>
+            </a>
+        </div>
         <table>
             <tr>
                 <th>Id</th>
