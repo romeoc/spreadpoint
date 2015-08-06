@@ -244,6 +244,16 @@ class EntrantModel extends AbstractModel
     
     public function getEntrantsForCampaign($campaignId)
     {
+        $campaign = $this->getEntityManager()->find('Campaign\Entity\Campaign', $campaignId);
+        
+        $userHelper = new UserHelper();
+        $userHelper->updateServiceLocator($this->getServiceLocator());
+        
+        if ($userHelper->getLoggedInUserId() != $campaign->get('user')->get('id')) {
+            Session::error('You are not the owner of that campaign');
+            return false;
+        }
+        
         return $this->getEntityManager()->createQueryBuilder()
             ->select('e AS data','SUM(w.earningValue) AS chances', 'COUNT(w) AS widgets', 'SUM(CASE WHEN w.widgetType = 6 THEN 1 ELSE 0 END) AS reference')
             ->from($this->entity, 'e')
@@ -255,5 +265,21 @@ class EntrantModel extends AbstractModel
             ->getQuery()
             ->setHint(Query::HINT_INCLUDE_META_COLUMNS, true)
             ->getArrayResult();
+    }
+    
+    public function getCsvData($data)
+    {
+        $entries = array();
+        foreach ($data as $entry) {
+            $entry['data']['referenceId'] = $entry['data']['reference'];
+            unset($entry['data']['reference']);
+            
+            $newEntry = array_merge($entry['data'], $entry);
+            unset ($newEntry['data']);
+            
+            $entries[] = $newEntry;
+        }
+        
+        return $entries;
     }
 }

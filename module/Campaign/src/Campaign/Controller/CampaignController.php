@@ -275,6 +275,27 @@ class CampaignController extends AbstractActionController
         return true;
     }
     
+    public function exportCsvAction()
+    {
+        $id =  $this->params('id');
+        
+        $model = new EntrantModel();
+        $model->setServiceLocator($this->getServiceLocator());
+        
+        $entrants = false;
+        if ($id) {
+            $entrants = $model->getEntrantsForCampaign($id);
+        } else {
+            $entrants = $model->entrantsList();
+        }
+        
+        $formatedData = $model->getCsvData($entrants);
+        $header = array('Entrant Id','Email','Campaign Id','Reference Id','Chances Earned','Widgets Completed','References Brought');
+        
+        $response = $this->csvExport('entrants.csv', $header, $formatedData);
+        return $response;
+    }
+    
     protected function getUserPlan()
     {
         $helper = new UserHelper();

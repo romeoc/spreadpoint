@@ -2,6 +2,11 @@
 <div class="entrants-listing dashboard-section">
     <?php echo $this->partial('user/dashboard/menu.phtml', array('selected' => 'entrants')); ?>
     <div class="entrants-wrapper dashboard-content">
+        <div class="entrants-actions">
+            <a href="<?php echo $this->basePath('campaign/exportCsv/'); ?>" title="Export as Csv">
+                <button type="button">Export as Csv</button>
+            </a>
+        </div>
         <?php if (empty($this->entrants)): ?>
             <p>No entrants subscribed yet.</p>
         <?php else: ?>

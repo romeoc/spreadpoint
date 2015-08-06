@@ -70,7 +70,7 @@
                     </div>
                     <?php if (array_key_exists('id', $this->data)): ?>
                         <div id="entrants" class="campaign-tab">
-                            <?php echo $this->partial('campaign/sections/entrants.phtml', array('data' => $this->entrantsData)); ?>
+                            <?php echo $this->partial('campaign/sections/entrants.phtml', array('data' => $this->entrantsData, 'campaign' => $campaignHelper->get('id'))); ?>
                         </div>
                         <div id="winners" class="campaign-tab">
                             <?php echo $this->partial('campaign/sections/winners.phtml', array(

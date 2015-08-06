@@ -237,3 +237,7 @@
 .upgrade .upgrade-plan-action { margin-top: 50px; }
 .upgrade-payment-form { width: 35%; height: 350px; background-color: white; }
 .upgrade-payment-form .subtitle { background-color: #CCC; padding: 15px 50px 5px 50px; margin: 15px 0;font-weight: bold; text-align: left; color: black; height: 60px; }
+
+/***** Entrants *****/
+.entrants-wrapper .entrants-actions,
+.campaign-section-entrants .entrants-actions { text-align: right; margin-right: 50px; margin-bottom: 20px; margin: 10px 50px 20px 0 };
