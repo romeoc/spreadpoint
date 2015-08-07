@@ -32,6 +32,16 @@ class IndexController extends AbstractActionController
         return new ViewModel();
     }
     
+    public function termsOfServiceAction()
+    {
+        return new ViewModel();
+    }
+    
+    public function privacyPolicyAction()
+    {
+        return new ViewModel(); 
+    }
+    
     public function sendEmailAction()
     {
         $data = $this->request->getPost();

@@ -33,6 +33,36 @@ return array(
                     ),
                 ),
             ),
+            'terms-of-service' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/terms-of-service',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'termsOfService',
+                    ),
+                ),
+            ),
+            'privacy-policy' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/privacy-policy',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'privacyPolicy',
+                    ),
+                ),
+            ),
+            'contact' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/contact',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'contact',
+                    ),
+                ),
+            ),
             'contact/sendEmail' => array(
                 'type' => 'Literal',
                 'options' => array(

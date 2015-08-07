@@ -246,4 +246,11 @@
 
 /***** Entrants *****/
 .entrants-wrapper .entrants-actions,
-.campaign-section-entrants .entrants-actions { text-align: right; margin-right: 50px; margin-bottom: 20px; margin: 10px 50px 20px 0 };
+.campaign-section-entrants .entrants-actions { text-align: right; margin-right: 50px; margin-bottom: 20px; margin: 10px 50px 20px 0; }
+
+/***** Footer *****/
+.site-info { padding-bottom: 20px; font-size: smaller; }
+.site-footer .copyright { color: #8c9398 !important; }
+.site-footer .footer-links { list-style: none; display: inline; margin: 0; }
+.site-footer .footer-links li { display: inline-block; padding-left: 10px; color: #8c9398; }
+.site-footer .footer-links li:before { content: '|'; padding-right: 10px; }
