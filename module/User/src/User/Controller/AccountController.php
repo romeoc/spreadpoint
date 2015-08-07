@@ -23,11 +23,7 @@ class AccountController extends AbstractActionController
 {
     public function indexAction()
     {
-        $service = $this->getServiceLocator();
-        $helper = new UserHelper();
-        $helper->updateServiceLocator($service);
-        
-        if (!$helper->isLoggedIn()) {
+        if (!$this->getHelper()->isLoggedIn()) {
             return $this->redirect()->toRoute('home');
         }
         
@@ -106,5 +102,41 @@ class AccountController extends AbstractActionController
         $auth->clearIdentity();
         
         return $this->redirect()->toRoute('home');
+    }
+    
+    public function settingsAction()
+    {
+        $helper = $this->getHelper();
+        
+        if (!$helper->isLoggedIn()) {
+            $this->redirect()->toRoute('account', array('action' => 'login'));
+        }
+        
+        return new ViewModel(array('user' => $helper->getLoggedInUser()));
+    }
+    
+    public function saveAction()
+    {
+        $userId = $this->getHelper()->getLoggedInUserId();
+        $data = $this->request->getPost();
+        
+        if ($data && $userId) {
+            $user = new User();
+            $user->setServiceLocator($this->getServiceLocator());
+            $data['id'] = $userId;
+
+            $user->prepare($data);
+            $user->save($data);
+        }
+        
+        $this->redirect()->toRoute('account', array('action' => 'settings'));
+    }
+    
+    public function getHelper()
+    {
+        $userHelper = new UserHelper();
+        $userHelper->updateServiceLocator($this->getServiceLocator());
+        
+        return $userHelper;
     }
 }

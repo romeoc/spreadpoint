@@ -1,0 +1,26 @@
+<div class="settings dashboard-section">
+    <div class="settings-menu">
+        <ul>
+            <li>Notifications</li>
+        </ul>
+    </div>
+    <div class="settings-view dashboard-content">
+        <?php echo $this->partial('application/session/global-messages', array('global_messages' => $this->messages)); ?>
+        <form method="post" name="settings" enctype="multipart/form-data" action="<?php echo $this->basePath('/account/save'); ?>" id="settings" novalidate>
+            <div class="settings-form-row custom-form-row custom-row-notifications">
+                <div class="field">
+                    <label class="notifications left">Enable Notifications</label>
+                    <div class="switch">
+                        <?php $notification = ($this->user->notifications == 1) ? 'checked' : false; ?>
+                        <input class="jqui-switch" name="notifications" type="checkbox" <?php echo $notification; ?> />
+                    </div>
+                </div>
+            </div>
+            <div class="settings-form-row custom-form-row custom-row-submit">
+                <button type="submit" class="settings-action">
+                    <i class="fa fa-save"></i> <span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

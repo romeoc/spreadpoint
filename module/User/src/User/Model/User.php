@@ -57,4 +57,9 @@ class User extends AbstractModel
         $form->add($password);
         return $form;
     }
+    
+    public function prepare(&$data)
+    {
+        $data['notifications'] = array_key_exists('notifications', $data);
+    }
 }

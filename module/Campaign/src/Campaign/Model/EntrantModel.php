@@ -56,6 +56,7 @@ class EntrantModel extends AbstractModel
             $this->setCookie('entrant', $entrant->get('id'));
             $this->addChance($entrant, $widgetId);
             $this->sendWelcomeEmail($entrant);
+            $this->sendNotificationEmail($campaign, $entrant);
         }
     }
     
@@ -67,12 +68,33 @@ class EntrantModel extends AbstractModel
         $body = $campaign->get('welcomeEmail');
         
         if ($sendWelcomeEmail == 1 && $body) {
-            $user = $campaign->get('user');
-            $fullname = $user->get('firstname') . ' ' . $user->get('lastname');
-            $email = $user->get('email');
+            $fullname = $entrant->get('email');
+            $email = $entrant->get('email');
             
             $title = $campaign->get('title');
-            $subject = "You succesfully entered the {$title} competition";
+            $subject = "You succesfully entered the '{$title}' competition";
+            
+            Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $email, $fullname);
+        }
+    }
+    
+    /**
+     * Notify User that someone entered their contest
+     */
+    public function sendNotificationEmail($campaign, $entrant)
+    {
+        $user = $campaign->get('user');
+        
+        $uri = $this->getServiceLocator()->get('request')->getUri();
+        $domain =  sprintf('%s://%s', $uri->getScheme(), $uri->getHost());
+        
+        if ($user->get('notifications') == 1) {
+            $body = "Someone just entered your contest titles '{$campaign->get('title')}'!" 
+                    . PHP_EOL . "Check it out at {$domain}";
+            $subject = 'Aww Yeah! Your contest is spreading wildfire';
+            
+            $fullname = $user->get('firstname') . ' ' . $user->get('lastname');
+            $email = $user->get('email');
             
             Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $email, $fullname);
         }
