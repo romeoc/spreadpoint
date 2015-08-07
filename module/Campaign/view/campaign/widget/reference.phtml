@@ -3,5 +3,23 @@
 <div class="widget-content widget-type-reference" data-id="<?php echo $this->data->id; ?>">
     <?php $domain = $helper->getDomain(); ?>
     <?php $entrant = $helper->getEntrantId(); ?>
-    <input type="text" readonly onclick="this.select()" value="<?php echo "{$domain}/campaign/reference/{$entrant}"; ?>" />
+    
+    <?php $referenceUrl = "{$domain}/campaign/reference/{$entrant}"; ?>
+    <?php $subject = "Check this out!"; ?>
+    <?php $content = "I found a great contest, check it out: "; ?>
+    
+    <input type="text" readonly onclick="this.select()" value="<?php echo $referenceUrl; ?>" size='35' />
+    <div class="sharing-options">
+        <div class="fb-share-button left" data-href="<?php echo $referenceUrl; ?>" data-layout="button"></div>
+        <div class="twitter-tweet">
+            <a class="twitter-share-button left" data-count="none" href="https://twitter.com/intent/tweet?url=<?php echo $referenceUrl; ?>&text=<?php echo $content; ?>">
+                Tweet
+            </a>
+        </div>
+        <div class="send-email left">
+            <a href="mailto:?subject=<?php echo $subject; ?>&body=<?php echo $content . $referenceUrl; ?>">
+                <i class="fa fa-envelope">Email</i>
+            </a>
+        </div>
+    </div>
 </div>
