@@ -15,6 +15,21 @@
                 </label>
             <?php endif; ?>
         </div>
+        <div class="requirement">
+            <input type="checkbox" id="terms" />
+            <label for="terms">
+                I agree to the 
+                <a class="show-terms" href="javascript:void(0);">Terms & Conditions</a>
+            </label>
+            <div class="terms-box hide">
+                <?php if ($campaign['termsAndConditions']): ?>
+                    <?php echo $campaign['termsAndConditions']; ?>
+                <?php else: ?>
+                    <?php echo $helper->getDefaultTerms($campaign); ?>
+                <?php endif; ?>
+                <span class="close">X</span>
+            </div>
+        </div>
         <div class="field">
             <button class="enter-contest-action">Enter Contest</button>
         </div>
@@ -22,4 +37,5 @@
 </div>
 <script type="text/javascript">
     SpreadPoint.Front.EnterContest.init();
+    SpreadPoint.PopUp.create('.terms-box','.show-terms', '.close', false);
 </script>

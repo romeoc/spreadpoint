@@ -1,0 +1,4 @@
+/***** Enter Contest Widget *****/
+
+.campaign-fullpage .terms-box { width: 30%; height: 60%; background-color: white; overflow: auto; padding: 10px; }
+.campaign-fullpage .terms-box .close { position: absolute; top: 0; right:0; }

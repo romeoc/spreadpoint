@@ -92,6 +92,12 @@
                 return false;
             }
             
+            var terms  = $('#terms');
+            if (terms.length !== 0 && !terms.is(':checked')) {
+                SpreadPoint.Front.error('You must agree to the terms & conditions.');
+                return false;
+            }
+            
             return true;
         }
     };

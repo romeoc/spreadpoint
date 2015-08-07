@@ -393,6 +393,17 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
     }
     
     /**
+     * Get default terms and conditions for campaign
+     * 
+     * @param array $campaign
+     * @return string
+     */
+    public function getDefaultTerms($campaign)
+    {
+        return 'Deufalt Terms';
+    }
+    
+    /**
      * Get domain from url
      */
     public function getDomain()
