@@ -15,6 +15,7 @@ use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 
+use Base\Model\Session;
 use User\Helper\UserHelper;
 use Campaign\Model\CampaignModel;
 use Campaign\Model\EntrantModel;

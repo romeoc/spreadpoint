@@ -304,4 +304,27 @@ class EntrantModel extends AbstractModel
         
         return $entries;
     }
+    
+    public function load($entrantId)
+    {
+        $result = array();
+        $entrant = $this->getEntityManager()->find($this->entity, $entrantId);
+        
+        if ($entrant) {
+            
+            $widgets = $this->getEntityManager()->createQueryBuilder()
+                ->select('w.id, w.title, w.earningValue, c.earningDate')
+                ->from('Campaign\Entity\CampaignEntrantChance', 'c')
+                ->innerJoin('Campaign\Entity\CampaignWidget', 'w', 'WITH', 'c.widget = w.id')
+                ->where('c.entrant= :entrant')
+                ->setParameter('entrant', $entrant)
+                ->getQuery()
+                ->getResult();
+            
+            $result['entrant'] = $entrant;
+            $result['widgets'] = $widgets;
+        }
+        
+        return $result;
+    }
 }

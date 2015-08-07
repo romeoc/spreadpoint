@@ -18,7 +18,11 @@
             </tr>
             <?php foreach($this->data as $entrant): ?>
                 <tr>
-                    <td><?php echo $entrant['data']['id']; ?></td>
+                    <td>
+                        <a href="<?php echo $this->basePath("entrant/details/{$entrant['data']['id']}"); ?>" target="_blank">
+                            <?php echo $entrant['data']['id']; ?>
+                        </a>
+                    </td>
                     <td><?php echo $entrant['data']['email']; ?></td>
                     <td><?php echo ($entrant['data']['reference']) ? $entrant['data']['reference'] : '-'; ?></td>
                     <td><?php echo $entrant['widgets']; ?></td>

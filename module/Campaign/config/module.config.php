@@ -17,6 +17,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Campaign\Controller\Campaign' => 'Campaign\Controller\CampaignController',
+            'Campaign\Controller\Entrant' => 'Campaign\Controller\EntrantController',
         ),
     ),
     'router' => array(
@@ -32,6 +33,26 @@ return array(
                     'defaults' => array(
                         'controller' => 'Campaign\Controller\Campaign',
                         'action'     => 'list',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'wildcard' => array(
+                        'type' => 'Wildcard',
+                    ),
+                ),
+            ),
+            'entrant' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/entrant[/[:action[/[:id]]]]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Campaign\Controller\Entrant',
+                        'action'     => 'details',
                     ),
                 ),
                 'may_terminate' => true,

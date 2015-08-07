@@ -1,0 +1,53 @@
+<?php $entrant = $this->data['entrant']; ?>
+<?php $widgets = $this->data['widgets']; ?>
+
+<div class="campaigns dashboard-section">
+    <?php echo $this->partial('user/dashboard/menu.phtml', array('selected' => 'entrants')); ?>
+    <div class="campaign-view dashboard-content">
+        <?php echo $this->partial('application/session/global-messages', array('global_messages' => $this->messages)); ?>
+        <div class="entrant-view">
+            <div class="entrant-row">
+                <label>Entrant Id: </label>
+                <span><?php echo $entrant->id; ?></span>
+            </div>
+            <div class="entrant-row">
+                <label>Campaign: </label>
+                <a href="<?php echo $this->basePath("campaign/edit/{$entrant->campaign->get('id')}"); ?>" target='_blank'>
+                    <?php echo $entrant->campaign->get('title'); ?>
+                </a>
+            </div>
+            <div class="entrant-row">
+                <label>Email: </label>
+                <span><?php echo $entrant->email ?></span>
+            </div>
+            <div class="entrant-row">
+                <label>Referenced By: </label>
+                <?php if ($entrant->reference): ?>
+                    <a href="<?php echo $this->basePath("entrant/details/{$entrant->reference->get('id')}"); ?>" target='_blank'>
+                        <?php echo $entrant->reference->get('email'); ?> 
+                        (ID: <?php echo $entrant->reference->get('id'); ?>)
+                    </a>
+                <?php else: ?>
+                    <span>Was not referenced</span>
+                <?php endif; ?>
+            </div>
+            <div class="entrant-row">
+                <label>Widgets Completed: </label>
+                <table>
+                    <tr>
+                        <th>Widget Title</th>
+                        <th>Chances Earned</th>
+                        <th>Completed On</th>
+                    </tr>
+                    <?php foreach ($widgets as $widget): ?>
+                        <tr>
+                            <td><?php echo $widget['title']; ?></td>
+                            <td><?php echo $widget['earningValue']; ?></td>
+                            <td><?php echo $widget['earningDate']->format('g:ia \o\n l jS F Y'); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

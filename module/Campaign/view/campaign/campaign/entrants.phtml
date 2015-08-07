@@ -22,7 +22,11 @@
                 </tr>
                 <?php foreach($this->entrants as $entrant): ?>
                     <tr>
-                        <td><?php echo $entrant['data']['id']; ?></td>
+                        <td>
+                            <a href="<?php echo $this->basePath("entrant/details/{$entrant['data']['id']}"); ?>" target="_blank">
+                                <?php echo $entrant['data']['id']; ?>
+                            </a>
+                        </td>
                         <td>
                             <a href="<?php echo $this->basePath("campaign/edit/{$entrant['data']['campaign']}"); ?>">
                                 <?php echo $entrant['data']['campaign']; ?>
