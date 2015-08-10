@@ -10,11 +10,10 @@
             <div class="campaign-view-header dashboard-header">
                 <div class="campaign-view-title dashboard-title left">
                     <?php $title = $campaignHelper->get('title'); ?>
-                    <h2><?php echo ($title) ? $title : 'New Campaign'; ?> 
-                        <?php if ($campaignHelper->get('status')): ?>
-                            (<?php echo $campaignHelper->getStatusString(); ?>)
-                        <?php endif; ?>
-                    </h2>
+                    <h2><?php echo ($title) ? $title : 'New Campaign'; ?></h2>
+                    <?php if ($campaignHelper->get('status')): ?>
+                    <span class="status status-<?php echo strtolower($campaignHelper->getStatusString()); ?>">( <span class="status-dot"></span> <?php echo $campaignHelper->getStatusString(); ?> )</span>
+                    <?php endif; ?>
                 </div>
                 <div class="campaign-view-actions right">
                     <?php if (array_key_exists('id', $this->data) && $campaignHelper->getToggledStatus()): ?>

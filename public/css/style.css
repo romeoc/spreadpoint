@@ -143,6 +143,18 @@
 
 /***** Campaigns *****/
 .campaign-view .campaign-view-title { color: #ea474b; }
+.campaign-view .campaign-view-title h2 { display: inline-block; }
+.campaign-view .campaign-view-title span.status { display: table-cell; float: right; margin-left: 15px; margin-top: 8px; font-size: small; }
+.campaign-view .campaign-view-title .status-dot { border-radius: 50%; width: 8px; height: 8px; display: inline-block; }
+.campaign-view .campaign-view-title .status-active { color: #2ECC40; }
+.campaign-view .campaign-view-title .status-active .status-dot { background-color: #2ECC40; }
+.campaign-view .campaign-view-title .status-paused { color: #FFDC00; }
+.campaign-view .campaign-view-title .status-paused .status-dot { background-color: #FFDC00; }
+.campaign-view .campaign-view-title .status-canceled { color: #FF4136; }
+.campaign-view .campaign-view-title .status-canceled .status-dot { background-color: #FF4136; }
+.campaign-view .campaign-view-title .status-complete { color: #3D9970; }
+.campaign-view .campaign-view-title .status-complete .status-dot { background-color: #3D9970; }
+
 .campaign-view .campaign-view-actions { padding-right: 50px; }
 .campaign-view .campaign-view-actions a { margin: 0 5px; }
 .campaign-view .campaign-view-action { padding: 10px 20px; }
