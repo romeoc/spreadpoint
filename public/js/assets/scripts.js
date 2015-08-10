@@ -13,6 +13,7 @@
             this.initializeSwitches();
             this.initializeWikiHints();
             this.initializeAccordions();
+            this.initializeDateTimePickers()
         },
         // Mobile right side menu
         initializeMobileMenu: function() {
@@ -72,6 +73,9 @@
         },
         initializeAccordions: function() {
             $('.jqui-accordion').accordion();
+        },
+        initializeDateTimePickers: function() {
+            $('.jq-datetimepicker').datetimepicker();
         }
     };
     
@@ -116,7 +120,7 @@
     // Login form display and AJAX Calls 
     SpreadPoint.LoginForm = {
         init: function(){
-            SpreadPoint.PopUp.create('.login-form-container', '.login-action', '.close-action', true);
+            SpreadPoint.PopUp.create('.login-form-popup', '.login-action', '.close-action', true);
             this.initializeLoginForm();
         },
         initializeLoginForm: function() {
@@ -1034,6 +1038,8 @@
 
                 $(element).addClass('has-errors');
             }
+            
+            window.scrollTo(0,0);
         }
     };
     

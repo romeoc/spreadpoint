@@ -16,8 +16,10 @@ use Zend\View\Model\JsonModel;
 
 use User\Model\User;
 use User\Helper\UserHelper;
+use User\Model\Form\LoginForm;
 use User\Model\Form\RegisterForm;
 use User\Model\Form\Register\RegisterFilter;
+use Base\Model\Session;
 
 class AccountController extends AbstractActionController
 {
@@ -28,6 +30,11 @@ class AccountController extends AbstractActionController
         }
         
         return new ViewModel();
+    }
+    
+    public function loginAction()
+    {
+        return new ViewModel(array('form' => new LoginForm()));
     }
     
     /**
@@ -75,7 +82,7 @@ class AccountController extends AbstractActionController
         );
     }
     
-    public function loginAction()
+    public function authAction()
     {
         $data = $this->request->getPost();
         
@@ -84,16 +91,25 @@ class AccountController extends AbstractActionController
         $authenticationResult = $userModel->authenticate($data['email'], $data['password']);
         
         if ($authenticationResult) {
-            return new JsonModel(array(
-                'status'    => true, 
-                'message'   => 'Login Succesful'
-            ));
+            if ($data['as-json']) {
+                return new JsonModel(array(
+                    'status'    => true, 
+                    'message'   => 'Login Succesful'
+                ));
+            } else {
+                return $this->redirect()->toRoute('campaign');
+            }
         }
 
-        return new JsonModel(array(
-            'status' => false,
-            'message' => 'Your authentication credentials are not valid'
-        ));
+        if ($data['as-json']) {
+            return new JsonModel(array(
+                'status' => false,
+                'message' => 'Your authentication credentials are not valid'
+            ));
+        } else {
+            Session::error('Your authentication credentials are not valid');
+            $this->redirect()->toRoute('account', array('action' => 'login'));
+        }
     }
     
     public function logoutAction()

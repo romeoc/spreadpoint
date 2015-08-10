@@ -18,7 +18,7 @@
     </div>
     <div class="campaign-form-row custom-form-row custom-row-startime">
         <div class="field">
-            <label class="title">* Start Date<i class="fa fa-question-circle"></i></label><input type="datetime-local" name="startTime" value="<?php echo $campaignHelper->get('startTime'); ?>"/>
+            <label class="title">* Start Date<i class="fa fa-question-circle"></i></label><input class="jq-datetimepicker" type="text" name="startTime" value="<?php echo $campaignHelper->get('startTime'); ?>"/>
         </div>
         <div class="note">
             <span class="comment"></span>
@@ -26,7 +26,7 @@
     </div>
     <div class="campaign-form-row custom-form-row custom-row-endtime">
         <div class="field">
-            <label class="title">* End Date<i class="fa fa-question-circle"></i></label><input type="datetime-local" name="endTime" value="<?php echo $campaignHelper->get('endTime'); ?>" />
+            <label class="title">* End Date<i class="fa fa-question-circle"></i></label><input class="jq-datetimepicker" type="text" name="endTime" value="<?php echo $campaignHelper->get('endTime'); ?>" />
         </div>
         <div class="note">
             <span class="comment"></span>
@@ -50,7 +50,7 @@
             <label class="cycleDuration">* Cycle Duration<i class="fa fa-question-circle"></i></label><input name="cycleDuration" type="text" value="<?php echo $campaignHelper->get('cycleDuration'); ?>" />
         </div>
         <div class="note">
-            <span class="comment"></span>
+            <span class="comment">In days</span>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-cyclesCount">

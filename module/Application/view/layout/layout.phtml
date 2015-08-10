@@ -16,6 +16,7 @@
             ->appendStylesheet($this->basePath() . '/css/sensible/style.css')
             ->appendStylesheet('//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C400italic%2C600%2C700')
             ->appendStylesheet($this->basePath() . '/css/jquery.switchButton.css')
+            ->appendStylesheet($this->basePath() . '/css/jquery.datetimepicker.css')
             ->appendStylesheet($this->basePath() . '/css/sensible/fonts/font-awesome.css')
             ->appendStylesheet($this->basePath() . '/css/sensible/jPushMenu.css')
             ->appendStylesheet($this->basePath() . '/css/sensible/animate.css')
@@ -30,6 +31,7 @@
             ->appendFile($this->basePath() . '/js/jquery-ui.js')
             ->appendFile($this->basePath() . '/js/handlebars-v3.0.3.js')
             ->appendFile($this->basePath() . '/js/jquery.switchButton.js')
+            ->appendFile($this->basePath() . '/js/jquery.datetimepicker.js')
             ->appendFile($this->basePath() . '/js/bootstrap.min.js')
             ->appendFile($this->basePath() . '/js/sensible/wow.js')
             ->appendFile($this->basePath() . '/js/sensible/wow-init.js')
@@ -127,7 +129,7 @@
                                                 </ul>
                                             </div>
                                         <?php else: ?>
-                                            <?php echo $this->partial('user/account/login.phtml', array('form' => new LoginForm())); ?>
+                                            <?php echo $this->partial('user/account/login.phtml', array('form' => new LoginForm(), 'popup' => true)); ?>
                                         <?php endif; ?>
                                     </div>
                                 </li>

@@ -1,6 +1,9 @@
 <div class="header-login-section">
-    <input class="login-action" type="button" value="Sign In">
-    <div class="login-form-container hide">
+    <?php if ($this->popup): ?>
+        <input class="login-action" type="button" value="Sign In">
+    <?php endif; ?>
+    <div class="<?php echo ($this->popup) ? 'login-form-popup hide' : 'login-form-container'; ?>">
+        <?php echo $this->partial('application/session/global-messages', array('global_messages' => $this->messages)); ?>
         <section class="login">
             <div class="login-title">
                 <div class="title left"><h2>Sign In</h2></div>
@@ -10,10 +13,13 @@
                 $form = $this->form;
                 $form->prepare();
                 $form->setAttribute('action', $this->url('account',
-                    array('controller'=>'account', 'action' => 'login')));
+                    array('controller'=>'account', 'action' => 'auth')));
                 $form->setAttribute('method', 'post');
                 echo $this->form()->openTag($form);
             ?>
+            <?php if ($this->popup): ?>
+                <input type="hidden" name="as-json" value="1" />
+            <?php endif; ?>
             <div class="login-form custom-form">
                 <div class="form-errors"><span class="error"></span></div>
                 <?php foreach ($form as $element): ?>

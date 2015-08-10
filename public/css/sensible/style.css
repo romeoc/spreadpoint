@@ -18,6 +18,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 html {
+    height: 100%;
     font-size: 62.5%; /* Corrects text resizing oddly in IE6/7 when body font-size is set using em units http://clagnut.com/blog/348/#c790 */
     -webkit-text-size-adjust: 100%; /* Prevents iOS text size adjust after orientation change, without disabling user zoom */
     -ms-text-size-adjust:     100%; /* www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
@@ -39,6 +40,10 @@ html {
 
 body {
     background: #fff; /* Fallback for when there is no custom background color defined. */
+    height:100%; 
+    width: 100%; 
+    position:relative; 
+    display: table; 
 }
 
 article,
@@ -870,9 +875,18 @@ a:active {
     font-weight: 400;
     background: #242830;
     color: #fff;
+    height: 65px;
 }
 .site-footer a {
     color: #b3b3b3;
+}
+.container, .site-footer {
+    display: table-row;
+    height: 1px;
+    width: 100%;
+}
+.container {
+    height: 100%;
 }
 
 /*--------------------------------------------------------------

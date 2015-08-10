@@ -11,7 +11,6 @@
 namespace User\Model\Form;
 
 use Zend\Form\Form;
-use Zend\Form\Element;
 
 class LoginForm extends Form
 {

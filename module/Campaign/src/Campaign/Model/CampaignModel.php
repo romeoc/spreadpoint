@@ -292,7 +292,7 @@ class CampaignModel extends AbstractModel
         return !$errosFound;
     }
     
-    public function isValidDateTime($datetime, $format = 'Y-m-d\TH:i') 
+    public function isValidDateTime($datetime, $format = 'Y/m/d H:i') 
     {
         $temp = \DateTime::createFromFormat($format, $datetime);
         return $temp && $temp->format($format) == $datetime;
@@ -418,8 +418,8 @@ class CampaignModel extends AbstractModel
             ->getQuery()
             ->getSingleResult(Query::HYDRATE_ARRAY);
         
-        $campaign['startTime'] = $campaign['startTime']->format('Y-m-d\TH:i');
-        $campaign['endTime'] = $campaign['endTime']->format('Y-m-d\TH:i');
+        $campaign['startTime'] = $campaign['startTime']->format('Y/m/d H:i');
+        $campaign['endTime'] = $campaign['endTime']->format('Y/m/d H:i');
         
         return $campaign;
     }
@@ -525,10 +525,10 @@ class CampaignModel extends AbstractModel
         } else {
 
             $endTime = clone $startTime;
-            $endTime->modify("+{$campaign['cycleDuration']} hours");
+            $endTime->modify("+{$campaign['cycleDuration']} days");
 
             while (($count < $campaign['cyclesCount'] || $campaign['cyclesCount'] == 0) && $endTime < $now) {
-                $endTime->modify("+{$campaign['cycleDuration']} hours");
+                $endTime->modify("+{$campaign['cycleDuration']} days");
                 $count++;
             }
         }
