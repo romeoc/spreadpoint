@@ -6,6 +6,7 @@
 .pad-top-30 { padding-top: 30px; }
 .pad-top-50 { padding-top: 50px; }
 .background-light { background-color: #FEF0F1; }
+.pointer { cursor: pointer; }
 
 /***** FORMS *****/
 .custom-form { text-align: center; }
@@ -167,11 +168,9 @@
 .campaign-view .campaign-tabs li.ui-state-active a { color: white; font-weight: bold; }
 .campaign-view .campaign-tab { padding-top: 20px; }
 .campaign-view .campaign-form-row { clear: both; }
-.campaign-view .campaign-form-row .field { padding-bottom: 20px; width: 600px; float: left; }
-.campaign-view .campaign-form-row .note { width: 40%; float: left; padding-left: 20px; }
+.campaign-view .campaign-form-row .field { padding-bottom: 20px; width: 600px; }
 .campaign-view .campaign-form-row i { padding-top: 6px; cursor: pointer; }
 .campaign-view .campaign-form-row .field i { padding-left: 12px; }
-.campaign-view .campaign-form-row .note i { float: left; padding-right: 20px; }
 .campaign-view .campaign-form-row .comment { margin: 0 !important; text-align: justify; display: none; padding-left: 40px; }
 .campaign-view .campaign-form-row label { display: inline-block; padding: 3px 0 3px 20px; color: #999; width: 250px; }
 .campaign-view .campaign-form-row textarea { padding: 0 0 0 5px !important; height: 30px; overflow: hidden; width: 345px !important; }
@@ -193,23 +192,27 @@
 .campaign-view .campaign-form-row input.uploader { margin-top: 10px; border: 0; padding-left: 20px; }
 .campaign-view .campaign-form-row .file-button { margin-left: 10px; float: right; padding: 10px; margin-top: 10px; border-radius: 0; }
 .campaign-view .file-upload-wrapper { display: inline; }
-.campaign-view .file-upload-wrapper img { float: right; height: 39px; margin: 10px 0 0 10px; cursor: pointer; }
+.campaign-view .file-upload-wrapper img { float: right; height: 39px; margin: 10px 0 20px 10px; cursor: pointer; }
+.campaign-view .file-upload-wrapper button { margin-bottom: 20px; }
 
 /***** Prizes *****/
 .campaign-view .prize-header { background-color: #ea474b; padding: 10px 15px; margin-bottom: 20px; color: white; }
 .campaign-view .close-prize { background-color: white; color: #ea474b !important; margin-left: 10px; font-size: small; padding: 8px; border: none; }
-.campaign-view .add-prize-action { width: 98%; margin-top: 10px; font-size: 120%; }
+.campaign-view .add-prize-action { background-color: #ea474b; padding: 11px; margin-right: 20px; font-weight: bold; color: white; cursor: pointer; position: fixed; right: 0; top: 225px; width: 200px; }
 .campaign-view .add-prize-action i { padding: 0 10px; }
+.campaign-view .row-prize { background-color: #FFE7E8; margin: 0 240px 20px 0; }
+.campaign-view .row-prize label { color: #777; }
 
 /***** Widgets *****/
-.campaign-view .applied-widgets { margin: 0 20px 20px 0; }
+.campaign-view .applied-widgets { margin: 0 220px 20px 0; }
 .campaign-view .applied-widget { margin-bottom: 20px; }
 .campaign-view .applied-widget-row { min-height: 60px; }
 .campaign-view .applied-widget-row label { color: white; }
 .campaign-view .widget-header { padding: 10px 15px; color: white; margin-bottom: 20px; }
 .campaign-view .close-widget { background-color: white; margin-left: 10px; font-size: small; padding: 8px; border: none; }
+.campaign-view .active-widgets { position: fixed; width: 200px; right: 0; top: 225px; }
 
-.campaign-view .widget-action-add { background-color: #ea474b; padding: 10px; margin-right: 20px; font-weight: bold; color: white; }
+.campaign-view .widget-action-add { background-color: #ea474b; padding: 10.5px; margin-right: 20px; font-weight: bold; color: white; }
 .campaign-view .widget-action-add i { padding: 0 10px; }
 .campaign-view .available-widgets { border: none !important; }
 .campaign-view .available-widgets li { cursor: pointer; padding: 5px 20px; background-color: #FCD9DB; }
@@ -295,8 +298,20 @@
 .upgrade-payment-form .subtitle { background-color: #CCC; padding: 15px 50px 5px 50px; margin: 15px 0;font-weight: bold; text-align: left; color: black; height: 60px; }
 
 /***** Entrants *****/
-.entrants-wrapper .entrants-actions,
-.campaign-section-entrants .entrants-actions { text-align: right; margin-right: 50px; margin-bottom: 20px; margin: 10px 50px 20px 0; }
+.entrants-box { padding-right: 20px; }
+.entrants-box .entrants-actions { text-align: right; margin: 10px 0 20px 0; }
+.entrants-box table { border: 1px solid #999; -webkit-box-shadow: 5px 5px 25px -7px rgba(0,0,0,0.5); -moz-box-shadow: 5px 5px 25px -7px rgba(0,0,0,0.5); box-shadow: 5px 5px 25px -7px rgba(0,0,0,0.5); border-radius: 5px;}
+.entrants-box th { background-color: #CCC; color: #444; padding: 10px; text-align: center; text-shadow: 1px 1px white;   border-top: 1px solid white; }
+.entrants-box th.first { border-radius: 4px 0 0 0; }
+.entrants-box th.last { border-radius: 0 4px 0 0; }
+.entrants-box td { border-right: 1px solid #CCC; border-bottom: 1px solid #CCC; text-align: center; padding: 5px; color: #444}
+.entrants-box td.last { border-right: none; }
+.entrants-box tr:nth-child(odd) { background-color: #F6F6F6; }
+.entrants-box tr:last-child td { border-bottom: none; }
+.entrants-box tr:last-child td.first { border-radius: 0 0 0 4px; }
+.entrants-box tr:last-child td.last { border-radius: 0 0 4px 0 ; }
+.entrants-box tr:hover { background-color: #DDD; }
+.entrants-box td a { display: block; width: 100%; height: 100%; cursor: pointer; color: #0074D9; }
 
 /***** Footer *****/
 .site-info { padding-bottom: 20px; font-size: smaller; }

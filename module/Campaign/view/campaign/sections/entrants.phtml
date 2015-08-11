@@ -1,33 +1,29 @@
-<section class="campaign-section-entrants">
+<section class="campaign-section-entrants entrants-box">
     <?php if (empty($this->data)): ?>
         <p>No entrants subscribed yet.</p>
     <?php else: ?>
         <div class="entrants-actions">
             <a href="<?php echo $this->basePath("campaign/exportCsv/{$this->campaign}"); ?>" title="Export as Csv">
-                <button type="button">Export as Csv</button>
+                <button type="button">Export Data</button>
             </a>
         </div>
         <table>
             <tr>
-                <th>Id</th>
+                <th class="first">Id</th>
                 <th>Email</th>
                 <th>Referenced By</th>
                 <th>Widgets Completed</th>
                 <th>Chances Earned</th>
-                <th>References Brought</th>
+                <th class="last">References Brought</th>
             </tr>
             <?php foreach($this->data as $entrant): ?>
-                <tr>
-                    <td>
-                        <a href="<?php echo $this->basePath("entrant/details/{$entrant['data']['id']}"); ?>" target="_blank">
-                            <?php echo $entrant['data']['id']; ?>
-                        </a>
-                    </td>
+                <tr class="pointer" onclick="window.open('<?php echo $this->basePath("entrant/details/{$entrant['data']['id']}"); ?>');">
+                    <td class="first"><?php echo $entrant['data']['id']; ?></td>
                     <td><?php echo $entrant['data']['email']; ?></td>
                     <td><?php echo ($entrant['data']['reference']) ? $entrant['data']['reference'] : '-'; ?></td>
                     <td><?php echo $entrant['widgets']; ?></td>
                     <td><?php echo $entrant['chances']; ?></td>
-                    <td><?php echo $entrant['reference']; ?></td>
+                    <td class="last"><?php echo $entrant['reference']; ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>

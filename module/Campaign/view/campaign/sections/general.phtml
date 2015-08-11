@@ -3,46 +3,31 @@
 <section class="campaign-section-general">
     <div class="campaign-form-row custom-form-row custom-row-title">
         <div class="field">
-            <label class="title">* Title<i class="fa fa-question-circle"></i></label><input name="title" type="text" value="<?php echo $campaignHelper->get('title'); ?>" />
-        </div>
-        <div class="note">
-            <p class="comment">How would you describe your competition in a sentence? Your campaign title will be the first thing your entrants see.</p>
+            <label class="title">* Title</label><input class="focus-note" name="title" type="text" value="<?php echo $campaignHelper->get('title'); ?>"  title="How would you describe your competition in a sentence? Your campaign title will be the first thing your entrants see." />
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-description">
         <div class="field">
-            <label class="title">* Description<i class="fa fa-question-circle"></i></label>
-            <textarea name="description"><?php echo $campaignHelper->get('description'); ?></textarea>
-        </div>
-        <div class="note">
-            <p class="comment">The campaign description is shown right after the title. You can mention some of your campaigns important aspects in a few line.</p>
+            <label class="title">* Description</label>
+            <textarea name="description" class="focus-note" title="The campaign description is shown right after the title. You can mention some of your campaigns important aspects in a few line."><?php echo $campaignHelper->get('description'); ?></textarea>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-banner">
         <div class="field">
             <?php $bannerUrl = ($campaignHelper->get('banner')) ? $campaignHelper->getBannerUrl($campaignHelper->get('id'), $campaignHelper->get('banner')) : ''; ?>
-            <label class="title">* Banner<i class="fa fa-question-circle"></i></label><input class="file-upload" type="text" name="banner" value="<?php echo $campaignHelper->get('banner'); ?>" data-src="<?php echo $bannerUrl; ?>" />
-        </div>
-        <div class="note">
-            <p class="comment">An image that describes your campaign. We recommend using a high quality, 16:9 image. Will also be used for sharing on social media.</p>
+            <label class="title">* Banner</label><input class="file-upload focus-note" type="text" name="banner" value="<?php echo $campaignHelper->get('banner'); ?>" data-src="<?php echo $bannerUrl; ?>" title="An image that describes your campaign. We recommend using a high quality, 16:9 image. Will also be used for sharing on social media." />
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-titlecss">
         <div class="field">
-            <label class="title">Title Styles<i class="fa fa-question-circle"></i></label>
-            <textarea name="titleCss"><?php echo $campaignHelper->get('titleCss'); ?></textarea>
-        </div>
-        <div class="note">
-            <p class="comment">If you want to apply any custom css rules for the title this is the place. Ex: color: red; font-size: 24px;</p>
+            <label class="title">Title Styles</label>
+            <textarea class="focus-note" name="titleCss" title="If you want to apply any custom css rules for the title this is the place. Ex: color: red; font-size: 24px;"><?php echo $campaignHelper->get('titleCss'); ?></textarea>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-descriptioncss">
         <div class="field">
-            <label class="title">Description Styles<i class="fa fa-question-circle"></i></label>
-            <textarea name="descriptionCss"><?php echo $campaignHelper->get('descriptionCss'); ?></textarea>
-        </div>
-        <div class="note">
-            <p class="comment">Likewise, you can add custom css rules for your description. Ex: text-decoration: underline; font-size: 12;</p>
+            <label class="title">Description Styles</label>
+            <textarea class="focus-note" name="descriptionCss" title="Likewise, you can add custom css rules for your description. Ex: text-decoration: underline; font-size: 12;"><?php echo $campaignHelper->get('descriptionCss'); ?></textarea>
         </div>
     </div>
 </section>

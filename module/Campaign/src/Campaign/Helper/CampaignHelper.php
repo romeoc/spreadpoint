@@ -79,15 +79,16 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
                 'value'   => 1,
                 'title'   => 'Default',
                 'classes' => 'first',
-                'id'      => 'default-layout'
-                
+                'id'      => 'default-layout',
+                'note'    => 'Default Layout'
             ),
             array(
                 'checked' => '',
                 'value'   => 2,
                 'title'   => 'Another',
                 'classes' => 'first',
-                'id'      => 'another-layout'
+                'id'      => 'another-layout',
+                'note'    => 'Another Layout'
             ),
         );
         
@@ -159,14 +160,16 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
                 'value'   => 1,
                 'title'   => 'One Time',
                 'classes' => 'first',
-                'id'      => 'one-time'
+                'id'      => 'one-time',
+                'note'    => 'One Time Competition'
             ),
             array(
                 'checked' => '',
                 'value'   => 2,
                 'title'   => 'Repeating',
                 'classes' => 'last',
-                'id'      => 'repeating'
+                'id'      => 'repeating',
+                'note'    => 'Repeated Competition'
             ),
         );
         

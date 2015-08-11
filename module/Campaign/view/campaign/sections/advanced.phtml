@@ -3,89 +3,65 @@
 <section class="campaign-section-advanced">
     <div class="campaign-form-row custom-form-row custom-row-layout">
         <div class="field">
-            <label class="layout">* Layout<i class="fa fa-question-circle"></i></label>
+            <label class="layout">* Layout</label>
             <?php foreach ($campaignHelper->getAvailableLayouts() as $layout): ?>
                 <div class="radio-element">
                     <input id="<?php echo $layout['id']; ?>" type="radio" name="layout" value="<?php echo $layout['value']; ?>" <?php echo $layout['checked']; ?> />
-                    <label for="<?php echo $layout['id']; ?>"><?php echo $layout['title']; ?></label>
+                    <label class="click-note" for="<?php echo $layout['id']; ?>" title="<?php echo $layout['note']; ?>"><?php echo $layout['title']; ?></label>
                 </div>
             <?php endforeach; ?>
-        </div>
-        <div class="note">
-            <span class="comment"></span>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-termsAndConditions">
         <div class="field">
-            <label class="termsAndConditions">Terms & Conditions<i class="fa fa-question-circle"></i></label>
-            <textarea name="termsAndConditions"><?php echo $campaignHelper->get('termsAndConditions'); ?></textarea>
-        </div>
-        <div class="note">
-            <span class="comment"></span>
+            <label class="termsAndConditions">Terms & Conditions</label>
+            <textarea class="focus-note" name="termsAndConditions"><?php echo $campaignHelper->get('termsAndConditions'); ?></textarea>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-showEntrants">
         <div class="field">
-            <label class="showEntrants left">Show Entrants<i class="fa fa-question-circle"></i></label>
+            <label class="showEntrants left">Show Entrants</label>
             <div class="switch">
-                <input class="jqui-switch" name="showEntrants" type="checkbox" <?php echo $campaignHelper->getChecked('showEntrants'); ?>/>
+                <input title='test' class="click-note jqui-switch" name="showEntrants" type="checkbox" <?php echo $campaignHelper->getChecked('showEntrants'); ?>/>
             </div>
-        </div>
-        <div class="note">
-            <span class="comment"></span>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-ageRequirement">
         <div class="field">
-        <label class="ageRequirement">Age Requirement<i class="fa fa-question-circle"></i></label>
-            <select name="ageRequirement">
+        <label class="ageRequirement">Age Requirement</label>
+            <select name="ageRequirement" class="focus-note">
                 <?php foreach($campaignHelper->getAllAgeRequirements() as $ageRequirement): ?>
                     <option value="<?php echo $ageRequirement['value']; ?>" <?php echo $ageRequirement['selected']; ?>><?php echo $ageRequirement['title']; ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
-        <div class="note">
-            <span class="comment"></span>
-        </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-welcomeEmail">
         <div class="field">
-            <label class="welcomeEmail">Welcome Email<i class="fa fa-question-circle"></i></label>
-            <textarea name="welcomeEmail"><?php echo $campaignHelper->get('welcomeEmail'); ?></textarea>
-        </div>
-        <div class="note">
-            <span class="comment"></span>
+            <label class="welcomeEmail">Welcome Email</label>
+            <textarea class="focus-note" name="welcomeEmail"><?php echo $campaignHelper->get('welcomeEmail'); ?></textarea>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-winnerEmail">
         <div class="field">
-            <label class="winnerEmail">* Winner's Email<i class="fa fa-question-circle"></i></label>
+            <label class="winnerEmail">* Winner's Email</label>
             <textarea name="winnerEmail"><?php echo $campaignHelper->get('winnerEmail'); ?></textarea>
-        </div>
-        <div class="note">
-            <span class="comment"></span>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-sendWelcomeEmail">
         <div class="field">
-            <label class="sendWelcomeEmail left">Send Welcome Email<i class="fa fa-question-circle"></i></label>
+            <label class="sendWelcomeEmail left">Send Welcome Email</label>
             <div class="switch">
-                <input class="jqui-switch" name="sendWelcomeEmail" type="checkbox" <?php echo $campaignHelper->getChecked('sendWelcomeEmail'); ?> />
+                <input class="click-note jqui-switch" name="sendWelcomeEmail" type="checkbox" <?php echo $campaignHelper->getChecked('sendWelcomeEmail'); ?> />
             </div>
-        </div>
-        <div class="note">
-            <span class="comment"></span>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-retainPreviousEntrants">
         <div class="field">
-            <label class="retainPreviousEntrants left">Retain Previous Entrants<i class="fa fa-question-circle"></i></label>
+            <label class="retainPreviousEntrants left">Retain Previous Entrants</label>
             <div class="switch">
-                <input class="jqui-switch" name="retainPreviousEntrants" type="checkbox" <?php echo $campaignHelper->getChecked('retainPreviousEntrants'); ?> />
+                <input class="click-note jqui-switch" name="retainPreviousEntrants" type="checkbox" <?php echo $campaignHelper->getChecked('retainPreviousEntrants'); ?> />
             </div>
-        </div>
-        <div class="note">
-            <span class="comment"></span>
         </div>
     </div>
 </section>

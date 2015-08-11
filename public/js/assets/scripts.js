@@ -11,9 +11,9 @@
             this.initializeAccountDropdown();
             this.initializeTabs();
             this.initializeSwitches();
-            this.initializeWikiHints();
             this.initializeAccordions();
-            this.initializeDateTimePickers()
+            this.initializeDateTimePickers();
+            this.initializeHints();
         },
         // Mobile right side menu
         initializeMobileMenu: function() {
@@ -56,11 +56,12 @@
             $(".jqui-switch").switchButton({
                 on_label: 'Yes',
                 off_label: 'No'
-            });
-        },
-        initializeWikiHints: function() {
-            $('.custom-form-row i').on('click', function(){
-                $(this).closest('.custom-form-row').find('.comment').toggle();
+            }).each(function(){
+                var $this = $(this);
+                var title = $this.attr('title');
+                $this.siblings('.switch-button-label').attr('title', title).addClass('click-note');
+                $this.siblings('.switch-button-background').attr('title', title).addClass('click-note')
+                    .find('.switch-button-button').attr('title', title).addClass('click-note');
             });
         },
         initializeListingCampaigns: function() {
@@ -76,7 +77,41 @@
         },
         initializeDateTimePickers: function() {
             $('.jq-datetimepicker').datetimepicker();
+        },
+        initializeHints: function() {
+            $('.focus-note').qtip({
+                show: 'focus',
+                hide: 'blur',
+                position: {
+                    my: 'center left',
+                    at: 'center right',
+                },
+                style: { classes: 'qtip-blue qtip-rounded qtip-shadow' }
+            });
+            
+            $('.click-note').qtip({
+                show: 'click',
+                hide: { 
+                    distance: 50
+                },
+                position: {
+                    my: 'top center',
+                    at: 'bottom center',
+                },
+                style: { classes: 'qtip-blue qtip-rounded qtip-shadow' }
+            });
         }
+    };
+    
+    SpreadPoint.FollowTo = function (target, pos) {
+        var $this = $(target),
+            $window = $(window);
+
+        $window.scroll(function(e) {
+            $this.css({
+                top: Math.max(0, pos - $window.scrollTop())
+            });
+        });
     };
     
     SpreadPoint.PopUp = {
@@ -474,6 +509,8 @@
             
             this.reloadListeners();
             this.updateInputField();
+            
+            window.scrollTo(0, $(document).height());
         },
         /**
          * Add a new widget
@@ -543,6 +580,7 @@
             
             var selector = '.applied-widgets textarea';
             SpreadPoint.Campaign.Controller.adjustTextareas(selector);
+            SpreadPoint.Defaults.initializeHints();
         },
         /**
          * Attach the events that will add the widget types on click
@@ -708,6 +746,8 @@
             
             this.reloadListeners();
             this.updateInputField();
+            
+            window.scrollTo(0, $(document).height());
         },
         /**
          * Remove a prize by it's reference id
@@ -768,6 +808,7 @@
             var imageFieldName = 'prize-' + selectorId;
             
             SpreadPoint.Uploader.init(imageFieldSelector, imageFieldName);
+            SpreadPoint.Defaults.initializeHints();
         },
         /**
          * Adds prize addition event

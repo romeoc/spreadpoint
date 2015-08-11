@@ -44,7 +44,7 @@
                     <ul>
                         <li><a href="#general" class="general-tab">General</a></li>
                         <li><a href="#schedule" class="schedule-tab">Schedule</a></li>
-                        <li><a href="#entries" class="entries-tab">Entries</a></li>
+                        <li><a href="#widgets" class="entries-tab">Widgets</a></li>
                         <li><a href="#prize" class="prize-tab">Prizes</a></li>                        
                         <li><a href="#advanced" class="advanced-tab">Advanced</a></li>
                         <?php if (array_key_exists('id', $this->data)): ?>
@@ -58,8 +58,8 @@
                     <div id="schedule" class="campaign-tab">
                         <?php echo $this->partial('campaign/sections/schedule.phtml', array('data' => $this->data)); ?>
                     </div>
-                    <div id="entries" class="campaign-tab">
-                        <?php echo $this->partial('campaign/sections/entries.phtml', array('data' => $this->entriesData)); ?>
+                    <div id="widgets" class="campaign-tab">
+                        <?php echo $this->partial('campaign/sections/widgets.phtml', array('data' => $this->entriesData)); ?>
                     </div>
                     <div id="prize" class="campaign-tab">
                         <?php echo $this->partial('campaign/sections/prize.phtml', array('data' => $this->prizesData)); ?>

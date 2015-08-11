@@ -1,7 +1,10 @@
 <section class="campaign-section-prize">
     <input type="hidden" class="prizes-serialized" name="prizes-serialized" value='<?php echo $this->data; ?>' />
     <div class="prizes"></div>
-    <button type="button" class="add-prize-action">
+    <div class="add-prize-action">
         <i class="fa fa-plus-circle"></i>Add Prize
-    </button>
+    </div>
 </section>
+<script type="text/javascript">
+    SpreadPoint.FollowTo('.add-prize-action', 225);
+</script>

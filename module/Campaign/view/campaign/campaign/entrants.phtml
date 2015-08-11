@@ -1,34 +1,34 @@
 <?php $campaignHelper = $this->campaignHelper(); ?>
 <div class="entrants-listing dashboard-section">
     <?php echo $this->partial('user/dashboard/menu.phtml', array('selected' => 'entrants')); ?>
-    <div class="entrants-wrapper dashboard-content">
+    <div class="entrants-box dashboard-content">
         <?php if (empty($this->entrants)): ?>
             <p>No entrants subscribed yet.</p>
         <?php else: ?>
             <div class="entrants-actions">
                 <a href="<?php echo $this->basePath('campaign/exportCsv/'); ?>" title="Export as Csv">
-                    <button type="button">Export as Csv</button>
+                    <button type="button">Export Data</button>
                 </a>
             </div>
             <table>
                 <tr>
-                    <th>Id</th>
+                    <th class="first">Id</th>
                     <th>Campaign Id</th>
                     <th>Email</th>
                     <th>Referenced By</th>
                     <th>Widgets Completed</th>
                     <th>Chances Earned</th>
-                    <th>References Brought</th>
+                    <th class="last">References Brought</th>
                 </tr>
                 <?php foreach($this->entrants as $entrant): ?>
                     <tr>
-                        <td>
+                        <td class="first">
                             <a href="<?php echo $this->basePath("entrant/details/{$entrant['data']['id']}"); ?>" target="_blank">
                                 <?php echo $entrant['data']['id']; ?>
                             </a>
                         </td>
                         <td>
-                            <a href="<?php echo $this->basePath("campaign/edit/{$entrant['data']['campaign']}"); ?>">
+                            <a href="<?php echo $this->basePath("campaign/edit/{$entrant['data']['campaign']}"); ?>" target="_blank">
                                 <?php echo $entrant['data']['campaign']; ?>
                             </a>
                         </td>
@@ -36,7 +36,7 @@
                         <td><?php echo ($entrant['data']['reference']) ? $entrant['data']['reference'] : '-'; ?></td>
                         <td><?php echo $entrant['widgets']; ?></td>
                         <td><?php echo $entrant['chances']; ?></td>
-                        <td><?php echo $entrant['reference']; ?></td>
+                        <td class="last"><?php echo $entrant['reference']; ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
