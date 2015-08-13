@@ -486,10 +486,6 @@
             
             // We load the available widgets so users can add them
             this.loadWidgetTypes();
-            
-            $('.widget-header').on('click', function(){
-                $(this).siblings('.applied-widget-row').toggle();
-            });
         },
         /**
          * Add a new widget
@@ -585,6 +581,10 @@
             var selector = '.applied-widgets textarea';
             SpreadPoint.Campaign.Controller.adjustTextareas(selector);
             SpreadPoint.Defaults.initializeHints();
+            
+            $('.widget-header').on('click', function(){
+                $(this).siblings('.applied-widget-row').toggle();
+            });
         },
         /**
          * Attach the events that will add the widget types on click
@@ -734,10 +734,6 @@
             
             // Initialize events
             this.addCreationEvents();
-            
-            $('.prize-header').on('click', function(){
-                $(this).siblings('.row-prize-element').toggle();
-            });
         },
         /**
          * Add a new prize
@@ -817,6 +813,10 @@
             
             SpreadPoint.Uploader.init(imageFieldSelector, imageFieldName);
             SpreadPoint.Defaults.initializeHints();
+            
+            $('.prize-header').on('click', function(){
+                $(this).siblings('.row-prize-element').toggle();
+            });
         },
         /**
          * Adds prize addition event

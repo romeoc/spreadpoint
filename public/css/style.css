@@ -157,7 +157,7 @@
 .campaign-view .campaign-view-title .status-complete { color: #3D9970; }
 .campaign-view .campaign-view-title .status-complete .status-dot { background-color: #3D9970; }
 
-.campaign-view .campaign-view-actions { padding-right: 50px; }
+.campaign-view .campaign-view-actions { padding-right: 15px; }
 .campaign-view .campaign-view-actions a { margin: 0 5px; }
 .campaign-view .campaign-view-action { padding: 8px 15px; }
 .campaign-view .campaign-view-action i { padding: 0 5px; }
@@ -198,9 +198,9 @@
 .campaign-view .file-upload-wrapper button { margin-bottom: 20px; }
 
 /***** Prizes *****/
-.campaign-view .prize-header { background-color: #ea474b; padding: 10px 15px; margin-bottom: 20px; color: white; cursor: pointer; }
-.campaign-view .close-prize { background-color: white; color: #ea474b !important; margin-left: 10px; font-size: small; padding: 8px; border: none; }
-.campaign-view .add-prize-action { background-color: #ea474b; padding: 11px; margin-right: 20px; font-weight: bold; color: white; cursor: pointer; position: fixed; right: 0; top: 126px; width: 200px; }
+.campaign-view .prize-header { background-color: #ea474b; padding: 10px; margin-bottom: 20px; color: white; cursor: pointer; }
+.campaign-view .close-prize { background-color: white; color: #ea474b !important; margin-left: 10px; font-size: small; padding: 8px; border: none; float: right; }
+.campaign-view .add-prize-action { background-color: #ea474b; padding: 11px; margin-right: 20px; font-weight: bold; color: white; cursor: pointer; position: fixed; right: 0; top: 136px; width: 200px; }
 .campaign-view .add-prize-action i { padding: 0 10px; }
 .campaign-view .row-prize { background-color: #FFE7E8; margin: 0 240px 20px 0; }
 .campaign-view .row-prize label { color: #777; }
@@ -210,8 +210,8 @@
 .campaign-view .applied-widget { margin-bottom: 20px; }
 .campaign-view .applied-widget-row { min-height: 60px; }
 .campaign-view .applied-widget-row label { color: white; }
-.campaign-view .widget-header { padding: 10px 15px; color: white; margin-bottom: 20px; cursor: pointer; }
-.campaign-view .close-widget { background-color: white; margin-left: 10px; font-size: small; padding: 8px; border: none; }
+.campaign-view .widget-header { padding: 10px; color: white; margin-bottom: 20px; cursor: pointer; }
+.campaign-view .close-widget { background-color: white; margin-left: 10px; font-size: small; padding: 8px; border: none; float: right; }
 .campaign-view .active-widgets { position: fixed; width: 200px; right: 0; top: 136px; }
 
 .campaign-view .widget-action-add { background-color: #ea474b; padding: 10.5px; margin-right: 20px; font-weight: bold; color: white; }
@@ -301,7 +301,7 @@
 
 /***** Entrants *****/
 .entrants-box { padding-right: 20px; }
-.entrants-box .entrants-actions { text-align: right; margin: 10px 0 20px 0; }
+.entrants-box .entrants-actions { text-align: right; margin: 0 0 20px 0; }
 .entrants-box table { border: 1px solid #999; border-radius: 5px;}
 .entrants-box th { background-color: #CCC; color: #444; padding: 10px; text-align: center; text-shadow: 1px 1px white; }
 .entrants-box th.first { border-radius: 4px 0 0 0; }
@@ -314,6 +314,8 @@
 .entrants-box tr:last-child td.last { border-radius: 0 0 4px 0 ; }
 .entrants-box tr:hover { background-color: #DDD; }
 .entrants-box td a { display: block; width: 100%; height: 100%; cursor: pointer; color: #0074D9; }
+.entrants-box button { padding: 10px; }
+.entrants-listing .entrants-actions { padding-top: 20px; }
 
 /***** Footer *****/
 .site-info { padding-bottom: 20px; font-size: smaller; }
