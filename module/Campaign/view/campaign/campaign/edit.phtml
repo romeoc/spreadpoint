@@ -24,23 +24,20 @@
                             </button>
                         </a>
                     <?php endif; ?>
-                    <button type="submit" class="campaign-view-action campaign-view-save">
-                        <i class="fa fa-save"></i> Save
-                    </button>
+                    <a href="javascript:void(0);" title="Save">
+                        <button type="submit" class="campaign-view-action campaign-view-save">
+                            <i class="fa fa-save"></i> Save
+                        </button>
+                    </a>
                     <a href="<?php echo $this->basePath('campaigns'); ?>" title="Cancel">
                         <button type="button" class="campaign-view-action campaign-view-cancel">
                             <i class="fa fa-undo"></i> Cancel
                         </button>
                     </a>
-                    <a href="<?php echo $this->basePath('campaign/preview'); ?>" title="Preview">
-                        <button type="button" class="campaign-view-action campaign-view-preview">
-                            <i class="fa fa-eye"></i> Preview
-                        </button>
-                    </a>
                 </div>
             </div>
             <div class="campaign-view-content">
-                <div class="campaign-tabs jqui-tabs">
+                <div class="campaign-tabs jqui-tabs invisible">
                     <ul>
                         <li><a href="#general" class="general-tab">General</a></li>
                         <li><a href="#schedule" class="schedule-tab">Schedule</a></li>

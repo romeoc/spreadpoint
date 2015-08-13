@@ -25,6 +25,8 @@ class AccountController extends AbstractActionController
 {
     public function indexAction()
     {
+        $this->layout('layout/dashboard');
+        
         if (!$this->getHelper()->isLoggedIn()) {
             return $this->redirect()->toRoute('home');
         }
@@ -122,6 +124,8 @@ class AccountController extends AbstractActionController
     
     public function settingsAction()
     {
+        $this->layout('layout/dashboard');
+        
         $helper = $this->getHelper();
         
         if (!$helper->isLoggedIn()) {

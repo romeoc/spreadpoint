@@ -3,7 +3,7 @@
 <section class="campaign-section-advanced">
     <div class="campaign-form-row custom-form-row custom-row-layout">
         <div class="field">
-            <label class="layout">* Layout</label>
+            <label class="layout">Layout *</label>
             <?php foreach ($campaignHelper->getAvailableLayouts() as $layout): ?>
                 <div class="radio-element">
                     <input id="<?php echo $layout['id']; ?>" type="radio" name="layout" value="<?php echo $layout['value']; ?>" <?php echo $layout['checked']; ?> />
@@ -44,7 +44,7 @@
     </div>
     <div class="campaign-form-row custom-form-row custom-row-winnerEmail">
         <div class="field">
-            <label class="winnerEmail">* Winner's Email</label>
+            <label class="winnerEmail">Winner's Email *</label>
             <textarea name="winnerEmail"><?php echo $campaignHelper->get('winnerEmail'); ?></textarea>
         </div>
     </div>

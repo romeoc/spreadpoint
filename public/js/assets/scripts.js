@@ -49,7 +49,7 @@
         },
         // Initialize all jQuery UI tabs
         initializeTabs: function() {
-            $('.jqui-tabs').tabs().show();
+            $('.jqui-tabs').tabs().removeClass('invisible');
         },
         // Initialize all jQuery Switches
         initializeSwitches: function() {
@@ -486,6 +486,10 @@
             
             // We load the available widgets so users can add them
             this.loadWidgetTypes();
+            
+            $('.widget-header').on('click', function(){
+                $(this).siblings('.applied-widget-row').toggle();
+            });
         },
         /**
          * Add a new widget
@@ -730,6 +734,10 @@
             
             // Initialize events
             this.addCreationEvents();
+            
+            $('.prize-header').on('click', function(){
+                $(this).siblings('.row-prize-element').toggle();
+            });
         },
         /**
          * Add a new prize
@@ -907,6 +915,9 @@
             this.adjustTextareas();
             this.initializeSchedule();
             this.attachSubmitEvent();
+            
+            $('.row-prize-element').hide();
+            $('.applied-widget-row').hide();
         },
         /**
          * Adjust textarea lines to it's content

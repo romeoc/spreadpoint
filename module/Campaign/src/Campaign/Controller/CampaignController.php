@@ -27,6 +27,7 @@ class CampaignController extends AbstractActionController
     
     public function listAction()
     {
+        $this->layout('layout/dashboard');
         if ($this->checkAuthentication()) {
             if ($this->getUserPlan() == -1) {
                 $this->redirect()->toRoute('checkout');
@@ -43,6 +44,7 @@ class CampaignController extends AbstractActionController
     
     public function editAction()
     {
+        $this->layout('layout/dashboard');
         if ($this->checkAuthentication()) {
             if ($this->getUserPlan() == -1) {
                 $this->redirect()->toRoute('checkout');
@@ -227,6 +229,7 @@ class CampaignController extends AbstractActionController
     
     public function entrantsAction()
     {
+        $this->layout('layout/dashboard');
         if ($this->checkAuthentication()) {
             if ($this->getUserPlan() == -1) {
                 $this->redirect()->toRoute('checkout');

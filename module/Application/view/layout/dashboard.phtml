@@ -1,0 +1,95 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('SpreadPoint - Dashboard'); ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+            ->appendStylesheet($this->basePath() . '/css/style.css')
+            ->appendStylesheet($this->basePath() . '/css/sensible/style.css')
+            ->appendStylesheet('//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C400italic%2C600%2C700')
+            ->appendStylesheet($this->basePath() . '/css/jquery.switchButton.css')
+            ->appendStylesheet($this->basePath() . '/css/jquery.datetimepicker.css')
+            ->appendStylesheet($this->basePath() . '/css/jquery.qtip.min.css')
+            ->appendStylesheet($this->basePath() . '/css/sensible/fonts/font-awesome.css')
+            ->appendStylesheet($this->basePath() . '/css/sensible/jPushMenu.css')
+            ->appendStylesheet($this->basePath() . '/css/sensible/animate.css')
+            ->appendStylesheet($this->basePath() . '/css/magnific-popup.css')        
+        ;?>
+        
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->appendFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+            ->appendFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->appendFile($this->basePath() . '/js/jquery-1.11.3.min.js')
+            ->appendFile($this->basePath() . '/js/jquery-ui.js')
+            ->appendFile($this->basePath() . '/js/handlebars-v3.0.3.js')
+            ->appendFile($this->basePath() . '/js/jquery.switchButton.js')
+            ->appendFile($this->basePath() . '/js/jquery.datetimepicker.js')
+            ->appendFile($this->basePath() . '/js/jquery.qtip.min.js')
+            ->appendFile($this->basePath() . '/js/bootstrap.min.js')
+            ->appendFile($this->basePath() . '/js/sensible/wow.js')
+            ->appendFile($this->basePath() . '/js/sensible/wow-init.js')
+            ->appendFile($this->basePath() . '/js/sensible/parallax.js')
+            ->appendFile($this->basePath() . '/js/sensible/jPushMenu.js')
+            ->appendFile($this->basePath() . '/js/magnific-popup.min.js')
+            ->appendFile($this->basePath() . '/js/assets/templates.js')
+            ->appendFile($this->basePath() . '/js/assets/scripts.js')
+        ;?>
+
+        <!-- Google Analytics -->
+        <!--
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-62958605-2', 'auto');
+            ga('send', 'pageview');
+        </script>
+        -->
+        
+        <!--Start of Zopim Live Chat Script-->
+        <script type="text/javascript">
+            window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+            d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+            _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
+            $.src="//v2.zopim.com/?3DEPnJSJTHOjAutXh0dk4jFGjBsLuKN8";z.t=+new Date;$.
+            type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+        </script>
+        <!--End of Zopim Live Chat Script-->
+        
+    </head>
+    <body>
+        <div class="container">
+            <?php echo $this->content; ?>         
+        </div>
+        
+        <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="grid grid-pad">
+                <div class="site-info col-1-1">
+                    <span class="copyright">&copy;<?php echo date('Y'); ?> SpreadPoint. All rights reserved. </span>
+                    <ul class="footer-links">
+                        <li><a href="/terms-of-service" title="Terms of Service" >Terms & Conditions</a></li>
+                        <li><a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a></li>
+                        <li><a href="/contact" title="Contact">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+        
+        <script type="text/javascript">
+            $(function() {
+                SpreadPoint.Defaults.callFunctions();
+            });
+        </script>
+        <?php echo $this->inlineScript(); ?>
+    </body>
+</html>
