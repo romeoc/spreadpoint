@@ -23,6 +23,8 @@ class EntrantController extends AbstractActionController
     
     public function detailsAction()
     {
+        $this->layout('layout/dashboard');
+        
         $entrantId = $this->params('id');
         $entrant = false;
         
