@@ -68,7 +68,7 @@ class EntrantModel extends AbstractModel
         $body = $campaign->get('welcomeEmail');
         
         if ($sendWelcomeEmail == 1 && $body) {
-            $fullname = $entrant->get('email');
+            $fullname = $entrant->get('name');
             $email = $entrant->get('email');
             
             $title = $campaign->get('title');
@@ -182,6 +182,26 @@ class EntrantModel extends AbstractModel
             $allValid = false;
         } elseif (!$emailValidator->isValid($data['email'])) {
             Session::error('Please enter a valid email address');
+            $allValid = false;
+        }
+        
+        $emailValidator = new \Zend\Validator\EmailAddress();
+        if (!array_key_exists('email', $data) || !$data['email']) {
+            Session::error('Please enter your email');
+            $allValid = false;
+        } elseif (strlen($data['email']) > 256) {
+            Session::error('Your email should not be longer than 256 characters');
+            $allValid = false;
+        } elseif (!$emailValidator->isValid($data['email'])) {
+            Session::error('Please enter a valid email address');
+            $allValid = false;
+        }
+        
+        if (!array_key_exists('name', $data) || !$data['name']) {
+            Session::error('Please enter your email');
+            $allValid = false;
+        } elseif (strlen($data['name']) > 256) {
+            Session::error('Your email should not be longer than 256 characters');
             $allValid = false;
         }
         
@@ -321,8 +341,18 @@ class EntrantModel extends AbstractModel
                 ->getQuery()
                 ->getResult();
             
+            $prizesWon = $this->getEntityManager()->createQueryBuilder()
+                ->select('p')
+                ->from('Campaign\Entity\CampaignPrize', 'p')
+                ->innerJoin('Campaign\Entity\CampaignWinner', 'w', 'WITH', 'p.id = w.prize')
+                ->where('w.entrant= :entrant')
+                ->setParameter('entrant', $entrant)
+                ->getQuery()
+                ->getResult();
+            
             $result['entrant'] = $entrant;
             $result['widgets'] = $widgets;
+            $result['wins'] = $prizesWon;
         }
         
         return $result;

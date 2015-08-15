@@ -78,7 +78,7 @@ class WinnerModel extends AbstractModel
                 $this->getEntityManager()->persist($winner);
                 $peopleToNotify[] = array(
                     'email' => $entrant->get('email'),
-                    'name'  => $entrant->get('email'),
+                    'name'  => $entrant->get('name'),
                     'prize' => $prize->get('name')
                 );
             }

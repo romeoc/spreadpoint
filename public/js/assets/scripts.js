@@ -331,9 +331,43 @@
                 field.val(fomatedCardNumber);
             });
             
+            $('.custom-row-expiry_date input').on('keyup', function(){
+                var field = $(this);
+                var expirationDate = field.val();
+                var key = event.keyCode;
+                
+                // backspace || delete || arrow keys
+                if (key === 8 || key === 46 || (key >36 && key < 41)) {
+                    return false;
+                }
+                
+                var input = expirationDate[expirationDate.length - 1];
+                if ((isNaN(input) && input !== '/') || (input === '/' && expirationDate.length !== 3)) {
+                    expirationDate = expirationDate.slice(0, -1);
+                } else {
+                    if (expirationDate.length === 1 && expirationDate != 1) {
+                        expirationDate = '0' + expirationDate;
+                    }
+                    if (expirationDate.length === 2) {
+                        expirationDate += '/';
+                    }
+                    if (expirationDate.length === 5 && expirationDate.slice(-2) != 20) {
+                        expirationDate = expirationDate.slice(0, 3) + 20 + expirationDate.slice(3);
+                    }
+                    
+                }
+                
+                
+                field.val(expirationDate);
+            });
+            
             $('.pay-pal-action').on('click', function() {
                 $this.paypalAction = true;
                 $('.checkout-submit').trigger('click');
+            }).on('mouseenter', function(){
+                $(this).removeClass('greyscale');
+            }).on('mouseleave', function(){
+                $(this).addClass('greyscale');
             });
             
             $('#Checkout').submit(function(e) {
@@ -357,6 +391,16 @@
         },
         initUpgradeSection: function() {
             SpreadPoint.PopUp.create('.upgrade-payment-form', '.upgrade-plan-action');
+            
+            $('.upgrade-plan-action').on('click', function(){
+                var selectedPlan = $('[name="plan"]:checked').val();
+                var enterprisePlan = 2;
+
+                if (selectedPlan == enterprisePlan) {
+                    $('.upgrade-payment-form').hide();
+                    window.location.href = "/contact";
+                }
+            });
         },
         validatePlan: function() {
             var plan = $('[name="plan"]:checked').val();
@@ -582,7 +626,7 @@
             SpreadPoint.Campaign.Controller.adjustTextareas(selector);
             SpreadPoint.Defaults.initializeHints();
             
-            $('.widget-header').on('click', function(){
+            $('.widget-header').off('click').on('click', function(){
                 $(this).siblings('.applied-widget-row').toggle();
             });
         },
@@ -814,7 +858,7 @@
             SpreadPoint.Uploader.init(imageFieldSelector, imageFieldName);
             SpreadPoint.Defaults.initializeHints();
             
-            $('.prize-header').on('click', function(){
+            $('.prize-header').off('click').on('click', function(){
                 $(this).siblings('.row-prize-element').toggle();
             });
         },

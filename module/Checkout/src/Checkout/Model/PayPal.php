@@ -116,7 +116,7 @@ class PayPal implements ServiceLocatorAwareInterface
         $payment->setAmt($this->packageMap[$data['plan']]['price']);
         $payment->setCurrencyCode('USD');
         $payment->setCardNumber(str_replace(' ', '', $data['card_number']));
-        $payment->setExpirationDate(str_replace('/','20',$data['expiry_date']));
+        $payment->setExpirationDate(str_replace('/','',$data['expiry_date']));
         $payment->setCvv2($data['cvc']);
         $payment->setEmail($user->get('email'));
         

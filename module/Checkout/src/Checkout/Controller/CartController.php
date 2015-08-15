@@ -25,7 +25,7 @@ class CartController extends AbstractActionController
         $this->getPayPalModel()->handlePastProfiles($this->getUser());
         $user = $this->getUser();
         if ($user && $user->get('plan') != -1) {
-            $this->redirect()->toRoute('account');
+            return $this->redirect()->toRoute('checkout', array('controller' => 'cart', 'action' => 'upgrade'));
         }
         
         $plan = $this->params()->fromQuery('package');
@@ -36,6 +36,7 @@ class CartController extends AbstractActionController
     
     public function upgradeAction()
     {
+        $this->layout('layout/dashboard');
         return new ViewModel();
     }
     

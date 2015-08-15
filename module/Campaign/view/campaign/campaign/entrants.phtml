@@ -14,6 +14,7 @@
                 <tr>
                     <th class="first">Id</th>
                     <th>Campaign Id</th>
+                    <th>Name</th>
                     <th>Email</th>
                     <th>Referenced By</th>
                     <th>Widgets Completed</th>
@@ -32,6 +33,7 @@
                                 <?php echo $entrant['data']['campaign']; ?>
                             </a>
                         </td>
+                        <td><?php echo $entrant['data']['name']; ?></td>
                         <td><?php echo $entrant['data']['email']; ?></td>
                         <td><?php echo ($entrant['data']['reference']) ? $entrant['data']['reference'] : '-'; ?></td>
                         <td><?php echo $entrant['widgets']; ?></td>

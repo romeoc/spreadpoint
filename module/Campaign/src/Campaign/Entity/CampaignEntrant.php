@@ -33,9 +33,14 @@ class CampaignEntrant extends AbstractEntity
     protected $campaign;
     
     /** 
-     * @ORM\Column(length=128) 
+     * @ORM\Column(length=256) 
      */
     protected $email;
+    
+    /** 
+     * @ORM\Column(length=256) 
+     */
+    protected $name;
     
     /**
      * @ORM\ManyToOne(targetEntity="Campaign\Entity\CampaignEntrant")

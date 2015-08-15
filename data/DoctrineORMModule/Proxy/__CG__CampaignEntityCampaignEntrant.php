@@ -94,10 +94,10 @@ class CampaignEntrant extends \Campaign\Entity\CampaignEntrant implements \Doctr
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'campaign', 'email', 'reference');
+            return array('__isInitialized__', 'id', 'campaign', 'email', 'name', 'reference');
         }
 
-        return array('__isInitialized__', 'id', 'campaign', 'email', 'reference');
+        return array('__isInitialized__', 'id', 'campaign', 'email', 'name', 'reference');
     }
 
     /**

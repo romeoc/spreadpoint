@@ -75,7 +75,7 @@ class CheckoutForm extends Form
             'attributes' => array(
                 'required' => 'required',
                 'placeholder' => 'MM/YY',
-                'maxlength' => '5',
+                'maxlength' => '7',
             )
         ));
         
@@ -87,7 +87,8 @@ class CheckoutForm extends Form
             ),
             'attributes' => array(
                 'required' => 'required',
-                'placeholder' => 'CVC'
+                'placeholder' => 'CVC',
+                'maxlength' => '4',
             )
         ));
         

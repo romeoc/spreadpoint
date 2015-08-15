@@ -4,6 +4,9 @@
     <form method="post" name="enter-contest" action="/campaign/enter/<?php echo $this->campaign['id']; ?>" id="enter-contest">
         <input type="hidden" name="id" value="<?php echo $this->data->id?>" />
         <div class="field">
+            <label>Full Name</label><input type="text" name="name" class="enter-contest-name" required />
+        </div>
+        <div class="field">
             <label>Email</label><input type="email" name="email" class="enter-contest-email" required />
         </div>
         <div class="requirement">

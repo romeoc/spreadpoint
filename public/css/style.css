@@ -8,6 +8,7 @@
 .pad-top-50 { padding-top: 50px; }
 .background-light { background-color: #FEF0F1; }
 .pointer { cursor: pointer; }
+.greyscale { -webkit-filter: grayscale(100%); -moz-filter: grayscale(100%); -ms-filter: grayscale(100%); -o-filter: grayscale(100%); filter: grayscale(100%); filter: url(grayscale.svg); filter: gray; }
 
 /***** FORMS *****/
 .custom-form { text-align: center; }
@@ -88,6 +89,7 @@
 
 /***** CHECKOUT *****/
 .checkout { background: url(../img/checkout-background.png); min-height: 600px; padding: 140px 0 70px 0; text-align: center; }
+.checkout .global-messages-container { margin-left: 20px; }
 .checkout .checkout-register { width: 30%; display: inline-block; background-color: white; padding: 70px; -webkit-box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.64); -moz-box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.64); box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.64); border-radius: 10px; }
 .checkout .register-form-row { padding-bottom: 5px; }
 .checkout .custom-row-submit-action { padding-top: 50px; }
@@ -112,8 +114,7 @@
 .checkout-payment-form .subtitle h4 { background: url(../img/credit-card.png) no-repeat top right; background-position: 70px 2px; width: 150px; }
 .checkout-payment-form .pay-pal-action { border: 1px solid black; padding: 5px 15px; border-radius: 5px; margin-left: 5px; cursor: pointer; font-family: verdana; font-style: italic; font-size: 110%; }
 .checkout-payment-form .pay-pal-action:hover { background-color: white; }
-.checkout-payment-form .pay-pal-action:hover .pay { color: #124585; }
-.checkout-payment-form .pay-pal-action:hover .pal { color: #255898; }
+.checkout-payment-form .pay-pal-action { background: url(/img/paypal.png) no-repeat 10px 7px; width: 80px; display: block; height: 30px; float: right; background-size: 60px; }
 .checkout-payment-form .custom-row-fullname input { background: url(../img/id.png) no-repeat 10px; }
 .checkout-payment-form .custom-row-card_number input { background: url(../img/card-number.png) no-repeat 10px; }
 .checkout-payment-form .custom-row-expiry_date input { background: url(../img/calendar.png) no-repeat 10px; }
@@ -288,13 +289,14 @@
 .campaign-page .requirement label { cursor: pointer; }
 
 /***** Upgrade Section *****/
-.dashboard-content.upgrade-view { padding: 100px 0; }
+.dashboard-content.upgrade-view { padding: 0 0 100px 110px; }
+.upgrade .global-messages { margin-left: 20px; }
 .upgrade .checkout-billing .checkout-form-row.custom-row-plan { width: 100%; text-align: center; }
 .upgrade .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan { display: inline-block; margin: 0 1%; width: 30%; border: 2px solid #FD8B8E; border-radius: 10px; }
 .upgrade .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan.selected { background-color: #FD8B8E; }
 .upgrade .checkout-billing .visible-plan span { display: block; padding: 30px; }
-.upgrade .checkout-billing .visible-plan span.title { padding-top: 15px; }
-.upgrade .checkout-billing .visible-plan span.price { padding-bottom: 15px; }
+.upgrade .checkout-billing .visible-plan span.title { padding-top: 15px; font-weight: bold; }
+.upgrade .checkout-billing .visible-plan span.price { padding-bottom: 15px; font-weight: bold; }
 .upgrade .upgrade-plan-action { margin-top: 50px; }
 .upgrade-payment-form { width: 35%; height: 350px; background-color: white; }
 .upgrade-payment-form .subtitle { background-color: #CCC; padding: 15px 50px 5px 50px; margin: 15px 0;font-weight: bold; text-align: left; color: black; height: 60px; }
@@ -316,6 +318,18 @@
 .entrants-box td a { display: block; width: 100%; height: 100%; cursor: pointer; color: #0074D9; }
 .entrants-box button { padding: 10px; }
 .entrants-listing .entrants-actions { padding-top: 20px; }
+
+.entrant-view .entrant-row { margin-bottom: 5px; width: 100%; clear: both; }
+.entrant-view .entrant-row label { width: 150px; display: inline-block; text-align: right; margin-right: 20px; }
+.entrant-view .entrant-row table { width: auto; }
+.entrant-view .entrant-row th { border-bottom: 2px solid black; }
+.entrant-view .entrant-row td { border-bottom: 1px dashed black; }
+.entrant-view .entrant-row td.chances { text-align: center; }
+.entrant-view .entrant-row tr.row:hover { background-color: #FFE7E8; }
+.entrant-view .entrant-row th, .entrant-view .entrant-row td { padding-right: 30px; }
+.entrant-view .prizes td { padding-right: 15px; }
+.entrant-view .prizes img { height: 40px; width: 80px; }
+.entrant-view .prizes .name { vertical-align: middle; }
 
 /***** Footer *****/
 .site-info { padding-bottom: 20px; font-size: smaller; }

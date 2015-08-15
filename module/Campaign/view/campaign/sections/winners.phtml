@@ -16,7 +16,7 @@
                             </div>
                             <div class="winners-data hide">
                                 <?php while (array_key_exists($index, $winners) && $winners[$index]['prize'] == $prize->id): ?>
-                                    <span><?php echo $winners[$index]['email']; ?></span>
+                                    <span><?php echo $winners[$index]['name']; ?></span>
                                     <?php $index++; ?>
                                 <?php endwhile; ?>
                             </div>
@@ -39,7 +39,7 @@
                         <?php foreach ($this->entrants as $entrant): ?>
                             <div class="winner-entrant" data-entrant="<?php echo $entrant['data']['id']; ?>" data-chance="<?php echo $entrant['chances']; ?>">
                                 <div class="prizes-won"></div>
-                                <span class="email"><?php echo $entrant['data']['email']; ?></span>
+                                <span class="email"><?php echo $entrant['data']['name']; ?></span>
                                 <span class="chances"><i class="fa fa-ticket" title="Chances earned"></i><?php echo $entrant['chances']; ?></span>
                                 <span class="widgets"><i class="fa fa-gears" title="Widgets Completed"></i><?php echo $entrant['widgets']; ?></span>
                                 <span class="references"><i class="fa fa-comments" title="References Brought"></i><?php echo $entrant['reference']; ?></span>
