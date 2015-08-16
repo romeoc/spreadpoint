@@ -50,6 +50,10 @@
         // Initialize all jQuery UI tabs
         initializeTabs: function() {
             $('.jqui-tabs').tabs().removeClass('invisible');
+            $('.jqui-tabs-vertical').tabs().removeClass('invisible')
+                .addClass('ui-tabs-vertical ui-helper-clearfix');
+            $('jqui-tabs-vertical li').removeClass('ui-corner-top')
+                .addClass('ui-corner-left');
         },
         // Initialize all jQuery Switches
         initializeSwitches: function() {
