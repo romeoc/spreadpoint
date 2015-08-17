@@ -11,9 +11,9 @@
 
         <!-- Le styles -->
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-            ->appendStylesheet($this->basePath() . '/css/style.css')
             ->appendStylesheet('//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C400italic%2C600%2C700')
             ->appendStylesheet($this->basePath() . '/css/sensible/fonts/font-awesome.css')
+            ->appendStylesheet($this->basePath() . '/css/kalypto.css')
         ;?>
         
         <!-- Scripts -->
@@ -24,6 +24,7 @@
             ->appendFile($this->basePath() . '/js/jquery-ui.js')
             ->appendFile($this->basePath() . '/js/handlebars-v3.0.3.js')
             ->appendFile($this->basePath() . '/js/bootstrap.min.js')
+            ->appendFile($this->basePath() . '/js/kalypto.min.js')
             ->appendFile($this->basePath() . '/js/assets/templates.js')
             ->appendFile($this->basePath() . '/js/assets/scripts.js')
             ->appendFile($this->basePath() . '/js/assets/campaign.js')

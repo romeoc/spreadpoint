@@ -1,4 +1,46 @@
-/***** Enter Contest Widget *****/
+/***** Default *****/
+.campaign-page .banner img { min-height: 100%; min-width: 100%; position: fixed; top: 0; left: 0; z-index: -1; }
+.campaign-page .hero { width: 70%; padding: 20px; text-align: center; margin: 0 auto; margin-top: 20px; }
+.campaign-page .title { color: black; }
+.campaign-page .description { color: black; width: 70%; margin: 0 auto; }
+.campaign-page .widgets-container { width: 400px; background-color: white; margin: 20px auto; }
+.campaign-page .branding { height: 20px; background-color: rgba(0,0,0,0.7); }
+.campaign-page .branding span { font-size: 14px; padding: 2px 2px 0 10px; display: block; float: left; }
+.campaign-page .branding a,
+.campaign-page .branding a:visited { color: black; }
+.campaign-page .requirement input,
+.campaign-page .requirement label { cursor: pointer; }
 
+/***** Pop-Ups *****/
+.hide { display: none; }
+.popup-overlay { position: fixed; top: 0; left: 0; background: rgba(0,0,0,0.6); z-index: 15; width: 100%; height: 100%; }
+.popup-container { position: fixed; z-index: 20; top: 0; bottom: 0; left: 0; right: 0; margin: auto; }
+
+/***** Global Messages *****/
+.global-messages { list-style: none; padding: 0; margin: 0; }
+.global-messages li { border: 1px solid; margin-bottom: 5px; padding: 5px 10px; line-height: 21px; }
+.global-messages li i { padding: 0 10px; }
+.global-messages li.success { color: #57894c; border-color: #57894c; background-color: #cdeacb; }
+.global-messages li.notice { color: #be6c00; border-color: #be6c00; background-color: #fcf6de; }
+.global-messages li.error { color: #fe0000; border-color: #fe0000; background-color: #f6d3cf; }
+
+/***** Widgets - General Settings *****/
+.campaign-fullpage .widgets { background-color: #f3f5f5; }
+.campaign-fullpage .widget-title { margin: 0; background: rgba(250,253,253,1); background: -moz-linear-gradient(top, rgba(250,253,253,1) 0%, rgba(218,224,230,1) 100%); background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(250,253,253,1)), color-stop(100%, rgba(218,224,230,1))); background: -webkit-linear-gradient(top, rgba(250,253,253,1) 0%, rgba(218,224,230,1) 100%); background: -o-linear-gradient(top, rgba(250,253,253,1) 0%, rgba(218,224,230,1) 100%); background: -ms-linear-gradient(top, rgba(250,253,253,1) 0%, rgba(218,224,230,1) 100%); background: linear-gradient(to bottom, rgba(250,253,253,1) 0%, rgba(218,224,230,1) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafdfd', endColorstr='#dae0e6', GradientType=0 ); padding: 10px; color: #444; border: 1px solid #BBB; outline: none; cursor: pointer; }
+.campaign-fullpage .widget-title .chances-count { float: right; border: 1px solid; padding: 0 5px; color: #f3f5f5; background-color: #444; border-radius: 5px; }
+.campaign-fullpage .widget-title .chances-count i { padding-right: 5px; }
+.campaign-fullpage .field { padding: 10px; margin: 0 auto; text-align: center; }
+.campaign-fullpage .field label { display: block; color: #444; }
+.campaign-fullpage .field input { background-color: #e2e4e4; color: #444; outline: none; padding: 10px; width: 270px; border: 1px solid #444; border-radius: 5px; }
+
+/***** Enter Contest Widget *****/
 .campaign-fullpage .terms-box { width: 30%; height: 60% ; background-color: white; overflow: auto; padding: 10px; }
 .campaign-fullpage .terms-box .close { position: absolute; top: 0; right:0; }
+.campaign-fullpage .requirement { padding-bottom: 5px; width: 270px; margin: 0 auto; }
+.campaign-fullpage .requirement label { font-size: 14px; color: #444; }
+.campaign-fullpage .requirement a { color: #FF4136; text-decoration: none; font-weight: bold; }
+.campaign-fullpage .field .enter-contest-name { background: url(../../img/id-grey.png) no-repeat 10px 3px; border-radius: 5px 5px 0 0; border-bottom: 0; box-shadow: inset 0px 200px 11px -202px rgba(68,68,68,1); -webkit-box-shadow: inset 0px 200px 11px -202px rgba(68,68,68,1); -moz-box-shadow: inset 0px 200px 11px -202px rgba(68,68,68,1); margin-top: 20px; }
+.campaign-fullpage .field .enter-contest-email { background: url(../../img/mail.png) no-repeat 6px -1px; border-radius: 0 0 5px 5px;}
+.campaign-fullpage .field .enter-contest-name,
+.campaign-fullpage .field .enter-contest-email { padding-left: 50px; width: 220px; background-color: #e2e4e4; font-weight: bold; }
+.campaign-fullpage .enter-contest-action { margin: 15px 0; width: 270px; padding: 10px; background-color: #FF4136; border: none; border-radius: 5px; color: white; font-weight: bold; font-size: 16px; cursor: pointer; outline: 0; }

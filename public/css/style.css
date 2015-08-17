@@ -284,19 +284,6 @@
 .contact-page #contact textarea { height: 200px; }
 .contact-page #contact button { width: 200px; margin-left: 450px; } 
 
-/***** Campaign View *****/
-.campaign-page .banner img { min-height: 100%; min-width: 100%; position: fixed; top: 0; left: 0; z-index: -1; }
-.campaign-page .hero { width: 70%; padding: 20px; text-align: center; margin: 0 auto; margin-top: 20px; }
-.campaign-page .title { color: black; }
-.campaign-page .description { color: black; }
-.campaign-page .widgets-container { width: 400px; background-color: white; margin: 20px auto; }
-.campaign-page .branding { height: 20px; background-color: rgba(0,0,0,0.7); }
-.campaign-page .branding span { font-size: 14px; padding: 2px 2px 0 10px; display: block; float: left; }
-.campaign-page .branding a,
-.campaign-page .branding a:visited { color: black; }
-.campaign-page .requirement input,
-.campaign-page .requirement label { cursor: pointer; }
-
 /***** Upgrade Section *****/
 .dashboard-content.upgrade-view { padding: 0 0 100px 110px; }
 .upgrade .global-messages { margin-left: 20px; }

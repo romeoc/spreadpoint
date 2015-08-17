@@ -1,0 +1,21 @@
+/* Switch Styles */
+.toggle {
+    background:url("../img/checkbox.png") bottom left;
+    display:block;
+    width:20px;
+    height:18px;
+    float: left;
+    margin-right: 7px;
+}
+.toggle.checked {
+    background-position: left top;
+}
+.toggleR {
+    background:url("../img/radio.png") bottom left;
+    display:block;
+    width:20px;
+    height:18px;
+}
+.toggleR.checked {
+    background-position: left top;
+}

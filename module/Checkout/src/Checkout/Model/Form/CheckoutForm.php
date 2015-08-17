@@ -49,7 +49,8 @@ class CheckoutForm extends Form
             ),
             'attributes' => array(
                 'required' => 'required',
-                'placeholder' => 'Full name on credit card'
+                'placeholder' => 'Full name on credit card',
+                'autocomplete' => 'off'
             )
         ));
         
@@ -63,6 +64,7 @@ class CheckoutForm extends Form
                 'required' => 'required',
                 'placeholder' => 'Card Number',
                 'maxlength' => '19',
+                'autocomplete' => 'off'
             )
         ));
         
@@ -76,6 +78,7 @@ class CheckoutForm extends Form
                 'required' => 'required',
                 'placeholder' => 'MM/YY',
                 'maxlength' => '7',
+                'autocomplete' => 'off'
             )
         ));
         
@@ -89,6 +92,7 @@ class CheckoutForm extends Form
                 'required' => 'required',
                 'placeholder' => 'CVC',
                 'maxlength' => '4',
+                'autocomplete' => 'off'
             )
         ));
         

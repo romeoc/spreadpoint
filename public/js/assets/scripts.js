@@ -14,6 +14,7 @@
             this.initializeAccordions();
             this.initializeDateTimePickers();
             this.initializeHints();
+            this.initializeKalypto();
         },
         // Mobile right side menu
         initializeMobileMenu: function() {
@@ -28,7 +29,7 @@
             if (refferenceElement.length !== 0) {
                 // Position of account link
                 var offset = ($(window).width() - (refferenceElement.offset().left + refferenceElement.width())) - 50;
-                accountLinks.css({right: offset});
+                accountLinks.css({right: Math.max(offset,5)});
 
                 // Show links when we hover on account links
                 $('.header-account-section .account-username').on('mouseenter', function(){
@@ -77,7 +78,9 @@
             });
         },
         initializeAccordions: function() {
-            $('.jqui-accordion').accordion();
+            $('.jqui-accordion').accordion({
+                collapsible: true
+            });
         },
         initializeDateTimePickers: function() {
             $('.jq-datetimepicker').datetimepicker();
@@ -104,6 +107,9 @@
                 },
                 style: { classes: 'qtip-blue qtip-rounded qtip-shadow' }
             });
+        },
+        initializeKalypto: function() {
+            $('.kalypsify').kalypto();
         }
     };
     
