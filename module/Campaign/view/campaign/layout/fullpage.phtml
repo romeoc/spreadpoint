@@ -16,11 +16,11 @@
     <div class="widgets-container">
         <?php echo $this->partial('application/session/global-messages', array('global_messages' => $this->messages)); ?>
         
-        <?php $entrantEmail = $helper->getEntrantEmail(); ?>
-        <?php if ($entrantEmail): ?>
+        <?php $entrant = $helper->getEntrant(); ?>
+        <?php if ($entrant): ?>
             <div class="chance-entrant">
-                <a href="<?php echo $this->basePath('campaign/clearSession/' . $this->data['id']); ?>" title="Log Out" />
-                    <span>Not <span><?php echo $entrantEmail; ?>?</span></span>
+                <a href="<?php echo $this->basePath('campaign/clearSession/' . $this->data['id']); ?>" title="<?php echo $entrant->get('email'); ?>" />
+                    <span>Not <span><?php echo $entrant->get('name'); ?></span>?</span>
                 </a>
             </div>
         <?php endif; ?>

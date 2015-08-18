@@ -49,10 +49,10 @@
             "</div>",
         "</div>"
     ].join('\n');
-    SpreadPoint.Templates.Widgets.Type.FacebookLike = [
-        "<div class='applied-widget applied-widget-{{referenceId}} widget-type-facebooklikepage' data-id='{{referenceId}}'>",
+    SpreadPoint.Templates.Widgets.Type.FacebookVisit = [
+        "<div class='applied-widget applied-widget-{{referenceId}} widget-type-facebookvisit' data-id='{{referenceId}}'>",
             "<div class='widget-header'>",
-                "<span class='prize-header-name'>Like a page on facebook widget</span>",
+                "<span class='prize-header-name'>Visit a page on facebook widget</span>",
                 "<button type='button' class='close-widget'>Remove Widget</button>",
             "</div>",
             "<div class='applied-widget-row campaign-form-row'>",

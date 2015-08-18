@@ -274,7 +274,7 @@ class AbstractModel implements ServiceLocatorAwareInterface
         $cookie = $this->getServiceLocator()->get('request')->getHeaders()->get('Cookie');
         $value = false;
         
-        if (array_key_exists($name, get_object_vars($cookie))) {
+        if ($cookie && array_key_exists($name, get_object_vars($cookie))) {
             $value = $cookie->$name;
         }
         

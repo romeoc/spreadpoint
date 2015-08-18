@@ -216,13 +216,13 @@
 .campaign-view .row-prize label { color: #777; }
 
 /***** Widgets *****/
-.campaign-view .applied-widgets { margin: 0 220px 20px 0; }
+.campaign-view .applied-widgets { margin: 0 270px 20px 0; }
 .campaign-view .applied-widget { margin-bottom: 20px; }
 .campaign-view .applied-widget-row { min-height: 60px; }
 .campaign-view .applied-widget-row label { color: white; }
 .campaign-view .widget-header { padding: 10px; color: white; margin-bottom: 20px; cursor: pointer; }
 .campaign-view .close-widget { background-color: white; margin-left: 10px; font-size: small; padding: 8px; border: none; float: right; }
-.campaign-view .active-widgets { position: fixed; width: 200px; right: 0; top: 136px; }
+.campaign-view .active-widgets { position: fixed; width: 250px; right: 0; top: 136px; }
 
 .campaign-view .widget-action-add { background-color: #ea474b; padding: 10.5px; margin-right: 20px; font-weight: bold; color: white; }
 .campaign-view .widget-action-add i { padding: 0 10px; }
@@ -249,10 +249,10 @@
 .campaign-view .widget-type-twitterfollow .close-widget { color: #0084B4 !important; }
 .campaign-view .widget-type-twitterfollow input:focus { color: #0084B4; border-color: #0084B4; }
 
-.campaign-view .widget-type-facebooklikepage { background-color: #869ECC; }
-.campaign-view .widget-type-facebooklikepage .widget-header { background-color: #3B5998; }
-.campaign-view .widget-type-facebooklikepage .close-widget { color: #3B5998 !important; }
-.campaign-view .widget-type-facebooklikepage input:focus { color: #3B5998; border-color: #3B5998; }
+.campaign-view .widget-type-facebookvisit { background-color: #869ECC; }
+.campaign-view .widget-type-facebookvisit .widget-header { background-color: #3B5998; }
+.campaign-view .widget-type-facebookvisit .close-widget { color: #3B5998 !important; }
+.campaign-view .widget-type-facebookvisit input:focus { color: #3B5998; border-color: #3B5998; }
 
 .campaign-view .widget-type-facebookshare { background-color: #C2CEE8; }
 .campaign-view .widget-type-facebookshare .widget-header { background-color: #627AAD; }

@@ -79,7 +79,8 @@
         },
         initializeAccordions: function() {
             $('.jqui-accordion').accordion({
-                collapsible: true
+                collapsible: true,
+                heightStyle: "content"
             });
         },
         initializeDateTimePickers: function() {
@@ -508,7 +509,7 @@
     SpreadPoint.Widgets = {};
     SpreadPoint.Widgets.Map = [
         SpreadPoint.Templates.Widgets.Type.EnterContest,
-        SpreadPoint.Templates.Widgets.Type.FacebookLike,
+        SpreadPoint.Templates.Widgets.Type.FacebookVisit,
         SpreadPoint.Templates.Widgets.Type.FacebookShare,
         SpreadPoint.Templates.Widgets.Type.TwitterTweet,
         SpreadPoint.Templates.Widgets.Type.TwitterFollow,

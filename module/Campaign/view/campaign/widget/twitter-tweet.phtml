@@ -1,11 +1,18 @@
 <h3 class="widget-title"><?php echo $this->data->title; ?>
     <?php if (!$this->data->completed): ?>
-        <span class="chances">+<?php echo $this->data->earningValue; ?></span>
+        <span class="chances">
+            <span class="chances-count">
+                <i class="fa fa-ticket"></i>
+                <?php echo $this->data->earningValue; ?>
+            </span>
+        </span>
     <?php endif; ?>
     <span class="completed <?php if (!$this->data->completed) { echo 'hide'; } ?>">
-        <i class="fa fa-check"></i>
+        <span class="chances-count">
+            <i class="fa fa-check"></i>
+        </span>
     </span>
 </h3>
 <div class="widget-content widget-type-twittertweet" data-id="<?php echo $this->data->id; ?>">
-    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=<?php echo $this->data->message; ?>" data-size="large">Tweet</a>
+    <a class="twitter-share-button" data-count="none" href="https://twitter.com/intent/tweet?text=<?php echo $this->data->message; ?>" data-size="large">Tweet</a>
 </div>

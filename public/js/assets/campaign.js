@@ -32,8 +32,8 @@
             this.initShare();
         },
         initPageLike: function() {
-            FB.Event.subscribe('edge.create', function(url, element) {
-                var widget = $(element).parent();
+            $('.facebook-visit').on('click', function(){
+                var widget = $(this).parent();
                 SpreadPoint.Front.complete(widget);
             });
         },

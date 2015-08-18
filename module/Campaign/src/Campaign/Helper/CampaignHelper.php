@@ -263,7 +263,7 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
             case 1:
                 return $path . 'enter-contest';
             case 2:
-                return $path . 'facebook-like';
+                return $path . 'facebook-visit';
             case 3:
                 return $path . 'facebook-share';
             case 4:
@@ -280,19 +280,19 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
      * 
      * @return string | false
      */
-    public function getEntrantEmail()
+    public function getEntrant()
     {
         $cookie = $this->getServiceLocator()->get('request')->getHeaders()->get('Cookie');
         $entrant = false;
         
-        if (array_key_exists('entrant', get_object_vars($cookie))) {
+        if ($cookie && array_key_exists('entrant', get_object_vars($cookie))) {
             $entrant = $cookie->entrant;
         }
         
         if ($entrant) {
             $entrantEntity = $this->getEntityManager()->find('Campaign\Entity\CampaignEntrant', $entrant);
             if ($entrantEntity) {
-                $entrant = $entrantEntity->get('email');
+                $entrant = $entrantEntity;
             }
         }
         

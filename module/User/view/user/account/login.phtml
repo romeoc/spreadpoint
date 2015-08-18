@@ -15,6 +15,7 @@
                 $form->setAttribute('action', $this->url('account',
                     array('controller'=>'account', 'action' => 'auth')));
                 $form->setAttribute('method', 'post');
+                $form->setAttribute('autocomplete', 'off');
                 echo $this->form()->openTag($form);
             ?>
             <?php if ($this->popup): ?>
