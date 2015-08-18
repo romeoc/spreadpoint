@@ -3,9 +3,9 @@
 .campaign-page .hero { width: 70%; padding: 20px; text-align: center; margin: 0 auto; margin-top: 20px; }
 .campaign-page .title { color: black; }
 .campaign-page .description { color: black; width: 70%; margin: 0 auto; }
-.campaign-page .widgets-container { width: 400px; background-color: white; margin: 20px auto; }
+.campaign-page .widgets-container { width: 400px; background: rgba(255,255,255,.7); margin: 20px auto; }
 .campaign-page .branding { height: 20px; background-color: rgba(0,0,0,0.7); }
-.campaign-page .branding span { font-size: 14px; padding: 2px 2px 0 10px; display: block; float: left; }
+.campaign-page .branding span { font-size: 14px; padding: 2px 2px 0 10px; display: block; float: left; color: white; }
 .campaign-page .branding a,
 .campaign-page .branding a:visited { color: black; }
 .campaign-page .requirement input,
@@ -26,7 +26,7 @@
 .global-messages li.error { color: #fe0000; border-color: #fe0000; background-color: #f6d3cf; }
 
 /***** Widgets - General Layout *****/
-.campaign-fullpage .widgets { background-color: #f3f5f5; clear: both; }
+.campaign-fullpage .widgets { clear: both; }
 .campaign-fullpage .widget-title { margin: 0; background: rgba(250,253,253,1); background: -moz-linear-gradient(top, rgba(250,253,253,1) 0%, rgba(218,224,230,1) 100%); background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(250,253,253,1)), color-stop(100%, rgba(218,224,230,1))); background: -webkit-linear-gradient(top, rgba(250,253,253,1) 0%, rgba(218,224,230,1) 100%); background: -o-linear-gradient(top, rgba(250,253,253,1) 0%, rgba(218,224,230,1) 100%); background: -ms-linear-gradient(top, rgba(250,253,253,1) 0%, rgba(218,224,230,1) 100%); background: linear-gradient(to bottom, rgba(250,253,253,1) 0%, rgba(218,224,230,1) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafdfd', endColorstr='#dae0e6', GradientType=0 ); padding: 10px; color: #444; border: 1px solid #BBB; border-bottom: 0; outline: none; cursor: pointer; }
 .campaign-fullpage .widget-title.ui-state-active { border-bottom: 1px solid #BBB; }
 .campaign-fullpage .widget-title .chances-count { float: right; border: 1px solid; padding: 0 5px; color: #f3f5f5; background-color: #444; border-radius: 5px; }
@@ -69,7 +69,7 @@
 
 /***** References *****/
 .campaign-fullpage .widget-type-reference { margin: 0 auto; text-align: center; padding-top: 15px; padding-bottom: 15px; }
-.campaign-fullpage .widget-type-reference input { margin-bottom: 15px; }
+.campaign-fullpage .widget-type-reference input { margin-bottom: 15px; padding: 3px; }
 .campaign-fullpage .widget-type-reference .sharing-options  { margin: 0 auto; margin-bottom: 15px; display: flex; justify-content: center; }
 .campaign-fullpage .widget-type-reference .sharing-options .option { padding-right: 10px; }
 .campaign-fullpage .widget-type-reference .send-email button { background-color: #FF4136; color: white; border: 0; outline: none; cursor: pointer; padding: 3px 7px; border-radius: 5px; }
