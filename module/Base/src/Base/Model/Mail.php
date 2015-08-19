@@ -12,6 +12,8 @@ namespace Base\Model;
 
 use Zend\Mail\Message;
 use Zend\Mail\Transport\Sendmail;
+use Zend\Mime\Part as MimePart;
+use Zend\Mime\Message as MimeMessage;
 
 class Mail
 {
@@ -35,6 +37,13 @@ class Mail
             $toEmail = self::EMAIL, 
             $toName = self::NAME
     ) {
+        
+        $html = new MimePart($body);
+        $html->type = "text/html";
+        
+        $body = new MimeMessage();
+        $body->setParts(array($html));
+        
         $mail = new Message();
         $mail->setBody($body);
         $mail->setFrom($fromEmail, $fromName);
