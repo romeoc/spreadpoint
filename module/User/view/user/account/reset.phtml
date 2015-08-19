@@ -1,0 +1,23 @@
+<div class="reset-password">
+    <?php echo $this->partial('application/session/global-messages', array('global_messages' => $this->messages)); ?>
+    <h3>Reset Password</h3>
+    <hr>
+    <?php if ($this->user): ?>
+        <p>You are changing the password for <strong><?php echo $this->user->get('email'); ?></strong></p>
+        <form id="change-password" method="post" action="<?php echo $this->basePath('account/changePassword'); ?>">
+            <input type="hidden" name="email" placeholder="New Password" value="<?php echo $this->user->get('email'); ?>" />
+            <input type="password" name="password" placeholder="New Password" />
+            <input type="password" name="confirm" placeholder="Confirm Password" />
+            <button type="submit">Change Password</button>
+        </form>
+        <script type="text/javascript">
+            SpreadPoint.PasswordReset.init();
+        </script>
+    <?php else: ?>
+        <p>Please enter the email address associated with your account.</p>
+        <form id="initialize-password-reset" method="post" action="<?php echo $this->basePath('account/doReset'); ?>">
+            <input type="text" name="email" placeholder="Email"/>
+            <button type="submit">Reset Password</button>
+        </form>
+    <?php endif; ?>
+</div>

@@ -10,6 +10,7 @@
 .pointer { cursor: pointer; }
 .greyscale { -webkit-filter: grayscale(100%); -moz-filter: grayscale(100%); -ms-filter: grayscale(100%); -o-filter: grayscale(100%); filter: grayscale(100%); filter: url(grayscale.svg); filter: gray; }
 .clear { clear: both; }
+.block { display: block; }
 
 /***** Tabs *****/
 .ui-tabs-vertical { width: 55em; }
@@ -371,3 +372,13 @@
 .settings .settings-menu li.ui-state-active:before { content:'\25BA'; color: #ea474b; margin-right: 5px; }
 .settings .settings-menu li.ui-state-active { font-weight: bold; padding: 0; }
 .settings .settings-menu li a { display: inline; }
+
+/***** Reset Password *****/
+.reset-password { padding: 80px 25px 0 25px; }
+.reset-password h3 { color: #ea474b; }
+.reset-password hr { border-top: 1px solid #ea474b; }
+.reset-password p { margin-bottom: 10px; }
+.reset-password #initialize-password-reset button { margin-left: 5px; padding: 7px; }
+.reset-password #change-password input,
+.reset-password #change-password button { display: block; margin-top: 10px; width: 230px; font-size: 12px; }
+.reset-password #change-password button { padding: 10px; }

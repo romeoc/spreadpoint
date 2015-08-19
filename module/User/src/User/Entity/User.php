@@ -68,6 +68,11 @@ class User extends AbstractEntity
      */
     protected $notifications = 1;
     
+    /**
+     * @ORM\Column(length=32, nullable=true)
+     */
+    protected $recoveryCode;
+    
     /** 
      * @ORM\Column(type="datetime", name="created_at", nullable=true) 
      * @Annotation\Attributes({"type":"text", "readonly":"true", "convertion_type":"dateTime"})

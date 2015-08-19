@@ -258,6 +258,51 @@
         }
     };
     
+    SpreadPoint.PasswordReset = {
+        init: function() {
+            var self = this;
+            $('#change-password').submit(function(e) {
+                e.preventDefault();
+                
+                if (self.valid()) {
+                    this.submit();
+                }                
+            });
+        },
+        valid: function() {
+            var password = $('#change-password [name="password"]').val();
+            var confirm = $('#change-password [name="confirm"]').val();
+            
+            if (password.length === 0 || confirm.length === 0) {
+                SpreadPoint.Campaign.Controller.logError('All fields are mandatory.');
+                return false;
+            } else if (password !== confirm) {
+                SpreadPoint.Campaign.Controller.logError('The passwords do not match');
+                return false;
+            }
+            
+            // Password Validation
+            if (password.length < 6) {
+                SpreadPoint.Campaign.Controller.logError('Your password should contain at least 6 characters');
+                return false;
+            }
+
+            var hasNumber = /[0-9]/;
+            if(!hasNumber.test(password)) {
+                SpreadPoint.Campaign.Controller.logError('Your password must contain at least one number (0-9)');
+                return false;
+            }
+
+            var hasLetter = /[a-zA-z]/;
+            if(!hasLetter.test(password)) {
+                SpreadPoint.Campaign.Controller.logError('Your password must contain at least one letter (a-z,A-Z)');
+                return false;
+            }
+            
+            return true;
+        }
+    };
+    
     SpreadPoint.ContactForm = {
         init: function() {
             var $this = this;

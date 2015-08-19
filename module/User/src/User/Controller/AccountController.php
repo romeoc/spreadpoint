@@ -152,6 +152,59 @@ class AccountController extends AbstractActionController
         $this->redirect()->toRoute('account', array('action' => 'settings'));
     }
     
+    public function resetAction()
+    {
+        $user = false;
+        $key = $this->params('id');
+        
+        if ($key) {
+            $model = new User();
+            $model->setServiceLocator($this->getServiceLocator());
+            
+            $user = $model->loadByResetCode($key);
+        }
+        
+        return new ViewModel(array('user' => $user));
+    }
+    
+    public function doResetAction()
+    {
+        $email = $this->request->getPost('email');
+        if (!$email) {
+            Session::error('Please enter a valid email address');
+        } else {
+            $model = new User();
+            $model->setServiceLocator($this->getServiceLocator());
+            
+            if ($model->initiatePasswordReset($email)) {
+                Session::success('Please check your email. You will receive a message shortly.');
+            } else {
+                Session::error('There is no account associated with that email address');
+            }
+        }
+        
+        return $this->redirect()->toRoute('account', array('action' => 'reset'));
+    }
+    
+    public function changePasswordAction()
+    {
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+        
+        if ($email && $password) {
+            $model = new User();
+            $model->setServiceLocator($this->getServiceLocator());
+            
+            if ($model->changePassword($email, $password)) {
+                Session::success('Your password was changed.');
+            } else {
+                Session::error('Oh oh, something went wrong. Please try again.');
+            }
+        }
+        
+        return $this->redirect()->toRoute('account', array('action' => 'reset'));
+    }
+    
     public function getHelper()
     {
         $userHelper = new UserHelper();

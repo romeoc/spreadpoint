@@ -32,10 +32,10 @@ return array(
             'account' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/account[/[:action[/]]]',
+                    'route'    => '/account[/[:action[/][:id]]]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
+                        'id'     => '[0-9a-zA-Z]+',
                     ),
                     'defaults' => array(
                         'controller' => 'User\Controller\Account',
