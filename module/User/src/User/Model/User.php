@@ -86,7 +86,7 @@ class User extends AbstractModel
     {
         $uri = $this->getServiceLocator()->get('request')->getUri();
         $domain = sprintf('%s://%s', $uri->getScheme(), $uri->getHost());
-        $resetUrl = $domain . "account/reset/key/{$code}";
+        $resetUrl = $domain . "/account/reset/{$code}";
         
         $subject = 'SpreadPoint - Reset Your Password';
         $body = 'To reste your password, please visit the following link: '
