@@ -89,8 +89,8 @@ class User extends AbstractModel
         $resetUrl = $domain . "account/reset/key/{$code}";
         
         $subject = 'SpreadPoint - Reset Your Password';
-        $body = 'To reste your password, please visit the following link: <br />'
-                . "<a href='{$resetUrl}' title='Reset Password'>{$resetUrl}</a>";
+        $body = 'To reste your password, please visit the following link: '
+                . PHP_EOL . $resetUrl;
                 
         Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $email, $name);
     }
