@@ -1,10 +1,12 @@
 <div class="dashboard-menu-container">
     <ul class="dahsboard-menu">
+<!--        
         <li class="first">
             <a href="<?php echo $this->basePath('account'); ?>" class="dashboard-summary first <?php if ($this->selected == 'summary') { echo 'selected'; } ?>">
                 <i class="fa fa-list"></i> Summary
             </a>
         </li>
+-->
         <li>
             <a href="<?php echo $this->basePath('campaign/list'); ?>" class="dashboard-campaign <?php if ($this->selected == 'campaigns') { echo 'selected'; } ?>">
                 <i class="fa fa-bullseye"></i> Campaigns
@@ -15,11 +17,13 @@
                 <i class="fa fa-users"></i> Entrants
             </a>
         </li>
+<!--
         <li>
             <a href="<?php echo $this->basePath('campaign/analysis'); ?>" class="dashboard-analysis <?php if ($this->selected == 'analysis') { echo 'selected'; } ?>">
                 <i class="fa fa-bar-chart"></i> Analysis
             </a>
         </li>
+-->
         <li>
             <a href="<?php echo $this->basePath('account/support'); ?>" class="account-support <?php if ($this->selected == 'support') { echo 'selected'; } ?>">
                 <i class="fa fa-support"></i> Support

@@ -125,7 +125,7 @@ class WinnerModel extends AbstractModel
             ->getDQL();
         
         $winners = $this->getEntityManager()->createQueryBuilder()
-            ->select('IDENTITY(w.prize) AS prize','e.email')
+            ->select('IDENTITY(w.prize) AS prize', 'e.email', 'e.name')
             ->from($this->entity, 'w')
             ->innerJoin('Campaign\Entity\CampaignEntrant', 'e', 'WITH', 'w.entrant = e.id')
             ->where($queryBuilder->expr()->in('w.prize', $prizes))

@@ -188,18 +188,30 @@ class AccountController extends AbstractActionController
     
     public function changePasswordAction()
     {
+        $post = $this->request->getPost();
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
         
-        if ($email && $password) {
-            $model = new User();
-            $model->setServiceLocator($this->getServiceLocator());
+        $model = new User();
+        $model->setServiceLocator($this->getServiceLocator());
             
+        if ($email && $password) {
             if ($model->changePassword($email, $password)) {
                 Session::success('Your password was changed.');
             } else {
                 Session::error('Oh oh, something went wrong. Please try again.');
             }
+        } elseif (array_key_exists('old-password', $post) && array_key_exists('new-password', $post) && $this->getHelper()->isLoggedIn()) {
+            $user = $this->getHelper()->getLoggedInUser();
+            $email = $user->get('email');
+            
+            if ($model->isCorrectPassword($user, $post['old-password']) && $model->changePassword($email, $post['new-password'])) {
+                Session::success('Your password was changed.');
+            } else {
+                Session::error('Oh oh, something went wrong. Please try again.');
+            }
+            
+            return $this->redirect()->toRoute('account', array('action' => 'settings'));
         }
         
         return $this->redirect()->toRoute('account', array('action' => 'reset'));

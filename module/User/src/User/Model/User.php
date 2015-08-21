@@ -135,4 +135,12 @@ class User extends AbstractModel
         
         return false;
     }
+    
+    public function isCorrectPassword($user, $password)
+    {
+        $password = $user->get('email') . ':' . $password . ':' . UserEntity::SALT;
+        $password = hash('sha256', $password);
+        
+        return $password == $user->get('password');
+    }
 }

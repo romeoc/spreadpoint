@@ -1,21 +1,22 @@
 <div class="settings dashboard-section">
     <?php echo $this->partial('user/dashboard/menu.phtml', array('selected' => 'settings')); ?>
     <div class="settings-view dashboard-content">
-        <form method="post" name="settings" enctype="multipart/form-data" action="<?php echo $this->basePath('/account/save'); ?>" id="settings" novalidate>
+        <?php echo $this->partial('application/session/global-messages', array('global_messages' => $this->messages)); ?>
+        <form method="post" name="settings" enctype="multipart/form-data" action="<?php echo $this->basePath('account/save'); ?>" id="settings" novalidate>
             <div class="settings-header">
                 <h3 class="left">Settings</h3>
                 <div class="settings-actions right">
-                    <button type="submit" class="settings-action">
+                    <button type="submit" class="settings-action switch-action" data-action="<?php echo $this->basePath('account/save'); ?>">
                         <i class="fa fa-save"></i> <span>Save</span>
                     </button>
                 </div>
             </div>
             <div class="jqui-tabs-vertical invisible clear">
                 <ul class="settings-menu">
+                    <li><a href="#account-info">Account Information</a></li>
                     <li><a href="#notifications">Notifications</a></li>
                 </ul>
                 <div id="notifications">
-                    <?php echo $this->partial('application/session/global-messages', array('global_messages' => $this->messages)); ?>
                     <div class="settings-form-row custom-form-row custom-row-notifications">
                         <div class="field">
                             <label class="notifications left">Enable Notifications</label>
@@ -26,7 +27,21 @@
                         </div>
                     </div>
                 </div>
+                <div id="account-info">
+                    <div class="change-password">
+                        <a href="javascript:void(0);" class="change-password-action" title="Change Password">Change Password</a>
+                        <div class="inputs hide">
+                            <input type="password" name="old-password" placeholder="Old Password" />
+                            <input type="password" name="new-password" placeholder="New Password" />
+                            <input type="password" name="confirm-password" placeholder="Confirm Password" />
+                            <input type="submit" class="change-password-submit switch-action" data-action="<?php echo $this->basePath('account/changePassword'); ?>" value="Change Password" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
 </div>
+<script type="text/javascript">
+    SpreadPoint.Settings.init();
+</script>

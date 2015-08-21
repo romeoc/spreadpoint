@@ -39,6 +39,9 @@
             <div class="campaign-view-content">
                 <div class="campaign-tabs jqui-tabs invisible">
                     <ul>
+                        <?php if (array_key_exists('id', $this->data)): ?>
+                            <li><a href="#overview" class="overview-tab">Overview</a></li>
+                        <?php endif; ?>
                         <li><a href="#general" class="general-tab">General</a></li>
                         <li><a href="#schedule" class="schedule-tab">Schedule</a></li>
                         <li><a href="#widgets" class="entries-tab">Widgets</a></li>
@@ -49,6 +52,11 @@
                             <li><a href="#winners" class="winner-tab">Winners</a></li>
                         <?php endif; ?>
                     </ul>
+                    <?php if (array_key_exists('id', $this->data)): ?>
+                        <div id="overview" class="campaign-tab">
+                            <?php echo $this->partial('campaign/sections/overview.phtml', array('data' => $this->data)); ?>
+                        </div>
+                    <?php endif; ?>
                     <div id="general" class="campaign-tab">
                         <?php echo $this->partial('campaign/sections/general.phtml', array('data' => $this->data)); ?>
                     </div>

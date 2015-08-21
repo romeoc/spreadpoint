@@ -1,0 +1,69 @@
+<?php $campaignHelper = $this->campaignHelper(); ?>
+<section class="campaign-section-overview">
+    <?php $domain = $campaignHelper->getDomain(); ?>
+    <?php $campaignUrl = "{$domain}/campaign/view/{$this->data['id']}"; ?>
+    <iframe class="left" src="<?php echo "{$campaignUrl}?no-action=1"; ?>" frameborder="0" scrolling="no"></iframe>
+    <div class="sharing-options left">
+        <div class="direct-link">
+            Direct Link: 
+            <a href="<?php echo $campaignUrl; ?>" title="<?php echo $this->data['title']; ?>" target="_blank">
+                <?php echo $this->data['title']; ?>
+            </a>
+        </div>
+        <div class="option fb-share-button" data-href="<?php echo $campaignUrl; ?>" data-layout="button"></div>
+        <div class="option twitter-tweet">
+            <a class="twitter-share-button" data-size="large" data-count="none" href="https://twitter.com/intent/tweet?url=<?php echo $campaignUrl; ?>&text='Check Out Our New Giveaway!'">Tweet</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+
+<script type="text/javascript">
+    $(function(){
+        $('iframe').on('load', function() {
+            this.style.height = this.contentWindow.document.body.scrollHeight + 'px';
+        });
+    });
+</script>
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '711375515639582',
+            xfbml      : true,
+            version    : 'v2.4'
+        });
+        
+        SpreadPoint.Front.Facebook.load();
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script>
+    window.twttr = (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function(f) {
+            t._e.push(f);
+        };
+ 
+        return t;
+    }(document, "script", "twitter-wjs"));
+    
+    twttr.ready(function (twttr) {
+        SpreadPoint.Front.Twitter.load();
+    });
+</script>

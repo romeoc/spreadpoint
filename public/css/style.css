@@ -208,6 +208,11 @@
 .campaign-view .file-upload-wrapper img { float: right; height: 33px; margin: 10px 0 20px 10px; cursor: pointer; }
 .campaign-view .file-upload-wrapper button { margin-bottom: 20px; }
 
+.campaign-view .campaign-section-overview iframe { height: auto; width: 70%; }
+.campaign-view .campaign-section-overview .direct-link { margin-bottom: 10px; }
+.campaign-view .campaign-section-overview .sharing-options { margin-left: 20px; width: 25%; }
+.campaign-view .campaign-section-overview .fb-share-button { transform: scale(1.35); -ms-transform: scale(1.35); -webkit-transform: scale(1.35); -o-transform: scale(1.35); -moz-transform: scale(1.35); transform-origin: bottom left; -ms-transform-origin: bottom left; -webkit-transform-origin: bottom left; -moz-transform-origin: bottom left; -webkit-transform-origin: bottom left; }
+.campaign-view .campaign-section-overview .option { float: left; margin-right: 30px; }
 /***** Prizes *****/
 .campaign-view .prize-header { background-color: #ea474b; padding: 10px; margin-bottom: 20px; color: white; cursor: pointer; }
 .campaign-view .close-prize { background-color: white; color: #ea474b !important; margin-left: 10px; font-size: small; padding: 8px; border: none; float: right; }
@@ -373,6 +378,10 @@
 .settings .settings-menu li.ui-state-active { font-weight: bold; padding: 0; }
 .settings .settings-menu li a { display: inline; }
 
+.settings .change-password { padding-top: 20px; }
+.settings .change-password .inputs input { display: block; margin-top: 10px; width: 200px; }
+.settings .change-password .inputs .change-password-submit { padding: 10px; }
+
 /***** Reset Password *****/
 .reset-password { padding: 80px 25px 0 25px; }
 .reset-password h3 { color: #ea474b; }
@@ -382,3 +391,8 @@
 .reset-password #change-password input,
 .reset-password #change-password button { display: block; margin-top: 10px; width: 230px; font-size: 12px; }
 .reset-password #change-password button { padding: 10px; }
+
+/***** CMS Pages *****/
+.terms-of-service { margin-top: 120px; padding: 0 80px; }
+.terms-of-service h4 { color: #ea474b; border-bottom: 1px solid #ea474b; padding: 10px 0; }
+.terms-of-service p { color: #444; text-align: justify; }

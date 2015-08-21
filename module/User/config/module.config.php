@@ -39,7 +39,7 @@ return array(
                     ),
                     'defaults' => array(
                         'controller' => 'User\Controller\Account',
-                        'action'     => 'index',
+                        'action'     => 'settings',
                     ),
                 ),
             ),

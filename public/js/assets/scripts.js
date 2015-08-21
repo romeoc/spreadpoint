@@ -114,6 +114,65 @@
         }
     };
     
+    SpreadPoint.Settings = {
+        action: null,
+        init: function() {
+            var self = this;
+            self.action = $('#settings').attr('action');
+            
+            $('.change-password-action').on('click', function() {
+                $(this).siblings('.inputs').toggle();
+            });
+            
+            $('.switch-action').on('click', function() {
+                self.action = $(this).data('action');
+            });
+            
+            $('#settings').submit(function(e) {
+                e.preventDefault();
+                $(this).attr('action', self.action);
+                
+                if (self.valid()) {
+                    this.submit();
+                }
+            });
+        },
+        valid: function() {
+            if ($('.change-password .inputs').is(':visible')) {
+                var oldPassword = $('#settings [name="old-password"]').val();
+                var password = $('#settings [name="new-password"]').val();
+                var confirm = $('#settings [name="confirm-password"]').val();
+
+                if (oldPassword.length === 0 || password.length === 0 || confirm.length === 0) {
+                    SpreadPoint.Campaign.Controller.logError('All fields are mandatory.');
+                    return false;
+                } else if (password !== confirm) {
+                    SpreadPoint.Campaign.Controller.logError('The passwords do not match');
+                    return false;
+                }
+
+                // Password Validation
+                if (password.length < 6) {
+                    SpreadPoint.Campaign.Controller.logError('Your password should contain at least 6 characters');
+                    return false;
+                }
+
+                var hasNumber = /[0-9]/;
+                if(!hasNumber.test(password)) {
+                    SpreadPoint.Campaign.Controller.logError('Your password must contain at least one number (0-9)');
+                    return false;
+                }
+
+                var hasLetter = /[a-zA-z]/;
+                if(!hasLetter.test(password)) {
+                    SpreadPoint.Campaign.Controller.logError('Your password must contain at least one letter (a-z,A-Z)');
+                    return false;
+                }
+            }
+            return true;
+        }
+    };
+    
     SpreadPoint.FollowTo = function (target, pos) {
         var $this = $(target),
             $window = $(window);
