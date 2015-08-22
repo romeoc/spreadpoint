@@ -1,3 +1,7 @@
+<?php use Checkout\Helper\PlanHelper; ?>
+<?php $helper = $this->planHelper(); ?>
+<?php $plans = $helper->getAllPlans(); ?>
+
 <section class="checkout-section">
     <?php
         $form = $this->form;
@@ -16,26 +20,41 @@
                 <?php echo $this->formElement($form->get('plan')->setValue($this->plan)); ?>
             </div>
             <div class="visible-plan element">
-                <div class="plan-puddle checkout-plan" data-value="0">
-                    <span class="title">Puddle</span>
-                    <a  href="javascript:void(0);" class="puddle-plan-trigger" title="Puddle Plan">
-                        <img src="<?php echo $this->basePath('img/puddle.png'); ?>" alt="Puddle Plan" width="150" height="150" />
+                <div class="plan-puddle checkout-plan" data-value="<?php echo PlanHelper::PUDDLE_PLAN;?>">
+                    <span class="title"><?php echo ucfirst($plans[PlanHelper::PUDDLE_PLAN]['name']); ?></span>
+                    <a  href="javascript:void(0);" class="puddle-plan-trigger" title="<?php echo $plans[PlanHelper::PUDDLE_PLAN]['name'] ;?> Plan">
+                        <img src="<?php echo $this->basePath($plans[PlanHelper::PUDDLE_PLAN]['image']); ?>" alt="<?php echo $plans[PlanHelper::PUDDLE_PLAN]['name'] ;?> Plan" width="100" height="100" />
                     </a>
-                    <span class="price">$29/mo</span>
+                    <span class="price">$<?php echo ucfirst($plans[PlanHelper::PUDDLE_PLAN]['monthly']) ;?>/mo</span>
+                    <span class="price">$<?php echo ucfirst($plans[PlanHelper::PUDDLE_PLAN]['yearly']) ;?>/yr</span>
                 </div>
-                <div class="plan-lake checkout-plan" data-value="1">
-                    <span class="title">Lake</span>                    
-                    <a  href="javascript:void(0);" class="lake-plan-trigger" title="Lake Plan">
-                        <img src="<?php echo $this->basePath('img/lake.png'); ?>" alt="Lake Plan" width="150" height="150" />
+                <div class="plan-lake checkout-plan" data-value="<?php echo PlanHelper::LAKE_PLAN;?>">
+                    <span class="title"><?php echo ucfirst($plans[PlanHelper::LAKE_PLAN]['name']); ?></span>                    
+                    <a  href="javascript:void(0);" class="lake-plan-trigger" title="<?php echo $plans[PlanHelper::LAKE_PLAN]['name'] ;?> Plan">
+                        <img src="<?php echo $this->basePath($plans[PlanHelper::LAKE_PLAN]['image']); ?>" alt="<?php echo $plans[PlanHelper::LAKE_PLAN]['name'] ;?> Plan" width="100" height="100" />
                     </a>
-                    <span class="price">$129/mo</span>
+                    <span class="price">$<?php echo ucfirst($plans[PlanHelper::LAKE_PLAN]['monthly']) ;?>/mo</span>
+                    <span class="price">$<?php echo ucfirst($plans[PlanHelper::LAKE_PLAN]['yearly']) ;?>/yr</span>
                 </div>
-                <div class="plan-ocean checkout-plan" data-value="2">
-                    <span class="title">Ocean</span>
-                    <a href="javascript:void(0);" class="ocean-plan-trigger" title="Ocean Plan">
-                        <img src="<?php echo $this->basePath('img/ocean.png'); ?>" alt="Ocean Plan" width="135" height="135" />
+                <div class="plan-ocean checkout-plan" data-value="<?php echo PlanHelper::OCEAN_PLAN;?>">
+                    <span class="title"><?php echo ucfirst($plans[PlanHelper::OCEAN_PLAN]['name']); ?></span>
+                    <a href="javascript:void(0);" class="ocean-plan-trigger" title="<?php echo $plans[PlanHelper::OCEAN_PLAN]['name'] ;?> Plan">
+                        <img src="<?php echo $this->basePath($plans[PlanHelper::OCEAN_PLAN]['image']); ?>" alt="<?php echo $plans[PlanHelper::OCEAN_PLAN]['name'] ;?> Plan" width="90" height="90" />
                     </a>
-                    <span class="price">Custom Pricing to Fit Your Business</span>
+                    <span class="price double">Custom Pricing to Fit Your Busines</span>
+                </div>
+            </div>
+            <div class="period-element element">
+                <div class="row">
+                    <label class="period-label"><i class="fa fa-calendar"></i>Billing Period:</label>
+                </div>
+                <div class="row">
+                    <input id="monthly" type="radio" name="period" required="required" class="kalypsify" value="0">
+                    <label for="monthly">Monthly</label>
+                </div>
+                <div class="row">
+                    <input id="yearly" type="radio" name="period" required="required" class="kalypsify" value="1">
+                    <label for="yearly">Yearly</label>            
                 </div>
             </div>
             <div class="plan-action">

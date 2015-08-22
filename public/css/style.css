@@ -108,19 +108,28 @@
 .checkout .custom-form .custom-row-lastname { width: 49%; }
 .checkout .custom-row-terms-and-conditions label { color: black; }
 .checkout .title, .checkout .price {padding-bottom: 20px; font-weight: bold; }
+.checkout .checkout-register .form-errors { width: 100%; padding-bottom: 10px; }
+.checkout .checkout-register .form-errors span { font-size: 12px; }
 
 .checkout .checkout-form { width: 40%; display: inline-block; background-color: white; -webkit-box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.64); -moz-box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.64); box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.64); border-radius: 10px; margin: 10px 200px; }
 .checkout .checkout-billing .subtitle { background-color: #CCC; padding: 15px 50px 5px 50px; margin: 15px 0;font-weight: bold; text-align: left; color: black; height: 60px; }
 .checkout .checkout-billing .checkout-form-row { width: 70%; border-radius: 8px; }
 .checkout .checkout-billing .checkout-form-row.custom-row-submit-action { width: 40%; margin-bottom: 50px; padding-top: 30px; }
 .checkout .checkout-billing .checkout-form-row.custom-row-plan { margin-bottom: 50px; text-align: center; width: 100%; }
-.checkout .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan { display: inline-block; width: 30%; border: 2px solid #CCC; border-radius: 10px;}
+.checkout .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan { display: inline-block; width: 30%; border: 2px solid #CCC; border-radius: 10px; padding-bottom: 10px; }
 .checkout .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan.selected { border-color: #FD8B8E; background-color: #FD8B8E; }
 .checkout .checkout-billing .visible-plan span { display: block; padding: 0;}
 .checkout .checkout-billing .visible-plan span.title { padding-top: 10px; }
-.checkout .checkout-billing .visible-plan span.price { padding-bottom: 10px; }
+.checkout .checkout-billing .visible-plan span.price { line-height: 22px; }
+.checkout .checkout-billing .visible-plan span.price.double { padding-top: 22px; }
 .checkout .checkout-billing .checkout-form-row input { border-radius: 8px; }
 .checkout .plan-form .subtitle h4 { background: url(../img/plan.png) no-repeat top right; background-position: 65px; }
+.checkout-form .period-label { display: inline-block; font-size: 18px; margin-right: 20px; } 
+.checkout-form .period-label i { padding: 0 5px; font-size: 20px; }
+.checkout-form .period-element { margin-top: 20px; }
+.checkout-form .period-element .row { display: inline-block; padding-right: 15px; }
+.checkout-form .period-element label { cursor: pointer; vertical-align: top; display: block; float: right; line-height: 20px; padding-left: 5px; }
+.checkout-form .period-element a { display: inline-block; }
 .checkout-payment-form .subtitle h4 { background: url(../img/credit-card.png) no-repeat top right; background-position: 70px 2px; width: 150px; }
 .checkout-payment-form .pay-pal-action { border: 1px solid black; padding: 5px 15px; border-radius: 5px; margin-left: 5px; cursor: pointer; font-family: verdana; font-style: italic; font-size: 110%; }
 .checkout-payment-form .pay-pal-action:hover { background-color: white; }
@@ -296,9 +305,12 @@
 .upgrade .checkout-billing .checkout-form-row.custom-row-plan { width: 100%; text-align: center; }
 .upgrade .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan { display: inline-block; margin: 0 1%; width: 30%; border: 2px solid #FD8B8E; border-radius: 10px; }
 .upgrade .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan.selected { background-color: #FD8B8E; }
+.upgrade .checkout-billing .checkout-plan { padding-bottom: 20px; }
+.upgrade .checkout-billing .visible-plan img { padding-bottom: 20px; }
 .upgrade .checkout-billing .visible-plan span { display: block; padding: 30px; }
 .upgrade .checkout-billing .visible-plan span.title { padding-top: 15px; font-weight: bold; }
-.upgrade .checkout-billing .visible-plan span.price { padding-bottom: 15px; font-weight: bold; }
+.upgrade .checkout-billing .visible-plan span.price { padding: 0; font-weight: bold; line-height: 25px; }
+.upgrade .checkout-billing .visible-plan span.price.double { padding-top: 25px; }
 .upgrade .upgrade-plan-action { margin-top: 50px; }
 .upgrade-payment-form { width: 35%; height: 350px; background-color: white; }
 .upgrade-payment-form .subtitle { background-color: #CCC; padding: 15px 50px 5px 50px; margin: 15px 0;font-weight: bold; text-align: left; color: black; height: 60px; }

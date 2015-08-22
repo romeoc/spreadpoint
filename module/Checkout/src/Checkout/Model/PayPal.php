@@ -18,6 +18,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Base\Model\Session;
 use Base\Model\Mail;
 use Checkout\Model\OrderModel;
+use Checkout\Helper\PlanHelper;
 use Checkout\Entity\Order;
 
 use Checkout\Model\PayPal\CreateRecurringPaymentsProfile;
@@ -44,20 +45,7 @@ class PayPal implements ServiceLocatorAwareInterface
     const ACTION_SUSPEND = 'Suspend';
     const ACTION_CANCEL = 'Cancel';
     
-    protected $packageMap = array(
-        0 => array(
-            'name'  => 'Puddle Package',
-            'price' => 29.00
-        ),
-        1 => array(
-            'name' => 'Lake Package',
-            'price' => 199.00
-        ),
-        2 => array(
-            'name' => 'Ocean Package',
-            'price' => 599.00,
-        )
-    );
+    const TRIAL_PERIOD = 30;
     
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
@@ -107,13 +95,17 @@ class PayPal implements ServiceLocatorAwareInterface
     
     public function createRecurringPayment($data, $user)
     {
+        $billingPeriod = ($data['period'] == 0) ? 'Month' : 'Year';
+        $priceKey = ($data['period'] == 0) ? 'monthly' : 'yearly';
+        $plans = $this->getPlans();
+        
         $payment = new CreateRecurringPaymentsProfile();
-        $payment->setDesc($this->packageMap[$data['plan']]['name']);
+        $payment->setDesc($plans[$data['plan']]['name']);
         $payment->setSubscriberName($data['fullname']);
-        $payment->setProfileStartDate(date("Y-m-d\TH:i:s\Z"));
-        $payment->setBillingPeriod('Month');
+        $payment->setProfileStartDate($this->getStartDate());
+        $payment->setBillingPeriod($billingPeriod);
         $payment->setBillingFrequency(1);
-        $payment->setAmt($this->packageMap[$data['plan']]['price']);
+        $payment->setAmt($plans[$data['plan']][$priceKey]);
         $payment->setCurrencyCode('USD');
         $payment->setCardNumber(str_replace(' ', '', $data['card_number']));
         $payment->setExpirationDate(str_replace('/','',$data['expiry_date']));
@@ -141,14 +133,16 @@ class PayPal implements ServiceLocatorAwareInterface
     {
         $uri = $this->getServiceLocator()->get('request')->getUri();
         $domain = sprintf('%s://%s', $uri->getScheme(), $uri->getHost());
+        $plans = $this->getPlans();
+        $priceKey = ($data['period'] == 0) ? 'monthly' : 'yearly';
         
         $paymentItem = new PaymentItem();
         $paymentItem->setItemCategory(PaymentItem::CATEGORY_DIGITAL);
-        $paymentItem->setAmt($this->packageMap[$data['plan']]['price']);
-        $paymentItem->setName($this->packageMap[$data['plan']]['name']);
+        $paymentItem->setAmt($plans[$data['plan']][$priceKey]);
+        $paymentItem->setName($plans[$data['plan']]['name']);
         
         $paymentDetails = new PaymentDetails();
-        $paymentDetails->setAmt($this->packageMap[$data['plan']]['price']);
+        $paymentDetails->setAmt($plans[$data['plan']][$priceKey]);
         $paymentDetails->setRecurring('Y');
         $paymentDetails->setItems(array($paymentItem));
         
@@ -159,7 +153,7 @@ class PayPal implements ServiceLocatorAwareInterface
         
         $billingAgreement = array(
             'L_BILLINGTYPE0' => 'RecurringPayments',
-            'L_BILLINGAGREEMENTDESCRIPTION0' => $this->packageMap[$data['plan']]['name']
+            'L_BILLINGAGREEMENTDESCRIPTION0' => $plans[$data['plan']]['name']
         );
 
         $express->setBillingAgreements($billingAgreement);
@@ -169,16 +163,20 @@ class PayPal implements ServiceLocatorAwareInterface
         return 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=' . $response->getToken();
     }
     
-    public function doExpressCheckout($token, $payerId, $user, $plan)
+    public function doExpressCheckout($token, $payerId, $user, $plan, $period)
     {
+        $billingPeriod = ($period == 0) ? 'Month' : 'Year';
+        $priceKey = ($period == 0) ? 'monthly' : 'yearly';
+        $plans = $this->getPlans();
+        
         $payment = new CreateRecurringPaymentsProfile();
         $payment->setToken($token);
         $payment->setPayerId($payerId);
-        $payment->setDesc($this->packageMap[$plan]['name']);
-        $payment->setProfileStartDate(date("Y-m-d\TH:i:s\Z"));
-        $payment->setBillingPeriod('Month');
+        $payment->setDesc($plans[$plan]['name']);
+        $payment->setProfileStartDate($this->getStartDate());
+        $payment->setBillingPeriod($billingPeriod);
         $payment->setBillingFrequency(1);
-        $payment->setAmt($this->packageMap[$plan]['price']);
+        $payment->setAmt($plans[$plan][$priceKey]);
         $payment->setCurrencyCode('USD');
         
         $response = $this->getRequest()->send($payment);
@@ -282,5 +280,18 @@ class PayPal implements ServiceLocatorAwareInterface
                 . PHP_EOL . 'Error Notification: ' . $message;
         
         Mail::send($body, $subject);
+    }
+    
+    public function getStartDate()
+    {
+        $trialPeriod = self::TRIAL_PERIOD;
+        $date = strtotime("+{$trialPeriod} day");
+        return date('Y-m-d\TH:i:s\Z', $date);
+    }
+    
+    public function getPlans()
+    {
+        $helper = new PlanHelper();
+        return $helper->getAllPlans();
     }
 }

@@ -62,6 +62,7 @@ class CartController extends AbstractActionController
         
         $session = new Container('checkout');
         $session->plan = $data['plan'];
+        $session->period = $data['period'];
         
         $result = $this->getPayPalModel()->startExpressCheckout($data);
         return $this->redirect()->toUrl($result);
@@ -78,9 +79,11 @@ class CartController extends AbstractActionController
         
         $session = new Container('checkout');
         $plan = $session->plan;
+        $period = $session->period;
         $session->offsetUnset('plan');
+        $session->offsetUnset('period');
         
-        if ($this->getPayPalModel()->doExpressCheckout($token, $payerId, $this->getUser(), $plan)) {
+        if ($this->getPayPalModel()->doExpressCheckout($token, $payerId, $this->getUser(), $plan, $period)) {
             $this->redirect()->toRoute('checkout', array('action' => 'success'));
         } else {
             $this->redirect()->toRoute('checkout');
@@ -96,7 +99,7 @@ class CartController extends AbstractActionController
     public function successAction()
     {
         Session::success('The transaction was succesful. You can now start creating awesome campaigns.');
-        $this->redirect()->toRoute('account');
+        $this->redirect()->toRoute('campaign');
     }
     
     protected function getUser()

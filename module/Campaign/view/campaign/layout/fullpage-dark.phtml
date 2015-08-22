@@ -1,9 +1,9 @@
-<?php $this->headLink()->appendStylesheet($this->basePath() . '/css/layouts/fullpage.css'); ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() . '/css/layouts/fullpage-dark.css'); ?>
 
 <?php $helper = $this->campaignHelper(); ?>
 <?php $helper->setData($this->data); ?>
 
-<div class="campaign-page campaign-fullpage">
+<div class="campaign-page campaign-fullpage-dark">
     <div class="banner">
         <img src="<?php echo $helper->getBannerUrl(); ?>" alt="<?php echo $helper->get('title'); ?>" />
     </div>

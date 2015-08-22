@@ -11,6 +11,7 @@
 namespace Checkout\Model\Form;
 
 use Zend\Form\Form;
+use Checkout\Helper\PlanHelper;
 
 class CheckoutForm extends Form
 {
@@ -23,7 +24,9 @@ class CheckoutForm extends Form
     }
     
     protected function initFields()
-    {
+    {        
+        $helper = new PlanHelper();
+        
         //Plan
         $this->add(array(
             'name' => 'plan',
@@ -33,10 +36,33 @@ class CheckoutForm extends Form
             ),
             'options' => array(
                 'label' => 'Plan',
+                'value_options' => $helper->getPlanOptions()
+            ),
+        ));
+        
+        //Period
+        $this->add(array(
+            'name' => 'period',
+            'type' => 'Zend\Form\Element\Radio',
+            'attributes' => array(
+                'required'  => 'required',
+            ),
+            'options' => array(
                 'value_options' => array(
-                    '0' => 'Puddle',
-                    '1' => 'Lake',
-                    '2' => 'Ocean',
+                    array(
+                        'value' => '0',
+                        'label' => 'Monthly',
+                        'attributes' => array(
+                            'class' => 'kalypsify',
+                        )
+                    ),
+                    array(
+                        'value' => '1',
+                        'label' => 'Yearly',
+                        'attributes' => array(
+                            'class' => 'kalypsify',
+                        )
+                    )
                 ),
             ),
         ));

@@ -1,3 +1,6 @@
+<?php use Checkout\Helper\PlanHelper; ?>
+<?php $helper = $this->planHelper(); ?>
+<?php $plans = $helper->getAllPlans(); ?>
 <div class="pricing-container">
     <div class="pricing-header">
         <div class="pricing-header-content">
@@ -8,17 +11,17 @@
             </a>
         </div>
     </div>
-    <div class="pricing-section">  
+    <div class="pricing-section">
         <div class="option-puddle option wow animated fadeInLeft animated">
             <div class="option-image">
-                <img src="<?php echo $this->basePath('img/puddle.png'); ?>" alt="Puddle Package" width="200" height="200" class="alignnone size-medium wp-image-48" />
+                <img src="<?php echo $this->basePath($plans[PlanHelper::PUDDLE_PLAN]['image']); ?>" alt="<?php echo ucfirst($plans[PlanHelper::PUDDLE_PLAN]['name']) ;?> Plan" width="200" height="200" class="alignnone size-medium wp-image-48" />
             </div>
             <div class="option-title">
-                <p>Puddle Package</p>
+                <p><?php echo $plans[PlanHelper::PUDDLE_PLAN]['name'] ;?> Plan</p>
             </div>
             <div class="option-price">
-                <h1>$19/month</h1>
-                <h1>$189/year</h1>
+                <h1><?php echo ucfirst($plans[PlanHelper::PUDDLE_PLAN]['monthly']) ;?>/MO</h1>
+                <h1><?php echo ucfirst($plans[PlanHelper::PUDDLE_PLAN]['yearly']) ;?>/YR (save 2 months)</h1>
             </div>
             <div class="option-benefits">
                 <ul class="benefits">
@@ -33,7 +36,7 @@
                 </ul>
             </div>
             <div class="option-buy">
-                <a href="<?php echo $this->basePath('checkout?package=0'); ?>" class="featured-link">
+                <a href="<?php echo $this->basePath('checkout?package=' . PlanHelper::PUDDLE_PLAN); ?>" class="featured-link">
                     <button class="wow animated" style="visibility: visible;">Get Started For Free</button>
                 </a>
                 <p class="satisfaction-guarantee"><strong>100% money back guaranteed</strong>. If you are not satisfied you get all your money back, <strong>no questions asked!</strong></p>
@@ -41,14 +44,14 @@
         </div>
         <div class="option-lake option wow animated fadeInLeft animated">
             <div class="option-image">
-                <img src="<?php echo $this->basePath('img/lake.png'); ?>" alt="Lake Package" width="300" height="300" class="alignnone size-medium wp-image-47">
+                <img src="<?php echo $this->basePath($plans[PlanHelper::LAKE_PLAN]['image']); ?>" alt="<?php echo ucfirst($plans[PlanHelper::LAKE_PLAN]['name']) ;?> Plan" width="300" height="300" class="alignnone size-medium wp-image-47">
             </div>         
             <div class="option-title">
-                <p>Lake Package</p>
+                <p><?php echo $plans[PlanHelper::LAKE_PLAN]['name'] ;?> Plan</p>
             </div>         
             <div class="option-price">             
-                <h1>$129/month</h1>
-                <h1>$1289/year</h1>
+                <h1><?php echo ucfirst($plans[PlanHelper::LAKE_PLAN]['monthly']) ;?>/MO</h1>
+                <h1><?php echo ucfirst($plans[PlanHelper::LAKE_PLAN]['yearly']) ;?>/YR (save 2 months)</h1>
             </div>
             <div class="option-benefits">
                 <ul class="benefits">
@@ -65,7 +68,7 @@
                 </ul>
             </div> 	
             <div class="option-buy"> 	                 
-                <a href="<?php echo $this->basePath('checkout?package=1'); ?>" class="featured-link">                 
+                <a href="<?php echo $this->basePath('checkout?package=' . PlanHelper::LAKE_PLAN); ?>" class="featured-link">                 
                     <button class="wow animated">Get Started For Free</button>             
                 </a>
                 <p class="satisfaction-guarantee"><strong>100% money back guaranteed</strong>. If you are not satisfied you get all your money back, <strong>no questions asked!</strong></p>
@@ -73,13 +76,13 @@
         </div>  
         <div class="option-ocean option wow animated fadeInLeft animated">
             <div class="option-image">
-                <img src="<?php echo $this->basePath('img/ocean.png'); ?>" alt="Ocean Package" width="300" height="300" class="alignnone size-medium wp-image-46">
+                <img src="<?php echo $this->basePath($plans[PlanHelper::OCEAN_PLAN]['image']); ?>" alt="<?php echo ucfirst($plans[PlanHelper::OCEAN_PLAN]['name']) ;?> Plan" width="300" height="300" class="alignnone size-medium wp-image-46">
             </div>
             <div class="option-title">
-                <p>Ocean Package</p>
+                <p><?php echo $plans[PlanHelper::OCEAN_PLAN]['name'] ;?> Plan</p>
             </div>
             <div class="option-price">
-                <h1>Custom Price</h1>
+                <h1>Custom Pricing to Fit Your Business</h1>
             </div>
             <div class="option-benefits">
                 <ul class="benefits">

@@ -1,6 +1,7 @@
+<?php $helper = $this->campaignHelper(); ?>
 <div class="campaign-container">
     <?php if ($this->data['status'] == \Campaign\Entity\Campaign::STATUS_ACTIVE): ?>
-        <?php echo $this->partial('campaign/layout/fullpage.phtml', array(
+        <?php echo $this->partial($helper->getLayout($this->data['layout']), array(
             'data' => $this->data, 
             'entriesData' => $this->entriesData,
             'prizeData' => $this->prizeData

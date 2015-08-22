@@ -17,7 +17,7 @@ use Campaign\Entity\Campaign as CampaignEntity;
 
 class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterface
 {
-    protected $data;
+    protected $data = array();
 
     protected $service;
     
@@ -77,18 +77,20 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
             array(
                 'checked' => '',
                 'value'   => 1,
-                'title'   => 'Default',
+                'title'   => 'Light',
                 'classes' => 'first',
-                'id'      => 'default-layout',
-                'note'    => 'Default Layout'
+                'id'      => 'fullpage-dark',
+                'note'    => 'Light',
+                'template'=> 'campaign/layout/fullpage-light.phtml'
             ),
             array(
                 'checked' => '',
                 'value'   => 2,
-                'title'   => 'Another',
+                'title'   => 'Dark',
                 'classes' => 'first',
-                'id'      => 'another-layout',
-                'note'    => 'Another Layout'
+                'id'      => 'fullpage-light',
+                'note'    => 'Dark',
+                'template'=> 'campaign/layout/fullpage-dark.phtml'
             ),
         );
         
@@ -413,5 +415,11 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
     {
         $uri = $this->getServiceLocator()->get('request')->getUri();
         return sprintf('%s://%s', $uri->getScheme(), $uri->getHost());
+    }
+    
+    public function getLayout($layout) 
+    {
+        $layouts = $this->getAvailableLayouts();
+        return $layouts[$layout - 1]['template'];
     }
 }

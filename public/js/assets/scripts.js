@@ -110,7 +110,8 @@
             });
         },
         initializeKalypto: function() {
-            $('.kalypsify').kalypto();
+            $('input:checkbox.kalypsify').kalypto();
+            $('input:radio.kalypsify').kalypto({toggleClass: "toggleR"});
         }
     };
     
@@ -519,11 +520,22 @@
         },
         validatePlan: function() {
             var plan = $('[name="plan"]:checked').val();
+            
+            if (plan == 2) {
+                window.location = "/contact";
+            }
+            
             if (!plan) {
                 $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please select a package</li>');
                 return false;
             } else if (this.plan !== null && plan == this.plan) {
                 $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>You are already subscribed to this plan.</li>');
+                return false;
+            }
+            
+            var period = $('[name="period"]:checked').val();
+            if (!period) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please select a billing period.</li>');
                 return false;
             }
             
