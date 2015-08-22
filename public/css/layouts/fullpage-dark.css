@@ -40,7 +40,7 @@
 .campaign-fullpage-dark .chance-entrant a span span{ color: #FF4136; }
 
 /***** Enter Contest Widget *****/
-.campaign-fullpage-dark .terms-box { width: 30%; height: 60% ; background-color: white; overflow: auto; padding: 10px; }
+.campaign-fullpage-dark .terms-box { width: 30%; height: 60% ; background-color: white; overflow: auto; padding: 10px; font-size: 12px; }
 .campaign-fullpage-dark .terms-box .close { position: absolute; top: 0; right:0; }
 .campaign-fullpage-dark .requirement { padding-bottom: 5px; width: 270px; margin: 0 auto; }
 .campaign-fullpage-dark .requirement label { font-size: 14px; color: #BFBFBF; }
