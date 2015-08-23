@@ -25,6 +25,16 @@
 .global-messages li.notice { color: #be6c00; border-color: #be6c00; background-color: #fcf6de; }
 .global-messages li.error { color: #fe0000; border-color: #fe0000; background-color: #f6d3cf; }
 
+/***** Prizes *****/
+.campaign-fullpage-dark .prizes { text-align: center; margin-bottom: 40px; }
+.campaign-fullpage-dark .prizes .prize-box { display: inline-block; width: 19%; padding: 5px; vertical-align: top; }
+.campaign-fullpage-dark .prizes .prize-box .image { width: 100%; height: 150px; background: transparent none no-repeat center center; background-size: cover; position: relative; cursor: pointer; }
+.campaign-fullpage-dark .prizes .prize-box .overlay { position: absolute; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); }
+.campaign-fullpage-dark .prizes .prize-box .name { position: absolute; bottom: 0; left: 0; width: 100%; text-align: left; background-color: rgba(0, 0, 0, 0.5); height: 25px; line-height: 25px; color: #BFBFBF; }
+.campaign-fullpage-dark .prizes .prize-box .count { position: absolute; top: 50%; display: block; width: 100%; margin-top: -28px; font-size: 32px; font-weight: bold; color: #BFBFBF; }
+.campaign-fullpage-dark .prizes .prize-box .description { text-align: left; width: 100%; }
+.campaign-fullpage-dark .prizes .prize-box .description span { padding: 7px; text-align: left; display: block; background-color: #141414; color: #BFBFBF; }
+
 /***** Widgets - General Layout *****/
 .campaign-fullpage-dark .widgets { clear: both; }
 .campaign-fullpage-dark .widget-title { margin: 0; background: rgba(37,37,37,1); background: -moz-linear-gradient(top, rgba(37,37,37,1) 0%, rgba(15,15,15,1) 100%); background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(37,37,37,1)), color-stop(100%, rgba(15,15,15,1))); background: -webkit-linear-gradient(top, rgba(37,37,37,1) 0%, rgba(15,15,15,1) 100%); background: -o-linear-gradient(top, rgba(37,37,37,1) 0%, rgba(15,15,15,1) 100%); background: -ms-linear-gradient(top, rgba(37,37,37,1) 0%, rgba(15,15,15,1) 100%); background: linear-gradient(to bottom, rgba(37,37,37,1) 0%, rgba(15,15,15,1) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafdfd', endColorstr='#dae0e6', GradientType=0 ); padding: 10px; color: #BFBFBF; border: 1px solid #2e2e2e; border-bottom: 0; outline: none; cursor: pointer; }
@@ -38,16 +48,6 @@
 .campaign-fullpage-dark .field input { background-color: #141414; color: #BFBFBF; outline: none; padding: 10px; width: 270px; border: 1px solid #2e2e2e; border-radius: 5px; }
 .campaign-fullpage-dark .chance-entrant a { text-decoration: none; cursor: pointer; color: #BFBFBF; float: right; padding: 5px; }
 .campaign-fullpage-dark .chance-entrant a span span{ color: #FF4136; }
-
-/***** Prizes *****/
-.campaign-fullpage-dark .prizes { text-align: center; margin-bottom: 40px; }
-.campaign-fullpage-dark .prizes .prize-box { display: inline-block; width: 19%; padding: 5px; vertical-align: top; }
-.campaign-fullpage-dark .prizes .prize-box .image { width: 100%; height: 150px; background: transparent none no-repeat center center; background-size: cover; position: relative; cursor: pointer; }
-.campaign-fullpage-dark .prizes .prize-box .overlay { position: absolute; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); }
-.campaign-fullpage-dark .prizes .prize-box .name { position: absolute; bottom: 0; left: 0; width: 100%; text-align: left; background-color: rgba(0, 0, 0, 0.5); height: 25px; line-height: 25px; color: #BFBFBF; }
-.campaign-fullpage-dark .prizes .prize-box .count { position: absolute; top: 50%; display: block; width: 100%; margin-top: -28px; font-size: 32px; font-weight: bold; color: #BFBFBF; }
-.campaign-fullpage-dark .prizes .prize-box .description { text-align: left; width: 100%; }
-.campaign-fullpage-dark .prizes .prize-box .description span { padding: 7px; text-align: left; display: block; background-color: #141414; color: #BFBFBF; }
 
 /***** Enter Contest Widget *****/
 .campaign-fullpage-dark .terms-box { width: 30%; height: 60% ; background-color: white; overflow: auto; padding: 10px; font-size: 12px; }

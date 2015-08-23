@@ -1,0 +1,60 @@
+<?php $helper = $this->campaignHelper(); ?>
+<?php $helper->setData($this->data); ?>
+
+<div class="banner">
+    <img src="<?php echo $helper->getBannerUrl(); ?>" alt="<?php echo $helper->get('title'); ?>" />
+</div>
+
+<div class="hero">
+    <h1 class="title" style="<?php echo $helper->get('titleCss'); ?>"><?php echo $helper->get('title'); ?></h1>
+    <p class="description" style="<?php echo $helper->get('descriptionCss'); ?>"><?php echo $helper->get('description'); ?></p>
+</div>
+
+<div class="prizes">
+    <?php $prizes = json_decode($this->prizeData); ?>
+    <?php foreach ($prizes as $prize): ?>
+        <div class="prize-box">
+            <div class="image" style="background-image: url(<?php echo $helper->getBannerUrl($this->campaign, $prize->image); ?>)">
+                <div class="overlay hide">
+                    <span class="count">x<?php echo $prize->count; ?></span>
+                </div>
+                <span class="name">&nbsp;&nbsp;<?php echo $prize->name; ?></span>
+            </div>
+            <div class="description hide"><span><?php echo $prize->description; ?></span></div>
+        </div>
+    <?php endforeach; ?>
+</div>
+
+<div class="widgets-container">
+    <?php echo $this->partial('application/session/global-messages', array('global_messages' => $this->messages)); ?>
+
+    <?php $entrant = $helper->getEntrant(); ?>
+    <?php if ($entrant): ?>
+        <div class="chance-entrant">
+            <a href="<?php echo $this->basePath('campaign/clearSession/' . $this->data['id']); ?>" title="<?php echo $entrant->get('email'); ?>" />
+                <span>Not <span><?php echo $entrant->get('name'); ?></span>?</span>
+            </a>
+        </div>
+    <?php endif; ?>
+
+    <div class="widgets jqui-accordion">
+        <?php $widgets = json_decode($this->entriesData); ?>
+        <?php foreach ($widgets as $widget): ?>
+            <?php $template = $helper->getWidgetTemplate($widget->widgetType); ?>
+            <?php echo $this->partial($template, array('data' => $widget, 'campaign' => $this->data)); ?>
+        <?php endforeach; ?>
+    </div>
+    <div class="branding">
+        <a href="<?php echo $helper->getDomain(); ?>" title="SpreadPoint" target="_blank">
+            <span>Created with</span>
+            <img src="<?php echo $this->basePath('img/logo.png') ?>" alt="SpreadPoint" height="20">
+        </a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        SpreadPoint.Defaults.initializeAccordions();
+        SpreadPoint.Defaults.initializeKalypto();
+    });
+</script>
