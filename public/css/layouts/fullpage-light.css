@@ -44,7 +44,7 @@
 .campaign-fullpage-light .prize-box-enlarged .count { font: bold 15px Sans-Serif; color: white; text-align: center; text-shadow: rgba(0,0,0,0.5) 0px 1px 0px; -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); position: relative; padding: 7px 0; left: -5px; top: 15px; width: 120px; background-color: #FF4136; background-image: -webkit-gradient(linear, left top, left bottom, from(#FF4136), to(#801515)); background-image: -webkit-linear-gradient(top, #FF4136, #801515); background-image: -moz-linear-gradient(top, #FF4136, #801515); background-image: -ms-linear-gradient(top, #FF4136, #801515); background-image: -o-linear-gradient(top, #FF4136, #801515); -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3); -moz-box-shadow: 0px 0px 3px rgba(0,0,0,0.3); box-shadow: 0px 0px 3px rgba(0,0,0,0.3); }
 .campaign-fullpage-light .prize-box-enlarged .count:before, .campaign-fullpage-light .prize-box-enlarged .count:after { content: ""; border-top: 3px solid #801515; border-left: 3px solid transparent; border-right: 3px solid transparent; position:absolute; bottom: -3px; }
 .campaign-fullpage-light .prize-box-enlarged .count:before { left: 0; }
-.campaign-fullpage-light .prize-box-enlarged .count:after { right: 0; }​
+.campaign-fullpage-light .prize-box-enlarged .count:after { right: 0; }
 
 /***** Widgets - General Layout *****/
 .campaign-fullpage-light .widgets { clear: both; }
