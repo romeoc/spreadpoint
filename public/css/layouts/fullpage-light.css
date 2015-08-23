@@ -27,9 +27,9 @@
 
 /***** Prizes *****/
 .campaign-fullpage-light .prizes { text-align: center; margin-bottom: 40px; }
-.campaign-fullpage-light .prizes .prize-container { display: inline-block; width: 19%; padding: 5px; vertical-align: top; }
-.campaign-fullpage-light .prizes .prize-box { width: 100%; height: 150px; background: transparent none no-repeat center center; background-size: cover; position: relative; cursor: pointer; }
-.campaign-fullpage-light .prizes .prize-box .name { position: absolute; bottom: 0; left: 0; width: 100%; text-align: left; background-color: rgba(255, 255, 255, 0.5); height: 25px; line-height: 25px; color: #444; }
+.campaign-fullpage-light .prizes .prize-container { display: inline-block; width: 14%; padding: 5px; vertical-align: top; }
+.campaign-fullpage-light .prizes .prize-box { width: 100%; height: 100px; background: transparent none no-repeat center center; background-size: cover; position: relative; cursor: pointer; }
+.campaign-fullpage-light .prizes .prize-box .name { position: absolute; bottom: 0; left: 0; width: 100%; text-align: left; background-color: rgba(255, 255, 255, 0.5); height: 25px; line-height: 25px; color: #444; overflow: hidden; }
 
 .campaign-fullpage-light .prize-box-enlarged { background: rgba(0, 0, 0, 0.7); height: auto; padding: 20px; width: 80%; text-align: left; top: 10%; bottom: auto; }
 .campaign-fullpage-light .prize-box-enlarged .prize-box-part { display: inline-block; }
@@ -61,8 +61,11 @@
 .campaign-fullpage-light .chance-entrant a span span{ color: #FF4136; }
 
 /***** Enter Contest Widget *****/
-.campaign-fullpage-light .terms-box { width: 30%; height: 60% ; background-color: white; overflow: auto; padding: 10px; font-size: 12px; }
-.campaign-fullpage-light .terms-box .close { position: absolute; top: 0; right:0; }
+.campaign-fullpage-light .terms-box { width: 30%; height: 60% ; background-color: white; overflow: auto; padding: 10px; font-size: 12px; padding: 20px; overflow: hidden; text-align: center; }
+.campaign-fullpage-light .terms-box textarea { resize: none; height: 75%; overflow-x: hidden; width: 80%; display: inline-block; font-size: 10px; }
+.campaign-fullpage-light .terms-box button { margin-top: 10px; background-color: #FF4136; color: white; border: 0; padding: 5px 20px; border-radius: 5px; font-weight: bold; outline: 0; cursor: pointer;}
+.campaign-fullpage-light .terms-box h2 { margin-top: 0; }
+.campaign-fullpage-light .terms-box .close { position: absolute; top: 5px; right: 5px; cursor: pointer; }
 .campaign-fullpage-light .requirement { padding-bottom: 5px; width: 270px; margin: 0 auto; }
 .campaign-fullpage-light .requirement label { font-size: 14px; color: #444; }
 .campaign-fullpage-light .requirement a { color: #FF4136; text-decoration: none; font-weight: bold; }

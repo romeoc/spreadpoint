@@ -77,6 +77,12 @@
     SpreadPoint.Front.EnterContest = {
         init: function() {
             var self = this;
+            
+            $('.terms-agree').on('click', function() {
+                $('#terms').trigger('click');
+                $('.terms-box .close').trigger('click');
+            });
+            
             $('#enter-contest').submit(function(e){
                 e.preventDefault();
                 

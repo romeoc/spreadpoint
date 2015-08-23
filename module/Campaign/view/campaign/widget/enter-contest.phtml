@@ -23,12 +23,16 @@
                 <a class="show-terms" href="javascript:void(0);">Terms & Conditions</a>
             </label>
             <div class="terms-box hide">
-                <?php if ($campaign['termsAndConditions']): ?>
-                    <?php echo $campaign['termsAndConditions']; ?>
-                <?php else: ?>
-                    <?php echo $helper->getDefaultTerms($campaign); ?>
-                <?php endif; ?>
-                <span class="close">X</span>
+                <h2>Terms & Conditions</h2>
+                <textarea readonly>
+                    <?php if ($campaign['termsAndConditions']): ?>
+                        <?php echo $campaign['termsAndConditions']; ?>
+                    <?php else: ?>
+                        <?php echo $helper->getDefaultTerms($campaign); ?>
+                    <?php endif; ?>
+                </textarea>
+                <button type="button" class="terms-agree">I agree</button>
+                <span class="close"><i class="fa fa-close"></i></span>
             </div>
         </div>
         <div class="field">
