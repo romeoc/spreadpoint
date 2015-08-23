@@ -202,9 +202,11 @@
             this.body = $('body');
             this.overlay = $('<div class="popup-overlay hide">').prependTo(this.body);
             
-            this.container = $(container).addClass('popup-container');
-            this.action = $(action);
-            this.close = $(close);
+            this.container = (container instanceof $) ? container : $(container);
+            this.action = (action instanceof $) ? action : $(action);
+            this.close = (close instanceof $) ? close : $(close);
+            
+            this.container = this.container.addClass('popup-container');
             this.move = moveContainer;
             
             this.loadEvents();

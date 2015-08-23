@@ -27,13 +27,24 @@
 
 /***** Prizes *****/
 .campaign-fullpage-dark .prizes { text-align: center; margin-bottom: 40px; }
-.campaign-fullpage-dark .prizes .prize-box { display: inline-block; width: 19%; padding: 5px; vertical-align: top; }
-.campaign-fullpage-dark .prizes .prize-box .image { width: 100%; height: 150px; background: transparent none no-repeat center center; background-size: cover; position: relative; cursor: pointer; }
-.campaign-fullpage-dark .prizes .prize-box .overlay { position: absolute; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); }
+.campaign-fullpage-dark .prizes .prize-container { display: inline-block; width: 19%; padding: 5px; vertical-align: top; }
+.campaign-fullpage-dark .prizes .prize-box { width: 100%; height: 150px; background: transparent none no-repeat center center; background-size: cover; position: relative; cursor: pointer; }
 .campaign-fullpage-dark .prizes .prize-box .name { position: absolute; bottom: 0; left: 0; width: 100%; text-align: left; background-color: rgba(0, 0, 0, 0.5); height: 25px; line-height: 25px; color: #BFBFBF; }
-.campaign-fullpage-dark .prizes .prize-box .count { position: absolute; top: 50%; display: block; width: 100%; margin-top: -28px; font-size: 32px; font-weight: bold; color: #BFBFBF; }
-.campaign-fullpage-dark .prizes .prize-box .description { text-align: left; width: 100%; }
-.campaign-fullpage-dark .prizes .prize-box .description span { padding: 7px; text-align: left; display: block; background-color: #141414; color: #BFBFBF; }
+
+.campaign-fullpage-dark .prize-box-enlarged { background: rgba(0, 0, 0, 0.7); height: auto; padding: 20px; width: 80%; text-align: left; top: 10%; bottom: auto; }
+.campaign-fullpage-dark .prize-box-enlarged .prize-box-part { display: inline-block; }
+.campaign-fullpage-dark .prize-box-enlarged .enlarged-image { width: 50%; margin-right: 10px; position: relative; }
+.campaign-fullpage-dark .prize-box-enlarged .enlarged-image img { width: 100%; }
+.campaign-fullpage-dark .prize-box-enlarged .content { width: 45%; vertical-align: top; color: white; }
+.campaign-fullpage-dark .prize-box-enlarged .content h2 { margin: 0; }
+.campaign-fullpage-dark .prize-box-enlarged .content p { text-align: justify; }
+.campaign-fullpage-dark .prize-box-enlarged .close { position: absolute; top: 5px; right: 5px; cursor: pointer; font-size: 24px; }
+
+.campaign-fullpage-dark .prize-box-enlarged .count-wrapper { width: 85px; height: 88px; overflow: hidden; position: absolute; top: -3px; right: -3px; }
+.campaign-fullpage-dark .prize-box-enlarged .count { font: bold 15px Sans-Serif; color: white; text-align: center; text-shadow: rgba(0,0,0,0.5) 0px 1px 0px; -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); position: relative; padding: 7px 0; left: -5px; top: 15px; width: 120px; background-color: #FF4136; background-image: -webkit-gradient(linear, left top, left bottom, from(#FF4136), to(#801515)); background-image: -webkit-linear-gradient(top, #FF4136, #801515); background-image: -moz-linear-gradient(top, #FF4136, #801515); background-image: -ms-linear-gradient(top, #FF4136, #801515); background-image: -o-linear-gradient(top, #FF4136, #801515); -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3); -moz-box-shadow: 0px 0px 3px rgba(0,0,0,0.3); box-shadow: 0px 0px 3px rgba(0,0,0,0.3); }
+.campaign-fullpage-dark .prize-box-enlarged .count:before, .campaign-fullpage-dark .prize-box-enlarged .count:after { content: ""; border-top: 3px solid #801515; border-left: 3px solid transparent; border-right: 3px solid transparent; position:absolute; bottom: -3px; }
+.campaign-fullpage-dark .prize-box-enlarged .count:before { left: 0; }
+.campaign-fullpage-dark .prize-box-enlarged .count:after { right: 0; }​
 
 /***** Widgets - General Layout *****/
 .campaign-fullpage-dark .widgets { clear: both; }

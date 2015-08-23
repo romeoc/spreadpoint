@@ -13,14 +13,23 @@
 <div class="prizes">
     <?php $prizes = json_decode($this->prizeData); ?>
     <?php foreach ($prizes as $prize): ?>
-        <div class="prize-box">
-            <div class="image" style="background-image: url(<?php echo $helper->getBannerUrl($this->campaign, $prize->image); ?>)">
-                <div class="overlay hide">
-                    <span class="count">x<?php echo $prize->count; ?></span>
-                </div>
+        <div class="prize-container">
+            <div class="prize-box" style="background-image: url(<?php echo $helper->getBannerUrl($this->campaign, $prize->image); ?>)">
                 <span class="name">&nbsp;&nbsp;<?php echo $prize->name; ?></span>
             </div>
-            <div class="description hide"><span><?php echo $prize->description; ?></span></div>
+            <div class="prize-box-enlarged hide">
+                <div class="enlarged-image prize-box-part">
+                    <img src="<?php echo $helper->getBannerUrl($this->campaign, $prize->image); ?>" alt="<?php echo $prize->name; ?>" />
+                    <div class="count-wrapper"><div class="count">x <?php echo $prize->count; ?></div></div>
+                </div>
+                <div class="content prize-box-part">
+                    <h2>
+                        <?php echo $prize->name; ?>
+                    </h2>
+                    <p><?php echo $prize->description; ?></p>
+                    <span class="close"><i class="fa fa-close"></i></span>
+                </div>
+            </div>
         </div>
     <?php endforeach; ?>
 </div>
@@ -56,5 +65,18 @@
     $(function() {
         SpreadPoint.Defaults.initializeAccordions();
         SpreadPoint.Defaults.initializeKalypto();
+        
+        $('.prize-box').each(function() {
+            var self = $(this);
+            var target = self.siblings('.prize-box-enlarged');
+            
+            var object = $.extend({}, SpreadPoint.PopUp);
+            object.create(
+                target, 
+                self, 
+                target.find('.close'), 
+                false
+            );
+        });
     });
 </script>
