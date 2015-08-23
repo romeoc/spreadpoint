@@ -47,4 +47,18 @@ class CampaignEntrant extends AbstractEntity
      * @ORM\JoinColumn(name="reference", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $reference;
+    
+    /** 
+     * @ORM\Column(type="datetime", name="created_at", nullable=true) 
+     */
+    protected $createdAt;
+    
+    public function beforeCreate()
+    {
+        if (is_null($this->get('createdAt'))) {
+            $this->set('createdAt', new \DateTime());
+        }
+        
+        return $this;
+    }
 }

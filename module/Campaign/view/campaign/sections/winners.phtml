@@ -1,73 +1,111 @@
 <?php $helper = $this->campaignHelper(); ?>
 <section class="campaign-section-winners">
-    <div class="campaign-cycle campaign-cycle-<?php echo $this->data['cycle']; ?>">
-        <!--<h4>Cycle <?php echo $this->data['cycle']; ?></h4>-->
-        <?php if ($this->data['complete']): ?>
-            <?php $prizes = json_decode($this->prizes); ?>
-            <?php $winners = $this->data['winners']; ?>
-            <?php if ($winners): ?>
-                <?php $index = 0; ?>
-                <div class="winners-box">
-                    <?php foreach ($prizes as $prize): ?>
-                        <div class="prize-row left">
-                            <div class="prize-data">
-                                <span><?php echo $prize->name; ?><i class="fa fa-angle-double-down right"></i></span>
-                                <img src="<?php echo $helper->getBaseImagePath($this->campaign) . $prize->image ?>" alt="<?php echo $prize->name; ?>" />
-                            </div>
-                            <div class="winners-data hide">
-                                <?php while (array_key_exists($index, $winners) && $winners[$index]['prize'] == $prize->id): ?>
-                                    <span><?php echo $winners[$index]['name']; ?></span>
-                                    <?php $index++; ?>
-                                <?php endwhile; ?>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <div class="select-winners">
-                    <div class="prizes-list left">
+    <?php $startDate = new \DateTime('2000-01-01'); ?>
+    <?php foreach ($this->data as $cycle => $data): ?>
+        <div class="campaign-cycle campaign-cycle-<?php echo $cycle; ?>" data-cycle="<?php echo $cycle; ?>">
+            <?php if ($data['complete']): ?>
+                <?php $prizes = json_decode($this->prizes); ?>
+                <?php $winners = $data['winners']; ?>
+                <?php if ($winners): ?>
+                    <?php if (count($this->data) > 1): ?>
+                        <h4 class="cycle-title complete">
+                            Cycle <?php echo $cycle; ?>
+                            <span>(Complete)</span>
+                            <i class="fa fa-angle-double-down"></i>
+                        </h4>
+                    <?php endif; ?>
+                    <?php $index = 0; ?>
+                    <div class="winners-box winners-content hide">
                         <?php foreach ($prizes as $prize): ?>
-                            <div class="winner-prize" data-prize="<?php echo $prize->id; ?>" data-count="<?php echo $prize->count; ?>" data-name="<?php echo $prize->name; ?>">
-                                <img src="<?php echo $helper->getBaseImagePath($this->campaign) . $prize->image ?>" alt="<?php echo $prize->name; ?>" data-prize="<?php echo $prize->id; ?>" />
-                                <div class="overlay"></div>
-                                <span class="title"><?php echo substr($prize->name, 0, 25); ?><?php if (strlen($prize->name) > 25) { echo '...'; } ?></span>
-                                <span class="number">x<span class="count"><?php echo $prize->count; ?></span></span>
+                            <div class="prize-row left">
+                                <div class="prize-data">
+                                    <span><?php echo $prize->name; ?><i class="fa fa-angle-double-down right"></i></span>
+                                    <img src="<?php echo $helper->getBaseImagePath($this->campaign) . $prize->image ?>" alt="<?php echo $prize->name; ?>" />
+                                </div>
+                                <div class="winners-data hide">
+                                    <?php while (array_key_exists($index, $winners) && $winners[$index]['prize'] == $prize->id): ?>
+                                        <span><?php echo $winners[$index]['name']; ?></span>
+                                        <?php $index++; ?>
+                                    <?php endwhile; ?>
+                                </div>
                             </div>
                         <?php endforeach; ?>
                     </div>
-                    <div class="entrants-list left">
-                        <?php foreach ($this->entrants as $entrant): ?>
-                            <div class="winner-entrant" data-entrant="<?php echo $entrant['data']['id']; ?>" data-chance="<?php echo $entrant['chances']; ?>">
-                                <div class="prizes-won"></div>
-                                <span class="email"><?php echo $entrant['data']['name']; ?></span>
-                                <span class="chances"><i class="fa fa-ticket" title="Chances earned"></i><?php echo $entrant['chances']; ?></span>
-                                <span class="widgets"><i class="fa fa-gears" title="Widgets Completed"></i><?php echo $entrant['widgets']; ?></span>
-                                <span class="references"><i class="fa fa-comments" title="References Brought"></i><?php echo $entrant['reference']; ?></span>
-                            </div>
-                        <?php endforeach; ?>
+                <?php else: ?>
+                    <?php if (count($this->data) > 1): ?>
+                        <h4 class="cycle-title finished">
+                            Cycle <?php echo $cycle; ?>
+                            <span>(Select Winners)</span>
+                            <i class="fa fa-angle-double-down"></i>
+                        </h4>
+                    <?php endif; ?>
+                    <div class="select-winners winners-content hide">
+                        <div class="prizes-list left">
+                            <?php foreach ($prizes as $prize): ?>
+                                <div class="winner-prize" data-prize="<?php echo $prize->id; ?>" data-count="<?php echo $prize->count; ?>" data-name="<?php echo $prize->name; ?>">
+                                    <img src="<?php echo $helper->getBaseImagePath($this->campaign) . $prize->image ?>" alt="<?php echo $prize->name; ?>" data-prize="<?php echo $prize->id; ?>" />
+                                    <div class="overlay"></div>
+                                    <span class="title"><?php echo substr($prize->name, 0, 25); ?><?php if (strlen($prize->name) > 25) { echo '...'; } ?></span>
+                                    <span class="number">x<span class="count"><?php echo $prize->count; ?></span></span>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <div class="entrants-list left">
+                            <?php $entrantsCount = 0; ?>
+                            <?php foreach ($this->entrants as $entrant): ?>
+                                <?php if ($entrant['data']['createdAt'] >=  $startDate && $entrant['data']['createdAt'] < $data['endTime']): ?>
+                                    <?php $entrantsCount++; ?>
+                                    <div class="winner-entrant" data-entrant="<?php echo $entrant['data']['id']; ?>" data-chance="<?php echo $entrant['chances']; ?>">
+                                        <div class="prizes-won"></div>
+                                        <span class="email"><?php echo $entrant['data']['name']; ?></span>
+                                        <span class="chances"><i class="fa fa-ticket" title="Chances earned"></i><?php echo $entrant['chances']; ?></span>
+                                        <span class="widgets"><i class="fa fa-gears" title="Widgets Completed"></i><?php echo $entrant['widgets']; ?></span>
+                                        <span class="references"><i class="fa fa-comments" title="References Brought"></i><?php echo $entrant['reference']; ?></span>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                            <?php if ($entrantsCount === 0): ?>
+                                <div class="no-entrants">
+                                    <span>No entrants subscribed :(</span>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="choose-winner-actions right">
+                            <button type="button" class="action-reset"><i class="fa fa-refresh"></i>Reset Selection</button>
+                            <button type="button" class="action-random"><i class="fa fa-random"></i>Randomize Prize</button>
+                            <button type="button" class="action-random-all"><i class="fa fa-random"></i>Randomize All</button>
+                            <button type="button" class="action-confirm"><i class="fa fa-check"></i>Confirm Winners</button>
+                        </div>
                     </div>
-                    <div class="choose-winner-actions right">
-                        <button type="button" class="action-reset"><i class="fa fa-refresh"></i>Reset Selection</button>
-                        <button type="button" class="action-random"><i class="fa fa-random"></i>Randomize Prize</button>
-                        <button type="button" class="action-random-all"><i class="fa fa-random"></i>Randomize All</button>
-                        <button type="button" class="action-confirm"><i class="fa fa-check"></i>Confirm Winners</button>
-                    </div>
+                <?php endif; ?>
+            <?php else: ?>
+                <h4 class="cycle-title in-progress">
+                    <?php if (count($this->data) > 1): ?>
+                        Cycle <?php echo $cycle; ?>
+                        <span>(In Progress)</span>
+                    <?php else: ?>
+                        In Progress
+                    <?php endif; ?>
+
+                    <i class="fa fa-angle-double-down"></i>
+                </h4>
+                <div class="ongoing winners-content hide">
+                    <p>
+                        Your campaign is still running. You can announce the winners once it ends on 
+                        <strong>
+                            <?php echo $data['endTime']->format('Y-m-d H:i:s'); ?>
+                            <?php echo $data['endTime']->getTimezone()->getName(); ?>
+                        </strong>
+                    </p>
                 </div>
             <?php endif; ?>
-        <?php else: ?>
-        <p>
-            Your campaign is still running. You can announce the winners once it ends on 
-            <strong>
-                <?php echo $this->data['endTime']->format('Y-m-d H:i:s'); ?>
-                <?php echo $this->data['endTime']->getTimezone()->getName(); ?>
-            </strong>
-        </p>
-        <?php endif; ?>
-    </div>
+        </div>
+        <?php $startDate = $data['endTime']; ?>
+    <?php endforeach; ?>
 </section>
 <script type="text/javascript">
     SpreadPoint.Campaign.Winner.init();
-    $('.prize-data').on('click', function(){
+    $('.prize-data, .cycle-title').on('click', function(){
         var $this = $(this);
         $this.siblings('.winners-data').slideToggle();
         $this.find('i').toggleClass('fa-angle-double-up fa-angle-double-down');

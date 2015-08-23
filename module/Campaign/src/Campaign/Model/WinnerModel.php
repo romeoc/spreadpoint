@@ -18,6 +18,7 @@ use Base\Model\Mail;
 use User\Helper\UserHelper;
 use Campaign\Entity\Campaign;
 use Campaign\Entity\CampaignWinner;
+use Campaign\Model\CampaignModel;
 
 class WinnerModel extends AbstractModel
 {
@@ -88,8 +89,13 @@ class WinnerModel extends AbstractModel
             $this->getEntityManager()->flush();
             Session::success('All winners data was saved');
             
-            $campaign->set('status', Campaign::STATUS_FINISHED);
-            $this->getEntityManager()->flush();
+            $campaignModel = new CampaignModel();
+            $campaignModel->setServiceLocator($this->getServiceLocator());
+            
+            if ($campaignModel->isCampaignComplete($campaign)) {
+                $campaign->set('status', Campaign::STATUS_FINISHED);
+                $this->getEntityManager()->flush();
+            }
             
             $this->notifyWinners($peopleToNotify, $campaign);
             
@@ -114,7 +120,7 @@ class WinnerModel extends AbstractModel
         Session::success('All winners have been notified');
     }
     
-    public function getWinnersForCampaign($campaignId)
+    public function getWinnersForCampaign($campaignId, $timeFilters = null)
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
         
@@ -130,8 +136,19 @@ class WinnerModel extends AbstractModel
             ->innerJoin('Campaign\Entity\CampaignEntrant', 'e', 'WITH', 'w.entrant = e.id')
             ->where($queryBuilder->expr()->in('w.prize', $prizes))
             ->setParameter('campaign', $campaignId)
-            ->orderBy('w.prize')
-            ->getQuery()
+            ->orderBy('w.prize');
+        
+        if ($timeFilters && array_key_exists('from', $timeFilters)) {
+            $winners->andWhere('e.createdAt >= :fromDate')
+                ->setParameter('fromDate', $timeFilters['from']);
+        }
+        
+        if ($timeFilters && array_key_exists('to', $timeFilters)) {
+            $winners->andWhere('e.createdAt < :endDate')
+                ->setParameter('endDate', $timeFilters['to']);
+        }
+        
+        $winners = $winners->getQuery()
             ->setHint(Query::HINT_INCLUDE_META_COLUMNS, true)
             ->getArrayResult();
         

@@ -1272,6 +1272,7 @@
             this.possibilities = [];
             this.prize = null;
             this.count = 0;
+            this.cycle = 0;
             
             this.loadEvents();
             this.loadActions();
@@ -1279,125 +1280,154 @@
         loadEvents: function() {
             var self = this;
             
-            $('.winner-prize').on('click', function() {
-                var element = $(this);
-                self.prize = element.data('prize');
-                self.count = element.data('count');
-                
-                element.addClass('selected')
-                    .siblings().removeClass('selected');
+            $('.cycle-title').on('click', function() {
+                $(this).siblings('.winners-content').slideToggle();
             });
             
-            $('.winner-entrant').on('click', function(){
-                var element = $(this);
-                if (!self.prize) {
-                    SpreadPoint.Campaign.Controller.logError('Please select a prize first','.winners', null, null);
-                    return false;
-                }
+            $('.winners-content').last().show()
+                .siblings('.cycle-title').find('i').toggleClass('fa-angle-double-up fa-angle-double-down');
+            
+            $('.campaign-cycle').each(function() {
+                var cycle = $(this);
+                var cycleId = cycle.data('cycle');
                 
-                var winners = self.selection[self.prize];
-                if (!winners) {
-                    winners = [];
-                }
-                
-                var entrant = element.data('entrant');
-                if (winners.indexOf(entrant) === -1 && winners.length < self.count) {
-                    winners.push(entrant);
-                    
-                    var left = self.count - winners.length;
-                    var prizeElement = $('.prizes-list').find('[data-prize="' + self.prize +'"]');
-                    prizeElement.find('.count').html(left);
-                    
-                    var imageHtml = prizeElement.find('img').clone();
-                    imageHtml.attr('width', 25).off('click');
-                    element.find('.prizes-won').append(imageHtml);
-                    
-                    imageHtml.on('click', function() {
-                        var $this = $(this);
-                        
-                        var key = $this.data('prize');
-                        var value = $this.closest('.winner-entrant').data('entrant');
-                        $this.remove();
-                        
-                        var selection = self.selection[key];
-                        var index = selection.indexOf(value);
-                        if (index > -1) {
-                            selection.splice(index, 1);
-                        }
-                        
-                        self.selection[key] = selection;
-                        
-                        var prizeElement = $('.prizes-list').find('[data-prize="' + key +'"] .count');
-                        var count = prizeElement.html();
-                        prizeElement.html(++count);
-                        
+                cycle.find('.winner-prize').on('click', function() {
+                    var element = $(this);
+                    self.cycle = cycleId;
+                    self.prize = element.data('prize');
+                    self.count = element.data('count');
+
+                    $('.winner-prize').removeClass('selected');
+                    element.addClass('selected');
+                });
+
+                cycle.find('.winner-entrant').on('click', function(){
+                    var element = $(this);
+                    if (!self.prize || cycleId != self.cycle) {
+                        SpreadPoint.Campaign.Controller.logError('Please select a prize first','.winners', null, null);
                         return false;
-                    });
-                }
-                
-                self.selection[self.prize] = winners;
+                    }
+
+                    if (!self.selection[cycleId]) {
+                        self.selection[cycleId] = [];
+                    }
+                    
+                    var winners = self.selection[cycleId][self.prize];
+                    if (!winners) {
+                        winners = [];
+                    }
+
+                    var entrant = element.data('entrant');
+                    if (winners.indexOf(entrant) === -1 && winners.length < self.count) {
+                        winners.push(entrant);
+
+                        var left = self.count - winners.length;
+                        var prizeElement = cycle.find('.prizes-list').find('[data-prize="' + self.prize +'"]');
+                        prizeElement.find('.count').html(left);
+
+                        var imageHtml = prizeElement.find('img').clone();
+                        imageHtml.attr('width', 25).off('click');
+                        element.find('.prizes-won').append(imageHtml);
+
+                        imageHtml.on('click', function() {
+                            var $this = $(this);
+
+                            var key = $this.data('prize');
+                            var value = $this.closest('.winner-entrant').data('entrant');
+                            $this.remove();
+
+                            var selection = self.selection[cycleId][key];
+                            var index = selection.indexOf(value);
+                            if (index > -1) {
+                                selection.splice(index, 1);
+                            }
+
+                            self.selection[cycleId][key] = selection;
+
+                            var prizeElement = cycle.find('.prizes-list').find('[data-prize="' + key +'"] .count');
+                            var count = prizeElement.html();
+                            prizeElement.html(++count);
+
+                            return false;
+                        });
+                    }
+
+                    self.selection[cycleId][self.prize] = winners;
+                });
             });
         },
         loadActions: function() {
             var self = this;
-            $('.action-reset').on('click', function() {
-                self.selection = [];
+            
+            $('.campaign-cycle').each(function() {
+                var cycle = $(this);
+                var cycleId = cycle.data('cycle');
                 
-                $('.prizes-won img').remove();
-                
-                $('.winner-prize .count').each(function() {
-                    var $this = $(this);
-                    var originalCount = $this.closest('.winner-prize').data('count');
-                    $this.html(originalCount);
+                cycle.find('.action-reset').on('click', function() {
+                    self.selection[cycleId] = [];
+
+                    cycle.find('.prizes-won img').remove();
+
+                    cycle.find('.winner-prize .count').each(function() {
+                        var $this = $(this);
+                        var originalCount = $this.closest('.winner-prize').data('count');
+                        $this.html(originalCount);
+                    });
                 });
-            });
-            
-            $('.action-random').on('click', function() {
-                if (!self.prize) {
-                    SpreadPoint.Campaign.Controller.logError('Please select a prize first','.winners', null, null);
-                    return false;
-                }
-                
-                self.randomize();
-            });
-            
-            $('.action-random-all').on('click', function() {
-                $('.winner-prize').each(function() {
-                    $(this).trigger('click');
-                    self.randomize() ;
+
+                cycle.find('.action-random').on('click', function() {
+                    if (!self.prize || cycleId != self.cycle) {
+                        SpreadPoint.Campaign.Controller.logError('Please select a prize first','.winners', null, null);
+                        return false;
+                    }
+
+                    self.randomize(cycle);
                 });
-            });
-            
-            $('.action-confirm').on('click', function(){
-                if (self.validateSelection() && confirm("Are you sure? Winners cannot be changed.")) {
-                    var data = JSON.stringify($.extend({}, self.selection));
-                    $('.campaign-section-winners').prepend('<input type="hidden" name="winners-serialized" value=\'' + data + '\'/>');
-                    $('#campaign').attr('action','/campaign/saveWinners/').submit();
-                }
+
+                cycle.find('.action-random-all').on('click', function() {
+                    cycle.find('.winner-prize').each(function() {
+                        $(this).trigger('click');
+                        self.randomize(cycle) ;
+                    });
+                });
+
+                cycle.find('.action-confirm').on('click', function(){
+                    if (self.validateSelection(cycle) && confirm("Are you sure? Winners cannot be changed.")) {
+                        var data = JSON.stringify($.extend({}, self.selection[cycleId]));
+                        $('.campaign-section-winners').prepend('<input type="hidden" name="winners-serialized" value=\'' + data + '\'/>');
+                        $('#campaign').attr('action','/campaign/saveWinners/').submit();
+                    }
+                });
             });
         },
-        randomize: function() {
+        randomize: function(cycle) {
             var self = this;
             var prize = this.prize;
             
-            if (this.possibilities.length === 0) {
-                $('.winner-entrant').each(function() {
+            var cycleId = cycle.data('cycle');
+            
+            if (!this.possibilities[cycleId]) {
+                this.possibilities[cycleId] = [];
+            }
+            
+            if (this.possibilities[cycleId].length === 0) {
+                cycle.find('.winner-entrant').each(function() {
                     var $this = $(this);
                     var entrant = $this.data('entrant');
                     var chances = $this.data('chance');
                     
                     for (var i = 0; i < chances; i++) {
-                        self.possibilities.push(entrant);
+                        self.possibilities[cycleId].push(entrant);
                     }
                 });
             }
             
             var winners = [];
-            var count = $('.prizes-list').find('[data-prize="' + prize +'"]').data('count');
-            var possibilities = this.possibilities.slice();
+            var count = cycle.find('.prizes-list').find('[data-prize="' + prize +'"]').data('count');
+            var possibilities = this.possibilities[cycleId].slice();
                 
             while (winners.length < count && possibilities.length > 0) {
-                var winner = this.possibilities[Math.floor(Math.random() * this.possibilities.length)];
+                var winner = this.possibilities[cycleId][Math.floor(Math.random() * this.possibilities[cycleId].length)];
                 if (winners.indexOf(winner) === -1) {
                     winners.push(winner);
                     possibilities = possibilities.filter(function(element) {
@@ -1407,27 +1437,28 @@
             }
             
             winners.forEach(function(element) {
-                $('.entrants-list').find('[data-entrant="' + element +'"]').trigger('click');
+                cycle.find('.entrants-list').find('[data-entrant="' + element +'"]').trigger('click');
             });
         },
-        validateSelection: function() {
+        validateSelection: function(cycle) {
             var self = this;
-            var entrantsCount = $('.winner-entrant').length;
+            var entrantsCount = cycle.find('.winner-entrant').length;
+            var cycleId = cycle.data('cycle');
             
-            if (this.selection.length === 0) {
+            if (!this.selection[cycleId] || this.selection[cycleId].length === 0) {
                 SpreadPoint.Campaign.Controller.logError('Please select your winners.','.winners', null, null);
                 return false;
             }
             
             var success  = true;
-            $(".winner-prize").each(function(){
+            cycle.find(".winner-prize").each(function(){
                 var element = $(this);
                 var prize = element.data('prize');
                 var count = element.data('count');
                 
-                if ( !(prize in self.selection)
-                        || (count !== self.selection[prize].length 
-                        && entrantsCount !== self.selection[prize].length)
+                if ( !(prize in self.selection[cycleId])
+                        || (count !== self.selection[cycleId][prize].length 
+                        && entrantsCount !== self.selection[cycleId][prize].length)
                 ) {
                     var message = 'You didn\'t give out all your prizes for <strong>'
                         + element.data('name')

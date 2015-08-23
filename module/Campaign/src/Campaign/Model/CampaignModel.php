@@ -512,7 +512,7 @@ class CampaignModel extends AbstractModel
             ->getResult(Query::HYDRATE_ARRAY);
     }
     
-    public function getWinnersData($campaign)
+    public function getWinnersData2($campaign)
     {
         $now = new \DateTime('', new \DateTimeZone($campaign['timezone']));
         $startTime = new \DateTime($campaign['startTime'], new \DateTimeZone($campaign['timezone']));
@@ -543,7 +543,115 @@ class CampaignModel extends AbstractModel
             
             $data['winners'] = $model->getWinnersForCampaign($campaign['id']);
         }
+
+        return $data;
+    }
+    
+    public function getWinnersData($campaign)
+    {
+        $data = array();
+        $model = new WinnerModel();
+        $model->setServiceLocator($this->getServiceLocator());
+        
+        $now = new \DateTime('', new \DateTimeZone($campaign['timezone']));
+        $startTime = new \DateTime($campaign['startTime'], new \DateTimeZone($campaign['timezone']));
+        
+        $endTime = false;
+        $count = 1;
+        
+        if ($campaign['type'] == CampaignEntity::CAMPAIGN_TYPE_SINGLE) {
+            $endTime = new \DateTime($campaign['endTime'], new \DateTimeZone($campaign['timezone']));
+            
+            $row = array('endTime' => $endTime, 'complete' => false);
+            if ($endTime < $now) {
+                $row['complete'] = true;
+                $row['winners'] = $model->getWinnersForCampaign($campaign['id']);
+            }
+            
+            $data[$count] = $row;
+            
+        } else {
+            $endTime = clone $startTime;
+            $endTime->modify("+{$campaign['cycleDuration']} days");
+
+            while (($count < $campaign['cyclesCount'] || $campaign['cyclesCount'] == 0) && $endTime < $now) {
+                
+                $row = array('endTime' => clone $endTime, 'complete' => false);
+                if ($endTime < $now) {
+                    $row['complete'] = true;
+                    $timeFilters = array('from' => $startTime, 'to' => $endTime);
+                    $row['winners'] = $model->getWinnersForCampaign($campaign['id'], $timeFilters);
+                }
+
+                $data[$count] = $row;
+                
+                $startTime = clone $endTime;
+                $endTime->modify("+{$campaign['cycleDuration']} days");
+                $count++;
+            }
+            
+            $row = array('endTime' => $endTime, 'complete' => false);
+            if ($endTime < $now) {
+                $row['complete'] = true;
+                $row['winners'] = $model->getWinnersForCampaign($campaign['id']);
+            }
+            
+            $data[$count] = $row;
+        }
         
         return $data;
+    }
+    
+    public function isCampaignComplete($campaign)
+    {
+        if ($campaign->get('type') === CampaignEntity::CAMPAIGN_TYPE_SINGLE) {
+            return true;
+        }
+        
+        $dateParts = array();
+        $cycle = 0;
+        
+        $duration = $campaign->get('cycleDuration');
+        $totalCycles = $campaign->get('cyclesCount');
+        
+        $startDate = $campaign->get('startTime');
+        $startDate->setTimeZone(new \DateTimeZone($campaign->get('timezone')));
+        
+        if ($totalCycles == 0) {
+            return false;
+        }
+
+        while ($cycle < $totalCycles) {
+            $cycle++;
+            $endDate = clone $startDate;
+            $endDate->modify("+{$duration} days");
+            
+            $dataParts[] = array('from' => $startDate->format('Y-m-d H:i:s'), 'to' => $endDate->format('Y-m-d H:i:s'));
+            
+            $startDate = $endDate;
+        }
+        
+        $query = 'SELECT ';
+        foreach($dataParts as $part) {
+            $cycleCondition = 'EXISTS( '
+                . 'SELECT id FROM campaign_entrant '
+                . 'WHERE created_at >= ":startTime" '
+                . 'AND created_at < ":endTime" '
+                . 'LIMIT 1'
+                . ') AND ';
+            
+            $cycleCondition = str_replace(':startTime', $part['from'], $cycleCondition);
+            $cycleCondition = str_replace(':endTime', $part['to'], $cycleCondition);
+            $query .= $cycleCondition;
+        }
+
+        $query = substr($query, 0, -4);
+        $query .= 'AS finished';
+        
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        
+        $result = $stmt->fetch();
+        return (bool) $result['finished'];
     }
 }

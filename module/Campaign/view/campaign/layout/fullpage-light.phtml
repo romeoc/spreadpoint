@@ -7,11 +7,26 @@
     <div class="banner">
         <img src="<?php echo $helper->getBannerUrl(); ?>" alt="<?php echo $helper->get('title'); ?>" />
     </div>
+    
     <div class="hero">
         <h1 class="title" style="<?php echo $helper->get('titleCss'); ?>"><?php echo $helper->get('title'); ?></h1>
         <p class="description" style="<?php echo $helper->get('descriptionCss'); ?>"><?php echo $helper->get('description'); ?></p>
     </div>
-    <div class="prizes"></div>
+    
+    <div class="prizes">
+        <?php $prizes = json_decode($this->prizeData); ?>
+        <?php foreach ($prizes as $prize): ?>
+            <div class="prize-box">
+                <div class="image" style="background-image: url(<?php echo $helper->getBannerUrl($this->campaign, $prize->image); ?>)">
+                    <div class="overlay hide">
+                        <span class="count">x<?php echo $prize->count; ?></span>
+                    </div>
+                    <span class="name">&nbsp;&nbsp;<?php echo $prize->name; ?></span>
+                </div>
+                <div class="description hide"><span><?php echo $prize->description; ?></span></div>
+            </div>
+        <?php endforeach; ?>
+    </div>
     
     <div class="widgets-container">
         <?php echo $this->partial('application/session/global-messages', array('global_messages' => $this->messages)); ?>
@@ -42,8 +57,20 @@
 </div>
 
 <script type="text/javascript">
-    $(function(){
+    $(function() {
         SpreadPoint.Defaults.initializeAccordions();
         SpreadPoint.Defaults.initializeKalypto();
+        
+        $('.prize-box').on('mouseenter', function() {
+            var self = $(this);
+
+            self.find('.overlay').show();
+            self.find('.description').slideDown();
+        }).on('mouseleave', function() {
+            var self = $(this);
+            self.find('.description').slideUp(function(){
+                self.find('.overlay').hide();
+            });
+        });
     });
 </script>

@@ -94,10 +94,10 @@ class CampaignEntrant extends \Campaign\Entity\CampaignEntrant implements \Doctr
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'campaign', 'email', 'name', 'reference');
+            return array('__isInitialized__', 'id', 'campaign', 'email', 'name', 'reference', 'createdAt');
         }
 
-        return array('__isInitialized__', 'id', 'campaign', 'email', 'name', 'reference');
+        return array('__isInitialized__', 'id', 'campaign', 'email', 'name', 'reference', 'createdAt');
     }
 
     /**
@@ -206,6 +206,17 @@ class CampaignEntrant extends \Campaign\Entity\CampaignEntrant implements \Doctr
     /**
      * {@inheritDoc}
      */
+    public function beforeCreate()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'beforeCreate', array());
+
+        return parent::beforeCreate();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function get($property)
     {
 
@@ -234,17 +245,6 @@ class CampaignEntrant extends \Campaign\Entity\CampaignEntrant implements \Doctr
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'beforeSave', array());
 
         return parent::beforeSave();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function beforeCreate()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'beforeCreate', array());
-
-        return parent::beforeCreate();
     }
 
     /**

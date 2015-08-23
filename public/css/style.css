@@ -381,6 +381,13 @@
 .campaign-section-winners .prize-row .winners-data span { width: 100%; display: inline-block; word-wrap: break-word; padding-left: 10px; }
 .campaign-section-winners .prize-row .winners-data span:nth-child(odd) { background-color: #FFE7E8; }
 
+.campaign-section-winners h4 { padding: 8px; margin-bottom: 20px; color: white; cursor: pointer; font-size: 18px; font-weight: bold; padding-left: 15px; }
+.campaign-section-winners h4 i { float: right; font-size: 34px; padding-right: 5px; }
+.campaign-section-winners h4 span { font-size: 10px; }
+.campaign-section-winners h4.complete { background-color: #57C800; }
+.campaign-section-winners h4.finished { background-color: #008E7A; }
+.campaign-section-winners h4.in-progress { background-color: #D27A15; }
+
 /***** Settings Page *****/
 .settings .settings-menu { border-right: 1px solid #ea474b; height: 640px; list-style: none; margin-left: 0; width: 200px; padding-top: 20px; }
 .settings .settings-header { padding-top: 20px; }

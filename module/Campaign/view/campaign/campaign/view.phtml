@@ -4,7 +4,7 @@
         <?php echo $this->partial($helper->getLayout($this->data['layout']), array(
             'data' => $this->data, 
             'entriesData' => $this->entriesData,
-            'prizeData' => $this->prizeData
+            'prizeData' => $this->prizesData
         )); ?>
     <?php else: ?>
         <span>This contest is not active right now.</span>
