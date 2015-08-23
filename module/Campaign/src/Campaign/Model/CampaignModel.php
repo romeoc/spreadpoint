@@ -579,13 +579,11 @@ class CampaignModel extends AbstractModel
                 $row = array('endTime' => clone $endTime, 'complete' => false);
                 if ($endTime < $now) {
                     $row['complete'] = true;
-                    $timeFilters = array('from' => $startTime, 'to' => $endTime);
-                    $row['winners'] = $model->getWinnersForCampaign($campaign['id'], $timeFilters);
+                    $row['winners'] = $model->getWinnersForCampaign($campaign['id'], $count);
                 }
 
                 $data[$count] = $row;
                 
-                $startTime = clone $endTime;
                 $endTime->modify("+{$campaign['cycleDuration']} days");
                 $count++;
             }

@@ -12,6 +12,7 @@ namespace Campaign\Model;
 
 use Doctrine\ORM\Query;
 
+use Campaign\Entity\CampaignPrize;
 use Base\Model\AbstractModel;
 use Base\Model\Session;
 use User\Helper\UserHelper;
@@ -180,7 +181,7 @@ class PrizeModel extends AbstractModel
     
         // Everything that is left was removed by the user so we delete it
         foreach ($prizeIds as $prizeId) {
-            $this->delete($prizeId);
+            $this->updateStatus($prizeId, CampaignPrize::STATUS_DISABLED);
         }
     }
     
@@ -196,11 +197,29 @@ class PrizeModel extends AbstractModel
         $prizes = $queryBuilder->select('e')
             ->from($this->entity, 'e')
             ->where('e.campaign= :campaign')
+            ->andWhere('e.status= :status')
             ->setParameter('campaign', $campaignId)
+            ->setParameter('status', CampaignPrize::STATUS_ACTIVE)
             ->getQuery()
             ->getResult(Query::HYDRATE_ARRAY);
         
         return $prizes;
+    }
+    
+    /**
+     * Update the status for a prize
+     * 
+     * @param int $entityId
+     * @param int $status
+     */
+    public function updateStatus($entityId, $status) 
+    {
+        $data = array (
+            'id' => $entityId,
+            'status' => $status
+        );
+        
+        $this->update($data);
     }
     
     /**

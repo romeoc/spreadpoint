@@ -28,11 +28,15 @@ class WinnerModel extends AbstractModel
         $this->init('Campaign\Entity\CampaignWinner');
     }
     
-    public function saveWinners($winnersJson) 
+    public function saveWinners($winnersJson, $cycle) 
     {
         if (!$winnersJson) {
             Session::error('Invalid data provided');
             return false;
+        }
+        
+        if (!$cycle) {
+            $cycle = 1;
         }
         
         $winners = json_decode($winnersJson);
@@ -75,6 +79,7 @@ class WinnerModel extends AbstractModel
                 $winner = new CampaignWinner();
                 $winner->set('prize', $prize);
                 $winner->set('entrant', $entrant);
+                $winner->set('cycle', $cycle);
 
                 $this->getEntityManager()->persist($winner);
                 $peopleToNotify[] = array(
@@ -120,7 +125,7 @@ class WinnerModel extends AbstractModel
         Session::success('All winners have been notified');
     }
     
-    public function getWinnersForCampaign($campaignId, $timeFilters = null)
+    public function getWinnersForCampaign($campaignId, $cycle = null)
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
         
@@ -138,14 +143,9 @@ class WinnerModel extends AbstractModel
             ->setParameter('campaign', $campaignId)
             ->orderBy('w.prize');
         
-        if ($timeFilters && array_key_exists('from', $timeFilters)) {
-            $winners->andWhere('e.createdAt >= :fromDate')
-                ->setParameter('fromDate', $timeFilters['from']);
-        }
-        
-        if ($timeFilters && array_key_exists('to', $timeFilters)) {
-            $winners->andWhere('e.createdAt < :endDate')
-                ->setParameter('endDate', $timeFilters['to']);
+        if ($cycle) {
+            $winners->andWhere('w.cycle= :cycle')
+                ->setParameter('cycle', $cycle);
         }
         
         $winners = $winners->getQuery()

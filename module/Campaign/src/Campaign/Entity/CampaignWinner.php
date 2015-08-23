@@ -37,4 +37,9 @@ class CampaignWinner extends AbstractEntity
      * @ORM\JoinColumn(name="entrant_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $entrant;
+    
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    protected $cycle;
 }

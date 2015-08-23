@@ -247,14 +247,15 @@ class CampaignController extends AbstractActionController
     {
         $data = $this->request->getPost();
         $winners = $data['winners-serialized'];
+        $cycle = $data['cycle'];
         
-        if (empty($winners) || !$this->checkAuthentication()) {
+        if (empty($winners) || empty($cycle) || !$this->checkAuthentication()) {
             $this->redirect()->toRoute('campaign');
         } else {
             $model = new WinnerModel();
             $model->setServiceLocator($this->getServiceLocator());
             
-            $result = $model->saveWinners($winners);
+            $result = $model->saveWinners($winners, $cycle);
             
             if ($result) {
                 $this->redirect()->toRoute('campaign', array('action' => 'edit', 'id' => $result));

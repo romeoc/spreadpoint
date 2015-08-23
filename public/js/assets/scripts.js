@@ -15,6 +15,7 @@
             this.initializeDateTimePickers();
             this.initializeHints();
             this.initializeKalypto();
+            this.initializeCountDowns();
         },
         // Mobile right side menu
         initializeMobileMenu: function() {
@@ -112,6 +113,17 @@
         initializeKalypto: function() {
             $('input:checkbox.kalypsify').kalypto();
             $('input:radio.kalypsify').kalypto({toggleClass: "toggleR"});
+        },
+        initializeCountDowns: function() {
+            $(".jq-countdown").each(function() {
+                var self = $(this);
+                var deadline = self.data('deadline');
+                $(this).countdown(deadline, function(event) {
+                    self.text(
+                        event.strftime('%-D day%!D %H:%M:%S')
+                    );
+                });
+            });
         }
     };
     
@@ -1395,6 +1407,7 @@
                     if (self.validateSelection(cycle) && confirm("Are you sure? Winners cannot be changed.")) {
                         var data = JSON.stringify($.extend({}, self.selection[cycleId]));
                         $('.campaign-section-winners').prepend('<input type="hidden" name="winners-serialized" value=\'' + data + '\'/>');
+                        $('.campaign-section-winners').prepend('<input type="hidden" name="cycle" value=\'' + cycleId + '\'/>');
                         $('#campaign').attr('action','/campaign/saveWinners/').submit();
                     }
                 });
@@ -1422,12 +1435,23 @@
                 });
             }
             
-            var winners = [];
+            var winners = [];            
             var count = cycle.find('.prizes-list').find('[data-prize="' + prize +'"]').data('count');
             var possibilities = this.possibilities[cycleId].slice();
-                
+            
+            var allCycleWinners = []; 
+            if (this.selection[cycleId]) {
+                this.selection[cycleId].forEach(function(element) {
+                    allCycleWinners = allCycleWinners.concat(element);
+                });
+            }
+            
+            possibilities = possibilities.filter(function(element) {
+                return allCycleWinners.indexOf(element) === -1;
+            });
+            
             while (winners.length < count && possibilities.length > 0) {
-                var winner = this.possibilities[cycleId][Math.floor(Math.random() * this.possibilities[cycleId].length)];
+                var winner = possibilities[Math.floor(Math.random() * possibilities.length)];
                 if (winners.indexOf(winner) === -1) {
                     winners.push(winner);
                     possibilities = possibilities.filter(function(element) {
@@ -1450,6 +1474,11 @@
                 return false;
             }
             
+            var selectedEntrants = cycle.find('.prizes-won img').length;
+            if (entrantsCount === selectedEntrants) {
+                return true;
+            }
+            
             var success  = true;
             cycle.find(".winner-prize").each(function(){
                 var element = $(this);
@@ -1463,7 +1492,7 @@
                     var message = 'You didn\'t give out all your prizes for <strong>'
                         + element.data('name')
                         + '</strong>';
-                    SpreadPoint.Campaign.Controller.logError(message,'.winners', null, null);
+                    SpreadPoint.Campaign.Controller.logError(message, '.winners', null, null);
                     
                     element.trigger('click');
                     success = false;

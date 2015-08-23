@@ -19,6 +19,9 @@ use Base\Entity\AbstractEntity;
  */
 class CampaignPrize extends AbstractEntity
 {
+    const STATUS_DISABLED = 0;
+    const STATUS_ACTIVE = 1;
+
     /**
     * @ORM\Id
     * @ORM\Column(type="integer")
@@ -51,4 +54,9 @@ class CampaignPrize extends AbstractEntity
      * @ORM\JoinColumn(name="campaign_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $campaign;
+    
+    /**
+     * @ORM\Column(type="smallint", length=1)
+     */
+    protected $status = self::STATUS_ACTIVE;
 }

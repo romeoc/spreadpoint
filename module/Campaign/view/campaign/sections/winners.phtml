@@ -1,4 +1,6 @@
 <?php $helper = $this->campaignHelper(); ?>
+<?php $helper->setData($this->campaign); ?>
+
 <section class="campaign-section-winners">
     <?php $startDate = new \DateTime('2000-01-01'); ?>
     <?php foreach ($this->data as $cycle => $data): ?>
@@ -20,7 +22,7 @@
                             <div class="prize-row left">
                                 <div class="prize-data">
                                     <span><?php echo $prize->name; ?><i class="fa fa-angle-double-down right"></i></span>
-                                    <img src="<?php echo $helper->getBaseImagePath($this->campaign) . $prize->image ?>" alt="<?php echo $prize->name; ?>" />
+                                    <img src="<?php echo $helper->getBannerUrl($helper->get('id'), $prize->image); ?>" alt="<?php echo $prize->name; ?>" />
                                 </div>
                                 <div class="winners-data hide">
                                     <?php while (array_key_exists($index, $winners) && $winners[$index]['prize'] == $prize->id): ?>
@@ -43,7 +45,7 @@
                         <div class="prizes-list left">
                             <?php foreach ($prizes as $prize): ?>
                                 <div class="winner-prize" data-prize="<?php echo $prize->id; ?>" data-count="<?php echo $prize->count; ?>" data-name="<?php echo $prize->name; ?>">
-                                    <img src="<?php echo $helper->getBaseImagePath($this->campaign) . $prize->image ?>" alt="<?php echo $prize->name; ?>" data-prize="<?php echo $prize->id; ?>" />
+                                    <img src="<?php echo $helper->getBannerUrl($helper->get('id'), $prize->image); ?>" alt="<?php echo $prize->name; ?>" data-prize="<?php echo $prize->id; ?>" />
                                     <div class="overlay"></div>
                                     <span class="title"><?php echo substr($prize->name, 0, 25); ?><?php if (strlen($prize->name) > 25) { echo '...'; } ?></span>
                                     <span class="number">x<span class="count"><?php echo $prize->count; ?></span></span>
@@ -93,14 +95,21 @@
                     <p>
                         Your campaign is still running. You can announce the winners once it ends on 
                         <strong>
-                            <?php echo $data['endTime']->format('Y-m-d H:i:s'); ?>
+                            <?php $endTime = $data['endTime']->format('Y-m-d H:i:s'); ?>
+                            <?php echo $endTime; ?>
                             <?php echo $data['endTime']->getTimezone()->getName(); ?>
                         </strong>
+                        <br />
+                        Time left: 
+                        <strong><span class="jq-countdown" data-deadline="<?php echo $endTime; ?>"></span></strong> 
                     </p>
+                    <p></p>
                 </div>
             <?php endif; ?>
         </div>
-        <?php $startDate = $data['endTime']; ?>
+        <?php  if (!$helper->get('retainPreviousEntrants')): ?>
+            <?php $startDate = $data['endTime']; ?>
+        <?php endif; ?>
     <?php endforeach; ?>
 </section>
 <script type="text/javascript">
