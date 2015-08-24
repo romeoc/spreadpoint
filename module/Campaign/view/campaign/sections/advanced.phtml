@@ -15,21 +15,21 @@
     <div class="campaign-form-row custom-form-row custom-row-termsAndConditions">
         <div class="field">
             <label class="termsAndConditions">Terms & Conditions</label>
-            <textarea class="focus-note" name="termsAndConditions"><?php echo $campaignHelper->get('termsAndConditions'); ?></textarea>
+            <textarea class="focus-note" name="termsAndConditions" title="Write or paste the terms and conditions your participants will see."><?php echo $campaignHelper->get('termsAndConditions'); ?></textarea>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-showEntrants">
         <div class="field">
             <label class="showEntrants left">Show Entrants</label>
             <div class="switch">
-                <input title='test' class="click-note jqui-switch" name="showEntrants" type="checkbox" <?php echo $campaignHelper->getChecked('showEntrants'); ?>/>
+                <input class="click-note jqui-switch" name="showEntrants" type="checkbox" <?php echo $campaignHelper->getChecked('showEntrants'); ?> title='NO: Does not let participants know how many others joined the competition. YES: Reveals the total number of participants on the campaign’s page.' />
             </div>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-ageRequirement">
         <div class="field">
         <label class="ageRequirement">Age Requirement</label>
-            <select name="ageRequirement" class="focus-note">
+            <select name="ageRequirement" class="focus-note" title='Depending on the nature of your campaign and your local laws, you may want to set an age restriction.'>
                 <?php foreach($campaignHelper->getAllAgeRequirements() as $ageRequirement): ?>
                     <option value="<?php echo $ageRequirement['value']; ?>" <?php echo $ageRequirement['selected']; ?>><?php echo $ageRequirement['title']; ?></option>
                 <?php endforeach; ?>
@@ -39,20 +39,20 @@
     <div class="campaign-form-row custom-form-row custom-row-welcomeEmail">
         <div class="field">
             <label class="welcomeEmail">Welcome Email</label>
-            <textarea class="focus-note" name="welcomeEmail"><?php echo $campaignHelper->get('welcomeEmail'); ?></textarea>
+            <textarea class="focus-note" name="welcomeEmail" title="Write or paste the content for your initial email to registered users. You can customize the layout with the purchase of a custom package. We recommend using a short and sweet message that thanks your participants for joining. Call to action buttons can be added in Ocean package."><?php echo $campaignHelper->get('welcomeEmail'); ?></textarea>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-winnerEmail">
         <div class="field">
             <label class="winnerEmail">Winner's Email *</label>
-            <textarea name="winnerEmail"><?php echo $campaignHelper->get('winnerEmail'); ?></textarea>
+            <textarea class="focus-note" name="winnerEmail" title="When the big moment comes, the winner will receive this message. We recommend including contact information and the next steps for claiming the prize."><?php echo $campaignHelper->get('winnerEmail'); ?></textarea>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-sendWelcomeEmail">
         <div class="field">
             <label class="sendWelcomeEmail left">Send Welcome Email</label>
             <div class="switch">
-                <input class="click-note jqui-switch" name="sendWelcomeEmail" type="checkbox" <?php echo $campaignHelper->getChecked('sendWelcomeEmail'); ?> />
+                <input class="click-note jqui-switch" name="sendWelcomeEmail" type="checkbox" <?php echo $campaignHelper->getChecked('sendWelcomeEmail'); ?> title="NO: Welcoming emails are disabled for participants that register in your contest. YES: Everyone receives a welcoming email once they register." />
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@
         <div class="field">
             <label class="retainPreviousEntrants left">Retain Previous Entrants</label>
             <div class="switch">
-                <input class="click-note jqui-switch" name="retainPreviousEntrants" type="checkbox" <?php echo $campaignHelper->getChecked('retainPreviousEntrants'); ?> />
+                <input class="click-note jqui-switch" name="retainPreviousEntrants" type="checkbox" <?php echo $campaignHelper->getChecked('retainPreviousEntrants'); ?> title="NO: Your multi-cycle campaign will select newly registered participants and ignore entries from previous periods. YES: Your repeating campaign will consider all participants up to this point when allocating the prizes. In case in which you want to share a big prize at the end of the contest, you should select this option for considering everyone who took part in your contest." />
             </div>
         </div>
     </div>

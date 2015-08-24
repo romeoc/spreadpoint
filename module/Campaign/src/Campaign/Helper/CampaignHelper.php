@@ -80,7 +80,7 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
                 'title'   => 'Light',
                 'classes' => 'first',
                 'id'      => 'fullpage-dark',
-                'note'    => 'Light',
+                'note'    => 'This layout consists of brighter elements. It goes well with darker backgrounds.',
                 'template'=> 'campaign/layout/fullpage-light.phtml'
             ),
             array(
@@ -89,7 +89,7 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
                 'title'   => 'Dark',
                 'classes' => 'first',
                 'id'      => 'fullpage-light',
-                'note'    => 'Dark',
+                'note'    => 'This layout has darker elements. It goes well with both darker and lighter backgrounds.',
                 'template'=> 'campaign/layout/fullpage-dark.phtml'
             ),
         );
@@ -163,7 +163,7 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
                 'title'   => 'One Time',
                 'classes' => 'first',
                 'id'      => 'one-time',
-                'note'    => 'One Time Competition'
+                'note'    => 'In a one time contest, the prizes will be distributed at the end of the contest'
             ),
             array(
                 'checked' => '',
@@ -171,7 +171,7 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
                 'title'   => 'Repeating',
                 'classes' => 'last',
                 'id'      => 'repeating',
-                'note'    => 'Repeated Competition'
+                'note'    => 'A repeating contest gives you the option of having winners periodically. For this contest, your selected prizes will be distributed every cycle. Note that the number of prizes you choose will be distributed in every cycle, not for all cycles collectively!'
             ),
         );
         

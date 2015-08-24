@@ -15,18 +15,18 @@
     </div>
     <div class="campaign-form-row custom-form-row custom-row-startime">
         <div class="field">
-            <label class="title">Start Date *</label><input class="jq-datetimepicker focus-note" type="text" name="startTime" value="<?php echo $campaignHelper->get('startTime'); ?>"/>
+            <label class="title">Start Date *</label><input class="jq-datetimepicker focus-note" type="text" name="startTime" value="<?php echo $campaignHelper->get('startTime'); ?>" title="Here goes the date and time at which the competition will start." />
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-endtime">
         <div class="field">
-            <label class="title">End Date *</label><input class="jq-datetimepicker focus-note" type="text" name="endTime" value="<?php echo $campaignHelper->get('endTime'); ?>" />
+            <label class="title">End Date *</label><input class="jq-datetimepicker focus-note" type="text" name="endTime" value="<?php echo $campaignHelper->get('endTime'); ?>" title="This marks the end of the competition, date after which participants cannot register anymore and you can select the winners." />
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-timezone">
         <div class="field">
             <label class="timezone">Time Zone *</label>
-            <select name="timezone" class="focus-note">
+            <select name="timezone" class="focus-note" title="Selecting your time zone gives context to the chosen time frame">
                 <?php foreach($campaignHelper->getTimezones() as $timezone): ?>
                     <option value="<?php echo $timezone ?>" <?php if ($campaignHelper->get('timezone') == $timezone) { echo 'selected'; } ?>><?php echo $timezone ?></option>
                 <?php endforeach; ?>
@@ -35,12 +35,12 @@
     </div>
     <div class="campaign-form-row custom-form-row custom-row-cycleDuration">
         <div class="field">
-            <label class="cycleDuration">Cycle Duration *</label><input class="focus-note" name="cycleDuration" type="text" value="<?php echo $campaignHelper->get('cycleDuration'); ?>" title="In days" />
+            <label class="cycleDuration">Cycle Duration *</label><input class="focus-note" name="cycleDuration" type="text" value="<?php echo $campaignHelper->get('cycleDuration'); ?>" title="This field records the length of one cycle, in days!" />
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-cyclesCount">
         <div class="field">
-            <label class="cyclesCount">Cycles Count *</label><input class="focus-note" name="cyclesCount" type="text" value="<?php echo $campaignHelper->get('cyclesCount'); ?>" title="Set 0 for an infinte number of cycles." />
+            <label class="cyclesCount">Cycles Count *</label><input class="focus-note" name="cyclesCount" type="text" value="<?php echo $campaignHelper->get('cyclesCount'); ?>" title="This field records the number of periods you would like your campaign to have." />
         </div>
     </div>
 </section>
