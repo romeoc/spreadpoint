@@ -14,9 +14,15 @@ use Zend\Mail\Message;
 use Zend\Mail\Transport\Sendmail;
 use Zend\Mime\Part as MimePart;
 use Zend\Mime\Message as MimeMessage;
+use Zend\View\Model\ViewModel;
 
 class Mail
 {
+    /**
+     * The email template to be used
+     */
+    const TEMPLATE = 'email/templates/default';
+    
     /**
      * On what email the message will be sent
      * @var string 
@@ -35,8 +41,15 @@ class Mail
             $fromEmail = self::EMAIL, 
             $fromName = self::NAME, 
             $toEmail = self::EMAIL, 
-            $toName = self::NAME
+            $toName = self::NAME,
+            $service = null
     ) {
+        
+        if ($service) {
+            $body = self::getContent($service, $body, self::TEMPLATE);
+        }
+        
+        var_dump($body); die;
         
         $html = new MimePart($body);
         $html->type = "text/html";
@@ -57,5 +70,19 @@ class Mail
         } catch (\Exception $e) {
             return false;
         }
+    }
+    
+    public static function getContent($service, $data, $template)
+    {
+        if (!is_array($data)) {
+            $data = array('body' => $data);
+        }
+        
+        $view = new ViewModel($data);
+        $view->setTemplate($template);
+        $view->setTerminal(true);
+        
+        $viewRender = $service->get('ViewRenderer');
+        return $viewRender->render($view);
     }
 }

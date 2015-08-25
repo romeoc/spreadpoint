@@ -92,7 +92,7 @@ class User extends AbstractModel
         $body = 'To reste your password, please visit the following link: '
                 . PHP_EOL . $resetUrl;
                 
-        Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $email, $name);
+        Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $email, $name, $this->getServiceLocator());
     }
     
     public function loadByEmail($email)

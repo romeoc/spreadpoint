@@ -119,7 +119,7 @@ class WinnerModel extends AbstractModel
             $title = $campaign->get('title');
             $subject = "You have won a prize in the '{$title}' competition!";
 
-            Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $winner['email'], $winner['name']);
+            Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $winner['email'], $winner['name'], $this->getServiceLocator());
         }
         
         Session::success('All winners have been notified');

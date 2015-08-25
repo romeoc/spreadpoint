@@ -74,7 +74,7 @@ class EntrantModel extends AbstractModel
             $title = $campaign->get('title');
             $subject = "You succesfully entered the '{$title}' competition";
             
-            Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $email, $fullname);
+            Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $email, $fullname, $this->getServiceLocator());
         }
     }
     
@@ -96,7 +96,7 @@ class EntrantModel extends AbstractModel
             $fullname = $user->get('firstname') . ' ' . $user->get('lastname');
             $email = $user->get('email');
             
-            Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $email, $fullname);
+            Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $email, $fullname, $this->getServiceLocator());
         }
     }
     
