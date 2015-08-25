@@ -119,6 +119,13 @@ class WinnerModel extends AbstractModel
             $title = $campaign->get('title');
             $subject = "You have won a prize in the '{$title}' competition!";
 
+            $emailVariables = array(
+                '{entrant_name}' => $winner['name'],
+                '{entrant_email}' => $winner['email'],
+                '{campaign_title}' => $campaign->get('title')
+            );
+            
+            $body = Mail::replaceCustomVariables($body, $emailVariables);
             Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $winner['email'], $winner['name'], $this->getServiceLocator());
         }
         

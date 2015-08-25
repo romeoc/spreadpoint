@@ -1,10 +1,23 @@
-<body style="margin: 0; background-color: #F1F3F4; width: 100%; height: 100%;">
-    <div class="content" style="background-color: white; width: 600px; margin: 0 auto; margin-top: 25px; border: 1px solid #e7e8e9; padding: 10px 0 25px 0; border-radius: 5px; ">
-        <div class="header" style="margin-bottom: 20px; text-align: center; background-color: #473E3F; padding-top: 3px;">
-            <img src="<?php echo $this->basePath('img/logo.png'); ?>" alt="SpreadPoint" width="150" />
+<?php $helper = $this->campaignHelper(); ?>
+<?php $domain = $helper->getDomain(); ?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>SpreadPoint</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <div class="wrapper" style="margin: 0; background-color: #F1F3F4; width: 100%; height: 100%; padding: 10px;">
+            <div class="content" style="background-color: white; width: 600px; margin: 0 auto; border: 1px solid #e7e8e9; padding: 10px 0 25px 0; border-radius: 5px;">
+                <div class="header" style="margin-bottom: 20px; text-align: center; background-color: #473E3F; padding-top: 5px;">
+                    <img src="<?php echo "{$domain}/img/logo.png"; ?>" alt="SpreadPoint" width="150" />
+                </div>
+                <div class="body" style="padding: 0 20px; font-family: Garamond; ">
+                    <?php echo $this->body; ?>
+                </div>
+            </div>
         </div>
-        <div class="body" style="padding: 0 20px;">
-            <?php echo $this->body; ?>
-        </div>
-    </div>
-</body>
+    </body>
+</html>

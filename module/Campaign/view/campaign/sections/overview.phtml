@@ -2,7 +2,7 @@
 <section class="campaign-section-overview">
     <?php $domain = $campaignHelper->getDomain(); ?>
     <?php $campaignUrl = "{$domain}/campaign/view/{$this->data['id']}"; ?>
-    <iframe class="left" src="<?php echo "{$campaignUrl}?no-action=1"; ?>" frameborder="0" scrolling="no"></iframe>
+    <iframe style="visibility:hidden;" onload="this.style.visibility = 'visible';" class="left" src="<?php echo "{$campaignUrl}?no-action=1"; ?>" frameborder="0" scrolling="no"></iframe>
     <div class="sharing-options left">
         <div class="direct-link">
             Direct Link: 

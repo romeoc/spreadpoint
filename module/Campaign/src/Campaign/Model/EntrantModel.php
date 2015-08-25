@@ -74,6 +74,13 @@ class EntrantModel extends AbstractModel
             $title = $campaign->get('title');
             $subject = "You succesfully entered the '{$title}' competition";
             
+            $emailVariables = array(
+                '{entrant_name}' => $fullname,
+                '{entrant_email}' => $email,
+                '{campaign_title}' => $title
+            );
+            
+            $body = Mail::replaceCustomVariables($body, $emailVariables);
             Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $email, $fullname, $this->getServiceLocator());
         }
     }
@@ -96,6 +103,13 @@ class EntrantModel extends AbstractModel
             $fullname = $user->get('firstname') . ' ' . $user->get('lastname');
             $email = $user->get('email');
             
+            $emailVariables = array(
+                '{entrant_name}' => $fullname,
+                '{entrant_email}' => $email,
+                '{campaign_title}' => $campaign->get('title')
+            );
+            
+            $body = Mail::replaceCustomVariables($body, $emailVariables);
             Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $email, $fullname, $this->getServiceLocator());
         }
     }

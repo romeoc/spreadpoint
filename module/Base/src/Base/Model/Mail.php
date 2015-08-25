@@ -45,11 +45,16 @@ class Mail
             $service = null
     ) {
         
+        $body = self::repalceVariables($body);
+        
+        $allowedTags = '<address><blockquote><h1><h2><h3><h4><h5><h6><hr><caption>'
+                . '<p><pre><ol><ul><li><br><dl><lh><dt><dd><table><th><tr><td>'
+                . '<a><cite><code><em><i><strong><b><big><small><sub><sup>';
+        $body = strip_tags($body, $allowedTags);
+        
         if ($service) {
             $body = self::getContent($service, $body, self::TEMPLATE);
         }
-        
-        var_dump($body); die;
         
         $html = new MimePart($body);
         $html->type = "text/html";
@@ -84,5 +89,41 @@ class Mail
         
         $viewRender = $service->get('ViewRenderer');
         return $viewRender->render($view);
+    }
+    
+    public static function repalceVariables($content)
+    {
+        // bold text
+        $content = preg_replace('#\*(.*?)\*#', '<strong>$1</strong>', $content);
+        
+        // italic text
+        $content = preg_replace('#\_(.*?)\_#', '<em>$1</em>', $content);
+        
+        // New Lines
+        $content = str_replace("\n", '<br />', $content);
+        
+        // URLs
+        $urls = array();
+        preg_match_all('/\<(.*?)\>/s', $content, $urls);
+        foreach ($urls as $url) {
+            $stripedUrl = substr($url[0], 1, -1);
+            if (strpos($stripedUrl,'|') !== false) {
+                list($title, $link) = explode('|', $stripedUrl);
+                $tag = "<a href='{$link}' title='{$title}'>{$title}</a>";
+                $content = str_replace($url[0], $tag, $content);
+            }
+        }
+        
+        return $content;
+    }
+    
+    public static function replaceCustomVariables($content, $data)
+    {
+        // Custom variables
+        foreach ($data as $key => $value) {
+            $content = str_replace($key, $value, $content);
+        }
+     
+        return $content;
     }
 }
