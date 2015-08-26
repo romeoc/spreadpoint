@@ -161,4 +161,19 @@ class WinnerModel extends AbstractModel
         
         return $winners;
     }
+    
+    public function getCsvData($campaignId)
+    {
+        $winners = $this->getEntityManager()->createQueryBuilder()
+            ->select('e.id, e.email, e.name, p.name as prize')
+            ->from($this->entity, 'w')
+            ->innerJoin('Campaign\Entity\CampaignEntrant', 'e', 'WITH', 'w.entrant = e.id')
+            ->innerJoin('Campaign\Entity\CampaignPrize', 'p', 'WITH', 'w.prize = p.id')
+            ->where('e.campaign = :campaign')
+            ->setParameter('campaign', $campaignId)
+            ->getQuery()
+            ->getArrayResult();
+        
+        return $winners;
+    }
 }

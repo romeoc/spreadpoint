@@ -295,9 +295,28 @@ class CampaignController extends AbstractActionController
         }
         
         $formatedData = $model->getCsvData($entrants);
-        $header = array('Entrant Id','Email','Campaign Id','Reference Id','Chances Earned','Widgets Completed','References Brought');
+        $header = array('Entrant Id','Email','Name','Registration Date','Campaign Id','Reference Id','Chances Earned','Widgets Completed','References Brought');
         
         $response = $this->csvExport('entrants.csv', $header, $formatedData);
+        return $response;
+    }
+    
+    public function exportWinnersAction()
+    {
+        $id =  $this->params('id');
+        
+        if (!$id) {
+            Session::error('No was campaign specified');
+            return $this->redirect()->toRoute('campaign');
+        }
+        
+        $model = new WinnerModel();
+        $model->setServiceLocator($this->getServiceLocator());
+        
+        $winners = $model->getCsvData($id);
+        $header = array('Id', 'Email', 'Name', 'Prize');
+        
+        $response = $this->csvExport('winners.csv', $header, $winners);
         return $response;
     }
     

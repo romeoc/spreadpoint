@@ -333,6 +333,8 @@ class EntrantModel extends AbstractModel
             $newEntry = array_merge($entry['data'], $entry);
             unset ($newEntry['data']);
             
+            $newEntry['createdAt'] = $newEntry['createdAt']->format('Y-m-d H:m:i');
+            
             $entries[] = $newEntry;
         }
         

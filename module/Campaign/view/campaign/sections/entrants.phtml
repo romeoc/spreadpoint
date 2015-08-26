@@ -4,7 +4,10 @@
     <?php else: ?>
         <div class="entrants-actions">
             <a href="<?php echo $this->basePath("campaign/exportCsv/{$this->campaign}"); ?>" title="Export as Csv">
-                <button type="button" class="campaign-view-action">Export Data</button>
+                <button type="button" class="campaign-view-action">Export Entrants</button>
+            </a>
+            <a href="<?php echo $this->basePath("campaign/exportWinners/{$this->campaign}"); ?>" title="Export as Csv">
+                <button type="button" class="campaign-view-action">Export Winners</button>
             </a>
         </div>
         <table>

@@ -318,6 +318,7 @@
 /***** Entrants *****/
 .entrants-box { padding-right: 20px; }
 .entrants-box .entrants-actions { text-align: right; margin: 0 0 20px 0; }
+.entrants-box .entrants-actions a { padding-left: 10px; }
 .entrants-box table { border: 1px solid #999; border-radius: 5px;}
 .entrants-box th { background-color: #CCC; color: #444; padding: 10px; text-align: center; text-shadow: 1px 1px white; }
 .entrants-box th.first { border-radius: 4px 0 0 0; }
