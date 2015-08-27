@@ -36,7 +36,7 @@ class SupportModel
         $this->files = $files;
         
         if ($this->validate()) {
-            //$this->send();
+            $this->send();
         }
     }
     
@@ -87,7 +87,6 @@ class SupportModel
             $allValid = $this->isFileValid($this->files['file-upload']);
         }
         
-        var_dump($this->files); die;
         return $allValid;
     }
     
@@ -107,10 +106,9 @@ class SupportModel
             'fromName' => $this->data['fullname']
         );
         
-        if (array_key_exists('file-upload', $this->files)) {
+        if (array_key_exists('file-upload', $this->files) && !empty($this->files['file-upload']['name'])) {
             $data['attachments'] = array($this->files['file-upload']);
         }
-        
         
         if (Mail::send($data)) {
             Session::success('Your message was succesfully sent');
