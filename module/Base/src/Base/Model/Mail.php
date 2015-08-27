@@ -13,6 +13,7 @@ namespace Base\Model;
 use Zend\Mail\Message;
 use Zend\Mail\Transport\Sendmail;
 use Zend\Mime\Part as MimePart;
+use Zend\Mime\Mime;
 use Zend\Mime\Message as MimeMessage;
 use Zend\View\Model\ViewModel;
 
@@ -62,9 +63,9 @@ class Mail
         $parts[] = $html;
         
         if (array_key_exists('attachments', $data)) {
-            foreach ($data['attachments'] as $attachment) {
-                $attachment = new MimePart(fopen($attachment['tmp_name'], 'r'));
-                $attachment->type = $attachment['type'];
+            foreach ($data['attachments'] as $file) {
+                $attachment = new MimePart(fopen($file['tmp_name'], 'r'));
+                $attachment->type = $file['type'];
                 $attachment->encoding    = Mime::ENCODING_BASE64;
                 $attachment->disposition = Mime::DISPOSITION_ATTACHMENT;
                 

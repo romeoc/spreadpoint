@@ -96,7 +96,7 @@ class SupportModel
     protected function send()
     {
         $body = 'Sender Name: ' . $this->data['fullname'] 
-                . PHP_EOL . 'Sender Email :' . $this->data['email'] 
+                . PHP_EOL . 'Sender Email: ' . $this->data['email'] 
                 . PHP_EOL . PHP_EOL . 'Message: ' . $this->data['message'];
         
         $data = array(
