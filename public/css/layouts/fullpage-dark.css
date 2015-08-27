@@ -59,6 +59,8 @@
 .campaign-fullpage-dark .field input { background-color: #141414; color: #BFBFBF; outline: none; padding: 10px; width: 270px; border: 1px solid #2e2e2e; border-radius: 5px; }
 .campaign-fullpage-dark .chance-entrant a { text-decoration: none; cursor: pointer; color: #BFBFBF; float: right; padding: 5px; }
 .campaign-fullpage-dark .chance-entrant a span span{ color: #FF4136; }
+.campaign-fullpage-dark .chance-entrant span.row { color: #BFBFBF; font-size: 18px; padding: 5px; display: inline-block; cursor: pointer; }
+.campaign-fullpage-dark .chance-entrant span.row i { padding: 0 3px; }
 
 /***** Enter Contest Widget *****/
 .campaign-fullpage-dark .terms-box { width: 30%; height: 60% ; background-color: white; overflow: auto; padding: 10px; font-size: 12px; padding: 20px; overflow: hidden; text-align: center; }

@@ -57,4 +57,24 @@ class ChanceModel extends AbstractModel
         
         return $result;
     }
+    
+    public function getLoggedEntrantsChances()
+    {
+        $chances = 0;
+        $entrant = $this->getCookie('entrant');
+        
+        if ($entrant) {
+            $chances = $this->getEntityManager()->createQueryBuilder()
+                ->select('sum(w.earningValue)')
+                ->from($this->entity, 'c')
+                ->innerJoin('Campaign\Entity\CampaignWidget', 'w', 'WITH', 'c.widget = w.id')
+                ->where('c.entrant = :entrant')
+                ->setParameter('entrant', $entrant)
+                ->getQuery()
+                ->setHint(Query::HINT_INCLUDE_META_COLUMNS, true)
+                ->getResult()[0][1];            
+        }
+        
+        return $chances;
+    }
 }

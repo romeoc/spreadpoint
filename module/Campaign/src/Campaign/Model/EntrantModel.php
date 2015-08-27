@@ -373,4 +373,16 @@ class EntrantModel extends AbstractModel
         
         return $result;
     }
+    
+    public function getEntrantsCount($campaignId)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('COUNT(e.id)')
+            ->from($this->entity, 'e')
+            ->where('e.campaign = :campaign')
+            ->setParameter('campaign', $campaignId)
+            ->getQuery()
+            ->setHint(Query::HINT_INCLUDE_META_COLUMNS, true)
+            ->getResult()[0][1];
+    }
 }

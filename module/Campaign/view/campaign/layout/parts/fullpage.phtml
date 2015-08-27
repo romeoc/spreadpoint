@@ -40,7 +40,11 @@
     <?php $entrant = $helper->getEntrant(); ?>
     <?php if ($entrant): ?>
         <div class="chance-entrant">
-            <a href="<?php echo $this->basePath('campaign/clearSession/' . $this->data['id']); ?>" title="<?php echo $entrant->get('email'); ?>" />
+            <span class="chances row" title="Your Chances"><i class="fa fa-ticket"></i><?php echo $this->chancesCount; ?></span>
+            <?php if ($helper->get('showEntrants')): ?>
+                <span class="entrants row" title="Entrants"><i class="fa fa-user"></i><?php echo $this->entrantsCount; ?></span>
+            <?php endif; ?>
+            <a class="row" href="<?php echo $this->basePath('campaign/clearSession/' . $this->data['id']); ?>" title="<?php echo $entrant->get('email'); ?>" />
                 <span>Not <span><?php echo $entrant->get('name'); ?></span>?</span>
             </a>
         </div>

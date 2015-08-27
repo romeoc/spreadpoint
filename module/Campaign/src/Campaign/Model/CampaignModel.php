@@ -379,6 +379,8 @@ class CampaignModel extends AbstractModel
                 'data' => $this->load($campaignId),
                 'entriesData' => $this->getWidgetModel()->getAppliedWidgetsForEntrant($campaignId),
                 'prizesData' => $this->getPrizeModel()->getAssociatedPrizesForJavaScript($campaignId),
+                'entrantsCount' => $this->getEntrantsModel()->getEntrantsCount($campaignId),
+                'chancesCount' => $this->getChanceModel()->getLoggedEntrantsChances(),
             );
             
             return $data;
@@ -482,6 +484,14 @@ class CampaignModel extends AbstractModel
         $entrantModel->setServiceLocator($this->getServiceLocator());
         
         return $entrantModel;
+    }
+    
+    protected function getChanceModel()
+    {
+        $chanceModel = new ChanceModel();
+        $chanceModel->setServiceLocator($this->getServiceLocator());
+        
+        return $chanceModel;
     }
     
     /**

@@ -74,7 +74,7 @@
 .strong-point .strong-point-text p { font-size: 20px; width:80%; }
 
 /***** PRICING *****/
-.pricing-container .pricing-header { background: url(../img/pricing-background.png); height: 500px; }
+.pricing-container .pricing-header { background: url(../img/pricing-background.png); height: 420px; }
 .pricing-container .pricing-header-content { height: 200px; padding-top: 150px; text-align: center; color: white; }
 .pricing-container .pricing-header-content h2 { text-transform: uppercase; font-weight: bold; }
 .pricing-container .pricing-header-content p { color: white; width: 50%; margin: 0 auto; padding-bottom: 30px; }
