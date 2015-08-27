@@ -35,15 +35,14 @@ class Mail
      */
     const NAME = 'SpreadPoint';
     
-    public static function send(
-            $body, 
-            $subject, 
-            $fromEmail = self::EMAIL, 
-            $fromName = self::NAME, 
-            $toEmail = self::EMAIL, 
-            $toName = self::NAME,
-            $service = null
-    ) {
+    public static function send($data) 
+    {
+        $body = $data['body'];
+        $subject = $data['subject'];
+        $fromEmail = (array_key_exists('fromEmail', $data)) ? $data['fromEmail'] : self::EMAIL;
+        $fromName = (array_key_exists('fromName', $data)) ? $data['fromName'] : self::NAME;
+        $toEmail = (array_key_exists('toEmail', $data)) ? $data['toEmail'] : self::EMAIL;
+        $toName = (array_key_exists('toName', $data)) ? $data['toName'] : self::NAME;
         
         $body = self::repalceVariables($body);
         
@@ -52,15 +51,29 @@ class Mail
                 . '<a><cite><code><em><i><strong><b><big><small><sub><sup>';
         $body = strip_tags($body, $allowedTags);
         
-        if ($service) {
-            $body = self::getContent($service, $body, self::TEMPLATE);
+        if (array_key_exists('service', $data)) {
+            $body = self::getContent($data['service'], $body, self::TEMPLATE);
         }
+        
+        $parts = array();
         
         $html = new MimePart($body);
         $html->type = "text/html";
+        $parts[] = $html;
+        
+        if (array_key_exists('attachments', $data)) {
+            foreach ($data['attachments'] as $attachment) {
+                $attachment = new MimePart(fopen($attachment['tmp_name'], 'r'));
+                $attachment->type = $attachment['type'];
+                $attachment->encoding    = Mime::ENCODING_BASE64;
+                $attachment->disposition = Mime::DISPOSITION_ATTACHMENT;
+                
+                $parts[] = $attachment;
+            }
+        }
         
         $body = new MimeMessage();
-        $body->setParts(array($html));
+        $body->setParts($parts);
         
         $mail = new Message();
         $mail->setBody($body);

@@ -417,7 +417,59 @@
             }
             
             return true;
+        }
+    };
+    
+    SpreadPoint.SupportForm = {
+        init: function() {
+            var $this = this;
+            
+            $('#support').submit(function(e) {
+                e.preventDefault();
+                
+                if ($this.valid()) {
+                    this.submit();
+                }
+            });
         },
+        valid: function() {
+            var fullname = $('.support-form-fullname input').val();
+            var email = $('.support-form-email input').val();
+            var subject = $('.support-form-subject input').val();
+            var message = $('.support-form-message textarea').val();
+
+            if (!fullname) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please enter your name</li>');
+                return false;
+            }
+            
+            var emailRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            if (!email) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please enter your email address</li>');
+                return false;
+            } else if (!emailRegex.test(email)) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please provide a valid email address</li>');
+                return false;
+            }
+            
+            if (!subject) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please enter a subject</li>');
+                return false;
+            } else if (subject.length > 500) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>The maximum subject length is 500 characters</li>');
+                return false;
+            }
+            
+            if (!message) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please enter your message</li>');
+                return false;
+            } else if (message.length > 20000) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>The maximum message length is 20000 characters</li>');
+                return false;
+            }
+            
+            return true;
+        }
     };
     
     SpreadPoint.Checkout = {

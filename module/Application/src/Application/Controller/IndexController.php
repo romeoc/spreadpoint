@@ -14,6 +14,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 use Application\Model\ContactModel;
+use Application\Model\SupportModel;
 
 class IndexController extends AbstractActionController
 {
@@ -42,7 +43,12 @@ class IndexController extends AbstractActionController
         return new ViewModel(); 
     }
     
-    public function sendEmailAction()
+    public function supportAction()
+    {
+        return new ViewModel(); 
+    }
+    
+    public function sendContactEmailAction()
     {
         $data = $this->request->getPost();
 
@@ -52,5 +58,20 @@ class IndexController extends AbstractActionController
         }
         
         $this->redirect()->toRoute('contact');
+    }
+    
+    public function sendSupportEmailAction()
+    {
+        $data = $this->request->getPost();
+        
+        if (!empty($data)) {
+            $request = $this->getServiceLocator()->get('Request');
+            $files = $request->getFiles()->toArray();
+            
+            $supportModel = new SupportModel();
+            $supportModel->sendEmail($data, $files);
+        }
+        
+        $this->redirect()->toRoute('support');
     }
 }

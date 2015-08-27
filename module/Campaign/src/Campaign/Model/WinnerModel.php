@@ -126,7 +126,16 @@ class WinnerModel extends AbstractModel
             );
             
             $body = Mail::replaceCustomVariables($body, $emailVariables);
-            Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $winner['email'], $winner['name'], $this->getServiceLocator());
+            
+            $emailData = array(
+                'body' => $body,
+                'subject' => $subject,
+                'toEmail' => $winner['email'],
+                'toName' => $winner['name'],
+                'service' => $this->getServiceLocator()
+            );
+            
+            Mail::send($emailData);
         }
         
         Session::success('All winners have been notified');

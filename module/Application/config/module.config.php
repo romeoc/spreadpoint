@@ -63,13 +63,33 @@ return array(
                     ),
                 ),
             ),
-            'contact/sendEmail' => array(
+            'support' => array(
                 'type' => 'Literal',
                 'options' => array(
-                    'route' => '/contact/sendEmail',
+                    'route' => '/support',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
-                        'action'     => 'sendEmail',
+                        'action'     => 'support',
+                    ),
+                ),
+            ),
+            'contact/sendContactEmail' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/contact/sendContactEmail',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'sendContactEmail',
+                    ),
+                ),
+            ),
+            'support/sendSupportEmail' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/support/sendSupportEmail',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'sendSupportEmail',
                     ),
                 ),
             )

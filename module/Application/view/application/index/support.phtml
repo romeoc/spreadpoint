@@ -1,0 +1,31 @@
+<?php $user = $this->userHelper()->getLoggedInUser(); ?>
+<div class="contact-page support-page">
+    <div class="contact-header support-header">
+        <h2>How can we help you?</h2>
+        <p>Use this form to contact us for any problems or questions you may have. We will get back to you as soon as possible within the next 24 hours.</p>
+    </div>
+    <form method="post" name="support" enctype="multipart/form-data" action="/support/sendSupportEmail" id="support" novalidate>
+        <?php echo $this->partial('application/session/global-messages'); ?>
+        <div class="contact-form-row support-form-fullname">
+            <label>Name</label><input type="text" name="fullname" value="<?php if ($user) { echo $user->get('firstname') . ' ' . $user->get('lastname'); } ?>"/>
+        </div>
+        <div class="contact-form-row support-form-email">
+            <label>Email</label><input type="email" name="email" value="<?php if ($user) { echo $user->get('email'); } ?>" />
+        </div>
+        <div class="contact-form-row support-form-subject">
+            <label>Subject</label><input type="text" name="subject" />
+        </div>
+        <div class="contact-form-row support-form-message">
+            <label>Message</label><textarea name="message"></textarea>
+        </div>
+        <div class="contact-form-row support-form-upload">
+            <label>Upload File</label><input type="file" name="file-upload" />
+        </div>
+        <div class="contact-form-row">
+            <button type="submit">Send Message</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    SpreadPoint.SupportForm.init();
+</script>

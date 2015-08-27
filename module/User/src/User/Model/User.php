@@ -91,8 +91,16 @@ class User extends AbstractModel
         $subject = 'SpreadPoint - Reset Your Password';
         $body = 'To reste your password, please visit the following link: '
                 . PHP_EOL . $resetUrl;
-                
-        Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $email, $name, $this->getServiceLocator());
+        
+        $emailData = array(
+            'body' => $body,
+            'subject' => $subject,
+            'toEmail' => $email,
+            'toName' => $name,
+            'service' => $this->getServiceLocator()
+        );
+        
+        Mail::send($emailData);
     }
     
     public function loadByEmail($email)

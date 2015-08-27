@@ -13,7 +13,7 @@ namespace Application\Model;
 use Base\Model\Mail;
 use Base\Model\Session;
 
-class ContactModel 
+class SupportModel 
 {
     /**
      * Current Data
@@ -22,15 +22,21 @@ class ContactModel
     protected $data;
     
     /**
+     * Maximum file upload size (in megabytes)
+     */
+    const MAX_UPLOAD_SIZE = '10';
+    
+    /**
      * Send an email if the data is valid
      * @param array $data
      */
-    public function sendEmail($data)
+    public function sendEmail($data, $files)
     {
         $this->data = $data;
+        $this->files = $files;
         
         if ($this->validate()) {
-            $this->send();
+            //$this->send();
         }
     }
     
@@ -61,14 +67,27 @@ class ContactModel
             $allValid = false;
         }
         
+        if (!array_key_exists('subject', $this->data) || !$this->data['subject']) {
+            Session::error('Please enter a subject');
+            $allValid = false;
+        } elseif (strlen($this->data['subject']) > 500) {
+            Session::error('Your subject should not be longer than 500 characters');
+            $allValid = false;
+        }
+        
         if (!array_key_exists('message', $this->data) || !$this->data['message']) {
             Session::error('Please enter a message');
             $allValid = false;
         } elseif (strlen($this->data['message']) > 20000) {
-            Session::error('Your email should not be longer than 20000 characters');
+            Session::error('Your message should not be longer than 20000 characters');
             $allValid = false;
         }
         
+        if (array_key_exists('file-upload', $this->files)) {
+            $allValid = $this->isFileValid($this->files['file-upload']);
+        }
+        
+        var_dump($this->files); die;
         return $allValid;
     }
     
@@ -83,15 +102,34 @@ class ContactModel
         
         $data = array(
             'body' => $body,
-            'subject' => 'Message From Contact Form',
+            'subject' => $this->data['subject'],
             'fromEmail' => $this->data['email'],
             'fromName' => $this->data['fullname']
         );
+        
+        if (array_key_exists('file-upload', $this->files)) {
+            $data['attachments'] = array($this->files['file-upload']);
+        }
+        
         
         if (Mail::send($data)) {
             Session::success('Your message was succesfully sent');
         } else {
             Session::error('An error occured while sending your message');
         }
+    }
+    
+    public function isFileValid($file)
+    {
+        $targetFile = $file["name"];
+
+        // Validate Image Size (1048576 = 1024 * 1024)
+        if ($file['size'] > self::MAX_UPLOAD_SIZE * 1048576) {
+            $message =  "$targetFile is too large. Our maixmum file upload is " . self::MAX_UPLOAD_SIZE . 'MB';
+            Session::error($message);
+            return false;
+        }
+        
+        return true;
     }
 }

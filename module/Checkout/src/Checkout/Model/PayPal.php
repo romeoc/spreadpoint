@@ -279,7 +279,12 @@ class PayPal implements ServiceLocatorAwareInterface
         $body = 'Time: ' . $now->format('g:ia \o\n l jS F Y')
                 . PHP_EOL . 'Error Notification: ' . $message;
         
-        Mail::send($body, $subject);
+        $emailData = array(
+            'body' => $body,
+            'subject' => $subject,
+        );
+        
+        Mail::send($emailData);
     }
     
     public function getStartDate()

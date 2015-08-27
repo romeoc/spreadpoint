@@ -81,7 +81,16 @@ class EntrantModel extends AbstractModel
             );
             
             $body = Mail::replaceCustomVariables($body, $emailVariables);
-            Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $email, $fullname, $this->getServiceLocator());
+            
+            $emailData = array(
+                'body' => $body,
+                'subject' => $subject,
+                'toEmail' => $email,
+                'toName' => $fullname,
+                'service' => $this->getServiceLocator()
+            );
+            
+            Mail::send($emailData);
         }
     }
     
@@ -110,7 +119,16 @@ class EntrantModel extends AbstractModel
             );
             
             $body = Mail::replaceCustomVariables($body, $emailVariables);
-            Mail::send($body, $subject, Mail::EMAIL, Mail::NAME, $email, $fullname, $this->getServiceLocator());
+            
+            $emailData = array(
+                'body' => $body,
+                'subject' => $subject,
+                'toEmail' => $email,
+                'toName' => $fullname,
+                'service' => $this->getServiceLocator()
+            );
+            
+            Mail::send($emailData);
         }
     }
     

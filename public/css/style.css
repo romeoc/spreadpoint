@@ -290,13 +290,13 @@
 .contact-page .contact-header { background: url(../img/pricing-background.png); height: 300px; padding-top: 135px; text-align: center; }
 .contact-page .contact-header h2 { color: white; font-weight: bold; text-transform: uppercase; }
 .contact-page .contact-header p { color: white; width: 50%; font-size: 120%; margin: 0 auto; }
-.contact-page #contact { width: 60%; margin: 25px auto; padding-left: 50px;}
-.contact-page #contact .contact-form-row { padding-top: 10px; }
-.contact-page #contact label { width: 150px; display: inline-block; background-color: #ea474b; text-align: center; color: white; font-size: 120%; text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4); height: 35px; }
-.contact-page #contact input,
-.contact-page #contact textarea { width: 500px; border-radius: 0; padding-left: 5px; }
-.contact-page #contact textarea { height: 200px; }
-.contact-page #contact button { width: 200px; margin-left: 450px; } 
+.contact-page form { width: 60%; margin: 25px auto; padding-left: 50px;}
+.contact-page form .contact-form-row { padding-top: 10px; }
+.contact-page form label { width: 150px; display: inline-block; background-color: #ea474b; text-align: center; color: white; font-size: 120%; text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4); height: 35px; }
+.contact-page form input,
+.contact-page form textarea { width: 500px; border-radius: 0; padding-left: 5px; }
+.contact-page form textarea { height: 200px; }
+.contact-page form button { width: 200px; margin-left: 450px; } 
 
 /***** Upgrade Section *****/
 .dashboard-content.upgrade-view { padding: 0 0 100px 110px; }
