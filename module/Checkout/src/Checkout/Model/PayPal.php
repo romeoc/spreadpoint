@@ -46,6 +46,7 @@ class PayPal implements ServiceLocatorAwareInterface
     const ACTION_CANCEL = 'Cancel';
     
     const TRIAL_PERIOD = 30;
+    const INCREMENT_VARIANCE = 17530000;
     
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
@@ -216,6 +217,10 @@ class PayPal implements ServiceLocatorAwareInterface
         $user->set('plan', $plan);
         $order->save($data);
         
+        if ($order) {
+            $this->sendInvoice($order);
+        }
+        
         return !!$order;
     }
     
@@ -298,5 +303,35 @@ class PayPal implements ServiceLocatorAwareInterface
     {
         $helper = new PlanHelper();
         return $helper->getAllPlans();
+    }
+    
+    public function sendInvoice($order)
+    {
+        $planHelper = new PlanHelper();
+        $plan = $planHelper->getPlan($order->get('plan'));
+        
+        $createdAt = $order->get('createdAt');
+        $createdAt->setTimezone(new DateTimeZone('America/New_York'));
+
+        $templateData = array(
+            'name' => $order->get('name'),
+            'incrementId' => self::INCREMENT_VARIANCE + $order->get('id'),
+            'createdAt ' => $createdAt->format('l jS F Y, h:i:s A T'),
+            'plan' => ucfirst($plan['name']) . ' Plan',
+            'billingPeriod' => $order->get('billingPeriod') . 'ly',
+            'price' => '$' . $order->get('amount')
+        );
+        
+        $emailData = array(
+            'body' => '',
+            'subject' => 'SpreadPoint Subscription',
+            'toEmail' => $order->get('email'),
+            'toName' => $order->get('name'),
+            'service' => $this->getServiceLocator(),
+            'template' => 'email/templates/invoice',
+            'templateData' => $templateData,
+        );
+
+        Mail::send($emailData);
     }
 }

@@ -1,0 +1,45 @@
+<?php $helper = $this->campaignHelper(); ?>
+<?php $domain = $helper->getDomain(); ?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>SpreadPoint</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <div class="wrapper" style="margin: 0; background-color: #F1F3F4; width: 100%; height: 100%; padding: 20px;">
+            <div class="content" style="background-color: white; width: 80%; margin: 0 auto; border: 1px solid #e0e0e0; padding-top: 10px; border-radius: 5px;">
+                <div class="header" style="margin-bottom: 20px; background-color: #473E3F; padding-top: 5px; padding-left: 20px; ">
+                    <img src="<?php echo "{$domain}/img/logo.png"; ?>" alt="SpreadPoint" width="250" />
+                </div>
+                <div class="body" style="padding: 0 20px; font-family: Garamond; ">
+                    <h3>Hello <?php echo $this->name?>,</h3>
+                    <p style="font-size: smaller;">
+                        Thank you for subscribing to SpreadPoint. If you have any questions 
+                        about your subscription or need help setting up your campaign 
+                        please contact us at <a href="mailto:support@spreadpoint.co" title="Support">support@spreadpoint.co</a>.
+                        Your subscription confirmation is below. Thank you again for your business.
+                    </p>
+                    <h4>Your Subscription #<?php echo $this->incrementId; ?> <span style="font-weight: normal;">(subscribed on <?php echo $this->createdAt; ?>)</span></h4>
+                    <table style="width: 100%; font-size: smaller;">
+                        <tr style="text-align: left;">
+                            <th style="background-color: #EAEAEA; padding: 3px;">Plan</th>
+                            <th style="background-color: #EAEAEA; padding: 3px;">Billing Period</th>
+                            <th style="background-color: #EAEAEA; padding: 3px;">Amount</th>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #F6F6F6; padding: 3px;"><?php echo $this->plan; ?></td>
+                            <td style="background-color: #F6F6F6; padding: 3px;"><?php echo $this->billingPeriod; ?></td>
+                            <td style="background-color: #F6F6F6; padding: 3px;"><?php echo $this->price; ?></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="footer" style="background-color: #EAEAEA; text-align: center; padding: 1px; margin-top: 20px; font-size: smaller;">
+                    <p>Thank you, <strong>SpreadPoint</strong></p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

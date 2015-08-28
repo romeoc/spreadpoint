@@ -53,7 +53,10 @@ class Mail
         $body = strip_tags($body, $allowedTags);
         
         if (array_key_exists('service', $data)) {
-            $body = self::getContent($data['service'], $body, self::TEMPLATE);
+            $template = array_key_exists('template', $data) ? $data['template'] : self::TEMPLATE;
+            $templateData = array_key_exists('templateData', $data) ? $data['templateData'] : $body;
+
+            $body = self::getContent($data['service'], $templateData, $template);
         }
         
         $parts = array();
