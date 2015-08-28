@@ -50,7 +50,7 @@ class PlanHelper extends AbstractHelper
     
     public function getPlan($plan)
     {
-        return $this->plan[$plan];
+        return $this->plans[$plan];
     }
     
     public function getPlanOptions()

@@ -215,7 +215,7 @@ class PayPal implements ServiceLocatorAwareInterface
         
         // Entity Manager is Flushed furing order save, so user data will also be persisted
         $user->set('plan', $plan);
-        $order->save($data);
+        $order = $order->save($data);
         
         if ($order) {
             $this->sendInvoice($order);
@@ -311,7 +311,7 @@ class PayPal implements ServiceLocatorAwareInterface
         $plan = $planHelper->getPlan($order->get('plan'));
         
         $createdAt = $order->get('createdAt');
-        $createdAt->setTimezone(new DateTimeZone('America/New_York'));
+        $createdAt->setTimezone(new \DateTimeZone('America/New_York'));
 
         $templateData = array(
             'name' => $order->get('name'),
