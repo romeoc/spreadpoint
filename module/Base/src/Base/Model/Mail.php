@@ -110,28 +110,30 @@ class Mail
     
     public static function repalceVariables($content)
     {
-        // bold text
-        $content = preg_replace('#\*(.*?)\*#', '<strong>$1</strong>', $content);
-        
-        // italic text
-        $content = preg_replace('#\_(.*?)\_#', '<em>$1</em>', $content);
-        
-        // New Lines
-        $content = str_replace("\n", '<br />', $content);
-        
-        // URLs
-        $urls = array();
-        preg_match_all('/\<(.*?)\>/s', $content, $urls);
-        foreach ($urls as $url) {
-            $stripedUrl = substr($url[0], 1, -1);
-            if (strpos($stripedUrl,'|') !== false) {
-                list($title, $link) = explode('|', $stripedUrl);
-                $tag = "<a href='{$link}' title='{$title}'>{$title}</a>";
-                $content = str_replace($url[0], $tag, $content);
+        if ($content) {
+            // bold text
+            $content = preg_replace('#\*(.*?)\*#', '<strong>$1</strong>', $content);
+
+            // italic text
+            $content = preg_replace('#\_(.*?)\_#', '<em>$1</em>', $content);
+
+            // New Lines
+            $content = str_replace("\n", '<br />', $content);
+
+            // URLs
+            $urls = array();
+            preg_match_all('/\<(.*?)\>/s', $content, $urls);
+            foreach ($urls as $url) {
+                $stripedUrl = substr($url[0], 1, -1);
+                if (strpos($stripedUrl,'|') !== false) {
+                    list($title, $link) = explode('|', $stripedUrl);
+                    $tag = "<a href='{$link}' title='{$title}'>{$title}</a>";
+                    $content = str_replace($url[0], $tag, $content);
+                }
             }
+
+            return $content;
         }
-        
-        return $content;
     }
     
     public static function replaceCustomVariables($content, $data)

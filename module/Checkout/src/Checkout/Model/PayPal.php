@@ -316,7 +316,7 @@ class PayPal implements ServiceLocatorAwareInterface
         $templateData = array(
             'name' => $order->get('name'),
             'incrementId' => self::INCREMENT_VARIANCE + $order->get('id'),
-            'createdAt ' => $createdAt->format('l jS F Y, h:i:s A T'),
+            'createdAt' => $createdAt->format('l jS F Y, h:i:s A T'),
             'plan' => ucfirst($plan['name']) . ' Plan',
             'billingPeriod' => $order->get('billingPeriod') . 'ly',
             'price' => '$' . $order->get('amount')
