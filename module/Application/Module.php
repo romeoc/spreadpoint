@@ -19,6 +19,9 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+        
+        $eventManager->getSharedManager()->attach('*', MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'onDispatchError'), -100);
+        $eventManager->getSharedManager()->attach('*', MvcEvent::EVENT_RENDER_ERROR, array($this, 'onDispatchError'), - 100);
     }
 
     public function getConfig()
@@ -35,5 +38,11 @@ class Module
                 ),
             ),
         );
+    }
+    
+    public function onDispatchError(MvcEvent $event)
+    {
+        $view = $event->getViewModel();
+        $view->setTemplate('layout/dashboard');
     }
 }

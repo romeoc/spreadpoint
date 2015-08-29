@@ -415,3 +415,19 @@
 .cms-page { margin-top: 100px; padding: 20px 80px; }
 .cms-page h4 { color: #ea474b; border-bottom: 1px solid #ea474b; padding: 10px 0; }
 .cms-page p { color: #444; text-align: justify; }
+
+/***** 404 & 500 Pages *****/
+.page-404 .sky { height: 100%; width: 100%; background-color: #252161; position: absolute; bottom: 0; }
+.page-404 .sand { height: 30%; width: 100%; background-color: #fae0ad; position: absolute; bottom: 0; }
+.page-404 .ocean { height: 45%; width: 100%; background-color: #0066cc; position: absolute; bottom: 0; }
+.page-404 .moon { height: 35%; width: 25%; background: url(../img/moon-and-stars.png) no-repeat right; position: absolute; top: 2%; right: 2%; background-size: auto 100%; }
+.page-404 .cloud { height: 5%; width: 10%; background: url(../img/cloud.png) no-repeat left; position: absolute; background-size: auto 100%; }
+.page-404 .cloud-1 { top: 10%; left: 15%; }
+.page-404 .cloud-2 { top: 20%; left: 5%; }
+.page-404 .tree { height: 60%; width: 60%; background: url(../img/palm-tree.png) no-repeat left; position: absolute; bottom: 0; left: -7%; background-size: auto 100%; }
+.page-404 .ghettoblaster { height: 75%; width: 30%; background: url(../img/casetes.png) no-repeat left; position: absolute; bottom: 15%; left: 25%; background-size: auto 100%; }
+.page-404 .sign { height: 30%; width: 20%; background: url(../img/sign.png) no-repeat right; position: absolute; bottom: 10%; right: 5%; background-size: auto 100%; }
+.page-404 .blob { height: 30%; width: 30%; background: url(../img/blob-404.png) no-repeat right; position: absolute; bottom: 60%; right: 40%; background-size: auto 100%; }
+.page-404 .waves { height: 10%; width: 100%; background: url(../img/wave.png); position: absolute; background-size: auto 100%; }
+.page-404 .upper-waves { top: 0; right: 0; }
+.page-404 .bottom-wawes { top: 15%; right: 10%; }
