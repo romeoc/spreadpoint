@@ -755,14 +755,10 @@ a:active {
 .social { 
     margin: 1rem 0; 
 }
-.home-content, .footer-contact {
+.footer-contact {
     padding-bottom: 50px;
     text-align: center;
     border-top: 1px solid #dadada;
-}
-.home-content p {
-    max-width: 850px;
-    margin: 0 auto;
 }
 #hero-header {
     height: 650px; 
@@ -827,25 +823,6 @@ a:active {
     max-width: 200px;
     margin: 0 auto 10px;
 }
-.home-cta { 
-    padding: 100px 0 130px;
-    color: #fff;
-    text-align: center;
-    background: url(../../img/hands.jpg) no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
-.home-cta p {
-    color: #fff;
-    font-size: 18px;
-}
-.home-cta .fa {
-    font-size: 36px;
-    margin-bottom: 20px;
-}
-
 .sensible-home-widget-area .fa {
     font-size: 36px;
     margin-bottom: 1.25em; 

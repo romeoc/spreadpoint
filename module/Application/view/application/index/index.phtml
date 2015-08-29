@@ -15,7 +15,6 @@
                     </div>
                     <div class="hero-content-section hero-register right animated fadeInDown delay">
                         <?php echo $this->partial('user/account/register.phtml', array('form' => new \User\Model\Form\RegisterForm())); ?>
-                        <img src="<?php echo $this->basePath('img/puddle.png'); ?>" alt="Puddle Package" width="200" height="200" class="alignnone size-medium wp-image-48" />
                     </div>
                 </div>
             </div>
@@ -47,162 +46,71 @@
             </div>
         </div>
 
-        <div class="home-content background-light">
-            <div class="grid">
-                <div class="strong-point">
-                    <div class="strong-point-text">
+        <div class="strong-points">
+            <div class="home-content intensity">
+                <div class="grid">
+                    <div class="strong-point-content">
                         <h2>Intensity over quantity</h2>
-                        <p>We focus, above all else, on generating loyal customers because they are the minority that makes your company grow.</p>
+                        <p>
+                            We focus, above all else, on generating loyal customers
+                            because they are the minority that makes your company grow.
+                        </p>
                     </div>
-                    <div class="strong-point-image">
-                        <img src="<?php echo $this->basePath('img/analysis-v1.gif'); ?>" alt="Puddle Package" width="200" height="200" class="alignnone size-medium wp-image-48" />
+                </div>
+            </div>
+            <div class="home-content challenges">
+                <div class="grid">
+                    <div class="strong-point-content right">
+                        <h2>Unique challenges</h2>
+                        <p>
+                            Change the way in which you engage <br /> your followers.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="home-content design">
+                <div class="grid">
+                    <div class="strong-point-content">
+                        <h2>Personalized design</h2>
+                        <p>
+                            For enterprises we offer fully personalized campaign layouts.
+                            From video backgrounds to animations in a timely and flexible
+                            manner. There are no limits.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="home-content reach">
+                <div class="grid">
+                    <div class="strong-point-content right">
+                        <h2>Unlimited reach</h2>
+                        <p>
+                            Your campaign can touch the eyes, <br /> ears and souls of millions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="home-content control">
+                <div class="grid">
+                    <div class="strong-point-content right">
+                        <p>all with...</p>
+                        <h2>Full control over <br /> your message</h2>
+                        <p>
+                            You can reward your followers in many sifferent ways so they 
+                            will help build your brand with enthusiasm.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div class="home-content">
-            <div class="grid">
-                <div class="strong-point">
-                    <div class="strong-point-image">
-                        <img src="<?php echo $this->basePath('img/puddle.png'); ?>" alt="Puddle Package" width="200" height="200" class="alignnone size-medium wp-image-48" />
-                    </div>
-                    <div class="strong-point-text">
-                        <h2>Full control and flexibility</h2>
-                        <p>You can reward you followers in many different ways so they will help build your brand with enthusiasm.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="home-content background-light">
-            <div class="grid">
-                <div class="strong-point">
-                    <div class="strong-point-text">
-                        <h2>Only pay for results</h2>
-                        <p>Our pricing system is built on a performance base, so there is no way for you to lose money. How much is a loyal customer worth to you?</p>
-                    </div>
-                    <div class="strong-point-image">
-                        <img src="<?php echo $this->basePath('img/puddle.png'); ?>" alt="Puddle Package" width="200" height="200" class="alignnone size-medium wp-image-48" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="home-content">
-            <div class="grid">
-                <div class="strong-point">
-                    <div class="strong-point-image">
-                        <img src="<?php echo $this->basePath('img/puddle.png'); ?>" alt="Puddle Package" width="200" height="200" class="alignnone size-medium wp-image-48" />
-                    </div>
-                    <div class="strong-point-text">
-                        <h2>Understand your customers</h2>
-                        <p>We carefully transform every interaction with your campaign into valuable lessons for a better customer segmentation.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="home-content background-light">
-            <div class="grid">
-                <div class="strong-point">
-                    <div class="strong-point-text pad-top-50">
-                        <h2>See through your data</h2>
-                        <p>We want you to make decisions easily. Your campaign's data is visualized and personalized recommendations will bring you a unique experience.</p>
-                    </div>
-                    <div class="strong-point-image">
-                        <img src="<?php echo $this->basePath('img/puddle.png'); ?>" alt="Puddle Package" width="200" height="200" class="alignnone size-medium wp-image-48" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="home-cta">  
             <div class="grid grid-pad">
-                <div class="sensible-home-widget-area" id="subscribe">
-                    <div class="col-1-1">
-                        <aside id="newsletterwidget" class="widget widget_newsletterwidget">
-                            <h6>Request Early Access</h6>
-                            <script type="text/javascript">
-                            //<![CDATA[
-                                if (typeof newsletter_check !== "function") {
-                                    window.newsletter_check = function(f) {
-                                        var re = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-]{1,})+\.)+([a-zA-Z0-9]{2,})+$/;
-                                        if (!re.test(f.elements["ne"].value)) {
-                                            alert("The email is not correct");
-                                            return false;
-                                        }
-                                        if (f.elements["nn"] && (f.elements["nn"].value == "" || f.elements["nn"].value == f.elements["nn"].defaultValue)) {
-                                            alert("The name is not correct");
-                                            return false;
-                                        }
-                                        for (var i = 1; i < 20; i++) {
-                                            if (f.elements["np" + i] && f.elements["np" + i].value == "") {
-                                                alert("");
-                                                return false;
-                                            }
-                                        }
-                                        if (f.elements["ny"] && !f.elements["ny"].checked) {
-                                            alert("You must accept the privacy statement");
-                                            return false;
-                                        }
-                                        return true;
-                                    }
-                                }
-                            //]]>
-                            </script>
-
-                            <div class="newsletter newsletter-widget">
-                                <script type="text/javascript">
-                                //<![CDATA[
-                                    if (typeof newsletter_check !== "function") {
-                                        window.newsletter_check = function(f) {
-                                            var re = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-]{1,})+\.)+([a-zA-Z0-9]{2,})+$/;
-                                            if (!re.test(f.elements["ne"].value)) {
-                                                alert("The email is not correct");
-                                                return false;
-                                            }
-                                            if (f.elements["nn"] && (f.elements["nn"].value == "" || f.elements["nn"].value == f.elements["nn"].defaultValue)) {
-                                                alert("The name is not correct");
-                                                return false;
-                                            }
-                                            for (var i = 1; i < 20; i++) {
-                                                if (f.elements["np" + i] && f.elements["np" + i].value == "") {
-                                                    alert("");
-                                                    return false;
-                                                }
-                                            }
-                                            if (f.elements["ny"] && !f.elements["ny"].checked) {
-                                                alert("You must accept the privacy statement");
-                                                return false;
-                                            }
-                                            return true;
-                                        }
-                                    }
-                                //]]>
-                                </script>
-
-                                <form action="<?php echo $this->basePath('newsletter/subscribe'); ?>" onsubmit="return newsletter_check(this)" method="post">
-                                    <input type="hidden" name="nr" value="widget">
-                                        <p>
-                                            <input class="newsletter-firstname" type="text" name="nn" value="Name" onclick="if (this.defaultValue == this.value)
-                                                this.value = ''" onblur="if (this.value == '')
-                                                    this.value = this.defaultValue">
-                                        </p>
-                                        <p>
-                                            <input class="newsletter-email" type="email" required="" name="ne" value="Email" onclick="if (this.defaultValue == this.value)
-                                                this.value = ''" onblur="if (this.value == '')
-                                                    this.value = this.defaultValue">
-                                        </p>
-                                        <p>
-                                            <input class="newsletter-profile newsletter-profile-1" type="text" name="np1" value="Website" onclick="if (this.defaultValue == this.value)
-                                                this.value = ''" onblur="if (this.value == '')
-                                                    this.value = this.defaultValue"></p><p><input class="newsletter-submit" type="submit" value="I Want In">
-                                        </p>
-                                </form>
-                            </div>
-                        </aside> 
-                    </div>
+                <h2>Start knowing your customers.</h2>
+                <div class="relative">
+                    <span class="craby"></span>
+                    <a href="<?php echo $this->basePath('pricing'); ?>" title="Start Your Free Trial">
+                        <button>Sign up now - it's free for 30 days</button>
+                    </a>
                 </div>
             </div>
         </div>

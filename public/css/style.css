@@ -11,6 +11,7 @@
 .greyscale { -webkit-filter: grayscale(100%); -moz-filter: grayscale(100%); -ms-filter: grayscale(100%); -o-filter: grayscale(100%); filter: grayscale(100%); filter: url(grayscale.svg); filter: gray; }
 .clear { clear: both; }
 .block { display: block; }
+.relative { position: relative; }
 
 /***** Tabs *****/
 .ui-tabs-vertical { width: 55em; }
@@ -66,12 +67,23 @@
 /**** HOMEPAGE *****/
 .hero-content .hero-button { padding: 20px 60px; font-weight: bold; }
 .hero-content p { padding: 0 10% 20px 10%; color: white; font-size: 110%; text-align: left; }
-.strong-point { text-align: center; }
-.strong-point .strong-point-image,
-.strong-point .strong-point-text { width: 45%; display: inline-block; vertical-align: 100%; }
-.strong-point .strong-point-text { text-align: left; }
-.strong-point .strong-point-text h2 { padding-left: 10%; }
-.strong-point .strong-point-text p { font-size: 20px; width:80%; }
+.strong-points .intensity { background: url(../img/home/intensity.jpg) no-repeat; }
+.strong-points .challenges { background: url(../img/home/challenge.jpg) no-repeat; }
+.strong-points .design { background: url(../img/home/design.jpg) no-repeat; }
+.strong-points .reach { background: url(../img/home/reach.jpg) no-repeat; }
+.strong-points .home-content.control { background: url(../img/home/control.jpg) no-repeat; background-size: 101% 101%; height: 730px; }
+.strong-points .home-content { background-size: 101% 101%; height: 612px; position: relative; border-bottom: 3px solid white; }
+.strong-points .home-content h2, .strong-points .home-content p { color: white; } 
+.strong-points .home-content h2 { font-weight: bold; }
+.strong-points .home-content p { font-size: 120%; }
+.strong-points .strong-point-content { width: 30%; position: absolute; top: 35%; left: 50px; }
+.strong-points .strong-point-content.right { text-align: right; left: initial; top: 35%; right: 50px; }
+.strong-points .design .strong-point-content { top: initial; bottom: 20px; left: 35%; }
+.strong-points .control .strong-point-content { top: 25%; }
+.home-cta { background: url(../img/random-background.png); height: 400px; text-align: center; padding-top: 120px; }
+.home-cta h2 { color: white; font-size: 42px; font-weight: bold; padding-bottom: 25px; }
+.home-cta button { padding: 20px 100px; background-color: white; color: #ea474b !important; font-weight: bold; }
+.home-cta .craby { background: url(../img/craby.png) no-repeat; width: 100px; height: 100px; background-size: 100%; position: absolute; top: 0; margin-top: -40px; margin-left: -40px; transform: rotate(-30deg); }
 
 /***** PRICING *****/
 .pricing-container .pricing-header { background: url(../img/pricing-background.png); height: 420px; }
