@@ -68,6 +68,7 @@ class AccountController extends AbstractActionController
         $registrationResult = $userModel->create($post);
         
         if (!$registrationResult) {
+            Session::clear();
             return new JsonModel(
                 array(
                     'status' => false,

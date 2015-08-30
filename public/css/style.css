@@ -440,6 +440,6 @@
 .page-404 .ghettoblaster { height: 75%; width: 30%; background: url(../img/casetes.png) no-repeat left; position: absolute; bottom: 15%; left: 25%; background-size: auto 100%; }
 .page-404 .sign { height: 30%; width: 20%; background: url(../img/sign.png) no-repeat right; position: absolute; bottom: 10%; right: 5%; background-size: auto 100%; }
 .page-404 .blob { height: 30%; width: 30%; background: url(../img/blob-404.png) no-repeat right; position: absolute; bottom: 60%; right: 40%; background-size: auto 100%; }
-.page-404 .waves { height: 10%; width: 100%; background: url(../img/wave.png); position: absolute; background-size: auto 100%; }
+.page-404 .waves { height: 12%; width: 130%; background: url(../img/wave.png); position: absolute; background-size: auto 100%; }
 .page-404 .upper-waves { top: 0; right: 0; }
 .page-404 .bottom-wawes { top: 15%; right: 10%; }

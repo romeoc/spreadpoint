@@ -601,7 +601,7 @@ class CampaignModel extends AbstractModel
             $row = array('endTime' => $endTime, 'complete' => false);
             if ($endTime < $now) {
                 $row['complete'] = true;
-                $row['winners'] = $model->getWinnersForCampaign($campaign['id']);
+                $row['winners'] = $model->getWinnersForCampaign($campaign['id'], $count);
             }
             
             $data[$count] = $row;
@@ -629,30 +629,20 @@ class CampaignModel extends AbstractModel
             return false;
         }
 
+        $query = 'SELECT ';
         while ($cycle < $totalCycles) {
             $cycle++;
-            $endDate = clone $startDate;
-            $endDate->modify("+{$duration} days");
             
-            $dataParts[] = array('from' => $startDate->format('Y-m-d H:i:s'), 'to' => $endDate->format('Y-m-d H:i:s'));
-            
-            $startDate = $endDate;
-        }
-        
-        $query = 'SELECT ';
-        foreach($dataParts as $part) {
             $cycleCondition = 'EXISTS( '
-                . 'SELECT id FROM campaign_entrant '
-                . 'WHERE created_at >= ":startTime" '
-                . 'AND created_at < ":endTime" '
+                . 'SELECT id FROM campaign_winner '
+                . 'WHERE cycle= ":cycle" '
                 . 'LIMIT 1'
                 . ') AND ';
             
-            $cycleCondition = str_replace(':startTime', $part['from'], $cycleCondition);
-            $cycleCondition = str_replace(':endTime', $part['to'], $cycleCondition);
+            $cycleCondition = str_replace(':cycle', $cycle, $cycleCondition);
             $query .= $cycleCondition;
         }
-
+        
         $query = substr($query, 0, -4);
         $query .= 'AS finished';
         

@@ -110,20 +110,20 @@ class Mail
     
     public static function repalceVariables($content)
     {
-        if ($content) {
-            // bold text
-            $content = preg_replace('#\*(.*?)\*#', '<strong>$1</strong>', $content);
+        // bold text
+        $content = preg_replace('#\*(.*?)\*#', '<strong>$1</strong>', $content);
 
-            // italic text
-            $content = preg_replace('#\_(.*?)\_#', '<em>$1</em>', $content);
+        // italic text
+        $content = preg_replace('#\_(.*?)\_#', '<em>$1</em>', $content);
 
-            // New Lines
-            $content = str_replace("\n", '<br />', $content);
+        // New Lines
+        $content = str_replace("\n", '<br />', $content);
 
-            // URLs
-            $urls = array();
-            preg_match_all('/\<(.*?)\>/s', $content, $urls);
-            foreach ($urls as $url) {
+        // URLs
+        $urls = array();
+        preg_match_all('/\<(.*?)\>/s', $content, $urls);
+        foreach ($urls as $url) {
+            if ($url) {
                 $stripedUrl = substr($url[0], 1, -1);
                 if (strpos($stripedUrl,'|') !== false) {
                     list($title, $link) = explode('|', $stripedUrl);
@@ -131,9 +131,9 @@ class Mail
                     $content = str_replace($url[0], $tag, $content);
                 }
             }
-
-            return $content;
         }
+
+        return $content;
     }
     
     public static function replaceCustomVariables($content, $data)

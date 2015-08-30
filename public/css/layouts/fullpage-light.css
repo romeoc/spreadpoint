@@ -27,8 +27,8 @@
 
 /***** Prizes *****/
 .campaign-fullpage-light .prizes { text-align: center; margin-bottom: 40px; }
-.campaign-fullpage-light .prizes .prize-container { display: inline-block; width: 14%; padding: 5px; vertical-align: top; }
-.campaign-fullpage-light .prizes .prize-box { width: 100%; height: 100px; background: transparent none no-repeat center center; background-size: cover; position: relative; cursor: pointer; }
+.campaign-fullpage-light .prizes .prize-container { display: inline-block; width: 19%; padding: 5px; vertical-align: top; }
+.campaign-fullpage-light .prizes .prize-box { width: 100%; height: 125px; background: transparent none no-repeat center center; background-size: cover; position: relative; cursor: pointer; }
 .campaign-fullpage-light .prizes .prize-box .name { position: absolute; bottom: 0; left: 0; width: 100%; text-align: left; background-color: rgba(255, 255, 255, 0.5); height: 25px; line-height: 25px; color: #444; overflow: hidden; }
 
 .campaign-fullpage-light .prize-box-enlarged { background: rgba(0, 0, 0, 0.7); height: auto; padding: 20px; width: 80%; text-align: left; top: 10%; bottom: auto; }
