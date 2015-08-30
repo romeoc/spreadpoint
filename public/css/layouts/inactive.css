@@ -1,0 +1,12 @@
+/***** Defaults *****/
+body { margin: 0; }
+
+/***** Campaign Inactive *****/
+.campaign-inactive { background-color: #3c3636; position: absolute; width: 100%; height: 100%; }
+.campaign-inactive .content { position: relative; top: 30%; text-align: center; width: 100%; }
+.campaign-inactive .content h1 { margin: 0; font-family: "Open Sans"; }
+.campaign-inactive .content .intro { color: white; font-size: 300%; }
+.campaign-inactive .content .message { color: #e05a47; font-size: 400%; }
+.campaign-inactive .content .craby { background: url(../../img/craby.png) no-repeat; width: 80px; height: 80px; background-size: 100%; position: absolute; top: 0; margin-left: -20px; margin-top: 40px; }
+.campaign-inactive .content p { color: white; font-family: "Open Sans"; font-size: smaller; width: 40%; margin: 20px auto;}
+.campaign-paused .content .craby { margin-top: -28px; margin-left: -16px; }

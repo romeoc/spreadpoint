@@ -1,6 +1,6 @@
 <?php $helper = $this->campaignHelper(); ?>
-<div class="campaign-container">
-    <?php if ($this->data['status'] == \Campaign\Entity\Campaign::STATUS_ACTIVE): ?>
+<?php if ($this->data['status'] == \Campaign\Entity\Campaign::STATUS_ACTIVE): ?>
+    <div class="campaign-container">
         <?php echo $this->partial($helper->getLayout($this->data['layout']), array(
             'data' => $this->data, 
             'entriesData' => $this->entriesData,
@@ -8,53 +8,77 @@
             'entrantsCount' => $this->entrantsCount,
             'chancesCount' => $this->chancesCount
         )); ?>
-    <?php else: ?>
-        <span>This contest is not active right now.</span>
-    <?php endif; ?>
-</div>
-
-<!-- Facebook Scripts -->
-
-<div id="fb-root"></div>
-<script>
-    window.fbAsyncInit = function() {
-        FB.init({
-            appId      : '711375515639582',
-            xfbml      : true,
-            version    : 'v2.4'
-        });
-        
-        SpreadPoint.Front.Facebook.load();
-    };
-
-    (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-
-<script>
-    window.twttr = (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0],
-        t = window.twttr || {};
-        if (d.getElementById(id)) return t;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "https://platform.twitter.com/widgets.js";
-        fjs.parentNode.insertBefore(js, fjs);
-
-        t._e = [];
-        t.ready = function(f) {
-            t._e.push(f);
-        };
- 
-        return t;
-    }(document, "script", "twitter-wjs"));
     
-    twttr.ready(function (twttr) {
-        SpreadPoint.Front.Twitter.load();
-    });
-</script>
+        <div id="fb-root"></div>
+        <script>
+            // Facebook
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId      : '711375515639582',
+                    xfbml      : true,
+                    version    : 'v2.4'
+                });
+
+                SpreadPoint.Front.Facebook.load();
+            };
+
+            (function(d, s, id){
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+            // Twitter
+            window.twttr = (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0],
+                t = window.twttr || {};
+                if (d.getElementById(id)) return t;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+
+                t._e = [];
+                t.ready = function(f) {
+                    t._e.push(f);
+                };
+
+                return t;
+            }(document, "script", "twitter-wjs"));
+
+            twttr.ready(function (twttr) {
+                SpreadPoint.Front.Twitter.load();
+            });
+        </script>
+    </div>
+<?php elseif ($this->data['status'] == \Campaign\Entity\Campaign::STATUS_PAUSED): ?>
+    <?php $this->headLink()->appendStylesheet($this->basePath() . '/css/layouts/inactive.css'); ?>
+    <div class="campaign-paused campaign-inactive">
+        <div class="content">
+                <h1 class="intro"><span class="craby"></span>We will be back soon</h1>
+                <h1 class="message">Please stand by!</h1>
+                <p>
+                    Registration is currently closed, but fear not! We are doing some
+                    light changes to improve your experience. You will be able 
+                    to enter this party shortly. 
+                </p>
+            </div>
+    </div>
+<?php else: ?>
+    <?php $this->headLink()->appendStylesheet($this->basePath() . '/css/layouts/inactive.css'); ?>
+    <div class="campaign-complete campaign-inactive">
+        <div class="content">
+            <h1 class="intro"><em>Sorry!</em> Looks like </h1>
+            <h1 class="message">
+                <span class="craby"></span>
+                This party is over.
+            </h1>
+            <p>
+                This party came to an end because registration period has passed. If
+                you registered earlier make sure you check your email. 
+            </p>
+        </div>
+    </div>
+<?php endif; ?>
