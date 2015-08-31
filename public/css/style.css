@@ -80,9 +80,9 @@
 .strong-points .strong-point-content.right { text-align: right; left: initial; top: 35%; right: 50px; }
 .strong-points .design .strong-point-content { top: initial; bottom: 20px; left: 35%; }
 .strong-points .control .strong-point-content { top: 25%; }
-.home-cta { background: url(../img/random-background.png); height: 400px; text-align: center; padding-top: 120px; }
-.home-cta h2 { color: white; font-size: 42px; font-weight: bold; padding-bottom: 25px; }
-.home-cta button { padding: 20px 100px; background-color: white; color: #ea474b !important; font-weight: bold; }
+.home-cta { height: 400px; text-align: center; padding-top: 120px; }
+.home-cta h2 { color: #ea474b; font-size: 42px; font-weight: bold; padding-bottom: 25px; }
+.home-cta button { padding: 20px 100px; font-weight: bold; }
 .home-cta .craby { background: url(../img/craby.png) no-repeat; width: 100px; height: 100px; background-size: 100%; position: absolute; top: 0; margin-top: -40px; margin-left: -40px; transform: rotate(-30deg); }
 
 /***** PRICING *****/
@@ -103,10 +103,14 @@
 .pricing-section .option-image { margin-top: 30px; height: 130px; }
 .pricing-section .option-title p { font-size: 20px; color: #ea474b; font-weight: bold; text-transform: uppercase; }
 .pricing-section .option-price span { font-size: 12px; }
-.pricing-section .option-benefits { padding-top: 20px; height: 400px; margin: 20px; border-top: 1px solid #ea474b; }
+.pricing-section .option-benefits { padding-top: 20px; height: 700px; margin: 20px; border-top: 1px solid #ea474b; }
+.pricing-section .option-benefits h5 { text-align: left; padding: 15px 0 0 30px; }
 .pricing-section .option-buy { margin: 50px 0; }
-.pricing-section ul.benefits { list-style: none; margin: 0; text-align: justify; }
-.pricing-section ul.benefits li { padding: 5px 0 5px 30px; width: 80%; margin: 0 auto; background: url(../img/check.png) no-repeat 0 5px; font-size: smaller; text-align: left; }
+.pricing-section ul.benefits,
+.pricing-section ul.comming-soon { list-style: none; margin: 0; text-align: justify; }
+.pricing-section ul.benefits li,
+.pricing-section ul.comming-soon li { padding: 5px 0 5px 30px; width: 80%; margin: 0 auto; background: url(../img/check.png) no-repeat 0 5px; font-size: smaller; text-align: left; }
+.pricing-section ul.comming-soon li { background: url(../img/appointment.png) no-repeat 0 7px; }
 
 /***** CHECKOUT *****/
 .checkout { background: url(../img/checkout-background.png); min-height: 600px; padding: 140px 0 70px 0; text-align: center; }
