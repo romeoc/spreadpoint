@@ -22,7 +22,6 @@ class CartController extends AbstractActionController
 {
     public function indexAction()
     {
-        $this->getPayPalModel()->handlePastProfiles($this->getUser());
         $user = $this->getUser();
         if ($user && $user->get('plan') != -1) {
             return $this->redirect()->toRoute('checkout', array('controller' => 'cart', 'action' => 'upgrade'));
