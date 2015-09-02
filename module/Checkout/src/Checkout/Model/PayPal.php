@@ -116,7 +116,6 @@ class PayPal implements ServiceLocatorAwareInterface
         if ($payment->isValid()) {
             $response = $this->getRequest()->send($payment);
             if ($response->isSuccess()) {
-                $this->handlePastProfiles($user);
                 return $this->createOrder($payment, $response, $user, $data['plan']);
             } else {
                 foreach ($response->getErrorMessages() as $error) {
@@ -182,7 +181,6 @@ class PayPal implements ServiceLocatorAwareInterface
         
         $response = $this->getRequest()->send($payment);
         if ($response->isSuccess()) {
-            $this->handlePastProfiles($user);
             return $this->createOrder($payment, $response, $user, $plan);
         } else {
             foreach ($response->getErrorMessages() as $error) {
@@ -195,6 +193,8 @@ class PayPal implements ServiceLocatorAwareInterface
     
     protected function createOrder($payment, $response, $user, $plan)
     {
+        $pastOrder = $this->getPastOrder($user);
+
         $data = array(
             'user' => $user,
             'name' => $user->get('firstname') . ' ' . $user->get('lastname'),
@@ -218,6 +218,7 @@ class PayPal implements ServiceLocatorAwareInterface
         $order = $order->save($data);
         
         if ($order) {
+            $this->handlePastProfiles($pastOrder);
             $this->sendInvoice($order);
         }
         
@@ -237,13 +238,13 @@ class PayPal implements ServiceLocatorAwareInterface
         $response = $this->getRequest()->send($transaction);
         
         if (!$response->isSuccess()) {
-            return$response->getErrorMessages();
+            return $response->getErrorMessages();
         }
         
         return true;
     }
     
-    public function handlePastProfiles($user)
+    public function getPastOrder($user)
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
         $order = $queryBuilder->select('e.profileId, e.id')
@@ -256,6 +257,11 @@ class PayPal implements ServiceLocatorAwareInterface
             ->setMaxResults(1)
             ->getResult();
         
+        return $order;
+    }
+    
+    public function handlePastProfiles($order)
+    {
         if ($order) {
             $profileId = $order[0]['profileId'];
             $cancelProfileResult = $this->cancelProfile($profileId);
