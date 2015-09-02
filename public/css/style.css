@@ -78,8 +78,9 @@
 .strong-points .home-content p { font-size: 120%; }
 .strong-points .strong-point-content { width: 30%; position: absolute; top: 35%; left: 50px; }
 .strong-points .strong-point-content.right { text-align: right; left: initial; top: 35%; right: 50px; }
-.strong-points .design .strong-point-content { top: initial; bottom: 20px; left: 35%; }
+.strong-points .design .strong-point-content { top: initial; bottom: 20px; left: 21%; width: 40%; text-align: right; }
 .strong-points .control .strong-point-content { top: 25%; }
+.strong-points .strong-point-content a { color: white; text-decoration: underline; line-height: 50px; }
 .home-cta { height: 400px; text-align: center; padding-top: 120px; }
 .home-cta h2 { color: #ea474b; font-size: 42px; font-weight: bold; padding-bottom: 25px; }
 .home-cta button { padding: 20px 100px; font-weight: bold; }
