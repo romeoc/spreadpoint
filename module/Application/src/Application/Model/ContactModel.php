@@ -77,9 +77,9 @@ class ContactModel
      */
     protected function send()
     {
-        $body = 'Sender Name: ' . $this->data['fullname'] 
-                . PHP_EOL . 'Sender Email: ' . $this->data['email'] 
-                . PHP_EOL . PHP_EOL . 'Message: ' . $this->data['message'];
+        $body = "<p><strong>Sender Name:</strong> {$this->data['fullname']}</p>" 
+                . "<p><strong>Sender Email:</strong> {$this->data['email']}</p><br />"
+                . "<p>{$this->data['message']}</p>";
         
         $data = array(
             'body' => $body,

@@ -287,8 +287,8 @@ class PayPal implements ServiceLocatorAwareInterface
         $now = new \DateTime();
 
         $subject = 'SpreadPoint - Error Notification';
-        $body = 'Time: ' . $now->format('g:ia \o\n l jS F Y')
-                . PHP_EOL . 'Error Notification: ' . $message;
+        $body = '<p><strong>Time</strong>: ' . $now->format('g:ia \o\n l jS F Y') . '</p>'
+                . '<p><strong style="color: red;">Error Notification:</strong> ' . $message . '</p>';
         
         $emailData = array(
             'body' => $body,

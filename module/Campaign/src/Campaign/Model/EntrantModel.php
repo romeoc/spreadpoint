@@ -105,8 +105,8 @@ class EntrantModel extends AbstractModel
         $domain =  sprintf('%s://%s', $uri->getScheme(), $uri->getHost());
         
         if ($user->get('notifications') == 1) {
-            $body = "Someone just entered your contest titles '{$campaign->get('title')}'!" 
-                    . PHP_EOL . "Check it out at {$domain}";
+            $body = "Someone just entered your contest titled '{$campaign->get('title')}'! <br />" 
+                    . "Check it out at <a href='{$domain}' title='SpreadPoint'>{$domain}</a>";
             $subject = 'Aww Yeah! Your contest is spreading wildfire';
             
             $fullname = $user->get('firstname') . ' ' . $user->get('lastname');
