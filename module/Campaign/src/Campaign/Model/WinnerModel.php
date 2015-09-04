@@ -117,7 +117,7 @@ class WinnerModel extends AbstractModel
         
         foreach ($peopleToNotify as $winner) {
             $title = $campaign->get('title');
-            $subject = "You have won a prize in the '{$title}' competition!";
+            $subject = "You have won a prize in the \"{$title}\" competition!";
 
             $emailVariables = array(
                 '{entrant_name}' => $winner['name'],

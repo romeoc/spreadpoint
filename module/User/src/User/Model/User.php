@@ -89,7 +89,7 @@ class User extends AbstractModel
         $resetUrl = $domain . "/account/reset/{$code}";
         
         $subject = 'SpreadPoint - Reset Your Password';
-        $body = "<p>To reste your password, please visit the following link: <br />"
+        $body = "<p>To reset your password, please visit the following link: <br />"
                 . "<a href='{$resetUrl}' title='Reset Password'>{$resetUrl}</a></p>";
         
         $emailData = array(
