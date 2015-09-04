@@ -3,7 +3,7 @@
     <div class="settings-view dashboard-content">
         <?php echo $this->partial('application/session/global-messages', array('global_messages' => $this->messages)); ?>
         <form method="post" name="settings" enctype="multipart/form-data" action="<?php echo $this->basePath('account/save'); ?>" id="settings" novalidate>
-            <div class="settings-header">
+            <div class="settings-header pad-top-20">
                 <h3 class="left">Settings</h3>
                 <div class="settings-actions right">
                     <button type="submit" class="settings-action switch-action" data-action="<?php echo $this->basePath('account/save'); ?>">
@@ -17,7 +17,7 @@
                     <li><a href="#notifications">Notifications</a></li>
                 </ul>
                 <div id="notifications">
-                    <div class="settings-form-row custom-form-row custom-row-notifications">
+                    <div class="settings-form-row custom-form-row custom-row-notifications pad-top-20">
                         <div class="field">
                             <label class="notifications left">Enable Notifications</label>
                             <div class="switch">
@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div id="account-info">
-                    <div class="change-password">
+                    <div class="change-password pad-top-20">
                         <a href="javascript:void(0);" class="change-password-action" title="Change Password">Change Password</a>
                         <div class="inputs hide">
                             <input type="password" name="old-password" placeholder="Old Password" />

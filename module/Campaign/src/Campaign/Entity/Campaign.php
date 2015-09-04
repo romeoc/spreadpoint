@@ -141,6 +141,11 @@ class Campaign extends AbstractEntity
     protected $sendWelcomeEmail = 0;
     
     /**
+     * @ORM\Column(type="smallint", name="notify_winners", length=1)
+     */
+    protected $notifyWinners = 0;
+    
+    /**
      * @ORM\Column(type="smallint", name="retain_previous_entrants", length=1)
      */
     protected $retainPreviousEntrants = 0;

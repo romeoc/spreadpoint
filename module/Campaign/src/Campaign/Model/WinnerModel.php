@@ -113,32 +113,35 @@ class WinnerModel extends AbstractModel
     
     public function notifyWinners($peopleToNotify, $campaign)
     {
+        $notifyWinners = $campaign->get('notifyWinners');
         $body = $campaign->get('winnerEmail');
         
-        foreach ($peopleToNotify as $winner) {
-            $title = $campaign->get('title');
-            $subject = "You have won a prize in the \"{$title}\" competition!";
+        if ($notifyWinners == 1 && $body) {
+            foreach ($peopleToNotify as $winner) {
+                $title = $campaign->get('title');
+                $subject = "You have won a prize in the \"{$title}\" competition!";
 
-            $emailVariables = array(
-                '{entrant_name}' => $winner['name'],
-                '{entrant_email}' => $winner['email'],
-                '{campaign_title}' => $campaign->get('title')
-            );
-            
-            $body = Mail::replaceCustomVariables($body, $emailVariables);
-            
-            $emailData = array(
-                'body' => $body,
-                'subject' => $subject,
-                'toEmail' => $winner['email'],
-                'toName' => $winner['name'],
-                'service' => $this->getServiceLocator()
-            );
-            
-            Mail::send($emailData);
+                $emailVariables = array(
+                    '{entrant_name}' => $winner['name'],
+                    '{entrant_email}' => $winner['email'],
+                    '{campaign_title}' => $campaign->get('title')
+                );
+
+                $body = Mail::replaceCustomVariables($body, $emailVariables);
+
+                $emailData = array(
+                    'body' => $body,
+                    'subject' => $subject,
+                    'toEmail' => $winner['email'],
+                    'toName' => $winner['name'],
+                    'service' => $this->getServiceLocator()
+                );
+
+                Mail::send($emailData);
+            }
+
+            Session::success('All winners have been notified');
         }
-        
-        Session::success('All winners have been notified');
     }
     
     public function getWinnersForCampaign($campaignId, $cycle = null)

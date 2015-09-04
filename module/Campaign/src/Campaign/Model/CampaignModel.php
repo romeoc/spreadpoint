@@ -128,6 +128,7 @@ class CampaignModel extends AbstractModel
         
         $data['showEntrants'] = (array_key_exists('showEntrants', $data)) ? 1 : 0;
         $data['sendWelcomeEmail'] = (array_key_exists('sendWelcomeEmail', $data)) ? 1 : 0;
+        $data['notifyWinners'] = (array_key_exists('notifyWinners', $data)) ? 1 : 0;
         $data['retainPreviousEntrants'] = (array_key_exists('retainPreviousEntrants', $data)) ? 1 : 0;
         
         // Rename banner
@@ -216,7 +217,12 @@ class CampaignModel extends AbstractModel
             $errosFound = true;
         }
         
-        if (array_key_exists('winnerEmail', $data) && strlen($data['winnerEmail']) > 20000) {
+        if (array_key_exists('notifyWinners', $data) && !(array_key_exists('winnerEmail', $data) && $data['winnerEmail'])) {
+            Session::error("Please provide a <strong>Winner's Email</strong> or uncheck the <strong>'Notify Winners'</strong> field");
+            $errosFound = true;
+        }
+        
+        if (array_key_exists('winnerEmail', $data) && $data['notifyWinners'] && strlen($data['winnerEmail']) > 20000) {
             Session::error("There is a limit of <strong>20000</strong> characters to the <strong>'Winner's Email'</strong> field");
             $errosFound = true;
         }

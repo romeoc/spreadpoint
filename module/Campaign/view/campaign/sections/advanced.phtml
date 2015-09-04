@@ -42,17 +42,25 @@
             <textarea class="focus-note" name="welcomeEmail" title="Write or paste the content for your initial email to registered users. You can customize the layout with the purchase of a custom package. We recommend using a short and sweet message that thanks your participants for joining. Call to action buttons can be added in Ocean package."><?php echo $campaignHelper->get('welcomeEmail'); ?></textarea>
         </div>
     </div>
-    <div class="campaign-form-row custom-form-row custom-row-winnerEmail">
-        <div class="field">
-            <label class="winnerEmail">Winner's Email *</label>
-            <textarea class="focus-note" name="winnerEmail" title="When the big moment comes, the winner will receive this message. We recommend including contact information and the next steps for claiming the prize."><?php echo $campaignHelper->get('winnerEmail'); ?></textarea>
-        </div>
-    </div>
     <div class="campaign-form-row custom-form-row custom-row-sendWelcomeEmail">
         <div class="field">
             <label class="sendWelcomeEmail left">Send Welcome Email</label>
             <div class="switch">
                 <input class="click-note jqui-switch" name="sendWelcomeEmail" type="checkbox" <?php echo $campaignHelper->getChecked('sendWelcomeEmail'); ?> title="NO: Welcoming emails are disabled for participants that register in your contest. YES: Everyone receives a welcoming email once they register." />
+            </div>
+        </div>
+    </div>
+    <div class="campaign-form-row custom-form-row custom-row-winnerEmail">
+        <div class="field">
+            <label class="winnerEmail">Winner's Email</label>
+            <textarea class="focus-note" name="winnerEmail" title="When the big moment comes, the winner will receive this message. We recommend including contact information and the next steps for claiming the prize."><?php echo $campaignHelper->get('winnerEmail'); ?></textarea>
+        </div>
+    </div>
+    <div class="campaign-form-row custom-form-row custom-row-notifyWinners">
+        <div class="field">
+            <label class="notifyWinners left">Notify Winners</label>
+            <div class="switch">
+                <input class="click-note jqui-switch" name="notifyWinners" type="checkbox" <?php echo $campaignHelper->getChecked('notifyWinners'); ?> title="If enabled we will notify the winners for you. Please insert your message in the \"Winner's Email\" field" />
             </div>
         </div>
     </div>

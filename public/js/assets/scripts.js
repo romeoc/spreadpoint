@@ -1262,6 +1262,12 @@
                 return false;
             }
             
+            var notifyWinners = $('.custom-row-notifyWinners').find('.switch-button-background.checked').length;
+            if (notifyWinners && !winnerEmail) {
+                this.logError("Please provide a <strong>Winner's Email</strong> or uncheck the <strong>'Notify Winners'</strong> field",".advanced-tab","welcomeEmail");
+                return false;
+            }
+            
             var startTime = this.get('startTime');
             if (!startTime) {
                 this.logError("You didn't provide a valid <strong>'Start Time'</strong> for your campaign",".schedule-tab","startTime");

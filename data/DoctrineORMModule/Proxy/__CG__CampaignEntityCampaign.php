@@ -94,10 +94,10 @@ class Campaign extends \Campaign\Entity\Campaign implements \Doctrine\ORM\Proxy\
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'user', 'title', 'description', 'startTime', 'endTime', 'banner', 'titleCss', 'descriptionCss', 'status', 'type', 'timezone', 'cycleDuration', 'cyclesCount', 'layout', 'restrictions', 'termsAndConditions', 'showEntrants', 'ageRequirement', 'welcomeEmail', 'winnerEmail', 'sendWelcomeEmail', 'retainPreviousEntrants', 'createdAt');
+            return array('__isInitialized__', 'id', 'user', 'title', 'description', 'startTime', 'endTime', 'banner', 'titleCss', 'descriptionCss', 'status', 'type', 'timezone', 'cycleDuration', 'cyclesCount', 'layout', 'restrictions', 'termsAndConditions', 'showEntrants', 'ageRequirement', 'welcomeEmail', 'winnerEmail', 'sendWelcomeEmail', 'notifyWinners', 'retainPreviousEntrants', 'createdAt');
         }
 
-        return array('__isInitialized__', 'id', 'user', 'title', 'description', 'startTime', 'endTime', 'banner', 'titleCss', 'descriptionCss', 'status', 'type', 'timezone', 'cycleDuration', 'cyclesCount', 'layout', 'restrictions', 'termsAndConditions', 'showEntrants', 'ageRequirement', 'welcomeEmail', 'winnerEmail', 'sendWelcomeEmail', 'retainPreviousEntrants', 'createdAt');
+        return array('__isInitialized__', 'id', 'user', 'title', 'description', 'startTime', 'endTime', 'banner', 'titleCss', 'descriptionCss', 'status', 'type', 'timezone', 'cycleDuration', 'cyclesCount', 'layout', 'restrictions', 'termsAndConditions', 'showEntrants', 'ageRequirement', 'welcomeEmail', 'winnerEmail', 'sendWelcomeEmail', 'notifyWinners', 'retainPreviousEntrants', 'createdAt');
     }
 
     /**
