@@ -22,6 +22,11 @@ class WidgetModel extends AbstractModel
      * The dault widget ID. This widget is required for any campaign.
      */
     const DEAFULT_WIDGET_ID = 1;
+    
+    /**
+     * Reference Widget Id
+     */
+    const REFERENCE_WIDGET_ID = 6;
  
     /**
      * All available widgets
@@ -295,5 +300,20 @@ class WidgetModel extends AbstractModel
         }
         
         return json_encode($widgets);
+    }
+    
+    public function getAllReferenceWidgets($campaign)
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $widgets = $queryBuilder->select('e.id')
+            ->from($this->entity, 'e')
+            ->where('e.campaign= :campaign')
+            ->andWhere('e.widgetType= :type')
+            ->setParameter('campaign', $campaign)
+            ->setParameter('type', self::REFERENCE_WIDGET_ID)
+            ->getQuery()
+            ->getScalarResult();
+        
+        return array_map('current', $widgets);
     }
 }

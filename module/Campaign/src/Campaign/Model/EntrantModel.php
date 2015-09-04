@@ -44,8 +44,10 @@ class EntrantModel extends AbstractModel
         $entrant = false;
         
         $referenceId = $this->getCookie('reference');
+        $reference = null;
         if ($referenceId) {
-            $entrantData['reference'] = $this->loadEntrant($referenceId);
+            $reference = $this->loadEntrant($referenceId);
+            $entrantData['reference'] = $reference;
         }
         
         if ($this->validate($entrantData) && !$this->isRegistered($campaignId, $entrantData['email'], true)) {
@@ -57,6 +59,20 @@ class EntrantModel extends AbstractModel
             $this->addChance($entrant, $widgetId);
             $this->sendWelcomeEmail($entrant);
             $this->sendNotificationEmail($campaign, $entrant);
+            if ($reference) {
+                $this->addReferenceChance($reference, $campaign);
+            }
+        }
+    }
+    
+    public function addReferenceChance($reference, $campaign)
+    {
+        $model = new WidgetModel();
+        $model->setServiceLocator($this->getServiceLocator());
+        
+        $widgets = $model->getAllReferenceWidgets($campaign);
+        foreach ($widgets as $widget) {
+            $this->addChance($reference, $widget, true);
         }
     }
     
@@ -174,7 +190,7 @@ class EntrantModel extends AbstractModel
     }
     
     
-    public function addChance($entrant, $widgetId)
+    public function addChance($entrant, $widgetId, $allowDuplicates = false)
     {
         $data['entrant'] = $entrant;
         $data['widget'] = $this->loadWidget($widgetId);
@@ -182,7 +198,7 @@ class EntrantModel extends AbstractModel
         $model = $this->getChanceModel();
         
         // Already awarded for this widget
-        if ($model->load($entrant, $widgetId)) {
+        if ($model->load($entrant, $widgetId) && !$allowDuplicates) {
             return false;
         }
         

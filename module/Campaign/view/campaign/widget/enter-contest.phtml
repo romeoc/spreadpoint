@@ -7,34 +7,30 @@
             <input type="text" name="name" class="enter-contest-name" placeholder="Full Name" autocomplete='off' required />
             <input type="email" name="email" class="enter-contest-email" placeholder="Email" autocomplete='off' required />
         </div>
-        <div class="requirement">
-            <?php if ($this->campaign['ageRequirement'] != 1): ?>
+        <?php if ($this->campaign['ageRequirement'] != 1): ?>
+            <div class="requirement">
                 <input type="checkbox" class="kalypsify" id="ageRequirement" />
                 <?php $ageRequirements = $helper->getAllAgeRequirements(); ?>
                 <label for="ageRequirement">
                     <?php echo $ageRequirements[$this->campaign['ageRequirement'] - 1 ]['label']; ?>
                 </label>
-            <?php endif; ?>
-        </div>
-        <div class="requirement">
-            <input type="checkbox" class="kalypsify" id="terms" />
-            <label for="terms">
-                I agree to the 
-                <a class="show-terms" href="javascript:void(0);">Terms & Conditions</a>
-            </label>
-            <div class="terms-box hide">
-                <h2>Terms & Conditions</h2>
-                <textarea readonly>
-                    <?php if ($campaign['termsAndConditions']): ?>
-                        <?php echo $campaign['termsAndConditions']; ?>
-                    <?php else: ?>
-                        <?php echo $helper->getDefaultTerms($campaign); ?>
-                    <?php endif; ?>
-                </textarea>
-                <button type="button" class="terms-agree">I agree</button>
-                <span class="close"><i class="fa fa-close"></i></span>
             </div>
-        </div>
+        <?php endif; ?>
+        <?php if ($campaign['termsAndConditions']): ?>
+            <div class="requirement">
+                <input type="checkbox" class="kalypsify" id="terms" />
+                <label for="terms">
+                    I agree to the 
+                    <a class="show-terms" href="javascript:void(0);">Terms & Conditions</a>
+                </label>
+                <div class="terms-box hide">
+                    <h2>Terms & Conditions</h2>
+                    <textarea readonly><?php echo $campaign['termsAndConditions']; ?></textarea>
+                    <button type="button" class="terms-agree">I agree</button>
+                    <span class="close"><i class="fa fa-close"></i></span>
+                </div>
+            </div>
+        <?php endif; ?>
         <div class="field">
             <button class="enter-contest-action">Enter Contest</button>
         </div>
