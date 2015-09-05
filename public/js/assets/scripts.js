@@ -531,7 +531,7 @@
                 if ((isNaN(input) && input !== '/') || (input === '/' && expirationDate.length !== 3)) {
                     expirationDate = expirationDate.slice(0, -1);
                 } else {
-                    if (expirationDate.length === 1 && expirationDate != 1) {
+                    if (expirationDate.length === 1 && expirationDate > 1) {
                         expirationDate = '0' + expirationDate;
                     }
                     if (expirationDate.length === 2) {
