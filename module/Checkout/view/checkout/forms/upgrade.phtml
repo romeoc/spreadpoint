@@ -45,15 +45,16 @@
                 </div>
             </div>
             <div class="period-element element">
+                <?php $billingPeriod = ($this->order->get('billingPeriod') === 'Month'); ?>
                 <div class="row">
                     <label class="period-label"><i class="fa fa-calendar"></i>Billing Period:</label>
                 </div>
                 <div class="row">
-                    <input id="monthly" type="radio" name="period" required="required" class="kalypsify" value="0">
+                    <input id="monthly" type="radio" name="period" required="required" class="kalypsify" value="0" <?php if ($billingPeriod) { echo 'checked'; } ?> />
                     <label for="monthly">Monthly</label>
                 </div>
                 <div class="row">
-                    <input id="yearly" type="radio" name="period" required="required" class="kalypsify" value="1">
+                    <input id="yearly" type="radio" name="period" required="required" class="kalypsify" value="1" <?php if (!$billingPeriod) { echo 'checked'; } ?> />
                     <label for="yearly">Yearly</label>            
                 </div>
             </div>

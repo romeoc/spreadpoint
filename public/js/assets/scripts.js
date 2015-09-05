@@ -475,6 +475,7 @@
     SpreadPoint.Checkout = {
         paypalAction: false,
         plan: null,
+        billingPeriod: null,
         init: function() {
             this.addFieldEvents();
             
@@ -487,6 +488,9 @@
         },
         addCurrentPlanValidation: function(plan) {
             this.plan = plan;
+        },
+        addCurrentBillingPeriodValidation: function(billingPeriod) {
+            this.billingPeriod = billingPeriod;
         },
         addFieldEvents: function() {
             var $this = this;
@@ -594,16 +598,19 @@
             if (!plan) {
                 $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please select a package</li>');
                 return false;
-            } else if (this.plan !== null && plan == this.plan) {
-                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>You are already subscribed to this plan.</li>');
-                return false;
-            }
-            
+            } 
+                        
             var period = $('[name="period"]:checked').val();
             if (!period) {
                 $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please select a billing period.</li>');
                 return false;
             }
+            
+            if ((this.plan !== null && plan == this.plan) && (this.billingPeriod !== null && period == this.billingPeriod)) {
+                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>You are already subscribed to this plan.</li>');
+                return false;
+            }
+
             
             return true;
         },

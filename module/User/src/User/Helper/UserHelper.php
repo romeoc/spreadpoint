@@ -13,6 +13,8 @@ namespace User\Helper;
 use Zend\View\Helper\AbstractHelper;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 
+use Checkout\Entity\Order;
+
 class UserHelper extends AbstractHelper implements ServiceLocatorAwareInterface
 {
     protected $service;
@@ -30,6 +32,11 @@ class UserHelper extends AbstractHelper implements ServiceLocatorAwareInterface
     public function updateServiceLocator($service)
     {
         $this->service = $service;
+    }
+    
+    public function getEntityManager()
+    {
+        return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     }
     
     public function isLoggedIn()
@@ -74,5 +81,30 @@ class UserHelper extends AbstractHelper implements ServiceLocatorAwareInterface
         }
         
         return $entity;
+    }
+    
+    public function getActiveOrder($user = null)
+    {
+        $user = ($user) ? $user : $this->getLoggedInUser();
+        $order = null;
+        
+        if ($user) {
+            $order = $this->getEntityManager()->createQueryBuilder()
+                ->select('o')
+                ->from('Checkout\Entity\Order', 'o')
+                ->where('o.user= :user')
+                ->andWhere('o.status= :status')
+                ->setParameter('user', $user)
+                ->setParameter('status', Order::STATUS_ACTIVE)
+                ->getQuery()
+                ->setMaxResults(1)
+                ->getResult();
+        }
+        
+        if ($order) {
+            $order = $order[0];
+        }
+        
+        return $order;
     }
 }
