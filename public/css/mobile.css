@@ -13,6 +13,7 @@
     
     /***** Footer *****/
     .site-footer { font-size: smaller; text-align: center; }
+    .site-footer .copyright { width: 100%; }
     .site-footer .footer-links li { padding-left: 0; }
     .site-footer .footer-links li:first-child:before { content: none; }
     
@@ -93,6 +94,9 @@
     /***** Entrants *****/
     .entrant-view .entrant-row label { width: auto; font-weight: bold; }
     .entrant-view .entrant-row th { background-color: #CCC; padding: 10px; }
+    
+    /***** Cms Pages *****/
+    .cms-page { margin-top: 70px; padding: 0 40px; font-size: smaller; }
 }
 
 @media handheld, only screen and (max-width: 769px) and (orientation: portrait) {
