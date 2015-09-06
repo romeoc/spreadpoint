@@ -77,6 +77,17 @@
             }).on('mouseleave', function(){
                 $(this).find('.title').slideToggle();
             });
+            
+            // Disable edit on mobile by redirecting to campaign view
+            if (screen.width <= 769) {
+                $('.campaign a').each(function() {
+                    var self = $(this);
+                    var href = self.attr('href');
+                    
+                    href = href.replace('edit', 'view');
+                    self.attr('href', href);
+                });
+            }
         },
         initializeAccordions: function() {
             $('.jqui-accordion').accordion({

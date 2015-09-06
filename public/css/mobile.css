@@ -1,2 +1,108 @@
-.pricing-section .option { width: 100%; margin: 0; margin-bottom: 20px;}
-.pricing-section .option-benefits { height: auto; }
+@media handheld, only screen and (max-width: 769px) {
+    
+    /***** Homepage *****/
+    .hero-content-section { margin-top: 90px; }
+    .hero-content h2 { font-size: 52px; }
+    .hero-content p { width: 100%; font-size: 120%; }
+    
+    .strong-points .home-content { display: none; }
+    
+    .home-cta { padding-top: 0; height: 250px; background-color: #ea474b; }
+    .home-cta h2 { font-size: 32px; color: white; }
+    .home-cta button { padding: 20px; font-size: smaller; background-color: white; color: #ea474b !important; }
+    
+    /***** Footer *****/
+    .site-footer { font-size: smaller; text-align: center; }
+    .site-footer .footer-links li { padding-left: 0; }
+    .site-footer .footer-links li:first-child:before { content: none; }
+    
+    /***** Pricing *****/
+    .pricing-container .pricing-header-content { padding-top: 80px; }
+    .pricing-container .pricing-header-content p { width: 100%; }
+    .pricing-section { padding: 50px 10px; }
+    .pricing-section .option { width: 100%; border: 1px solid #ea474b; border-radius: 15px; margin: 0; margin-bottom: 30px; }
+    .pricing-section .option-benefits { height: auto; }
+    
+    /***** Contact & Support *****/
+    .contact-page .contact-header { padding-top: 90px; height: 250px; }
+    .contact-page .contact-header h2 { font-size: 24px; }
+    .contact-page .contact-header p { width: 95%; padding-top: 10px; font-size: 100%; }
+
+    .contact-page form { width: 100%; padding-left: 20px; }
+    .contact-page form input, .contact-page form textarea,
+    .contact-page form input, .contact-page form input { width: 95%; }
+    .contact-page form button { margin-left: 0; }
+    .contact-page form label { height: auto; padding: 0 10px; font-size: 100%; }
+    
+    .contact-page form .support-form-upload input { margin: 5px 0; }
+    .contact-page .support-header { height: 300px; }
+    
+    /***** Login *****/
+    .login-form-container { width: 90%; padding: 80px 0;}
+    
+    /***** Checkout *****/
+    .checkout { padding: 100px 0; min-height: initial; }
+    .checkout .checkout-register { width: 90%; padding: 20px; }
+    
+    .checkout .checkout-form { width: 90%; margin: 0; margin-bottom: 20px; }
+    .checkout .checkout-billing .visible-plan span.title { font-size: smaller; }
+    .checkout .checkout-billing .visible-plan img { height: 50px; width: auto; }
+    .checkout .checkout-billing .visible-plan span.price { font-size: smaller; }
+    .checkout .checkout-billing .visible-plan span.price.double { padding: 0 5px; padding-top: 18px; }
+    .checkout .checkout-billing .subtitle { padding-left: 25px; }
+    .checkout .checkout-billing .subtitle .pay-pal-text { font-size: 10px; line-height: 25px; padding-top: 3px; }
+    .checkout-payment-form .pay-pal-action { width: 50px; height: 25px; background-size: 40px; background-position-x: 5px; }
+    .checkout-payment-form .subtitle h4 { background-size: 25px; background-position: 60px 7px; width: 100px; font-size: 20px; }
+    .checkout .plan-form .subtitle h4 { font-size: 20px; background-position: 55px; }
+    .checkout .checkout-billing .checkout-form-row { width: 85%; }
+    .checkout .checkout-billing .checkout-form-row input { font-size: smaller; letter-spacing: initial; background-size: 25px; padding-left: 46px; }
+    .checkout .checkout-billing .checkout-form-row .checkout-submit { padding-left: 1.5em; }
+    .checkout .checkout-billing .checkout-form-row.custom-row-submit-action { padding-top: 15px; margin-bottom: 25px; }
+    
+    .checkout-form .period-label { font-size: 14px; }
+    .checkout-form .period-element .row-label { width: 100%; }
+    .checkout-form .period-element .row { font-size: smaller; }
+    .checkout-form .period-element .row-check { width: 35%; padding-top: 10px; }
+    .checkout-form .period-element label { float: none; display: initial; }
+    
+    /***** Reset Password *****/
+    .reset-password #initialize-password-reset button { margin-top: 10px; margin-left: 0; }
+    
+    /***** Menu *****/
+    .dashboard-menu-container { width: 65px; }
+    .dahsboard-menu li a { font-size: 8px; }
+    .dashboard-content { padding-left: 80px; }
+    
+    /***** Listing *****/
+    .campaign-listing .campaigns-title h2 { font-size: 20px; padding-right: 10px; }
+    .campaign-listing .campaigns-title button { font-size: 10px; padding: 5px; }
+    .campaign-listing .campaign img { max-height: 50px; }
+    
+    /***** Upgrade *****/
+    .dashboard-content.upgrade-view { padding-left: 80px; }
+    .upgrade .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan { width: 80%; margin-bottom: 20px; }
+    .upgrade .checkout-form .period-element .row-label { padding-bottom: 10px; }
+    .upgrade .checkout-billing .visible-plan span.title { padding: 0; padding-top: 10px; }
+    .upgrade .checkout-billing .visible-plan img { height: 100px; width: auto; padding-bottom: 5px; }
+    
+    .upgrade-payment-form { width: 90%; }
+    .upgrade-payment-form .subtitle { padding: 15px; }
+    .upgrade-payment-form .custom-form-row { width: 90%; }
+    .checkout-payment-form.upgrade-payment-form input { font-size: smaller; background-size: 25px; padding-left: 45px; }
+    
+    /***** Entrants *****/
+    .entrant-view .entrant-row label { width: auto; font-weight: bold; }
+    .entrant-view .entrant-row th { background-color: #CCC; padding: 10px; }
+}
+
+@media handheld, only screen and (max-width: 769px) and (orientation: portrait) {
+    /***** Defaults *****/
+    .hide-on-portrait { display: none; }
+
+    /***** 404 *****/
+    .page-404 .blob { width: 70%; top: 5%; bottom: initial; right: 15%; left: 15%; }
+    .page-404 .cloud { width: 20%; }
+    .page-404 .cloud-1 { top: 5%; right: 5%; left: initial; }
+    .page-404 .tree { background-size: auto 65%; }
+    .page-404 .sign { width: 30%; background-size: auto 65%; }
+}

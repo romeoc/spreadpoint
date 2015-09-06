@@ -44,18 +44,19 @@
                     <a href="javascript:void(0);" class="ocean-plan-trigger" title="<?php echo $plans[PlanHelper::OCEAN_PLAN]['name'] ;?> Plan">
                         <img src="<?php echo $this->basePath($plans[PlanHelper::OCEAN_PLAN]['image']); ?>" alt="<?php echo $plans[PlanHelper::OCEAN_PLAN]['name'] ;?> Plan" width="90" height="90" />
                     </a>
-                    <span class="price double">Custom Price</span>
+                    <span class="price">Custom</span>
+                    <span class="price">Price</span>
                 </div>
             </div>
             <div class="period-element element">
-                <div class="row">
+                <div class="row row-label">
                     <label class="period-label"><i class="fa fa-calendar"></i>Billing Period:</label>
                 </div>
-                <div class="row">
+                <div class="row row-check">
                     <input id="monthly" type="radio" name="period" required="required" class="kalypsify" value="0">
                     <label for="monthly">Monthly</label>
                 </div>
-                <div class="row">
+                <div class="row row-check">
                     <input id="yearly" type="radio" name="period" required="required" class="kalypsify" value="1">
                     <label for="yearly">Yearly</label>            
                 </div>
