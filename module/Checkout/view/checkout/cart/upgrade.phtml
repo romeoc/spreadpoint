@@ -13,5 +13,7 @@
 </div>
 <script type="text/javascript">
     SpreadPoint.Checkout.addCurrentPlanValidation(<?php echo $plan; ?>);
-    SpreadPoint.Checkout.addCurrentBillingPeriodValidation('<?php echo (int)($order->get('billingPeriod') === 'Year'); ?>');
+    <?php if ($order): ?>
+        SpreadPoint.Checkout.addCurrentBillingPeriodValidation('<?php echo (int)($order->get('billingPeriod') === 'Year'); ?>');
+    <?php endif; ?>
 </script>

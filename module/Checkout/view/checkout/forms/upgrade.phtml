@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="period-element element">
-                <?php $billingPeriod = ($this->order->get('billingPeriod') === 'Month'); ?>
+                <?php $billingPeriod = ($this->order) ? ($this->order->get('billingPeriod') === 'Month') : true; ?>
                 <div class="row">
                     <label class="period-label"><i class="fa fa-calendar"></i>Billing Period:</label>
                 </div>
