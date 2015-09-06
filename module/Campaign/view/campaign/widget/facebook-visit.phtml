@@ -14,6 +14,7 @@
     </span>
 </h3>
 <div class="widget-content widget-type-facebookvisit" data-id="<?php echo $this->data->id; ?>">
+    <span class="widget-description">Earn <?php echo $this->data->earningValue; ?> additional chance<?php if ($this->data->earningValue > 1) { echo 's'; }; ?> for visiting our facebook page.</span>
     <a href="<?php echo $this->data->page; ?>" class="facebook-visit" title="<?php echo $this->data->title; ?>" target="_blank">
         <button><?php echo $this->data->title; ?><i class="fa fa-external-link"></i></button>
     </a>

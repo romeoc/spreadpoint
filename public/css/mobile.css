@@ -13,7 +13,7 @@
     
     /***** Footer *****/
     .site-footer { font-size: smaller; text-align: center; }
-    .site-footer .copyright { width: 100%; }
+    .site-footer .copyright { display: block; }
     .site-footer .footer-links li { padding-left: 0; }
     .site-footer .footer-links li:first-child:before { content: none; }
     

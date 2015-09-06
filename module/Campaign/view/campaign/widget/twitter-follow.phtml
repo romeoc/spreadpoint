@@ -14,5 +14,6 @@
     </span>
 </h3>
 <div class="widget-content widget-type-twitterfollow" data-id="<?php echo $this->data->id; ?>">
+    <span class="widget-description">Earn <?php echo $this->data->earningValue; ?> additional chance<?php if ($this->data->earningValue > 1) { echo 's'; }; ?> for following us on twitter.</span>
     <a class="twitter-follow-button" data-count="none" href="https://twitter.com/<?php echo $this->data->user; ?>" data-size="large">Follow @<?php $this->data->user; ?></a>
 </div>

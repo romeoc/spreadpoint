@@ -53,7 +53,8 @@
 .campaign-fullpage-light .widget-title .chances-count { float: right; border: 1px solid; padding: 0 5px; color: #f3f5f5; background-color: #444; border-radius: 5px; }
 .campaign-fullpage-light .widget-title .chances-count i { padding-right: 5px; }
 .campaign-fullpage-light .widget-title .completed .chances-count i { padding: 0 10px; }
-.campaign-fullpage-light .widget-content { min-height: 60px; }
+.campaign-fullpage-light .widget-content { min-height: 60px; padding-bottom: 20px; }
+.campaign-fullpage-light .widget-content .widget-description { display: block; padding-bottom: 10px; color: #444; font-size: 14px; }
 .campaign-fullpage-light .field { padding: 10px; margin: 0 auto; text-align: center; }
 .campaign-fullpage-light .field label { display: block; color: #444; }
 .campaign-fullpage-light .field input { background-color: #e2e4e4; color: #444; outline: none; padding: 10px; width: 270px; border: 1px solid #444; border-radius: 5px; }

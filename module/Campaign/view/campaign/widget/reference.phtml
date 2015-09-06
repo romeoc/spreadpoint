@@ -13,6 +13,8 @@
     <?php $subject = "Check this out!"; ?>
     <?php $content = "I found a great contest, check it out: "; ?>
     
+    <span class="widget-description">Earn <?php echo $this->data->earningValue; ?> additional chance<?php if ($this->data->earningValue > 1) { echo 's'; }; ?> for every friend you bring along.</span>
+    
     <input type="text" readonly onclick="this.select()" value="<?php echo $referenceUrl; ?>" size='35' />
     <div class="sharing-options">
         <div class="option fb-share-button" data-href="<?php echo $referenceUrl; ?>" data-layout="button"></div>

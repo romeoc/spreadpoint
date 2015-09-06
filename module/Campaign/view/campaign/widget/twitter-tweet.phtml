@@ -14,5 +14,6 @@
     </span>
 </h3>
 <div class="widget-content widget-type-twittertweet" data-id="<?php echo $this->data->id; ?>">
+    <span class="widget-description">Earn <?php echo $this->data->earningValue; ?> additional chance<?php if ($this->data->earningValue > 1) { echo 's'; }; ?> for tweeting.</span>
     <a class="twitter-share-button" data-count="none" href="https://twitter.com/intent/tweet?text=<?php echo $this->data->message; ?>" data-size="large">Tweet</a>
 </div>
