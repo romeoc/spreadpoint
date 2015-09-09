@@ -1,148 +1,23 @@
 /***** Default *****/
-.campaign-page .banner img { min-height: 100%; min-width: 100%; position: fixed; top: 0; left: 0; z-index: -1; }
-.campaign-page .hero { width: 70%; padding: 20px; text-align: center; margin: 0 auto; margin-top: 20px; }
-.campaign-page .title { color: black; }
-.campaign-page .description { color: black; width: 70%; margin: 0 auto; }
-.campaign-page .widgets-container { width: 400px; background: rgba(32,32,32,.7); margin: 20px auto; }
-.campaign-page .branding { height: 20px; background-color: rgba(0,0,0,0.7); }
-.campaign-page .branding span { font-size: 14px; padding: 2px 2px 0 10px; display: block; float: left; color: white; }
-.campaign-page .branding a,
-.campaign-page .branding a:visited { color: black; }
-.campaign-page .requirement input,
-.campaign-page .requirement label { cursor: pointer; }
-
-/***** Pop-Ups *****/
-.hide { display: none; }
-.inline-block { display: inline-block !important; }
-.popup-overlay { position: fixed; top: 0; left: 0; background: rgba(0,0,0,0.6); z-index: 15; width: 100%; height: 100%; }
-.popup-container { position: fixed; z-index: 20; top: 0; bottom: 0; left: 0; right: 0; margin: auto; }
-
-/***** Global Messages *****/
-.global-messages { list-style: none; padding: 0; margin: 0; }
-.global-messages li { border: 1px solid; margin-bottom: 5px; padding: 5px 10px; line-height: 21px; }
-.global-messages li:last-child { margin-bottom: 0; }
-.global-messages li i { padding: 0 10px; }
-.global-messages li.success { color: #57894c; border-color: #57894c; background-color: #cdeacb; }
-.global-messages li.notice { color: #be6c00; border-color: #be6c00; background-color: #fcf6de; }
-.global-messages li.error { color: #fe0000; border-color: #fe0000; background-color: #f6d3cf; }
+.campaign-page .widgets-container { background: rgba(32,32,32,.7); }
 
 /***** Prizes *****/
-.campaign-fullpage-dark .prizes { text-align: center; margin-bottom: 40px; }
-.campaign-fullpage-dark .prizes .prize-container { display: inline-block; width: 19%; padding: 5px; vertical-align: top; }
-.campaign-fullpage-dark .prizes .prize-container.quadruples { display: none; }
-.campaign-fullpage-dark .prizes .prize-box { width: 100%; height: 125px; background: transparent none no-repeat center center; background-size: cover; position: relative; cursor: pointer; max-width: 300px; margin: 0 auto; }
-.campaign-fullpage-dark .prizes .prize-box .name { position: absolute; bottom: 0; left: 0; width: 100%; text-align: left; background-color: rgba(0, 0, 0, 0.5); height: 25px; line-height: 25px; color: #BFBFBF; overflow: hidden; }
-.campaign-fullpage-dark .prizes .display-all-prizes { background-color: rgba(0, 0, 0, 0.5); color: #BFBFBF; font-size: 24px; display: block; width: 20%; margin: 0 auto; margin-top: 5px; }
-
-.campaign-fullpage-dark .prize-box-enlarged { background: rgba(0, 0, 0, 0.7); height: auto; padding: 20px; width: 80%; text-align: left; top: 10%; bottom: auto; }
-.campaign-fullpage-dark .prize-box-enlarged .prize-box-part { display: inline-block; }
-.campaign-fullpage-dark .prize-box-enlarged .enlarged-image { width: 50%; margin-right: 10px; position: relative; }
-.campaign-fullpage-dark .prize-box-enlarged .enlarged-image img { width: 100%; }
-.campaign-fullpage-dark .prize-box-enlarged .content { width: 45%; vertical-align: top; color: white; }
-.campaign-fullpage-dark .prize-box-enlarged .content h2 { margin: 0; }
-.campaign-fullpage-dark .prize-box-enlarged .content p { text-align: left; }
-.campaign-fullpage-dark .prize-box-enlarged .close { position: absolute; top: 5px; right: 5px; cursor: pointer; font-size: 24px; }
-
-.campaign-fullpage-dark .prize-box-enlarged .count-wrapper { width: 85px; height: 88px; overflow: hidden; position: absolute; top: -3px; right: -3px; }
-.campaign-fullpage-dark .prize-box-enlarged .count { font: bold 15px Sans-Serif; color: white; text-align: center; text-shadow: rgba(0,0,0,0.5) 0px 1px 0px; -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); position: relative; padding: 7px 0; left: -5px; top: 15px; width: 120px; background-color: #FF4136; background-image: -webkit-gradient(linear, left top, left bottom, from(#FF4136), to(#801515)); background-image: -webkit-linear-gradient(top, #FF4136, #801515); background-image: -moz-linear-gradient(top, #FF4136, #801515); background-image: -ms-linear-gradient(top, #FF4136, #801515); background-image: -o-linear-gradient(top, #FF4136, #801515); -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3); -moz-box-shadow: 0px 0px 3px rgba(0,0,0,0.3); box-shadow: 0px 0px 3px rgba(0,0,0,0.3); }
-.campaign-fullpage-dark .prize-box-enlarged .count:before, .campaign-fullpage-dark .prize-box-enlarged .count:after { content: ""; border-top: 3px solid #801515; border-left: 3px solid transparent; border-right: 3px solid transparent; position:absolute; bottom: -3px; }
-.campaign-fullpage-dark .prize-box-enlarged .count:before { left: 0; }
-.campaign-fullpage-dark .prize-box-enlarged .count:after { right: 0; }
+.campaign-fullpage-dark .prizes .prize-box .name { background-color: rgba(0, 0, 0, 0.5); color: #BFBFBF; }
+.campaign-fullpage-dark .prizes .display-all-prizes { background-color: rgba(0, 0, 0, 0.5); color: #BFBFBF; }
 
 /***** Widgets - General Layout *****/
-.campaign-fullpage-dark .widgets { clear: both; }
-.campaign-fullpage-dark .widget-title { margin: 0; background: rgba(37,37,37,1); background: -moz-linear-gradient(top, rgba(37,37,37,1) 0%, rgba(15,15,15,1) 100%); background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(37,37,37,1)), color-stop(100%, rgba(15,15,15,1))); background: -webkit-linear-gradient(top, rgba(37,37,37,1) 0%, rgba(15,15,15,1) 100%); background: -o-linear-gradient(top, rgba(37,37,37,1) 0%, rgba(15,15,15,1) 100%); background: -ms-linear-gradient(top, rgba(37,37,37,1) 0%, rgba(15,15,15,1) 100%); background: linear-gradient(to bottom, rgba(37,37,37,1) 0%, rgba(15,15,15,1) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafdfd', endColorstr='#dae0e6', GradientType=0 ); padding: 10px; color: #BFBFBF; border: 1px solid #2e2e2e; border-bottom: 0; outline: none; cursor: pointer; }
+.campaign-fullpage-dark .widget-title { background: rgba(37,37,37,1); background: -moz-linear-gradient(top, rgba(37,37,37,1) 0%, rgba(15,15,15,1) 100%); background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(37,37,37,1)), color-stop(100%, rgba(15,15,15,1))); background: -webkit-linear-gradient(top, rgba(37,37,37,1) 0%, rgba(15,15,15,1) 100%); background: -o-linear-gradient(top, rgba(37,37,37,1) 0%, rgba(15,15,15,1) 100%); background: -ms-linear-gradient(top, rgba(37,37,37,1) 0%, rgba(15,15,15,1) 100%); background: linear-gradient(to bottom, rgba(37,37,37,1) 0%, rgba(15,15,15,1) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafdfd', endColorstr='#dae0e6', GradientType=0 ); color: #BFBFBF; border: 1px solid #2e2e2e; }
 .campaign-fullpage-dark .widget-title.ui-state-active { border-bottom: 1px solid #2e2e2e; }
-.campaign-fullpage-dark .widget-title .chances-count { float: right; border: 1px solid; padding: 0 5px; color: #2e2e2e; background-color: #BFBFBF; border-radius: 5px; }
-.campaign-fullpage-dark .widget-title .chances-count i { padding-right: 5px; }
-.campaign-fullpage-dark .widget-title .completed .chances-count i { padding: 0 10px; }
-.campaign-fullpage-dark .widget-content { min-height: 60px; padding-bottom: 20px;}
-.campaign-fullpage-dark .widget-content .widget-description { display: block; padding-bottom: 10px; color: #BFBFBF; font-size: 14px; }
-.campaign-fullpage-dark .field { padding: 10px; margin: 0 auto; text-align: center; }
-.campaign-fullpage-dark .field label { display: block; color: #BFBFBF; }
-.campaign-fullpage-dark .field input { background-color: #141414; color: #BFBFBF; outline: none; padding: 10px; width: 270px; border: 1px solid #2e2e2e; border-radius: 5px; }
-.campaign-fullpage-dark .chance-entrant a { text-decoration: none; cursor: pointer; color: #BFBFBF; float: right; padding: 5px; }
-.campaign-fullpage-dark .chance-entrant a span span{ color: #FF4136; }
-.campaign-fullpage-dark .chance-entrant span.row { color: #BFBFBF; font-size: 18px; padding: 5px; display: inline-block; cursor: pointer; }
-.campaign-fullpage-dark .chance-entrant span.row i { padding: 0 3px; }
+.campaign-fullpage-dark .widget-title .chances-count { color: #2e2e2e; background-color: #BFBFBF; }
+.campaign-fullpage-dark .widget-content .widget-description { color: #BFBFBF; }
+.campaign-fullpage-dark .field label { color: #BFBFBF; }
+.campaign-fullpage-dark .field input { background-color: #141414; color: #BFBFBF; border: 1px solid #2e2e2e; }
+.campaign-fullpage-dark .chance-entrant a { color: #BFBFBF; }
+.campaign-fullpage-dark .chance-entrant span.row { color: #BFBFBF; }
 
 /***** Enter Contest Widget *****/
-.campaign-fullpage-dark .terms-box { width: 30%; height: 60% ; background-color: white; overflow: auto; padding: 10px; font-size: 12px; padding: 20px; overflow: hidden; text-align: center; }
-.campaign-fullpage-dark .terms-box textarea { resize: none; height: 75%; overflow-x: hidden; width: 80%; display: inline-block; font-size: 10px; }
-.campaign-fullpage-dark .terms-box button { margin-top: 10px; background-color: #FF4136; color: white; border: 0; padding: 5px 20px; border-radius: 5px; font-weight: bold; outline: 0; cursor: pointer;}
-.campaign-fullpage-dark .terms-box h2 { margin-top: 0; }
-.campaign-fullpage-dark .terms-box .close { position: absolute; top: 5px; right:5px; cursor: pointer; }
-.campaign-fullpage-dark .requirement { padding-bottom: 5px; width: 270px; margin: 0 auto; }
-.campaign-fullpage-dark .requirement label { font-size: 14px; color: #BFBFBF; }
-.campaign-fullpage-dark .requirement a { color: #FF4136; text-decoration: none; font-weight: bold; }
+.campaign-fullpage-dark .requirement label { color: #BFBFBF; }
 .campaign-fullpage-dark .field .enter-contest-name { background: url(../../img/id-grey.png) no-repeat 10px 3px; border-radius: 5px 5px 0 0; border-bottom: 0; box-shadow: inset 0px 200px 11px -202px rgba(68,68,68,1); -webkit-box-shadow: inset 0px 200px 11px -202px rgba(68,68,68,1); -moz-box-shadow: inset 0px 200px 11px -202px rgba(68,68,68,1); margin-top: 20px; }
 .campaign-fullpage-dark .field .enter-contest-email { background: url(../../img/mail.png) no-repeat 6px -1px; border-radius: 0 0 5px 5px;}
 .campaign-fullpage-dark .field .enter-contest-name,
-.campaign-fullpage-dark .field .enter-contest-email { padding-left: 50px; width: 220px; background-color: #141414; font-weight: bold; }
-.campaign-fullpage-dark .enter-contest-action { margin: 15px 0; width: 270px; padding: 10px; background-color: #FF4136; border: none; border-radius: 5px; color: white; font-weight: bold; font-size: 16px; cursor: pointer; outline: 0; }
-
-/***** Twitter Tweet *****/
-.campaign-fullpage-dark .widget-type-twittertweet { margin: 0 auto; text-align: center; padding-top: 25px; }
-
-/***** Twitter Follow *****/
-.campaign-fullpage-dark .widget-type-twitterfollow { margin: 0 auto; text-align: center; padding-top: 25px; }
-
-/***** Facebook Visit *****/
-.campaign-fullpage-dark .widget-type-facebookvisit { margin: 0 auto; text-align: center; padding-top: 25px; padding-bottom: 15px; }
-.campaign-fullpage-dark .widget-type-facebookvisit button { background-color: #FF4136; color: white; border: 0; padding: 15px 40px; border-radius: 5px; font-size: 14px; font-weight: bold; outline: 0; cursor: pointer; }
-.campaign-fullpage-dark .widget-type-facebookvisit button i { padding-left: 5px; font-weight: bold; }
-
-/***** Facebook Share *****/
-.campaign-fullpage-dark .widget-type-facebookshare { margin: 0 auto; text-align: center; padding-top: 25px; padding-bottom: 15px; }
-.campaign-fullpage-dark .widget-type-facebookshare button { background-color: #FF4136; color: white; border: 0; padding: 15px 40px; border-radius: 5px; font-size: 14px; font-weight: bold; outline: 0; cursor: pointer; }
-.campaign-fullpage-dark .widget-type-facebookshare button i { padding-left: 5px; font-weight: bold; }
-
-/***** References *****/
-.campaign-fullpage-dark .widget-type-reference { margin: 0 auto; text-align: center; padding-top: 15px; padding-bottom: 15px; }
-.campaign-fullpage-dark .widget-type-reference input { margin-bottom: 15px; padding: 3px; }
-.campaign-fullpage-dark .widget-type-reference .sharing-options  { margin: 0 auto; margin-bottom: 15px; display: flex; justify-content: center; }
-.campaign-fullpage-dark .widget-type-reference .sharing-options .option { padding-right: 10px; }
-.campaign-fullpage-dark .widget-type-reference .send-email button { background-color: #FF4136; color: white; border: 0; outline: none; cursor: pointer; padding: 3px 7px; border-radius: 5px; }
-.campaign-fullpage-dark .widget-type-reference .send-email button i { padding-right: 5px; }
-
-@media handheld, only screen and (max-width: 769px) {
-    /***** Campaign Description *****/
-    .campaign-page .hero, .campaign-page .description, .campaign-page .widgets-container { width: 95%; padding: 0; }
-    .campaign-page .description { font-size: smaller; padding-bottom: 20px; }
-    
-    /***** Prizes *****/
-    .campaign-fullpage-dark .prizes .prize-container { width: 30%; }
-    .campaign-fullpage-dark .prizes .prize-box { height: 80px; }
-    .campaign-fullpage-dark .prizes .prize-box .name { font-size: smaller; height: 20px; line-height: 20px; }
-    .campaign-fullpage-dark .prizes .prize-container.triples { display: none; }
-    .campaign-fullpage-dark .prizes .display-all-prizes { height: 20px; font-size: 20px; line-height: 20px; width: 35%; }
-    
-    /***** Prize Pop-Up *****/
-    .campaign-fullpage-dark .prize-box-enlarged .content p { font-size: smaller; }
-    .campaign-fullpage-dark .prize-box-enlarged .close { font-size: smaller; }
-    
-    /***** Widgets *****/
-    .campaign-fullpage-dark .chance-entrant span.row { font-size: smaller; }
-    .campaign-fullpage-dark .chance-entrant a { font-size: smaller; }
-    .campaign-fullpage-dark .widget-title { font-size: 14px; }
-    .campaign-fullpage-dark .widget-content .widget-description { width: 90%; margin: 0 auto; }
-    .campaign-fullpage-dark .widget-type-reference input { width: 90%; }
-    .campaign-fullpage-dark .widget-title .chances-count { width: 35px; }
-    
-    /***** Enter Contest *****/
-    .campaign-fullpage-dark .field .enter-contest-name { margin-top: 10px; background-size: 25px; background-position: 10px; }
-    .campaign-fullpage-dark .field .enter-contest-email { background-size: 33px; }
-    .campaign-fullpage-dark .field .enter-contest-name, 
-    .campaign-fullpage-dark .field .enter-contest-email { width: 70%; padding-left: 45px;  }
-    .campaign-fullpage-dark .enter-contest-action { width: 80%; font-size: 14px; }
-    .campaign-fullpage-dark .requirement { width: 75%; }
-    .campaign-fullpage-dark .terms-box { width: 70%; height: 70%; }
-}
-
-@media handheld, only screen and (max-width: 769px) and (orientation: portrait) {
-    .campaign-fullpage-dark .prizes .prize-container { width: 45%; }
-    .campaign-fullpage-dark .prizes .prize-container.doubles { display: none; }
-    .campaign-fullpage-dark .prize-box-enlarged .enlarged-image { width: 100%; margin-bottom: 10px; }
-    .campaign-fullpage-dark .prize-box-enlarged .content { width: 100%; }
-    .campaign-fullpage-dark .requirement { width: 80%; }
-}
+.campaign-fullpage-dark .field .enter-contest-email { background-color: #141414; }
