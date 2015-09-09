@@ -13,6 +13,7 @@
 
 /***** Pop-Ups *****/
 .hide { display: none; }
+.inline-block { display: inline-block !important; }
 .popup-overlay { position: fixed; top: 0; left: 0; background: rgba(0,0,0,0.6); z-index: 15; width: 100%; height: 100%; }
 .popup-container { position: fixed; z-index: 20; top: 0; bottom: 0; left: 0; right: 0; margin: auto; }
 
@@ -28,8 +29,10 @@
 /***** Prizes *****/
 .campaign-fullpage-light .prizes { text-align: center; margin-bottom: 40px; }
 .campaign-fullpage-light .prizes .prize-container { display: inline-block; width: 19%; padding: 5px; vertical-align: top; }
-.campaign-fullpage-light .prizes .prize-box { width: 100%; height: 125px; background: transparent none no-repeat center center; background-size: cover; position: relative; cursor: pointer; }
+.campaign-fullpage-light .prizes .prize-container.quadruples { display: none; }
+.campaign-fullpage-light .prizes .prize-box { width: 100%; height: 125px; background: transparent none no-repeat center center; background-size: cover; position: relative; cursor: pointer; max-width: 300px; margin: 0 auto; }
 .campaign-fullpage-light .prizes .prize-box .name { position: absolute; bottom: 0; left: 0; width: 100%; text-align: left; background-color: rgba(255, 255, 255, 0.5); height: 25px; line-height: 25px; color: #444; overflow: hidden; }
+.campaign-fullpage-light .prizes .display-all-prizes { background-color: rgba(255, 255, 255, 0.5); color: #444; font-size: 24px; display: block; width: 20%; margin: 0 auto; margin-top: 5px; }
 
 .campaign-fullpage-light .prize-box-enlarged { background: rgba(0, 0, 0, 0.7); height: auto; padding: 20px; width: 80%; text-align: left; top: 10%; bottom: auto; }
 .campaign-fullpage-light .prize-box-enlarged .prize-box-part { display: inline-block; }
@@ -37,7 +40,7 @@
 .campaign-fullpage-light .prize-box-enlarged .enlarged-image img { width: 100%; }
 .campaign-fullpage-light .prize-box-enlarged .content { width: 45%; vertical-align: top; color: white; }
 .campaign-fullpage-light .prize-box-enlarged .content h2 { margin: 0; }
-.campaign-fullpage-light .prize-box-enlarged .content p { text-align: justify; }
+.campaign-fullpage-light .prize-box-enlarged .content p { text-align: left; }
 .campaign-fullpage-light .prize-box-enlarged .close { position: absolute; top: 5px; right: 5px; cursor: pointer; font-size: 24px; }
 
 .campaign-fullpage-light .prize-box-enlarged .count-wrapper { width: 85px; height: 88px; overflow: hidden; position: absolute; top: -3px; right: -3px; }
@@ -101,3 +104,46 @@
 .campaign-fullpage-light .widget-type-reference .sharing-options .option { padding-right: 10px; }
 .campaign-fullpage-light .widget-type-reference .send-email button { background-color: #FF4136; color: white; border: 0; outline: none; cursor: pointer; padding: 3px 7px; border-radius: 5px; }
 .campaign-fullpage-light .widget-type-reference .send-email button i { padding-right: 5px; }
+
+
+@media handheld, only screen and (max-width: 769px) {
+    /***** Campaign Description *****/
+    .campaign-page .hero, .campaign-page .description, .campaign-page .widgets-container { width: 95%; padding: 0; }
+    .campaign-page .description { font-size: smaller; padding-bottom: 20px; }
+    
+    /***** Prizes *****/
+    .campaign-fullpage-light .prizes .prize-container { width: 30%; }
+    .campaign-fullpage-light .prizes .prize-box { height: 80px; }
+    .campaign-fullpage-light .prizes .prize-box .name { font-size: smaller; height: 20px; line-height: 20px; }
+    .campaign-fullpage-light .prizes .prize-container.triples { display: none; }
+    .campaign-fullpage-light .prizes .display-all-prizes { height: 20px; font-size: 20px; line-height: 20px; width: 35%; }
+    
+    /***** Prize Pop-Up *****/
+    .campaign-fullpage-light .prize-box-enlarged .content p { font-size: smaller; }
+    .campaign-fullpage-light .prize-box-enlarged .close { font-size: smaller; }
+    
+    /***** Widgets *****/
+    .campaign-fullpage-light .chance-entrant span.row { font-size: smaller; }
+    .campaign-fullpage-light .chance-entrant a { font-size: smaller; }
+    .campaign-fullpage-light .widget-title { font-size: 14px; }
+    .campaign-fullpage-light .widget-content .widget-description { width: 90%; margin: 0 auto; }
+    .campaign-fullpage-light .widget-type-reference input { width: 90%; }
+    .campaign-fullpage-light .widget-title .chances-count { width: 35px; }
+    
+    /***** Enter Contest *****/
+    .campaign-fullpage-light .field .enter-contest-name { margin-top: 10px; background-size: 25px; background-position: 10px; }
+    .campaign-fullpage-light .field .enter-contest-email { background-size: 33px; }
+    .campaign-fullpage-light .field .enter-contest-name, 
+    .campaign-fullpage-light .field .enter-contest-email { width: 70%; padding-left: 45px;  }
+    .campaign-fullpage-light .enter-contest-action { width: 80%; font-size: 14px; }
+    .campaign-fullpage-light .requirement { width: 75%; }
+    .campaign-fullpage-light .terms-box { width: 70%; height: 70%; }
+}
+
+@media handheld, only screen and (max-width: 769px) and (orientation: portrait) {
+    .campaign-fullpage-light .prizes .prize-container { width: 45%; }
+    .campaign-fullpage-light .prizes .prize-container.doubles { display: none; }
+    .campaign-fullpage-light .prize-box-enlarged .enlarged-image { width: 100%; margin-bottom: 10px; }
+    .campaign-fullpage-light .prize-box-enlarged .content { width: 100%; }
+    .campaign-fullpage-light .requirement { width: 80%; }
+}

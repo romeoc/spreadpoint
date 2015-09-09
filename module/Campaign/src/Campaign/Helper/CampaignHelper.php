@@ -411,4 +411,19 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
         $layouts = $this->getAvailableLayouts();
         return $layouts[$layout - 1]['template'];
     }
+    
+    public function getPrizeCountClasses($count)
+    {
+        if ($count > 4) {
+            return 'quadruples';
+        }
+        
+        if ($count > 3) {
+            return 'triples';
+        }
+        
+        if ($count > 2) {
+            return 'doubles';
+        }
+    }
 }

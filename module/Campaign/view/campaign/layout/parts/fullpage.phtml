@@ -12,8 +12,9 @@
 
 <div class="prizes">
     <?php $prizes = json_decode($this->prizeData); ?>
+    <?php $count = 1; ?>
     <?php foreach ($prizes as $prize): ?>
-        <div class="prize-container">
+        <div class="prize-container <?php echo $helper->getPrizeCountClasses($count++); ?>">
             <div class="prize-box" style="background-image: url(<?php echo $helper->getBannerUrl($this->campaign, $prize->image); ?>)">
                 <span class="name">&nbsp;&nbsp;<?php echo $prize->name; ?></span>
             </div>
@@ -32,6 +33,7 @@
             </div>
         </div>
     <?php endforeach; ?>
+    <a class="display-all-prizes" href="javascript:void(0);" style="display: none;"><i class="fa fa-angle-double-down"></i> </a>
 </div>
 
 <div class="widgets-container">
@@ -81,6 +83,28 @@
                 target.find('.close'), 
                 false
             );
+        });
+        
+        var count = $('.prize-container').length;
+        var windowElement = $(window);
+        var isMobile = (windowElement.width() < 770);
+        var isPortrait = (isMobile && (windowElement.innerHeight()) > windowElement.innerWidth());
+        
+        if (count > 4 || (isMobile && (count > 3 || (isPortrait && count > 2)))) {
+            $('.display-all-prizes').show();
+        }
+        
+        $('.display-all-prizes').on('click', function() {
+            var self = $(this);
+            if (self.hasClass('hide-action')) {
+                $('.hide-on-next-click').removeClass('inline-block');
+                self.removeClass('hide-action');
+                self.find('i').toggleClass('fa-angle-double-down fa-angle-double-up');
+            } else {
+                $('.prize-container:hidden').addClass('hide-on-next-click').addClass('inline-block');
+                self.addClass('hide-action');
+                self.find('i').toggleClass('fa-angle-double-down fa-angle-double-up');
+            }
         });
     });
 </script>
