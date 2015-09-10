@@ -49,10 +49,10 @@
             "</div>",
         "</div>"
     ].join('\n');
-    SpreadPoint.Templates.Widgets.Type.FacebookVisit = [
-        "<div class='applied-widget applied-widget-{{referenceId}} widget-type-facebookvisit' data-id='{{referenceId}}'>",
+    SpreadPoint.Templates.Widgets.Type.VisitPage = [
+        "<div class='applied-widget applied-widget-{{referenceId}} widget-type-visitpage' data-id='{{referenceId}}'>",
             "<div class='widget-header'>",
-                "<span class='prize-header-name'>Visit a page on facebook widget</span>",
+                "<span class='prize-header-name'>Visit a Web Page</span>",
                 "<button type='button' class='close-widget'>Remove Widget</button>",
             "</div>",
             "<div class='applied-widget-row campaign-form-row'>",
@@ -62,7 +62,7 @@
             "</div>",
             "<div class='applied-widget-row campaign-form-row'>",
                 "<div class='field'>",
-                    "<label>Widget Title *</label><input type='text' class='focus-note applied-widget-element' data-key='title' value='{{#if title}}{{title}}{{else}}Like Us on Facebook{{/if}}' title='Name the action you want the users to take. This will be visible on the campaign page as well.' />",
+                    "<label>Widget Title *</label><input type='text' class='focus-note applied-widget-element' data-key='title' value='{{#if title}}{{title}}{{else}}Visit our Website{{/if}}' title='Name the action you want the users to take. This will be visible on the campaign page as well.' />",
                 "</div>",
             "</div>",
             "<div class='applied-widget-row campaign-form-row'>",

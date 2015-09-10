@@ -709,7 +709,7 @@
     SpreadPoint.Widgets = {};
     SpreadPoint.Widgets.Map = [
         SpreadPoint.Templates.Widgets.Type.EnterContest,
-        SpreadPoint.Templates.Widgets.Type.FacebookVisit,
+        SpreadPoint.Templates.Widgets.Type.VisitPage,
         SpreadPoint.Templates.Widgets.Type.FacebookShare,
         SpreadPoint.Templates.Widgets.Type.TwitterTweet,
         SpreadPoint.Templates.Widgets.Type.TwitterFollow,
@@ -914,13 +914,10 @@
                         break;
                     case 2:
                         if (!widget.page) {
-                            SpreadPoint.Campaign.Controller.logError('Your facebook widget must have a <strong>Page Link</strong>', tab, identifier, true);
+                            SpreadPoint.Campaign.Controller.logError('Your page visit widget must have a <strong>Page Link</strong>', tab, identifier, true);
                             allValid = false;
                         } else if (!widget.page.match(/^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/)) {
-                            SpreadPoint.Campaign.Controller.logError('Your facebook widget has an invalid <strong>Page Link</strong>', tab, identifier, true);
-                            allValid = false;
-                        } else if (widget.page.indexOf("facebook.com") === -1) {
-                            SpreadPoint.Campaign.Controller.logError('Invalid <strong>facebook</strong> link', tab, identifier, true);
+                            SpreadPoint.Campaign.Controller.logError('Your page visit widget has an invalid <strong>Page Link</strong>', tab, identifier, true);
                             allValid = false;
                         }
                         break;

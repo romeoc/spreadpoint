@@ -85,9 +85,9 @@
 .campaign-fullpage .widget-type-twitterfollow { margin: 0 auto; text-align: center; padding-top: 25px; }
 
 /***** Facebook Visit *****/
-.campaign-fullpage .widget-type-facebookvisit { margin: 0 auto; text-align: center; padding-top: 25px; padding-bottom: 15px; }
-.campaign-fullpage .widget-type-facebookvisit button { background-color: #FF4136; color: white; border: 0; padding: 15px 40px; border-radius: 5px; font-size: 14px; font-weight: bold; outline: 0; cursor: pointer; }
-.campaign-fullpage .widget-type-facebookvisit button i { padding-left: 5px; font-weight: bold; }
+.campaign-fullpage .widget-type-visitpage { margin: 0 auto; text-align: center; padding-top: 25px; padding-bottom: 15px; }
+.campaign-fullpage .widget-type-visitpage button { background-color: #FF4136; color: white; border: 0; padding: 15px 40px; border-radius: 5px; font-size: 14px; font-weight: bold; outline: 0; cursor: pointer; }
+.campaign-fullpage .widget-type-visitpage button i { padding-left: 5px; font-weight: bold; }
 
 /***** Facebook Share *****/
 .campaign-fullpage .widget-type-facebookshare { margin: 0 auto; text-align: center; padding-top: 25px; padding-bottom: 15px; }

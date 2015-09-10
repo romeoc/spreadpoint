@@ -281,10 +281,10 @@
 .campaign-view .widget-type-twitterfollow .close-widget { color: #0084B4 !important; }
 .campaign-view .widget-type-twitterfollow input:focus { color: #0084B4; border-color: #0084B4; }
 
-.campaign-view .widget-type-facebookvisit { background-color: #869ECC; }
-.campaign-view .widget-type-facebookvisit .widget-header { background-color: #3B5998; }
-.campaign-view .widget-type-facebookvisit .close-widget { color: #3B5998 !important; }
-.campaign-view .widget-type-facebookvisit input:focus { color: #3B5998; border-color: #3B5998; }
+.campaign-view .widget-type-visitpage { background-color: #CAEF80; }
+.campaign-view .widget-type-visitpage .widget-header { background-color: #8DBD2B; }
+.campaign-view .widget-type-visitpage .close-widget { color: #8DBD2B !important; }
+.campaign-view .widget-type-visitpage input:focus { color: #8DBD2B; border-color: #8DBD2B; }
 
 .campaign-view .widget-type-facebookshare { background-color: #C2CEE8; }
 .campaign-view .widget-type-facebookshare .widget-header { background-color: #627AAD; }
