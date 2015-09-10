@@ -678,7 +678,7 @@ a:active {
     text-align: center;
 }
 .hero-content-section {
-    margin-top: 150px;
+    padding-top: 150px;
 }
 .hero-register {
     width: 40%;

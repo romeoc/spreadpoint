@@ -107,12 +107,16 @@ class CampaignController extends AbstractActionController
         $id =  $this->params('id');
         
         if (!$id) {
-            $this->redirect()->toRoute('home');
+            return $this->redirect()->toRoute('home');
         }
         
         $campaignModel = new CampaignModel();
         $campaignModel->setServiceLocator($this->_service);
         
+        if (!$campaignModel->validateEntrantCookie($id)) {
+            // Refresh page so cookies are updated
+            return $this->redirect()->refresh();
+        }
         $data = $campaignModel->fetchView($id);
         
         return new ViewModel($data);

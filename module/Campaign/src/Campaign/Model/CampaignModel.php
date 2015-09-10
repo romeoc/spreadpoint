@@ -658,4 +658,16 @@ class CampaignModel extends AbstractModel
         $result = $stmt->fetch();
         return (bool) $result['finished'];
     }
+    
+    public function validateEntrantCookie($campaignId)
+    {
+        $entrant = $this->getEntrantsModel()->getLoadedEntrant();
+        
+        if ($entrant && $entrant->get('campaign')->get('id') != $campaignId) {
+            $this->clearCookie('entrant');
+            return false;
+        }
+        
+        return true;
+    }
 }
