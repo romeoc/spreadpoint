@@ -103,7 +103,7 @@ class PayPal implements ServiceLocatorAwareInterface
         $payment = new CreateRecurringPaymentsProfile();
         $payment->setDesc($plans[$data['plan']]['name']);
         $payment->setSubscriberName($data['fullname']);
-        $payment->setProfileStartDate($this->getStartDate());
+        $payment->setProfileStartDate($this->getStartDate($user, $billingPeriod));
         $payment->setBillingPeriod($billingPeriod);
         $payment->setBillingFrequency(1);
         $payment->setAmt($plans[$data['plan']][$priceKey]);
@@ -173,7 +173,7 @@ class PayPal implements ServiceLocatorAwareInterface
         $payment->setToken($token);
         $payment->setPayerId($payerId);
         $payment->setDesc($plans[$plan]['name']);
-        $payment->setProfileStartDate($this->getStartDate());
+        $payment->setProfileStartDate($this->getStartDate($user, $billingPeriod));
         $payment->setBillingPeriod($billingPeriod);
         $payment->setBillingFrequency(1);
         $payment->setAmt($plans[$plan][$priceKey]);
@@ -247,7 +247,7 @@ class PayPal implements ServiceLocatorAwareInterface
     public function getPastOrder($user)
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
-        $order = $queryBuilder->select('e.profileId, e.id')
+        $order = $queryBuilder->select('e.profileId, e.id, e.startDate')
             ->from('Checkout\Entity\Order', 'e')
             ->where('e.user= :user')
             ->andWhere('e.status= :status')
@@ -257,17 +257,21 @@ class PayPal implements ServiceLocatorAwareInterface
             ->setMaxResults(1)
             ->getResult();
         
+        if ($order) {
+            $order = $order[0];
+        }
+        
         return $order;
     }
     
     public function handlePastProfiles($order)
     {
         if ($order) {
-            $profileId = $order[0]['profileId'];
+            $profileId = $order['profileId'];
             $cancelProfileResult = $this->cancelProfile($profileId);
             
             if ($cancelProfileResult !== true) {
-                $message = "Could not cancel profile from order {$order[0]['id']} while upgrading plan!" . PHP_EOL;
+                $message = "Could not cancel profile from order {$order['id']} while upgrading plan!" . PHP_EOL;
                 
                 foreach ($cancelProfileResult as $errorMessage) {
                     $message .= PHP_EOL . $errorMessage;
@@ -275,7 +279,7 @@ class PayPal implements ServiceLocatorAwareInterface
                 
                 $this->sendEmailNotification($message);
             } else {
-                $orderEntity = $this->getEntityManager()->find('Checkout\Entity\Order', $order[0]['id']);
+                $orderEntity = $this->getEntityManager()->find('Checkout\Entity\Order', $order['id']);
                 $orderEntity->set('status', Order::STATUS_CANCELED);
                 $this->getEntityManager()->flush();
             }
@@ -298,10 +302,20 @@ class PayPal implements ServiceLocatorAwareInterface
         Mail::send($emailData);
     }
     
-    public function getStartDate()
+    public function getStartDate($user, $billingPeriod)
     {
+        $order = $this->getPastOrder($user);
+
         $trialPeriod = self::TRIAL_PERIOD;
         $date = strtotime("+{$trialPeriod} day");
+        
+        if ($order) {
+            $date = strtotime($order['startDate']);
+            while ($date <= time()) {
+                $date = strtotime("+1 {$billingPeriod}", $date);
+            }
+        }
+        
         return date('Y-m-d\TH:i:s\Z', $date);
     }
     
