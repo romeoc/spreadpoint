@@ -14,7 +14,7 @@
             // Facebook
             window.fbAsyncInit = function() {
                 FB.init({
-                    appId      : '930328627060077',
+                    appId      : '<?php echo $this->social['facebook']['app-id']; ?>',
                     xfbml      : true,
                     version    : 'v2.4'
                 });

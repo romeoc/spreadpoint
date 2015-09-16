@@ -345,7 +345,8 @@ class CampaignModel extends AbstractModel
                     ),
                     'prizesData' => $this->getPrizeModel()->getAssociatedPrizesForJavaScript($campaignId),
                     'entrantsData' => $this->getEntrantsModel()->getEntrantsForCampaign($campaignId),
-                    'winnersData' => $this->getWinnersData($campaign)
+                    'winnersData' => $this->getWinnersData($campaign),
+                    'social' => $this->getServiceLocator()->get('config')['social']
                 );
             } else {
                 Session::error('You are trying to view a campaign that is not associated to your account');
@@ -367,6 +368,7 @@ class CampaignModel extends AbstractModel
                 );
                 
                 $data['prizesData'] = $data['data']['prizes-serialized'];
+                $data['social'] = $this->getServiceLocator()->get('config')['social'];
             }
         }
 
@@ -387,6 +389,7 @@ class CampaignModel extends AbstractModel
                 'prizesData' => $this->getPrizeModel()->getAssociatedPrizesForJavaScript($campaignId),
                 'entrantsCount' => $this->getEntrantsModel()->getEntrantsCount($campaignId),
                 'chancesCount' => $this->getChanceModel()->getLoggedEntrantsChances(),
+                'social' => $this->getServiceLocator()->get('config')['social']
             );
             
             return $data;
@@ -408,6 +411,7 @@ class CampaignModel extends AbstractModel
                 'appliedWidgets' => '[]',
             ),
             'prizesData' => '[]',
+            'social' => $this->getServiceLocator()->get('config')['social']
         );
     }
     

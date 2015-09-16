@@ -34,14 +34,6 @@ class PayPal implements ServiceLocatorAwareInterface
 {
     protected $service;
     
-    protected $sandBoxMode = true;
-    
-    // Creditentials
-    const API_ASSOCIATED_EMAIL = 'unknown@qa.com';
-    const API_USERNAME  = 'unknown_api1.qa.com';
-    const API_PASSWORD  = 'HSW4MPQB2UCZSN4J';
-    const API_SIGNATURE = 'An5ns1Kso7MWUdW4ErQKJJJ4qi4-AOLbJdEoUspXAg5lqFqu9fQBbSMv';
-    
     const ACTION_SUSPEND = 'Suspend';
     const ACTION_CANCEL = 'Cancel';
     
@@ -65,14 +57,17 @@ class PayPal implements ServiceLocatorAwareInterface
     
     protected function getConfig()
     {
-        $endpoint = ($this->sandBoxMode) 
+        $globalConfig = $this->getServiceLocator()->get('config');
+        $paypalConfig = $globalConfig['paypal'];
+        
+        $endpoint = ($paypalConfig['SANDBOX_MODE']) 
             ? 'https://api-3t.sandbox.paypal.com/nvp'
             : 'https://api-3t.paypal.com/nvp';
         
         $config = array(
-            'username'      => self::API_USERNAME,
-            'password'      => self::API_PASSWORD,
-            'signature'     => self::API_SIGNATURE,
+            'username'      => $paypalConfig['API_USERNAME'],
+            'password'      => $paypalConfig['API_PASSWORD'],
+            'signature'     => $paypalConfig['API_SIGNATURE'],
             'endpoint'      => $endpoint
         );
         

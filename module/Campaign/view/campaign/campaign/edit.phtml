@@ -54,7 +54,7 @@
                     </ul>
                     <?php if (array_key_exists('id', $this->data)): ?>
                         <div id="overview" class="campaign-tab">
-                            <?php echo $this->partial('campaign/sections/overview.phtml', array('data' => $this->data)); ?>
+                            <?php echo $this->partial('campaign/sections/overview.phtml', array('data' => $this->data, 'social' => $this->social)); ?>
                         </div>
                     <?php endif; ?>
                     <div id="general" class="campaign-tab">
