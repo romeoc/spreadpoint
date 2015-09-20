@@ -2,6 +2,11 @@
 <?php $helper = $this->planHelper(); ?>
 <?php $plans = $helper->getAllPlans(); ?>
 
+<?php $stripe = $this->configHelper()->get('stripe'); ?>
+<?php $publishableKey = ($stripe['test_mode']) ? $stripe['test_publishable'] : $stripe['live_publishable']; ?>
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
 <section class="checkout-section">
     <?php
         $form = $this->form;
@@ -69,18 +74,30 @@
             <h4 class="left">Card</h4>
             <span class="pay-pal-text right">or pay with <span class="pay-pal-action greyscale"></span></span>
         </div>
-        <?php foreach ($form as $element): ?>
-            <?php if (get_class($element) !== 'Zend\Form\Element\Radio'): ?>
-                <div class="checkout-form-row custom-form-row custom-row-<?php echo $element->getName(); ?>">
-                    <?php echo $this->formElement($element); ?>
-                </div>
-            <?php endif; ?>
-        <?php endforeach; ?>
+        <div class="checkout-form-row custom-form-row custom-row-fullname">
+            <input required="required" placeholder="Full name on credit card" autocomplete="off" type="text" data-stripe="name" />
+        </div>
+        <div class="checkout-form-row custom-form-row custom-row-card_number">
+            <input class="real-card" required="required" maxlength="20" type="hidden" data-stripe="number" />
+            <input required="required" placeholder="Card Number" maxlength="19" autocomplete="off" type="text" />
+        </div>
+        <div class="checkout-form-row custom-form-row custom-row-expiry_date">
+            <input required="required" class="expiry-month" maxlength="2" type="hidden" data-stripe="exp-month" />
+            <input required="required" class="expiry-year" maxlength="4" type="hidden" data-stripe="exp-year" />
+            <input required="required" placeholder="MM/YY" maxlength="7" autocomplete="off" type="text" />
+        </div>
+        <div class="checkout-form-row custom-form-row custom-row-cvc">
+            <input required="required" placeholder="CVC" maxlength="4" autocomplete="off" type="text"  data-stripe="cvc" />
+        </div>
+        <div class="checkout-form-row custom-form-row custom-row-submit-action">
+            <input type="submit" class="checkout-submit" value="Pay Now">
+        </div>
     </div>
     <?php echo $this->form()->closeTag() ?>
 </section>
 <script type="text/javascript">
     $(function(){
+        Stripe.setPublishableKey('<?php echo $publishableKey; ?>');
         SpreadPoint.Checkout.init();
     });
 </script>

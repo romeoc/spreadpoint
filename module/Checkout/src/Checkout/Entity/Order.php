@@ -61,7 +61,7 @@ class Order extends AbstractEntity
     protected $payerId;
     
     /** 
-     * @ORM\Column(length=16, name="profile_id") 
+     * @ORM\Column(length=16, name="profile_id", nullable=true) 
      */
     protected $profileId;
     
@@ -76,7 +76,7 @@ class Order extends AbstractEntity
     protected $amount;
     
     /**
-     * @ORM\Column(length=32, name="start_date") 
+     * @ORM\Column(length=32, name="start_date", nullable=true) 
      */
     protected $startDate;
 
@@ -91,9 +91,14 @@ class Order extends AbstractEntity
     protected $billingFrequency;
     
     /** 
-     * @ORM\Column(length=16, name="correlation_id") 
+     * @ORM\Column(length=16, name="correlation_id", nullable=true) 
      */
     protected $correlationId;
+    
+    /** 
+     * @ORM\Column(length=32, name="stripe_subscription_id", nullable=true) 
+     */
+    protected $stripeSubscriptionId;
     
     /**
      * @ORM\Column(type="smallint", length=1)

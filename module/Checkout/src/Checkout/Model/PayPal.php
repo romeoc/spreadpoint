@@ -36,10 +36,7 @@ class PayPal implements ServiceLocatorAwareInterface
     
     const ACTION_SUSPEND = 'Suspend';
     const ACTION_CANCEL = 'Cancel';
-    
-    const TRIAL_PERIOD = 30;
-    const INCREMENT_VARIANCE = 17530000;
-    
+        
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
         $this->service = $serviceLocator;
@@ -98,7 +95,7 @@ class PayPal implements ServiceLocatorAwareInterface
         $payment = new CreateRecurringPaymentsProfile();
         $payment->setDesc($plans[$data['plan']]['name']);
         $payment->setSubscriberName($data['fullname']);
-        $payment->setProfileStartDate($this->getStartDate($user, $billingPeriod));
+        $payment->setProfileStartDate($this->getStartDate($user));
         $payment->setBillingPeriod($billingPeriod);
         $payment->setBillingFrequency(1);
         $payment->setAmt($plans[$data['plan']][$priceKey]);
@@ -168,7 +165,7 @@ class PayPal implements ServiceLocatorAwareInterface
         $payment->setToken($token);
         $payment->setPayerId($payerId);
         $payment->setDesc($plans[$plan]['name']);
-        $payment->setProfileStartDate($this->getStartDate($user, $billingPeriod));
+        $payment->setProfileStartDate($this->getStartDate($user));
         $payment->setBillingPeriod($billingPeriod);
         $payment->setBillingFrequency(1);
         $payment->setAmt($plans[$plan][$priceKey]);
@@ -188,7 +185,8 @@ class PayPal implements ServiceLocatorAwareInterface
     
     protected function createOrder($payment, $response, $user, $plan)
     {
-        $pastOrder = $this->getPastOrder($user);
+        $model = $this->getOrderModel();
+        $pastOrder = $model->getActiveOrder($user);
 
         $data = array(
             'user' => $user,
@@ -205,16 +203,16 @@ class PayPal implements ServiceLocatorAwareInterface
             'billingFrequency' => $payment->getBillingFrequency(),
         );
         
-        $order = new OrderModel();
-        $order->setServiceLocator($this->getServiceLocator());
-        
         // Entity Manager is Flushed furing order save, so user data will also be persisted
         $user->set('plan', $plan);
-        $order = $order->save($data);
+        $order = $model->save($data);
         
         if ($order) {
             $this->handlePastProfiles($pastOrder);
-            $this->sendInvoice($order);
+            
+            // Cancel any stripe subscriptions (if any)
+            $model->handlePaymentMethodConflicts($user, 'paypal', $this->getRequest());
+            $model->sendInvoice($order);
         }
         
         return !!$order;
@@ -237,26 +235,6 @@ class PayPal implements ServiceLocatorAwareInterface
         }
         
         return true;
-    }
-    
-    public function getPastOrder($user)
-    {
-        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
-        $order = $queryBuilder->select('e.profileId, e.id, e.startDate')
-            ->from('Checkout\Entity\Order', 'e')
-            ->where('e.user= :user')
-            ->andWhere('e.status= :status')
-            ->setParameter('user', $user)
-            ->setParameter('status', Order::STATUS_ACTIVE)
-            ->getQuery()
-            ->setMaxResults(1)
-            ->getResult();
-        
-        if ($order) {
-            $order = $order[0];
-        }
-        
-        return $order;
     }
     
     public function handlePastProfiles($order)
@@ -297,21 +275,9 @@ class PayPal implements ServiceLocatorAwareInterface
         Mail::send($emailData);
     }
     
-    public function getStartDate($user, $billingPeriod)
+    public function getStartDate($user)
     {
-        $order = $this->getPastOrder($user);
-
-        $trialPeriod = self::TRIAL_PERIOD;
-        $date = strtotime("+{$trialPeriod} day");
-        
-        if ($order) {
-            $date = strtotime($order['startDate']);
-            while ($date <= time()) {
-                $date = strtotime("+1 {$billingPeriod}", $date);
-            }
-        }
-        
-        return date('Y-m-d\TH:i:s\Z', $date);
+        return $this->getOrderModel()->getNextBilling($user);
     }
     
     public function getPlans()
@@ -320,33 +286,11 @@ class PayPal implements ServiceLocatorAwareInterface
         return $helper->getAllPlans();
     }
     
-    public function sendInvoice($order)
+    public function getOrderModel()
     {
-        $planHelper = new PlanHelper();
-        $plan = $planHelper->getPlan($order->get('plan'));
+        $order = new OrderModel();
+        $order->setServiceLocator($this->getServiceLocator());
         
-        $createdAt = $order->get('createdAt');
-        $createdAt->setTimezone(new \DateTimeZone('America/New_York'));
-
-        $templateData = array(
-            'name' => $order->get('name'),
-            'incrementId' => self::INCREMENT_VARIANCE + $order->get('id'),
-            'createdAt' => $createdAt->format('l jS F Y, h:i:s A T'),
-            'plan' => ucfirst($plan['name']) . ' Plan',
-            'billingPeriod' => $order->get('billingPeriod') . 'ly',
-            'price' => '$' . $order->get('amount')
-        );
-        
-        $emailData = array(
-            'body' => '',
-            'subject' => 'SpreadPoint Subscription',
-            'toEmail' => $order->get('email'),
-            'toName' => $order->get('name'),
-            'service' => $this->getServiceLocator(),
-            'template' => 'email/templates/invoice',
-            'templateData' => $templateData,
-        );
-
-        Mail::send($emailData);
+        return $order;
     }
 }

@@ -520,12 +520,14 @@
             $('.custom-row-card_number input').on('keyup', function(){
                 var field = $(this);
 
-                var fomatedCardNumber = field.val().split(" ").join("");
+                var spacelessCard = field.val().split(" ").join("");
+                var fomatedCardNumber = spacelessCard;
                 if (fomatedCardNumber.length > 0) {
                   fomatedCardNumber = fomatedCardNumber.match(new RegExp('.{1,4}', 'g')).join(" ");
                 }
                 
                 field.val(fomatedCardNumber);
+                $('.real-card').val(spacelessCard);
             });
             
             $('.custom-row-expiry_date input').on('keyup', function(){
@@ -551,11 +553,13 @@
                     if (expirationDate.length === 5 && expirationDate.slice(-2) != 20) {
                         expirationDate = expirationDate.slice(0, 3) + 20 + expirationDate.slice(3);
                     }
-                    
                 }
                 
-                
                 field.val(expirationDate);
+                
+                var values = expirationDate.split('/');
+                $('.expiry-month').val(values[0]);
+                $('.expiry-year').val(values[1]);
             });
             
             $('.pay-pal-action').on('click', function() {
@@ -569,20 +573,33 @@
             
             $('#Checkout').submit(function(e) {
                 e.preventDefault();
-                
-                var payPalForm = $(this);
-                var action = payPalForm.attr('action');
+
+                var self = this;
+                var form = $(this);
+                var action = form.attr('action');
                 
                 if ($this.paypalAction) {
-                    payPalForm.attr('action',action.replace('submit','paypalStart'));
+                    form.attr('action',action.replace('submit','paypalStart'));
                 } else {
-                    payPalForm.attr('action',action.replace('paypalStart','submit'));
+                    form.attr('action',action.replace('paypalStart','submit'));
+                }
+                
+                if ($this.valid()) {
+                    if ($this.paypalAction) {
+                        this.submit();
+                    } else {
+                        Stripe.card.createToken(form, function(status, response) {
+                            if (response.error) {
+                                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>' + response.error.message +'</li>');
+                            } else {
+                                var token = response.id;
+                                form.append($('<input type="hidden" name="stripeToken" />').val(token));
+                                self.submit();
+                            }
+                        });
+                    }
                 }
             
-                if ($this.valid()) {
-                    this.submit();
-                }
-
                 $this.paypalAction = false;
             });
         },
@@ -599,7 +616,8 @@
                 }
             });
         },
-        validatePlan: function() {
+        valid: function() {
+
             var plan = $('[name="plan"]:checked').val();
             
             if (plan == 2) {
@@ -622,39 +640,6 @@
                 return false;
             }
 
-            
-            return true;
-        },
-        valid: function() {
-
-            if (!this.validatePlan()) {
-                return false;
-            }
-            
-            if (this.paypalAction) {
-                return true;
-            }
-            
-            if (!$('.custom-row-fullname input').val()) {
-                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please enter your name as it apears on your credit card</li>');
-                return false;
-            }
-            
-            if (!$('.custom-row-card_number input').val()) {
-                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please enter your credit card number</li>');
-                return false;
-            }
-            
-            if (!$('.custom-row-expiry_date input').val()) {
-                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Please enter your card\'s expiration date</li>');
-                return false;
-            }
-            
-            if (!$('.custom-row-cvc input').val()) {
-                $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>Invalid CVC number</li>');
-                return false;
-            }
-            
             return true;
         }
     };

@@ -9,5 +9,6 @@
     <div class="checkout-billing">
         <?php echo $this->partial('checkout/forms/checkout.phtml', array('form' => new \Checkout\Model\Form\CheckoutForm(), 'plan' => $this->plan)); ?>
     </div>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <?php endif; ?>
 </div>

@@ -27,7 +27,7 @@ class PlanHelper extends AbstractHelper
             'type' => self::PLAN_TYPE_FIXED,
             'monthly' => 49,
             'yearly' => 499,
-            'image' => 'img/puddle.png'
+            'image' => 'img/puddle.png',
         ),
         1 => array(
             'name' => 'lake',

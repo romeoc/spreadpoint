@@ -2,3 +2,4 @@ local.php
 *.local.php
 paypal.global.php
 social.global.php
+stripe.global.php

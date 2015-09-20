@@ -15,6 +15,7 @@
         "zendframework/zftool": "dev-master",
         "zendframework/zend-developer-tools": "dev-master",
         "speckcommerce/speck-paypal": "dev-master",
-        "radnan/rdn-csv":"1.*"
+        "radnan/rdn-csv":"1.*",
+        "stripe/stripe-php": "3.*"
     }
 }

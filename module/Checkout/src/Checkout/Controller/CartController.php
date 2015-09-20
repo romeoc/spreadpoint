@@ -15,6 +15,7 @@ use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
 
 use Checkout\Model\PayPal as PayPalModel;
+use Checkout\Model\Stripe as StripeModel;
 use User\Helper\UserHelper;
 use Base\Model\Session;
 
@@ -44,11 +45,15 @@ class CartController extends AbstractActionController
         $data = $this->request->getPost();      
         $user = $this->getUser();
         
-        if ($this->getPayPalModel()->createRecurringPayment($data, $user)) {
-            $this->redirect()->toRoute('checkout', array('action' => 'success'));
-        } else {
-            $this->redirect()->toRoute('checkout');
+        if ($data && $user) {
+            $model = new StripeModel();
+            $model->setServiceLocator($this->getServiceLocator());
+            
+            $model->processTransaction($user, $data);
+            return $this->redirect()->toRoute('checkout', array('action' => 'success'));
         }
+        
+        return $this->redirect()->toRoute('checkout');
     }
     
     public function paypalStartAction()
