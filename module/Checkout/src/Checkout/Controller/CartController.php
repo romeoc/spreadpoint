@@ -31,12 +31,14 @@ class CartController extends AbstractActionController
         $plan = $this->params()->fromQuery('package');
         $plan = ($plan == 0 || $plan == 1) ? $plan : null;
         
+        $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Checkout - SpreadPoint');
         return new ViewModel(array('plan' => $plan));
     }
     
     public function upgradeAction()
     {
         $this->layout('layout/dashboard');
+        $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Dashboard - Upgrade');
         return new ViewModel();
     }
     

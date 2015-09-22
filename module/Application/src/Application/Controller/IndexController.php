@@ -25,26 +25,31 @@ class IndexController extends AbstractActionController
     
     public function pricingAction()
     {
+        $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Pricing - SpreadPoint');
         return new ViewModel();
     }
     
     public function contactAction()
     {
+        $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Contact - SpreadPoint');
         return new ViewModel();
     }
     
     public function termsOfServiceAction()
     {
+        $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Terms of Service - SpreadPoint');
         return new ViewModel();
     }
     
     public function privacyPolicyAction()
     {
+        $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Privacy Policy - SpreadPoint');
         return new ViewModel(); 
     }
     
     public function supportAction()
     {
+        $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Support - SpreadPoint');
         return new ViewModel(); 
     }
     

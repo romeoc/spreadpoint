@@ -36,6 +36,7 @@ class AccountController extends AbstractActionController
     
     public function loginAction()
     {
+        $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Login - SpreadPoint');
         return new ViewModel(array('form' => new LoginForm()));
     }
     
@@ -133,6 +134,7 @@ class AccountController extends AbstractActionController
             $this->redirect()->toRoute('account', array('action' => 'login'));
         }
         
+        $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Dashboard - Settings');
         return new ViewModel(array('user' => $helper->getLoggedInUser()));
     }
     
@@ -165,6 +167,7 @@ class AccountController extends AbstractActionController
             $user = $model->loadByResetCode($key);
         }
         
+        $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Reset Your Password - SpreadPoint');
         return new ViewModel(array('user' => $user));
     }
     

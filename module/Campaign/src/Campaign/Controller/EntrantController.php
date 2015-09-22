@@ -36,6 +36,9 @@ class EntrantController extends AbstractActionController
         }
         
         if ($entrant && $this->validateAccess($entrant['entrant']->get('campaign')->get('user')->get('id'))) {
+            $entrantName = $entrant['entrant']->get('name');
+            $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Entrant - ' . $entrantName);
+            
             return new ViewModel(array('data' => $entrant));
         } else {
             Session::error('You are trying to access data from an entrant that does not belong to your campaigns');

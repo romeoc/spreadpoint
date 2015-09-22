@@ -27,6 +27,7 @@ class CampaignController extends AbstractActionController
     
     public function listAction()
     {
+        $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Dashboard - Campaigns');
         $this->layout('layout/dashboard');
         if ($this->checkAuthentication()) {
             if ($this->getUserPlan() == -1) {
@@ -57,6 +58,7 @@ class CampaignController extends AbstractActionController
             $campaignId =  $this->params('id');
             $data = $campaignModel->fetchData($campaignId);
 
+            $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Dashboard - ' . $data['data']['title']);
             return new ViewModel($data);
         }
     }
@@ -119,6 +121,7 @@ class CampaignController extends AbstractActionController
         }
         $data = $campaignModel->fetchView($id);
         
+        $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set($data['data']['title']);
         return new ViewModel($data);
     }
     
@@ -243,6 +246,8 @@ class CampaignController extends AbstractActionController
             $model->setServiceLocator($this->_service);
 
             $entrants = $model->entrantsList();
+            
+            $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Dashboard - Entrants');
             return new ViewModel(array('entrants' => $entrants));
         }
     }

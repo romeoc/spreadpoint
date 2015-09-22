@@ -22,6 +22,9 @@ class Module
         
         $eventManager->getSharedManager()->attach('*', MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'onDispatchError'), -100);
         $eventManager->getSharedManager()->attach('*', MvcEvent::EVENT_RENDER_ERROR, array($this, 'onDispatchError'), - 100);
+        
+        $app = $e->getParam('application');
+        $app->getEventManager()->attach('render', array($this, 'setLayoutTitle'));
     }
 
     public function getConfig()
@@ -44,5 +47,22 @@ class Module
     {
         $view = $event->getViewModel();
         $view->setTemplate('layout/dashboard');
+    }
+    
+    /**
+     * Set default page title
+     * 
+     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     * @return void
+     */
+    public function setLayoutTitle($e)
+    {
+        $viewHelperManager = $e->getApplication()->getServiceManager()->get('viewHelperManager');
+        $headTitleHelper = $viewHelperManager->get('headTitle');
+        
+        $title = $headTitleHelper->toString();
+        if ($title === '<title></title>') {
+            $headTitleHelper->set('SpreadPoint - Start Generating New Leads');
+        }
     }
 }

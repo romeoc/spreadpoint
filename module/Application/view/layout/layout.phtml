@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <?php echo $this->headTitle('SpreadPoint - Start Generating New Leads'); ?>
+        <?php echo $this->headTitle(); ?>
 
         <?php echo $this->headMeta()
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
@@ -78,7 +78,7 @@
             <div class="grid grid-pad head-overflow">
                 <div class="site-branding">
                     <div class="site-logo">
-                        <a href="<?php echo $this->serverUrl(); ?>" title="SpreadPoint">
+                        <a href="<?php echo $this->serverUrl(); ?>" title="Home">
                             <img src="<?php echo $this->basePath('img/logo.png') ?>" alt="SpreadPoint">
                         </a>
                     </div>
@@ -92,43 +92,43 @@
                         <div class="menu-container">
                             <ul id="menu" class="menu nav-menu">
                                 <li id="menu-item-1" class="menu-item menu-item-type-post_type menu-item-object-page">
-                                    <a href="<?php echo $this->basePath('pricing'); ?>" class="menu-item-link">Pricing</a>
+                                    <a href="<?php echo $this->basePath('pricing'); ?>" class="menu-item-link" title="Pricing">Pricing</a>
                                 </li>
                                 <li id="menu-item-2" class="menu-item menu-item-type-post_type menu-item-object-page">
-                                    <a href="<?php echo $this->basePath("contact"); ?>" class="menu-item-link">Talk to us</a>
+                                    <a href="<?php echo $this->basePath("contact"); ?>" class="menu-item-link" title="Contact">Talk to us</a>
                                 </li>
                                 <li id="menu-item-3" class ="menu-item menu-item-type-post_type menu-item-object-page">
                                     <div class="header-account-container">
                                         <?php $isLoggedIn = $this->userHelper()->isLoggedIn(); ?>
                                         <?php if ($isLoggedIn): ?>
                                             <div class="header-account-section">
-                                                <a href="<?php echo $this->basePath('account'); ?>" class="menu-item-link account-username">
+                                                <a href="<?php echo $this->basePath('account'); ?>" class="menu-item-link account-username" title="Account">
                                                     <i class="fa fa-user"></i>
                                                     <?php echo $this->userHelper()->getUsername(); ?>
                                                 </a>
                                                 <ul class="account-links hide">
                                                     <li class="first">
-                                                        <a href="<?php echo $this->basePath('campaign'); ?>" class="account-dashboard first">
+                                                        <a href="<?php echo $this->basePath('campaign'); ?>" class="account-dashboard first" title="Dashboard">
                                                             <i class="fa fa-dashboard"></i> Dashboard
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="<?php echo $this->basePath('account/settings'); ?>" class="account-settings">
+                                                        <a href="<?php echo $this->basePath('account/settings'); ?>" class="account-settings" title="Settings">
                                                             <i class="fa fa-gear"></i> Settings
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="<?php echo $this->basePath('checkout/cart/upgrade'); ?>" class="checkout-upgrade">
+                                                        <a href="<?php echo $this->basePath('checkout/cart/upgrade'); ?>" class="checkout-upgrade" title="Upgrade">
                                                             <i class="fa fa-arrow-up"></i> Upgrade
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="<?php echo $this->basePath('support'); ?>" class="account-support">
+                                                        <a href="<?php echo $this->basePath('support'); ?>" class="account-support" title="Support">
                                                             <i class="fa fa-support"></i> Support
                                                         </a>
                                                     </li>
                                                     <li class="last">
-                                                        <a href="<?php echo $this->basePath('account/logout'); ?>" class="account-logout last">
+                                                        <a href="<?php echo $this->basePath('account/logout'); ?>" class="account-logout last" title="Logout">
                                                             <i class="fa fa-power-off"></i> Log Out
                                                         </a>
                                                     </li>
@@ -150,12 +150,12 @@
             <h3>Menu</h3> 
             <div class="menu-container">
                 <ul id="menu" class="menu">
-                    <li><a href="<?php echo $this->basePath('pricing'); ?>">Pricing</a></li>
-                    <li><a href="<?php echo $this->basePath("contact"); ?>">Talk to us</a></li>
+                    <li><a href="<?php echo $this->basePath('pricing'); ?>" title="Pricing">Pricing</a></li>
+                    <li><a href="<?php echo $this->basePath("contact"); ?>" title="Contact">Talk to us</a></li>
                     <?php if ($isLoggedIn): ?>
-                        <li><a href="<?php echo $this->basePath("account/logout"); ?>">Log Out</a></li>
+                        <li><a href="<?php echo $this->basePath("account/logout"); ?>" title="Log Out">Log Out</a></li>
                     <?php else: ?>
-                        <li><a href="<?php echo $this->basePath("account/login"); ?>">Login</a></li>
+                        <li><a href="<?php echo $this->basePath("account/login"); ?>" title="Login">Login</a></li>
                     <?php endif; ?>
                 </ul>
             </div> 
