@@ -1,9 +1,9 @@
 @media handheld, only screen and (max-width: 769px) {
     
     /***** Homepage *****/
-    .hero-content-section { margin-top: 90px; }
     .hero-content h2 { font-size: 52px; }
     .hero-content p { width: 100%; font-size: 120%; }
+    .hero-content-section { padding-top: 90px; }
     
     .strong-points .home-content { display: none; }
     
