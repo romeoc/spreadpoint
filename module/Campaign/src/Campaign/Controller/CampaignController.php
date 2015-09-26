@@ -123,7 +123,11 @@ class CampaignController extends AbstractActionController
         }
         $data = $campaignModel->fetchView($id);
         
+        $campaignHelper = $this->getServiceLocator()->get('viewhelpermanager')->get('campaignHelper');
+        $bannerUrl = $campaignHelper->getDomain() . $campaignHelper->getBaseImagePath($data['data']['id']) . $data['data']['banner'];
         $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set($data['data']['title']);
+        $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer')->headMeta()->appendName('og:image', $bannerUrl);
+        
         return new ViewModel($data);
     }
     
