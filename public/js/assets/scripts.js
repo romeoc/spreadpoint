@@ -1152,9 +1152,18 @@
             this.adjustTextareas();
             this.initializeSchedule();
             this.attachSubmitEvent();
+            this.loadStatusChangeActions();
             
             $('.row-prize-element').hide();
             $('.applied-widget-row').hide();
+        },
+        loadStatusChangeActions: function() {
+            var self = this;
+            $('.action-unpause').on('click', function(e) {
+                if (!self.isEverythingValid()) {
+                    return false;
+                }
+            });
         },
         /**
          * Adjust textarea lines to it's content
@@ -1195,11 +1204,13 @@
                 SpreadPoint.Widgets.Controller.finalize();
                 SpreadPoint.Prize.Controller.finalize();
                 
-                if ($this.isFormValid() && SpreadPoint.Widgets.Controller.isValid() && SpreadPoint.Prize.Controller.isValid()) {
-
+                if ($this.isEverythingValid()) {
                     this.submit();
                 }
             });
+        },
+        isEverythingValid: function() {
+            return (this.isFormValid() && SpreadPoint.Widgets.Controller.isValid() && SpreadPoint.Prize.Controller.isValid());
         },
         // Check if all form data is valid before submit
         isFormValid: function() {
@@ -1248,10 +1259,7 @@
             }
             
             var winnerEmail = this.get('winnerEmail');
-            if (!winnerEmail){
-                this.logError("The <strong>Winner's Email</strong> is a required field.",".advanced-tab","winnerEmail");
-                return false;
-            } else if (winnerEmail.length > 20000) {
+            if (winnerEmail && winnerEmail.length > 20000) {
                 this.logError("There is a limit of <strong>20000</strong> characters to the <strong>Winner's Email</strong> field",".advanced-tab","welcomeEmail");
                 return false;
             }

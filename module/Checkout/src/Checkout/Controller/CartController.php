@@ -32,6 +32,8 @@ class CartController extends AbstractActionController
         $plan = ($plan == 0 || $plan == 1) ? $plan : null;
         
         $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Checkout - SpreadPoint');
+        $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer')->headMeta()->appendName('robots', 'noindex, nofollow');
+        
         return new ViewModel(array('plan' => $plan));
     }
     

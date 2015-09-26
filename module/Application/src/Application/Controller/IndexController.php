@@ -20,12 +20,16 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+        $description = 'With SpreadPoint you run customizable giveaways, secured raffles and challenging contests. Start your free trial and engage your customers like never before.';
+        $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer')->headMeta()->appendName('description', $description);
         return new ViewModel();
     }
     
     public function pricingAction()
     {
+        $description = 'Run customizable giveaways with the best suited pricing plan and make your followers love you. Start your free trial today!';
         $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Pricing - SpreadPoint');
+        $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer')->headMeta()->appendName('description', $description);
         return new ViewModel();
     }
     

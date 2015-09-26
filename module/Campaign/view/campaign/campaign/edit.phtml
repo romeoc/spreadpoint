@@ -18,7 +18,7 @@
                 <div class="campaign-view-actions right">
                     <?php if (array_key_exists('id', $this->data) && $campaignHelper->getToggledStatus()): ?>
                         <?php $url = 'campaign/updateStatus/' . $this->data['id'] . '/status/' . $campaignHelper->getToggledStatus(); ?>
-                        <a href="<?php echo $this->basePath($url); ?>" title="<?php echo $campaignHelper->getToggledStatusTitle(); ?> Campaign">
+                    <a href="<?php echo $this->basePath($url); ?>" title="<?php echo $campaignHelper->getToggledStatusTitle(); ?> Campaign" class="action-<?php echo strtolower($campaignHelper->getToggledStatusTitle()); ?>">
                             <button type="button" class="campaign-view-action campaign-view-toggle-status">
                                 <i class="fa <?php echo $campaignHelper->getToggledStatusIcon(); ?>"></i> <?php echo $campaignHelper->getToggledStatusTitle(); ?>
                             </button>

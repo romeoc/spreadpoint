@@ -58,7 +58,9 @@ class CampaignController extends AbstractActionController
             $campaignId =  $this->params('id');
             $data = $campaignModel->fetchData($campaignId);
 
-            $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Dashboard - ' . $data['data']['title']);
+            $title = array_key_exists('title', $data['data']) ? $data['data']['title'] : 'New Campaign';
+            
+            $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Dashboard - ' . $title);
             return new ViewModel($data);
         }
     }

@@ -205,7 +205,7 @@ class AbstractModel implements ServiceLocatorAwareInterface
 
         // Validate extensions
         $allowedExtensions = explode(',', self::ALLOWED_UPLOAD_EXTENSIONS);
-        $imageFileType = pathinfo($targetFile, PATHINFO_EXTENSION);
+        $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
         if (!in_array($imageFileType, $allowedExtensions)) {
             Session::error("We don't allow '$imageFileType' file types yet.");

@@ -790,7 +790,7 @@ a:active {
     text-transform: uppercase;
     margin-bottom: 40px;
 }
-.home-services .fa, .service .fa {
+.home-services .fa, .service .fa, .strong-points .fa {
     background: #ea474b;
     color: #fff;
     font-size: 40px;
