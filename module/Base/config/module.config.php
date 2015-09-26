@@ -7,7 +7,8 @@ return array(
     ),
     'view_helpers' => array(
         'invokables'=> array(
-            'configHelper' => 'Base\Helper\Config'  
+            'configHelper' => 'Base\Helper\Config',
+            'baseHelper' => 'Base\Helper\Base',
         )
     ),
 );

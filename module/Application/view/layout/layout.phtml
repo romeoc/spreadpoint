@@ -8,7 +8,10 @@
         <?php echo $this->headMeta()
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+            ->appendProperty('og:image', $this->baseHelper()->getBaseUrl('img/lake.png'));
         ?>
+        
+        <meta property="og:image" content="/img/" />
 
         <!-- Le styles -->
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))

@@ -48,6 +48,11 @@ class Module implements AutoloaderProviderInterface
                     $helper->setServiceLocator($sm);
                     return $helper;
                 },
+                'Base\Helper\Base' =>  function(ServiceLocatorInterface $sm) {
+                    $helper = new Base\Helper\Base();
+                    $helper->setServiceLocator($sm);
+                    return $helper;
+                },
             ),
         );
     }
