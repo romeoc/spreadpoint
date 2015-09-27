@@ -90,15 +90,18 @@
     
     /***** Upgrade *****/
     .dashboard-content.upgrade-view { padding-left: 80px; }
+    .upgrade .global-messages { font-size: smaller; }
     .upgrade .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan { width: 80%; margin-bottom: 20px; }
     .upgrade .checkout-form .period-element .row-label { padding-bottom: 10px; }
     .upgrade .checkout-billing .visible-plan span.title { padding: 0; padding-top: 10px; }
     .upgrade .checkout-billing .visible-plan img { height: 100px; width: auto; padding-bottom: 5px; }
     
-    .upgrade-payment-form { width: 90%; }
-    .upgrade-payment-form .subtitle { padding: 15px; }
-    .upgrade-payment-form .custom-form-row { width: 90%; }
+    .upgrade-payment-form { width: 85%; }
+    .upgrade-payment-form .upgrade-card-wrapper .subtitle { padding: 15px; }
+    .upgrade-payment-form .custom-form-row { width: 85%; }
     .checkout-payment-form.upgrade-payment-form input { font-size: smaller; background-size: 25px; padding-left: 45px; }
+    .checkout-payment-form .checkout-form-row.custom-row-expiry_date,
+    .checkout-payment-form .checkout-form-row.custom-row-cvc { width: 85%; }
     
     /***** Entrants *****/
     .entrant-view .entrant-row label { width: auto; font-weight: bold; }
