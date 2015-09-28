@@ -577,6 +577,12 @@
                 var self = this;
                 var form = $(this);
                 var action = form.attr('action');
+                var submitButton = form.find('.custom-row-submit-action input');
+                var loader = $('.loader');
+                
+                submitButton.prop('disabled', true);
+                submitButton.addClass('disabled');
+                loader.show();
                 
                 if ($this.paypalAction) {
                     form.attr('action',action.replace('submit','paypalStart'));
@@ -591,6 +597,9 @@
                         Stripe.card.createToken(form, function(status, response) {
                             if (response.error) {
                                 $('.global-messages').html('<li class="error"><i class="fa fa-times-circle"></i>' + response.error.message +'</li>');
+                                submitButton.prop('disabled', false);
+                                submitButton.removeClass('disabled');
+                                loader.hide();
                             } else {
                                 var token = response.id;
                                 form.append($('<input type="hidden" name="stripeToken" />').val(token));
@@ -598,8 +607,12 @@
                             }
                         });
                     }
+                } else {
+                    submitButton.prop('disabled', false);
+                    submitButton.removeClass('disabled');
+                    loader.hide();
                 }
-            
+                
                 $this.paypalAction = false;
             });
         },
