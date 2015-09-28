@@ -584,7 +584,7 @@
                     form.attr('action',action.replace('paypalStart','submit'));
                 }
                 
-                if ($this.valid()) {
+                if ($this.valid() && $this.checkEnterprisePlan()) {
                     if ($this.paypalAction) {
                         this.submit();
                     } else {
@@ -603,18 +603,21 @@
                 $this.paypalAction = false;
             });
         },
+        checkEnterprisePlan: function() {
+            var selectedPlan = $('[name="plan"]:checked').val();
+            var enterprisePlan = 2;
+
+            if (selectedPlan == enterprisePlan) {
+                $('.upgrade-payment-form').hide();
+                window.location.href = "/contact";
+                
+                return false;
+            }
+            
+            return true;
+        },
         initUpgradeSection: function() {
             SpreadPoint.PopUp.create('.upgrade-payment-form', '.upgrade-plan-action');
-            
-            $('.upgrade-plan-action').on('click', function(){
-                var selectedPlan = $('[name="plan"]:checked').val();
-                var enterprisePlan = 2;
-
-                if (selectedPlan == enterprisePlan) {
-                    $('.upgrade-payment-form').hide();
-                    window.location.href = "/contact";
-                }
-            });
         },
         valid: function() {
 
