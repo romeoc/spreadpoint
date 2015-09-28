@@ -36,8 +36,8 @@
 
 .campaign-fullpage .prize-box-enlarged { background: rgba(0, 0, 0, 0.7); height: auto; padding: 20px; width: 80%; text-align: left; top: 10%; bottom: auto; }
 .campaign-fullpage .prize-box-enlarged .prize-box-part { display: inline-block; }
-.campaign-fullpage .prize-box-enlarged .enlarged-image { width: 50%; margin-right: 10px; position: relative; }
-.campaign-fullpage .prize-box-enlarged .enlarged-image img { width: 100%; }
+.campaign-fullpage .prize-box-enlarged .enlarged-image { width: 50%; margin-right: 10px; position: relative; text-align: center; }
+.campaign-fullpage .prize-box-enlarged .enlarged-image img { width: auto; max-height: 200px; max-width: 100%; }
 .campaign-fullpage .prize-box-enlarged .content { width: 45%; vertical-align: top; color: white; }
 .campaign-fullpage .prize-box-enlarged .content h2 { margin: 0; }
 .campaign-fullpage .prize-box-enlarged .content p { text-align: left; }
