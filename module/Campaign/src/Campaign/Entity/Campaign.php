@@ -150,6 +150,11 @@ class Campaign extends AbstractEntity
      */
     protected $retainPreviousEntrants = 0;
     
+    /**
+     * @ORM\Column(type="smallint", name="show_prizes", length=1)
+     */
+    protected $showPrizes = 0;
+    
     /** 
      * @ORM\Column(type="datetime", name="created_at", nullable=true) 
      */

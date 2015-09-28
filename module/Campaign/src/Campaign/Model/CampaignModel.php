@@ -130,6 +130,7 @@ class CampaignModel extends AbstractModel
         $data['sendWelcomeEmail'] = (array_key_exists('sendWelcomeEmail', $data)) ? 1 : 0;
         $data['notifyWinners'] = (array_key_exists('notifyWinners', $data)) ? 1 : 0;
         $data['retainPreviousEntrants'] = (array_key_exists('retainPreviousEntrants', $data)) ? 1 : 0;
+        $data['showPrizes'] = (array_key_exists('showPrizes', $data)) ? 1 : 0;
         
         // Rename banner
         $files = $this->getUploadedFiles();
