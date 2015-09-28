@@ -674,4 +674,36 @@ class CampaignModel extends AbstractModel
         
         return true;
     }
+    
+    public function extractAndAddFonts($css) 
+    {
+        $fonts = array();
+        $matches = array();
+        
+        preg_match_all('/\s*([-\w]+)\s*:?\s*(.*?)\s*;/m', $css, $matches, PREG_SET_ORDER);
+        foreach ($matches as $match) {
+            if (strtolower($match[1]) === 'font-family') {
+                $values = str_replace(array('\'', '\"'), '', $match[2]);
+                $ruleFonts = array();
+                
+                foreach (explode(',', $values) as $value) {
+                    $value = trim($value);
+                    $value = str_replace(' ', '+', $value);
+                    $ruleFonts[] = $value;
+                }
+                
+                $fonts = array_merge($ruleFonts, $fonts);
+            }
+        }
+        
+        $fonts = array_unique($fonts);
+        $fonts = implode('|', $fonts);
+        
+        $url = "https://fonts.googleapis.com/css?family={$fonts}";
+        
+        $this->getServiceLocator()
+            ->get('viewhelpermanager')
+            ->get('headLink')
+            ->appendStylesheet($url);
+    }
 }

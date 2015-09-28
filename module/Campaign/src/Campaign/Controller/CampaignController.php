@@ -121,7 +121,9 @@ class CampaignController extends AbstractActionController
             // Refresh page so cookies are updated
             return $this->redirect()->refresh();
         }
+        
         $data = $campaignModel->fetchView($id);
+        $campaignModel->extractAndAddFonts($data['data']['titleCss'] . $data['data']['descriptionCss']);
         
         $campaignHelper = $this->getServiceLocator()->get('viewhelpermanager')->get('campaignHelper');
         $bannerUrl = $campaignHelper->getDomain() . $campaignHelper->getBaseImagePath($data['data']['id']) . $data['data']['banner'];
