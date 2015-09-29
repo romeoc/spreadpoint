@@ -117,6 +117,13 @@ class CampaignModel extends AbstractModel
             return false;
         }
         
+        $layout = $this->loadLayout($data['layout']);
+        if (!$layout) {
+            return false;
+        }
+
+        $data['layout'] = $layout;
+
         $data['user'] = $this->getUserHelper()->getLoggedInUser();
         if (!array_key_exists('status', $data)) {
             $data['status'] = CampaignEntity::STATUS_ACTIVE;
@@ -197,9 +204,6 @@ class CampaignModel extends AbstractModel
         
         if (!array_key_exists('layout', $data) || !$data['layout']) {
             Session::error("Please choose a layout for your campaign");
-            $errosFound = true;
-        } elseif ($data['layout'] != 1 && $data['layout'] != 2) {
-            Session::error("You specified an invalid layout");
             $errosFound = true;
         }
         
@@ -429,6 +433,7 @@ class CampaignModel extends AbstractModel
             ->where('e.id= :id')
             ->setParameter('id', $campaignId)
             ->getQuery()
+            ->setHint(Query::HINT_INCLUDE_META_COLUMNS, true)
             ->getSingleResult(Query::HYDRATE_ARRAY);
         
         $campaign['startTime'] = $campaign['startTime']->format('Y/m/d H:i');
@@ -682,6 +687,11 @@ class CampaignModel extends AbstractModel
         $matches = array();
         
         preg_match_all('/\s*([-\w]+)\s*:?\s*(.*?)\s*;/m', $css, $matches, PREG_SET_ORDER);
+        
+        if (!$matches) {
+            return true;
+        }
+        
         foreach ($matches as $match) {
             if (strtolower($match[1]) === 'font-family') {
                 $values = str_replace(array('\'', '\"'), '', $match[2]);
@@ -706,5 +716,10 @@ class CampaignModel extends AbstractModel
             ->get('viewhelpermanager')
             ->get('headLink')
             ->appendStylesheet($url);
+    }
+    
+    public function loadLayout($layoutId) 
+    {
+        return $this->getEntityManager()->find('Campaign\Entity\CampaignLayout', $layoutId);
     }
 }

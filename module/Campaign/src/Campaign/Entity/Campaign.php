@@ -100,8 +100,9 @@ class Campaign extends AbstractEntity
      */
     protected $cyclesCount;
     
-    /** 
-     * @ORM\Column(type="text") 
+    /**
+     * @ORM\ManyToOne(targetEntity="Campaign\Entity\CampaignLayout")
+     * @ORM\JoinColumn(name="layout_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $layout;
     

@@ -66,8 +66,7 @@
                 var $this = $(this);
                 var title = $this.attr('title');
                 $this.siblings('.switch-button-label').attr('title', title).addClass('click-note');
-                $this.siblings('.switch-button-background').attr('title', title).addClass('click-note')
-                    .find('.switch-button-button').attr('title', title).addClass('click-note');
+                $this.siblings('.switch-button-background').attr('title', title).addClass('click-note');
             });
         },
         initializeListingCampaigns: function() {
@@ -100,23 +99,25 @@
         },
         initializeHints: function() {
             $('.focus-note').qtip({
-                show: 'focus',
-                hide: 'blur',
                 position: {
                     my: 'center left',
-                    at: 'center right',
+                    at: 'center right'
+                },
+                style: { classes: 'qtip-blue qtip-rounded qtip-shadow' }
+            });
+            
+            $('.focus-downward-note').qtip({
+                position: {
+                    my: 'top left',
+                    at: 'center right'
                 },
                 style: { classes: 'qtip-blue qtip-rounded qtip-shadow' }
             });
             
             $('.click-note').qtip({
-                show: 'click',
-                hide: { 
-                    distance: 50
-                },
                 position: {
                     my: 'top center',
-                    at: 'bottom center',
+                    at: 'bottom center'
                 },
                 style: { classes: 'qtip-blue qtip-rounded qtip-shadow' }
             });

@@ -1,7 +1,7 @@
 <?php $helper = $this->campaignHelper(); ?>
 <?php if ($this->data['status'] == \Campaign\Entity\Campaign::STATUS_ACTIVE): ?>
     <div class="campaign-container">
-        <?php echo $this->partial($helper->getLayout($this->data['layout']), array(
+        <?php echo $this->partial($helper->getLayoutTemplate($this->data['layout_id']), array(
             'data' => $this->data, 
             'entriesData' => $this->entriesData,
             'prizeData' => $this->prizesData,

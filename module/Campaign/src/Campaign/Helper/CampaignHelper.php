@@ -21,6 +21,8 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
 
     protected $service;
     
+    protected $layouts;
+    
     public function getServiceLocator() 
     {
         return $this->service;
@@ -72,36 +74,54 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
      * Get all available campaign layouts
      */
     public function getAvailableLayouts()
-    {
-        $layouts = array(
-            array(
-                'checked' => '',
-                'value'   => 1,
-                'title'   => 'Light',
-                'classes' => 'first',
-                'id'      => 'fullpage-dark',
-                'note'    => 'This layout consists of brighter elements. It goes well with darker backgrounds.',
-                'template'=> 'campaign/layout/fullpage-light.phtml'
-            ),
-            array(
-                'checked' => '',
-                'value'   => 2,
-                'title'   => 'Dark',
-                'classes' => 'first',
-                'id'      => 'fullpage-light',
-                'note'    => 'This layout has darker elements. It goes well with both darker and lighter backgrounds.',
-                'template'=> 'campaign/layout/fullpage-dark.phtml'
-            ),
-        );
-        
-        $currentLayout = $this->get('layout');
-        if ($currentLayout) {
-            $layouts[$currentLayout - 1]['checked'] = 'checked';
-        } else {
-            $layouts[0]['checked'] = 'checked';
+    {   
+        if (is_null($this->layouts)) {
+            $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+            $layoutsFound = $queryBuilder->select('e')
+                ->from('Campaign\Entity\CampaignLayout', 'e')
+                ->where('e.user= :user')
+                ->orWhere('e.user IS NULL')
+                ->setParameter('user', $this->getUserHelper()->getLoggedInUser())
+                ->getQuery()
+                ->getArrayResult();
+
+            $layouts = array();
+            foreach ($layoutsFound as $layout) {
+                $layouts[$layout['id']] = array(
+                    'selected' => '',
+                    'value'   => $layout['id'],
+                    'title'   => $layout['name'],
+                    'classes' => 'first',
+                    'note'    => $layout['note'],
+                    'template'=> $layout['template']
+                );
+            }
+
+            $currentLayout = $this->get('layout_id');
+            if ($currentLayout) {
+                $layouts[$currentLayout]['selected'] = 'selected';
+            } else {
+                $layouts[0]['selected'] = 'selected';
+            }
+            
+            $this->layouts = $layouts;
         }
         
-        return $layouts;
+        return $this->layouts;
+    }
+    
+    public function getLayoutNote()
+    {
+        $note = '';
+        $layouts = $this->getAvailableLayouts();
+        
+        foreach ($layouts as $layout) {
+            $note .= '<strong>' . strtoupper($layout['title']) . '</strong>'
+                    . ' - ' . $layout['note'] 
+                    . '<br /><br />';
+        }
+        
+        return substr($note, 0, -12);
     }
     
     /**
@@ -406,10 +426,10 @@ class CampaignHelper extends AbstractHelper implements ServiceLocatorAwareInterf
         return sprintf('%s://%s', $uri->getScheme(), $uri->getHost());
     }
     
-    public function getLayout($layout) 
+    public function getLayoutTemplate($layout) 
     {
-        $layouts = $this->getAvailableLayouts();
-        return $layouts[$layout - 1]['template'];
+        $entity = $this->getEntityManager()->find('Campaign\Entity\CampaignLayout', $layout);
+        return $entity->get('template');
     }
     
     public function getPrizeCountClasses($count)

@@ -1,15 +1,17 @@
 <?php $campaignHelper = $this->campaignHelper(); ?>
 <?php $campaignHelper->setData($this->data); ?>
 <section class="campaign-section-advanced">
+    <h1><?php $campaignHelper->getAvailableLayouts(); ?></h1>
     <div class="campaign-form-row custom-form-row custom-row-layout">
         <div class="field">
             <label class="layout">Layout *</label>
-            <?php foreach ($campaignHelper->getAvailableLayouts() as $layout): ?>
-                <div class="radio-element">
-                    <input id="<?php echo $layout['id']; ?>" type="radio" name="layout" value="<?php echo $layout['value']; ?>" <?php echo $layout['checked']; ?> />
-                    <label class="click-note" for="<?php echo $layout['id']; ?>" title="<?php echo $layout['note']; ?>"><?php echo $layout['title']; ?></label>
-                </div>
-            <?php endforeach; ?>
+            <select name="layout" class="focus-downward-note" title="<?php echo $campaignHelper->getLayoutNote(); ?> ">
+                <?php foreach ($campaignHelper->getAvailableLayouts() as $layout): ?>
+                    <option value="<?php echo $layout['value']; ?>" <?php echo $layout['selected']; ?>>
+                        <?php echo $layout['title']; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
     </div>
     <div class="campaign-form-row custom-form-row custom-row-termsAndConditions">
@@ -28,7 +30,7 @@
     </div>
     <div class="campaign-form-row custom-form-row custom-row-ageRequirement">
         <div class="field">
-        <label class="ageRequirement">Age Requirement</label>
+            <label class="ageRequirement">Age Requirement</label>
             <select name="ageRequirement" class="focus-note" title='Depending on the nature of your campaign and your local laws, you may want to set an age restriction.'>
                 <?php foreach($campaignHelper->getAllAgeRequirements() as $ageRequirement): ?>
                     <option value="<?php echo $ageRequirement['value']; ?>" <?php echo $ageRequirement['selected']; ?>><?php echo $ageRequirement['title']; ?></option>
