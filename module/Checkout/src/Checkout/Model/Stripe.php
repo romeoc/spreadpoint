@@ -177,9 +177,11 @@ class Stripe implements ServiceLocatorAwareInterface
         if ($order) {
             
             // Cancel Past Order
-            $orderEntity = $this->getEntityManager()->find('Checkout\Entity\Order', $pastOrder['id']);
-            $orderEntity->set('status', Order::STATUS_CANCELED);
-            $this->getEntityManager()->flush();
+            if ($pastOrder) {
+                $orderEntity = $this->getEntityManager()->find('Checkout\Entity\Order', $pastOrder['id']);
+                $orderEntity->set('status', Order::STATUS_CANCELED);
+                $this->getEntityManager()->flush();
+            }
             
             // Cancel Previous PayPal profiles (if any)
             $model->handlePaymentMethodConflicts($user, 'stripe');

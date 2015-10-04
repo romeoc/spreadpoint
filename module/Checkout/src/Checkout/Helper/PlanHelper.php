@@ -25,15 +25,15 @@ class PlanHelper extends AbstractHelper
         0 => array(
             'name' => 'puddle',
             'type' => self::PLAN_TYPE_FIXED,
-            'monthly' => 49,
-            'yearly' => 499,
+            'monthly' => 29,
+            'yearly' => 299,
             'image' => 'img/puddle.png',
         ),
         1 => array(
             'name' => 'lake',
             'type' => self::PLAN_TYPE_FIXED,
-            'monthly' => 299,
-            'yearly' => 2999,
+            'monthly' => 99,
+            'yearly' => 999,
             'image' => 'img/lake.png'
         ),
         2 => array(
