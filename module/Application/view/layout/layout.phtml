@@ -64,16 +64,32 @@
             </script>
         <?php endif; ?>
         
-        <!--Start of Zopim Live Chat Script-->
-        <script type="text/javascript">
-            window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
-            d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
-            _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
-            $.src="//v2.zopim.com/?3DEPnJSJTHOjAutXh0dk4jFGjBsLuKN8";z.t=+new Date;$.
-            type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
-        </script>
-        <!--End of Zopim Live Chat Script-->
+        <?php $zopim = $this->configHelper()->get('zopim'); ?>
+        <?php if ($zopim['enabled']): ?>
+            <!--Start of Zopim Live Chat Script-->
+            <script type="text/javascript">
+                window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+                d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+                _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
+                $.src="//v2.zopim.com/?3DEPnJSJTHOjAutXh0dk4jFGjBsLuKN8";z.t=+new Date;$.
+                type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+            </script>
+            <!--End of Zopim Live Chat Script-->
+        <?php endif; ?>
         
+        <?php $inspectlet = $this->configHelper()->get('inspectlet'); ?>
+        <?php if ($inspectlet['enabled']): ?>
+            <!-- Begin Inspectlet Embed Code -->
+            <script type="text/javascript" id="inspectletjs">
+            window.__insp = window.__insp || [];
+            __insp.push(['wid', 98549229]);
+            (function() {
+            function ldinsp(){var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
+            document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
+            })();
+            </script>
+            <!-- End Inspectlet Embed Code -->
+        <?php endif; ?>
     </head>
     <body>
         <header id="masthead" class="site-header" role="banner">
