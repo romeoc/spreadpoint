@@ -79,6 +79,10 @@
             $('.cbp-spmenu a').on('click',function(){
                 jPushMenu.close();
             });
+            
+            $('.close-menu').on('click',function(){
+                jPushMenu.close();
+            });
         }
 	};
  
