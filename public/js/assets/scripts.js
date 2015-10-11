@@ -1264,7 +1264,7 @@
                 return false;
             }
             
-            if (this.get('termsAndConditions').length > 255) {
+            if (this.get('termsAndConditions').length > 50000) {
                 this.logError("There is a limit of <strong>50000</strong> characters to the <strong>'Terms & Conditions'</strong> field",".advanced-tab","termsAndConditions");
                 return false;
             }
