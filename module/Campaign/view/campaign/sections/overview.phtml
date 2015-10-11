@@ -2,17 +2,34 @@
 <section class="campaign-section-overview">
     <?php $domain = $campaignHelper->getDomain(); ?>
     <?php $campaignUrl = "{$domain}/campaign/view/{$this->data['id']}"; ?>
-    <iframe style="visibility:hidden;" onload="this.style.visibility = 'visible';" class="left" src="<?php echo "{$campaignUrl}?no-action=1"; ?>" frameborder="0" scrolling="no"></iframe>
     <div class="sharing-options left">
-        <div class="direct-link">
-            Direct Link: 
-            <a href="<?php echo $campaignUrl; ?>" title="<?php echo $this->data['title']; ?>" target="_blank">
-                <?php echo $this->data['title']; ?>
-            </a>
+        <div class="direct-link clear">
+            <div class="overview-icon left">
+                <i class="fa fa-link left"></i>
+                <span>Direct Link</span>
+            </div>
+            <div class="overview-action left">
+                <input readonly onclick="this.select()" type="text" value="<?php echo $campaignUrl; ?>" />
+                (<a href="<?php echo $campaignUrl; ?>" title="<?php echo $this->data['title']; ?>" target="_blank">Preview</a>)
+            </div>
         </div>
-        <div class="option fb-share-button" data-href="<?php echo $campaignUrl; ?>" data-layout="button"></div>
-        <div class="option twitter-tweet">
-            <a class="twitter-share-button" data-size="large" data-count="none" href="https://twitter.com/intent/tweet?url=<?php echo $campaignUrl; ?>&text='Check Out Our New Giveaway!'">Tweet</a>
+        <div class="facebook-share clear">
+            <div class="overview-icon left">
+                <i class="fa fa-facebook left"></i>
+                <span>Share on Facebook</span>
+            </div>
+            <div class="overview-action left">
+                <div class="option fb-share-button" data-href="<?php echo $campaignUrl; ?>" data-layout="button"></div>
+            </div>
+        </div>
+        <div class="twitter-tweet-overview clear">
+            <div class="overview-icon left">
+                <i class="fa fa-twitter left"></i>
+                <span>Tweet on Twitter</span>
+            </div>
+            <div class="overview-action left">
+                <a class="twitter-share-button" data-size="large" data-count="none" href="https://twitter.com/intent/tweet?url=<?php echo $campaignUrl; ?>&text='Check Out Our New Giveaway!'">Tweet</a>
+            </div>
         </div>
     </div>
     <div class="clear"></div>
@@ -20,43 +37,40 @@
 
 <script type="text/javascript">
     $(function(){
-        $('iframe').on('load', function() {
-            this.style.height = this.contentWindow.document.body.scrollHeight + 'px';
-            
-            // Facebook
-            window.fbAsyncInit = function() {
-                FB.init({
-                    appId      : '<?php echo $this->social['facebook']['app-id']; ?>',
-                    xfbml      : true,
-                    version    : 'v2.4'
-                });
+
+        // Facebook
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '<?php echo $this->social['facebook']['app-id']; ?>',
+                xfbml      : true,
+                version    : 'v2.4'
+            });
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        } (document, 'script', 'facebook-jssdk'));
+
+        // Twitter
+        window.twttr = (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+
+            t._e = [];
+            t.ready = function(f) {
+                t._e.push(f);
             };
 
-            (function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) {return;}
-                js = d.createElement(s); js.id = id;
-                js.src = "//connect.facebook.net/en_US/sdk.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            } (document, 'script', 'facebook-jssdk'));
-            
-            // Twitter
-            window.twttr = (function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0],
-                t = window.twttr || {};
-                if (d.getElementById(id)) return t;
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "https://platform.twitter.com/widgets.js";
-                fjs.parentNode.insertBefore(js, fjs);
-
-                t._e = [];
-                t.ready = function(f) {
-                    t._e.push(f);
-                };
-
-                return t;
-            }(document, "script", "twitter-wjs"));
-        });
+            return t;
+        }(document, "script", "twitter-wjs"));
     });
 </script>

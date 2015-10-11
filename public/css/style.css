@@ -240,11 +240,15 @@
 .campaign-view .file-upload-wrapper img { float: right; height: 33px; margin: 10px 0 20px 10px; cursor: pointer; }
 .campaign-view .file-upload-wrapper button { margin-bottom: 20px; }
 
-.campaign-view .campaign-section-overview iframe { height: auto; width: 70%; }
-.campaign-view .campaign-section-overview .direct-link { margin-bottom: 10px; }
-.campaign-view .campaign-section-overview .sharing-options { margin-left: 20px; width: 25%; }
 .campaign-view .campaign-section-overview .fb-share-button { transform: scale(1.35); -ms-transform: scale(1.35); -webkit-transform: scale(1.35); -o-transform: scale(1.35); -moz-transform: scale(1.35); transform-origin: bottom left; -ms-transform-origin: bottom left; -webkit-transform-origin: bottom left; -moz-transform-origin: bottom left; -webkit-transform-origin: bottom left; }
-.campaign-view .campaign-section-overview .option { float: left; margin-right: 30px; }
+.campaign-view .campaign-section-overview .overview-icon, .campaign-view .campaign-section-overview .overview-action { display: inline-block; }
+.campaign-view .campaign-section-overview .overview-icon i { color: #fff; font-size: 24px; padding-top: 15px; height: 50px; width: 50px; border-radius: 100px; margin-bottom: 20px; text-align: center; }
+.campaign-view .campaign-section-overview .direct-link i { background: #3B2A23; }
+.campaign-view .campaign-section-overview .facebook-share i { background: #3a5795; }
+.campaign-view .campaign-section-overview .twitter-tweet-overview i { background: #55ACEE; }
+.campaign-view .campaign-section-overview .overview-icon span { padding-top: 12px; display: inline-block; margin-left: 10px; width: 150px; }
+.campaign-view .campaign-section-overview .overview-action { margin-top: 12px; }
+.campaign-view .campaign-section-overview .direct-link input { cursor: pointer; }
 /***** Prizes *****/
 .campaign-view .prize-header { background-color: #ea474b; padding: 10px; margin-bottom: 20px; color: white; cursor: pointer; }
 .campaign-view .close-prize { background-color: white; color: #ea474b !important; margin-left: 10px; font-size: small; padding: 8px; border: none; float: right; }
