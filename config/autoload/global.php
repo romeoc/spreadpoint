@@ -12,5 +12,5 @@
  */
 
 return array(
-    // ...
+    'demo-url' => 'https://spreadpoint.co/campaign/view/6'
 );

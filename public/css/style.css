@@ -68,6 +68,8 @@
 /**** HOMEPAGE *****/
 .hero-content .hero-button { padding: 20px 60px; font-weight: bold; }
 .hero-content p { padding: 0 7% 40px 7%; color: white; font-size: 150%; text-align: left; width: 75%; margin: 0 auto; text-align: center; }
+.hero-content .demo-link { margin-left: 10px; }
+.hero-content .demo-link input { background: none; }
 .strong-points .intensity { background: url(../img/home/intensity.jpg) no-repeat; }
 .strong-points .challenges { background: url(../img/home/challenge.jpg) no-repeat; }
 .strong-points .design { background: url(../img/home/design.jpg) no-repeat; }

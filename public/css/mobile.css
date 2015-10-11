@@ -2,8 +2,11 @@
     
     /***** Homepage *****/
     .hero-content h2 { font-size: 52px; }
-    .hero-content p { width: 100%; font-size: 120%; }
+    .hero-content h3 { margin-bottom: 25px; }
+    .hero-content p { width: 100%; font-size: 120%; padding-bottom: 30px; }
     .hero-content-section { padding-top: 90px; }
+    .hero-content .demo-link input { margin-top: 10px; }
+    .hero-content .hero-button { padding: 15px 60px; }
     
     .strong-points .home-content { height: 200px; }
     .strong-points .home-content h2 { font-size: 16px; }
