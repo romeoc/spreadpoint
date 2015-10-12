@@ -249,6 +249,56 @@
         }
     };
     
+    SpreadPoint.Survey = {
+        init: function() {
+            if (!$.cookie('survey')) {
+                setTimeout(function() { 
+                    $('.closed-view').trigger('click');
+                }, 7000);
+            }
+            
+            this.initSections();
+            this.initEvents();
+        },
+        initSections: function() {
+            $('.closed-view').on('click', function() {
+                $(this).hide();
+                $('.opened-view').show().animate({marginLeft: '+=250px'}, 300);
+            });
+
+            $('.close-survey').not('.close-success').on('click', function() {
+                $('.opened-view').animate({marginLeft: '-=250px'}, 300, function() {
+                    $(this).hide();
+                    $('.closed-view').show();
+                });
+            });
+
+            $('.close-success').on('click', function() {
+                $('.survey-success').hide();
+            });
+        },
+        initEvents: function() {
+            $('#survey').submit(function(e) {
+                e.preventDefault();
+
+                var form = $(this);
+                var data = form.serializeArray();
+                var url = form.attr('action');
+
+                $.ajax({
+                    url : url,
+                    data : data,
+                    method: "POST"
+                }).done(function() {
+                    $.cookie('survey', 1);
+                    
+                    $('.opened-view').hide();
+                    $('.survey-success').fadeIn();
+                });
+            });
+        }
+    };
+    
     // Login form display and AJAX Calls 
     SpreadPoint.LoginForm = {
         init: function(){

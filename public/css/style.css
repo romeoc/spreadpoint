@@ -49,6 +49,19 @@
 .popup-overlay { position: fixed; top: 0; left: 0; background: rgba(0,0,0,0.6); z-index: 15; width: 100%; height: 100%; }
 .popup-container { position: fixed; z-index: 20; top: 0; bottom: 0; left: 0; right: 0; margin: auto; }
 
+/***** Surveys *****/
+.side-survey { position: fixed; top: 25%; left: 0; z-index: 50; }
+.side-survey .closed-view { color: white; font-size: 20px; cursor: pointer; background-color: #0074D9; padding: 0 20px; -webkit-transform: rotate(90deg); -webkit-transform-origin: left bottom; -moz-transform: rotate(90deg); -moz-transform-origin: left bottom; -ms-transform: rotate(90deg); -ms-transform-origin: left bottom; -o-transform: rotate(90deg); -o-transform-origin: left bottom; }
+.side-survey .closed-view i { padding-right: 5px; }
+.side-survey .close-survey { cursor: pointer; position: absolute; right: -25px; top: 0; background-color: #0074D9; padding: 10px; border-radius: 0 10px 10px 0; font-weight: bold; font-size: larger; }
+.side-survey .opened-view, .side-survey .survey-success { color: white; background-color: #0074D9; max-width: 250px; }
+.side-survey .opened-view { margin-left: -250px; }
+.side-survey .opened-view form { max-width: 250px; text-align: right; }
+.side-survey .opened-view .question { padding: 0 10px; display: inline-block; text-align: left; margin-top: 10px; }
+.side-survey .opened-view textarea { max-width: 230px; margin: 10px; height: 80px; }
+.side-survey .opened-view .submit-button { color: #0074D9 !important; background-color: white; border: none; margin-bottom: 10px; margin-right: 10px; padding: 5px 20px; }
+.side-survey .survey-success { padding: 10px; font-size: smaller; }
+
 /***** ACCOUNT SECTION *****/
 .header-account-container { padding: 0 20px; }
 .header-login-section .login-action { padding: 1em 3em; }

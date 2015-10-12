@@ -1,0 +1,28 @@
+<div class="side-survey">
+    <div class="lateral-box">
+        <div class="closed-view hide">
+            <i class="fa fa-list-alt"></i>
+            <span>Need Help?</span>
+        </div>
+        <div class="opened-view hide">
+            <i class="fa fa-angle-double-left close-survey"></i>
+            <form method="post" name="contact" action="/survey/send" id="survey">
+                <input type="hidden" name="question" value="Do you have any questions at this point?" />
+                <span class="question">Do you have any questions at this point?</span>
+                <textarea required name="answer"></textarea>
+                <input class="submit-button" type="submit" value="Send" />
+            </form>
+        </div>
+        <div class="survey-success hide">
+            <i class="fa fa-close close-survey close-success"></i>
+            <h2>Thank You!</h2>
+            <span>
+                We value every feedback and suggestion. 
+                Your input is extremely important to us. We are listening!
+            </span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    SpreadPoint.Survey.init();
+</script>

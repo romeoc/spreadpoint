@@ -39,6 +39,7 @@
             ->appendFile($this->basePath() . '/js/jquery.switchButton.js')
             ->appendFile($this->basePath() . '/js/jquery.datetimepicker.js')
             ->appendFile($this->basePath() . '/js/jquery.qtip.min.js')
+            ->appendFile($this->basePath() . '/js/jquery.cookie.js')
             ->appendFile($this->basePath() . '/js/kalypto.min.js')
             ->appendFile($this->basePath() . '/js/bootstrap.min.js')
             ->appendFile($this->basePath() . '/js/sensible/wow.js')
@@ -92,6 +93,8 @@
         <?php endif; ?>
     </head>
     <body>
+        <?php echo $this->partial('marketing/conversion/survey'); ?>
+        
         <header id="masthead" class="site-header" role="banner">
             <div class="transparent-overlay"></div>
             <div class="grid grid-pad head-overflow">
