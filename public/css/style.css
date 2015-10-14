@@ -149,7 +149,7 @@
 .checkout .checkout-form { width: 40%; display: inline-block; background-color: white; -webkit-box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.64); -moz-box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.64); box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.64); border-radius: 10px; margin: 10px 200px; }
 .checkout .checkout-billing .subtitle { background-color: #CCC; padding: 15px 50px 5px 50px; margin: 15px 0;font-weight: bold; text-align: left; color: black; height: 60px; }
 .checkout .checkout-billing .checkout-form-row { width: 70%; border-radius: 8px; }
-.checkout .checkout-billing .checkout-form-row.custom-row-submit-action { width: 40%; margin-bottom: 50px; padding-top: 30px; }
+.checkout .checkout-billing .checkout-form-row.custom-row-submit-action { width: 40%; margin-bottom: 30px; padding-top: 30px; }
 .checkout .checkout-billing .checkout-form-row.custom-row-plan { margin-bottom: 50px; text-align: center; width: 100%; }
 .checkout .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan { display: inline-block; width: 30%; border: 2px solid #CCC; border-radius: 10px; padding-bottom: 10px; }
 .checkout .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan.selected { border-color: #FD8B8E; background-color: #FD8B8E; }
@@ -182,6 +182,7 @@
 .checkout-payment-form .checkout-form-row.custom-row-submit-action { position: relative; }
 .checkout-payment-form .loader { position: absolute; left:50%; margin-left: -20px; margin-top: 5px; }
 .checkout-payment-form .checkout-form-row.custom-row-submit-action input.disabled { opacity: 0.5; }
+.checkout-payment-form .checkout-powered-by-stripe { padding: 0 10px 5px 0; text-align: right; }
 
 /***** DASHBOARD *****/
 .dashboard-section { width: 100%; height: 100%; overflow: hidden; position: relative; min-height: 640px; }
@@ -357,6 +358,7 @@
 .upgrade-payment-form { width: 35%; height: 400px; }
 .upgrade-payment-form .upgrade-card-wrapper { height: 350px; background-color: white; display: inline-block; }
 .upgrade-payment-form .upgrade-card-wrapper .subtitle { background-color: #CCC; padding: 15px 50px 5px 50px; margin: 15px 0;font-weight: bold; text-align: left; color: black; height: 60px; }
+.upgrade-payment-form .checkout-powered-by-stripe { padding-top: 15px; text-align: center; }
 
 /***** Entrants *****/
 .entrants-box { padding-right: 20px; }

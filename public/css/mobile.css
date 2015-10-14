@@ -70,7 +70,7 @@
     .checkout .checkout-billing .checkout-form-row { width: 85%; }
     .checkout .checkout-billing .checkout-form-row input { font-size: smaller; letter-spacing: initial; background-size: 25px; padding-left: 46px; }
     .checkout .checkout-billing .checkout-form-row .checkout-submit { padding-left: 1.5em; }
-    .checkout .checkout-billing .checkout-form-row.custom-row-submit-action { padding-top: 15px; margin-bottom: 25px; }
+    .checkout .checkout-billing .checkout-form-row.custom-row-submit-action { padding-top: 15px; margin-bottom: 25px; width: 60%; }
     
     .checkout-form .period-label { font-size: 14px; }
     .checkout-form .period-element .row-label { width: 100%; }
@@ -100,6 +100,7 @@
     .upgrade .checkout-billing .visible-plan img { height: 100px; width: auto; padding-bottom: 5px; }
     
     .upgrade-payment-form { width: 85%; }
+    .upgrade-payment-form .upgrade-card-wrapper { height: 370px; }
     .upgrade-payment-form .upgrade-card-wrapper .subtitle { padding: 15px; }
     .upgrade-payment-form .custom-form-row { width: 85%; }
     .checkout-payment-form.upgrade-payment-form input { font-size: smaller; background-size: 25px; padding-left: 45px; }

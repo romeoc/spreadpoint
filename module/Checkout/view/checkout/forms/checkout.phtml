@@ -93,6 +93,11 @@
             <img class="loader hide" src="/img/loading.gif" alt="Loading" width="40" />
             <input type="submit" class="checkout-submit" value="Pay Now">
         </div>
+        <div class="checkout-powered-by-stripe">
+            <a href="https://stripe.com" title="Stripe" target="_blank">
+                <img src="<?php echo $this->basePath('img/stripe.png'); ?>" alt="Powered by Stripe" />
+            </a>
+        </div>
     </div>
     <?php echo $this->form()->closeTag() ?>
 </section>
