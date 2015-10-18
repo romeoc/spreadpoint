@@ -41,6 +41,8 @@ class CartController extends AbstractActionController
     {
         $this->layout('layout/dashboard');
         $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Dashboard - Upgrade');
+        
+        $this->getUserHelper()->userHasAccess();
         return new ViewModel();
     }
     
@@ -110,11 +112,18 @@ class CartController extends AbstractActionController
         $this->redirect()->toRoute('campaign');
     }
     
-    protected function getUser()
+    
+    protected function getUserHelper()
     {
         $helper = new UserHelper();
         $helper->updateServiceLocator($this->getServiceLocator());
-        return $helper->getLoggedInUser();
+        
+        return $helper;
+    }
+    
+    protected function getUser()
+    {
+        return $this->getUserHelper()->getLoggedInUser();
     }
     
     protected function getPayPalModel()

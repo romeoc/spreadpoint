@@ -252,9 +252,7 @@
     SpreadPoint.Survey = {
         init: function() {
             if (!$.cookie('survey')) {
-                setTimeout(function() { 
-                    $('.closed-view').trigger('click');
-                }, 7000);
+                $('.closed-view').show();
             }
             
             this.initSections();
@@ -353,7 +351,7 @@
                         method: "POST"
                     }).done(function(data){
                         if (data.status) {
-                            window.location = "/checkout";
+                            window.location = "/campaign/list";
                         } else {
                             $('.register-form .error').html(data.message);
                         }

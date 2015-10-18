@@ -2,7 +2,13 @@
 <?php $this->headLink()->appendStylesheet($this->basePath() . '/css/layouts/parts/fullpage.css'); ?>
 <?php $this->headLink()->appendStylesheet($this->basePath() . '/css/layouts/demo.css'); ?>
 
-<div class="campaign-page campaign-fullpage campaign-fullpage-light campaign-demo">
+<div class="demo-notice">
+    <a class="left" href="<?php echo $this->basePath('/'); ?>" title="SpreadPoint">
+        <i class="fa fa-arrow-left"></i>Go Back
+    </a>
+    <span>This is a demo giveaway. No prizes will be given in this contest.</span>
+</div>    
+<div class="campaign-page campaign-fullpage campaign-fullpage-light campaign-demo">    
     <?php $helper = $this->campaignHelper(); ?>
     <?php $helper->setData($this->data); ?>
 

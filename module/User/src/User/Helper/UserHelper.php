@@ -13,6 +13,7 @@ namespace User\Helper;
 use Zend\View\Helper\AbstractHelper;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 
+use Base\Model\Session;
 use Checkout\Entity\Order;
 
 class UserHelper extends AbstractHelper implements ServiceLocatorAwareInterface
@@ -106,5 +107,27 @@ class UserHelper extends AbstractHelper implements ServiceLocatorAwareInterface
         }
         
         return $order;
+    }
+    
+    public function userHasAccess($user = null)
+    {
+        $user = ($user) ? $user : $this->getLoggedInUser();
+        $plan = $user->get('plan');
+        
+        if ($plan != -1) {
+            return true;
+        }
+        
+        $createdAtWithTrial = $user->get('createdAt');
+        $createdAtWithTrial->modify('+30 days');
+        
+        $now = new \DateTime();
+        
+        if ($createdAtWithTrial > $now) {
+            return true;
+        }
+
+        Session::notice('Your 30-day trial has expired. Please upgrade to a paid plan to continue using SpreadPoint.');
+        return false;
     }
 }

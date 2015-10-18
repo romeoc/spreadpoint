@@ -30,7 +30,7 @@ class CampaignController extends AbstractActionController
         $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Dashboard - Campaigns');
         $this->layout('layout/dashboard');
         if ($this->checkAuthentication()) {
-            if ($this->getUserPlan() == -1) {
+            if (!$this->getUserAccess()) {
                 $this->redirect()->toRoute('checkout');
             }
 
@@ -47,7 +47,7 @@ class CampaignController extends AbstractActionController
     {
         $this->layout('layout/dashboard');
         if ($this->checkAuthentication()) {
-            if ($this->getUserPlan() == -1) {
+            if (!$this->getUserAccess()) {
                 $this->redirect()->toRoute('checkout');
             }
 
@@ -246,7 +246,7 @@ class CampaignController extends AbstractActionController
     {
         $this->layout('layout/dashboard');
         if ($this->checkAuthentication()) {
-            if ($this->getUserPlan() == -1) {
+            if (!$this->getUserAccess()) {
                 $this->redirect()->toRoute('checkout');
             }
 
@@ -337,10 +337,10 @@ class CampaignController extends AbstractActionController
         return $response;
     }
     
-    protected function getUserPlan()
+    protected function getUserAccess()
     {
         $helper = new UserHelper();
         $helper->updateServiceLocator($this->getServiceLocator());
-        return $helper->getLoggedInUser()->get('plan');
+        return $helper->userHasAccess();
     }
 }

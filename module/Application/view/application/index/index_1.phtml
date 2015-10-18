@@ -4,22 +4,18 @@
             <div class="hero-content-container">
                 <div class="hero-content">
                     <div class="hero-content-section hero-usp">
-                        <h2 class="animated fadeInDown delay">RUN GIVEAWAYS</h2> 
-                        <h3 class="animated fadeInDown delay">THAT DRIVE REAL USER ACTIONS</h3> 
+                        <h2 class="animated fadeInDown delay">SPREAD THE WORD</h2> 
+                        <h3 class="animated fadeInDown delay">WITH FULL CONTROL OVER YOUR MESSAGE</h3> 
                         <p class="animated fadeInDown delay">
-                            Creating engagement can be simple. With SpreadPoint you
-                            build beautiful contests that are easy to customize. Start 
-                            your trial today and reach out to your customers 
-                            within minutes.
+                            Through SpreadPoint you build enterprise-level raffles, 
+                            contests, sweepstakes and giveaways for unrivaled reach 
+                            and engagement.
                         </p>
                         <a href="<?php echo $this->basePath('checkout'); ?>" title="Start Your Free Trial" class="animated fadeInDown delay">
-                            <button class="hero-button">
-                                <span class="main-text">Start Your Free Trial</span>
-                                <small>(free for 30 days, no credit card required)</small>
-                            </button>
+                            <input type="button" class="hero-button" value="Start Your Free Trial">
                         </a>
                         <a href="<?php echo $this->configHelper()->get('demo-url'); ?>" title="Live Demo" class="animated fadeInDown delay demo-link">
-                            <input type="button" class="hero-button" value="See a live giveaway">
+                            <input type="button" class="hero-button" value="Live Demo">
                         </a>
                     </div>
                 </div>
@@ -60,6 +56,8 @@
                             <h2>Intensity over quantity</h2>
                             <p>
                                 We focus, above all else, on generating loyal customers! Why? Because they are the minority that makes your company grow.
+                                <br />
+                                <span class="show-more">Learn More</span>
                             </p>
                         </div>
                     </div>
@@ -79,8 +77,8 @@
                         <h5>Understand your participants</h5>
                         <p>
                             SpreadPoint does not only offer Google Analytics integration, 
-                            but comes with powerful data visualization tools that will
-                            improve your conversions.
+                            but comes with powerful data visualization tools that empower 
+                            the reach and conversion rate of your challenge.
                         </p>
                     </div>
                     <div class="point-description">
@@ -100,9 +98,11 @@
                 <div class="home-content challenges">
                     <div class="grid">
                         <div class="strong-point-content right">
-                            <h2>Engaging challenges</h2>
+                            <h2>Unique challenges</h2>
                             <p>
                                 Change the way in which you engage <br /> your followers.
+                                <br />
+                                <span class="show-more">Find out more</span>
                             </p>
                         </div>
                     </div>
@@ -112,27 +112,27 @@
                         <i class="fa fa-image"></i>
                         <h5>Video & Photo Contests</h5>
                         <p>
-                            We go beyond standard raffles by empowering you to encourage 
+                            We go beyond standard raffles by letting you encourage 
                             your users to upload photographs or videos with them 
                             and your product for extra chances to win your prize. 
                         </p>
                     </div>
                     <div class="point-description">
-                        <i class="fa fa-link"></i>
-                        <h5>Embed on your website</h5>
+                        <i class="fa fa-cube"></i>
+                        <h5>Augmented Reality Contests</h5>
                         <p>
-                            Bring the beauty of your giveaways and contests right
-                            on your website. Use your giveaways as many times as
-                            you like while maintaining all fonts and elements.
+                            When innovative engagement is concerned, we stand 
+                            out by offering augmented reality contests and raffles 
+                            for our enterprise clients.
                         </p>
                     </div>
                     <div class="point-description">
                         <i class="fa fa-sliders"></i>
                         <h5>Create your own contest</h5>
                         <p>
-                            You can select from various layouts and beautiful designs
-                            for your giveaway, but if you already have something in
-                            mind we can make it happen. Fast!
+                            With the Ocean plan, we will fully support your needs and 
+                            build your ideal contest - just as you like it - for maximum 
+                            engagement and creativity.
                         </p>
                     </div>
                 </div>
@@ -147,6 +147,8 @@
                                 For enterprises we offer fully personalized campaign layouts.
                                 From video backgrounds to animations in a timely and flexible
                                 manner. There are no limits.
+                                <br />
+                                <span class="show-more">See How</span>
                             </p>
                         </div>
                     </div>
@@ -190,6 +192,8 @@
                             <h2>Unlimited reach</h2>
                             <p>
                                 Your campaign can touch the eyes, <br /> ears and souls of millions.
+                                <br />
+                                <span class="show-more">Learn More</span>
                             </p>
                         </div>
                     </div>
@@ -249,3 +253,12 @@
         </div>
     </section>
 </div>
+<script type="text/javascript">
+    (function() {
+        $('.show-more').on('click', function() {
+            $(this).closest('.strong-point-container')
+                .find('.strong-point-details')
+                .slideToggle();
+        });
+    })();
+</script>

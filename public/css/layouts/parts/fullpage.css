@@ -1,3 +1,6 @@
+/***** Initial *****/
+body { margin: 0; }
+
 /***** Default *****/
 .campaign-page .banner img { min-height: 100%; width: 100%; position: fixed; top: 0; left: 0; z-index: -1; }
 .campaign-page .hero { width: 70%; padding: 20px; text-align: center; margin: 0 auto; margin-top: 20px; }

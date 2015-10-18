@@ -17,6 +17,9 @@
     ?>
     
     <div class="checkout-form custom-form plan-form">
+        <div class="notifications-wrapper">
+            <?php echo $this->partial('application/session/global-messages', array('global_messages' => $this->messages)); ?>
+        </div>
         <div class="checkout-form-row custom-form-row custom-row-plan">
             <div class="hidden-plan-element hide">
                 <?php echo $this->formElement($form->get('plan')->setValue($this->plan)); ?>

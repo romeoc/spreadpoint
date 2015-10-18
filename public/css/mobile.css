@@ -6,7 +6,7 @@
     .hero-content p { width: 100%; font-size: 120%; padding-bottom: 30px; }
     .hero-content-section { padding-top: 90px; }
     .hero-content .demo-link input { margin-top: 10px; }
-    .hero-content .hero-button { padding: 15px 60px; }
+    .hero-content .hero-button { padding: 15px 25px; }
     
     .strong-points .home-content { height: 200px; }
     .strong-points .home-content h2 { font-size: 16px; }
@@ -18,6 +18,9 @@
     .strong-points .home-content.control { height: 250px; }
     .strong-points .point-description { width: 100%; padding-bottom: 0; }
     .strong-points .home-content .grid { background: rgba(0,0,0,0.5); width: 100%; height: 100%; }
+    
+    /***** Surveys *****/
+    .side-survey .closed-view { display: none !important; }
     
     .home-cta { padding-top: 0; height: 250px; background-color: #ea474b; }
     .home-cta h2 { font-size: 32px; color: white; }
@@ -117,6 +120,7 @@
 
 @media handheld, only screen and (max-width: 769px) and (orientation: portrait) {
     /***** Defaults *****/
+    #hero-header { height: 750px; }
     .hide-on-portrait { display: none; }
 
     /***** 404 *****/

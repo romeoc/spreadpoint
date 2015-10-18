@@ -51,15 +51,15 @@
 
 /***** Surveys *****/
 .side-survey { position: fixed; top: 25%; left: 0; z-index: 50; }
-.side-survey .closed-view { color: white; font-size: 20px; cursor: pointer; background-color: #0074D9; padding: 0 20px; -webkit-transform: rotate(90deg); -webkit-transform-origin: left bottom; -moz-transform: rotate(90deg); -moz-transform-origin: left bottom; -ms-transform: rotate(90deg); -ms-transform-origin: left bottom; -o-transform: rotate(90deg); -o-transform-origin: left bottom; }
+.side-survey .closed-view { color: white; font-size: 20px; cursor: pointer; background-color: #ea474b; padding: 0 20px; -webkit-transform: rotate(90deg); -webkit-transform-origin: left bottom; -moz-transform: rotate(90deg); -moz-transform-origin: left bottom; -ms-transform: rotate(90deg); -ms-transform-origin: left bottom; -o-transform: rotate(90deg); -o-transform-origin: left bottom; }
 .side-survey .closed-view i { padding-right: 5px; }
-.side-survey .close-survey { cursor: pointer; position: absolute; right: -25px; top: 0; background-color: #0074D9; padding: 10px; border-radius: 0 10px 10px 0; font-weight: bold; font-size: larger; }
-.side-survey .opened-view, .side-survey .survey-success { color: white; background-color: #0074D9; max-width: 250px; }
+.side-survey .close-survey { cursor: pointer; position: absolute; right: -25px; top: 0; background-color: #ea474b; padding: 10px; border-radius: 0 10px 10px 0; font-weight: bold; font-size: larger; }
+.side-survey .opened-view, .side-survey .survey-success { color: white; background-color: #ea474b; max-width: 250px; }
 .side-survey .opened-view { margin-left: -250px; }
 .side-survey .opened-view form { max-width: 250px; text-align: right; }
 .side-survey .opened-view .question { padding: 0 10px; display: inline-block; text-align: left; margin-top: 10px; }
 .side-survey .opened-view textarea { max-width: 230px; margin: 10px; height: 80px; }
-.side-survey .opened-view .submit-button { color: #0074D9 !important; background-color: white; border: none; margin-bottom: 10px; margin-right: 10px; padding: 5px 20px; }
+.side-survey .opened-view .submit-button { color: #ea474b !important; background-color: white; border: none; margin-bottom: 10px; margin-right: 10px; padding: 5px 20px; }
 .side-survey .survey-success { padding: 10px; font-size: smaller; }
 
 /***** ACCOUNT SECTION *****/
@@ -79,10 +79,13 @@
 .header-account-section .account-links a.last:hover { border-radius: 0 0 5px 5px; }
 
 /**** HOMEPAGE *****/
-.hero-content .hero-button { padding: 20px 60px; font-weight: bold; }
+.hero-content .hero-button { padding: 20px 70px; font-weight: bold; background: #3D9970; border-color: #3D9970; }
+.hero-content .hero-button:hover { border-color: #3D9970; }
+.hero-content .hero-button .main-text { display: block; font-size: larger; padding-bottom: 5px; }
+.hero-content .hero-button small { padding-top: 10px; }
 .hero-content p { padding: 0 7% 40px 7%; color: white; font-size: 150%; text-align: left; width: 75%; margin: 0 auto; text-align: center; }
-.hero-content .demo-link { margin-left: 10px; }
-.hero-content .demo-link input { background: none; }
+.hero-content .demo-link { margin-left: 10px; display: block; }
+.hero-content .demo-link input { background: none; border: none; text-decoration: underline; }
 .strong-points .intensity { background: url(../img/home/intensity.jpg) no-repeat; }
 .strong-points .challenges { background: url(../img/home/challenge.jpg) no-repeat; }
 .strong-points .design { background: url(../img/home/design.jpg) no-repeat; }
@@ -93,7 +96,7 @@
 .strong-points .home-content h2 { font-weight: bold; }
 .strong-points .home-content p { font-size: 120%; }
 .strong-points .strong-point-content { width: 30%; position: absolute; top: 35%; left: 50px; }
-.strong-points .strong-point-details { display: none; padding: 0 20px; }
+.strong-points .strong-point-details { padding: 0 20px; }
 .strong-points .strong-point-content.right { text-align: right; left: initial; top: 35%; right: 50px; }
 .strong-points .design .strong-point-content { top: initial; bottom: 20px; left: 21%; width: 40%; text-align: right; }
 .strong-points .control .strong-point-content { top: 25%; }
@@ -256,6 +259,7 @@
 .campaign-view .file-upload-wrapper img { float: right; height: 33px; margin: 10px 0 20px 10px; cursor: pointer; }
 .campaign-view .file-upload-wrapper button { margin-bottom: 20px; }
 
+.campaign-view .campaign-section-overview h5 { border-bottom: 1px solid; margin-right: 20px; }
 .campaign-view .campaign-section-overview .fb-share-button { transform: scale(1.35); -ms-transform: scale(1.35); -webkit-transform: scale(1.35); -o-transform: scale(1.35); -moz-transform: scale(1.35); transform-origin: bottom left; -ms-transform-origin: bottom left; -webkit-transform-origin: bottom left; -moz-transform-origin: bottom left; -webkit-transform-origin: bottom left; }
 .campaign-view .campaign-section-overview .overview-icon, .campaign-view .campaign-section-overview .overview-action { display: inline-block; }
 .campaign-view .campaign-section-overview .overview-icon i { color: #fff; font-size: 24px; padding-top: 15px; height: 50px; width: 50px; border-radius: 100px; margin-bottom: 20px; text-align: center; }
@@ -265,6 +269,10 @@
 .campaign-view .campaign-section-overview .overview-icon span { padding-top: 12px; display: inline-block; margin-left: 10px; width: 150px; }
 .campaign-view .campaign-section-overview .overview-action { margin-top: 12px; }
 .campaign-view .campaign-section-overview .direct-link input { cursor: pointer; }
+.campaign-view .campaign-section-overview .embed-options { margin-top: 20px; }
+.campaign-view .campaign-section-overview .embed-iframe i { background: #2ECC40; }
+.campaign-view .campaign-section-overview .embed-iframe textarea { width: 300px; height: 70px; font-family: consolas; overflow: hidden; word-break: break-all; cursor: pointer; }
+
 /***** Prizes *****/
 .campaign-view .prize-header { background-color: #ea474b; padding: 10px; margin-bottom: 20px; color: white; cursor: pointer; }
 .campaign-view .close-prize { background-color: white; color: #ea474b !important; margin-left: 10px; font-size: small; padding: 8px; border: none; float: right; }
@@ -345,6 +353,7 @@
 /***** Upgrade Section *****/
 .dashboard-content.upgrade-view { padding: 0 0 100px 110px; }
 .upgrade .global-messages { margin: 0; }
+.upgrade .notifications-wrapper { margin: 10px 30px; }
 .upgrade .checkout-billing .checkout-form-row.custom-row-plan { width: 100%; text-align: center; }
 .upgrade .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan { display: inline-block; margin: 0 1%; width: 30%; border: 2px solid #FD8B8E; border-radius: 10px; }
 .upgrade .checkout-billing .checkout-form-row.custom-row-plan .checkout-plan.selected { background-color: #FD8B8E; }
