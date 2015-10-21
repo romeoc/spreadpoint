@@ -41,7 +41,7 @@ class AbstractModel implements ServiceLocatorAwareInterface
     /**
      * Allowed file upload extensions
      */
-    const ALLOWED_UPLOAD_EXTENSIONS = 'jpg,jpeg,png';
+    const ALLOWED_UPLOAD_EXTENSIONS = 'jpg,jpeg,png,gif';
 
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
